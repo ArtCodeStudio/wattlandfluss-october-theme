@@ -16,42 +16,40 @@ items:
         items:
             -
                 title: 'Do it yourself'
-                nesting: ''
-                type: url
-                url: /kreative-werkstatt/do-it-yourself
+                nesting: '0'
+                type: static-page
+                url: ''
                 code: ''
-                reference: ''
+                reference: kreative-werkstatt-do-it-yourself
                 cmsPage: ''
-                replace: ''
+                replace: '0'
                 viewBag:
                     isHidden: '0'
                     cssClass: do-it-yourself
                     isExternal: '0'
             -
-                title: Kurse
-                nesting: ''
-                type: url
-                url: /kreative-werkstatt/kurse
+                title: 'Kurse und Workshops'
+                nesting: '0'
+                type: static-page
                 code: ''
-                reference: ''
-                cmsPage: ''
-                replace: ''
-                viewBag:
-                    isHidden: '0'
-                    cssClass: kurse
-                    isExternal: '0'
-            -
-                title: Workshops
-                nesting: ''
-                type: url
-                url: /kreative-werkstatt/workshops
-                code: ''
-                reference: ''
-                cmsPage: ''
-                replace: ''
+                reference: kreative-werkstatt-workshops
+                replace: '0'
                 viewBag:
                     isHidden: '0'
                     cssClass: workshops
+                    isExternal: '0'
+            -
+                title: Über
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ueber
+                reference: ueber
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ueber
                     isExternal: '0'
     -
         title: Kunstwerke
@@ -67,18 +65,58 @@ items:
             cssClass: kunstwerke
             isExternal: '0'
     -
-        title: Sprachkurse
+        title: Sprachunterricht
         nesting: ''
-        type: url
-        url: /sprachkurse
+        type: header
+        url: ''
         code: ''
         reference: ''
         cmsPage: ''
         replace: ''
         viewBag:
             isHidden: '0'
-            cssClass: sprachkurse
+            cssClass: sprachunterricht
             isExternal: '0'
+        items:
+            -
+                title: Sprachkurse
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: sprachunterricht-sprachkurse
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: sprachkurse
+                    isExternal: '0'
+            -
+                title: Nachhilfe
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: nachhilfe
+                reference: sprachunterricht-nachhilfe
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: nachhilfe
+                    isExternal: '0'
+            -
+                title: 'Für Kinder'
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: sprachunterricht-fuer-kinder
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: fuer_kinder
+                    isExternal: '0'
     -
         title: Termine
         nesting: ''
@@ -96,8 +134,10 @@ items:
         title: Öffnungszeiten
         nesting: '0'
         type: static-page
+        url: ''
         code: oeffnungszeiten
         reference: oeffnungszeiten
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'

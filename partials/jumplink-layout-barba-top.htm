@@ -1,0 +1,26 @@
+description = "top html code for barba layouts"
+
+[viewBag]
+==
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>L‘ Atelier Créatif - {{ this.page.title }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        <meta name="author" content="Pascal Garber">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        {% partial 'jumplink-favicons' %}
+        {% styles %}
+        
+        <link href="{{ ['assets/scss/theme.scss'] | theme }}" rel="stylesheet">
+    </head>
+    <body id="{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}" data-spy="scroll">
+        
+        {# Content #}
+        <section id="layout-content">
+            {% partial 'jumplink-navbar' %}
+            <div id="barba-wrapper">
+                <div {% partial 'jumplink-barba-container-attributes' %}>

@@ -17,15 +17,11 @@ snippetProperties[textAlignment][options][center] = "Zentriert"
 snippetProperties[textAlignment][options][justify] = "Blocksatz"
 snippetProperties[textAlignment][options][right] = "Rechtsbündig"
 ==
-<div class="pt-5" id="header-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 text-{{textAlignment}}">
-                <h1>
-                    {{title}}
-                </h1>
-                <p>{{subtext}}</p>
-            </div>
-        </div>
+<div class="row" id="header-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}">
+    <div class="col-xs-12 text-{{textAlignment}}">
+        <h1>
+            {{title}}
+        </h1>
+        <p class="text-{{textAlignment}}">{{subtext}}</p>
     </div>
 </div>

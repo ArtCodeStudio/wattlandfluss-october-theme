@@ -35,6 +35,37 @@ jumplink.cacheSelectors = function () {
   };
 };
 
+/**
+ * Move background image on mouse position
+ * @see https://codepen.io/chrisboon27/pen/rEDIC
+ */
+jumplink.movingBackground = function (selectorString, fittWidth, fittHeight) {
+    var movementStrength = 5;
+    var height = movementStrength / $(window).height();
+    var width = movementStrength / $(window).width();
+    // $(selectorString).css("background-size", 'calc(100% + 50px) calc(100% + 50px)');
+    $(document).mousemove(function(e){
+        var pageX = e.pageX - ($(window).width() / 2);
+        var pageY = e.pageY - ($(window).height() / 2);
+        var newvalueX = width * pageX * -1;// + (25/2);
+        var newvalueY = height * pageY * -1;// - (25/2);
+        
+        if(fittWidth) {
+            $(selectorString).css('background-size', 'calc(100% + '+movementStrength*4+'px) auto');
+        }
+        
+        if(fittHeight) {
+            $(selectorString).css('background-size', 'auto calc(100% + '+movementStrength*4+'px)');
+        }
+        
+        if(fittWidth && fittHeight) {
+            $(selectorString).css('background-size', 'calc(100% + '+movementStrength*4+'px) calc(100% + '+movementStrength*4+'px)');
+        }
+        $(selectorString).css('background-position', 'calc(50% + '+newvalueX+'px) calc(50% + '+newvalueY+'px)');
+        
+    });
+}
+
 
 jumplink.initMomentDataApi = function () {
 
@@ -334,7 +365,6 @@ var initTemplateDoItYourself = function (dataset, data) {
     jumplink.setNavActive('kreative-werkstatt');
     jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
     jumplink.initCarousel('do-it-yourself-slideshow'); 
-    // jumplink.initLeadlet('do-it-yourself', 53.89051, 8.66833, 16, [21, 21]);
 };
 
 /**
@@ -345,8 +375,6 @@ var initTemplateKurse = function (dataset, data) {
     jumplink.setNavActive('kurse');
     jumplink.setNavActive('kreative-werkstatt');
     jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-    jumplink.initLeadlet('strandgut', 53.89051, 8.66833, 16, [21, 21]);
-    jumplink.initCarousel('strandgut');
 };
 
 /**
@@ -357,8 +385,6 @@ var initTemplateWorkshops = function (dataset, data) {
     jumplink.setNavActive('workshops');
     jumplink.setNavActive('kreative-werkstatt');
     jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-    jumplink.initLeadlet('strandgut', 53.89051, 8.66833, 16, [21, 21]);
-    jumplink.initCarousel('strandgut');
 };
 
 
@@ -375,9 +401,44 @@ var initTemplateKunstwerke = function (dataset, data) {
 
 var initTemplateSprachkurse = function (dataset, data) {
     console.log('init sprachkurse');
-    jumplink.setNavActive('sprachkurse');
+    jumplink.setNavActive('kontakt');
     jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-    jumplink.initLeadlet('strandkorbvermietung');
+    
+};
+
+var initTemplateKontakt = function (dataset, data) {
+    console.log('init kontakt');
+    jumplink.setNavActive(dataset.namespace);
+    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
+    jumplink.initLeadlet('main');
+};
+
+var initTemplateUeber = function (dataset, data) {
+    console.log('init über');
+    jumplink.setNavActive('ueber');
+    jumplink.setNavActive('kreative-werkstatt');
+    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
+};
+
+var initTemplateSprachunterrichtKurse = function (dataset, data) {
+    console.log('init über');
+    jumplink.setNavActive('sprachkurse');
+    jumplink.setNavActive('sprachunterricht');
+    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
+};
+
+var initTemplateSprachunterrichtNachhilfe = function (dataset, data) {
+    console.log('init über');
+    jumplink.setNavActive('nachhilfe');
+    jumplink.setNavActive('sprachunterricht');
+    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
+};
+
+var initTemplateSprachunterrichtKinder = function (dataset, data) {
+    console.log('init über');
+    jumplink.setNavActive('fuer_kinder');
+    jumplink.setNavActive('sprachunterricht');
+    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
 };
 
 var initTemplateDefault = function (dataset, data) {
@@ -386,17 +447,23 @@ var initTemplateDefault = function (dataset, data) {
     jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
 };
 
+
 /**
  * Run JavaScript for for special template
  * E.g. templates/product.liquid
  */
 var initTemplate = {
   'willkommen': initTemplateHome,
-  'doityourself': initTemplateDoItYourself,
-  'kurse': initTemplateKurse,
-  'workshops': initTemplateWorkshops,
+  'kreativewerkstattdoityourself': initTemplateDoItYourself,
+  'kreativewerkstattkurse': initTemplateKurse,
+  'kreativewerkstattworkshops': initTemplateWorkshops,
+  'kreativewerkstattüber': initTemplateUeber,
   'kunstwerke': initTemplateKunstwerke,
   'strandkorbvermietung': initTemplateSprachkurse,
+  'kontakt': initTemplateKontakt,
+  'sprachunterrichtsprachkurse': initTemplateSprachunterrichtKurse,
+  'sprachunterrichtnachhilfe': initTemplateSprachunterrichtNachhilfe,
+  'sprachunterrichtfürkinder': initTemplateSprachunterrichtKinder,
 };
 
 /**
@@ -420,6 +487,9 @@ var initTemplates = function () {
     jumplink.setBodyId(currentStatus.namespace);
     
     jumplink.initMomentDataApi();
+    
+    jumplink.movingBackground('.background-01', true, false);
+    jumplink.movingBackground('.background-01b', false, false);
 
     if(typeof(Hyphenator) !== 'undefined') {
       Hyphenator.run();

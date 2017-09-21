@@ -2,13 +2,11 @@ name: Footer
 items:
     -
         title: Kontakt
-        nesting: ''
-        type: url
-        url: /kontakt
+        nesting: '0'
+        type: static-page
         code: ''
-        reference: ''
-        cmsPage: ''
-        replace: ''
+        reference: kontakt
+        replace: '0'
         viewBag:
             isHidden: '0'
             cssClass: kontakt
@@ -51,15 +49,6 @@ items:
         viewBag:
             isHidden: '0'
             cssClass: agb
-            isExternal: '0'
-    -
-        title: 'Versand & Widerrufsrecht'
-        type: url
-        url: /widerrufsbelehrung
-        code: ''
-        viewBag:
-            isHidden: '0'
-            cssClass: widerrufsbelehrung
             isExternal: '0'
     -
         title: Credits

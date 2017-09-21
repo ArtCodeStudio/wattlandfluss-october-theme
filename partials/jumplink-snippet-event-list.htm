@@ -1,0 +1,13 @@
+description = "Termine"
+
+[viewBag]
+snippetCode = "jumplink-snippet-event-list"
+snippetName = "Termine"
+
+[proEventList]
+eventpage = "PluginProevents/event-details"
+style = "simple_list"
+calendar = "All Calendars"
+num = 50
+==
+{% partial 'PluginProevents/event_list' __SELF__=proEventList %}

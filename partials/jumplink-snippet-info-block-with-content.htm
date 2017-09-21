@@ -1,14 +1,21 @@
+description = "Info Block"
+
 [viewBag]
-snippetCode = "jumplink-snippet-header-with-title-subtext-content.htm"
-snippetName = "Header mit Titel, Untertext und Inhalt"
+snippetCode = "jumplink-snippet-info-block-with-content"
+snippetName = "Info Block mit Inhalt"
 snippetProperties[title][title] = "Titel"
 snippetProperties[title][type] = "string"
-snippetProperties[title][default] = ""
+snippetProperties[title][default] = "Schaue unverbindlich und kostenlos in einer Schnupperstunde vorbei."
 snippetProperties[title][options][] = ""
-snippetProperties[subtext][title] = "Untertext"
-snippetProperties[subtext][type] = "string"
-snippetProperties[subtext][default] = ""
-snippetProperties[subtext][options][] = ""
+snippetProperties[titleSize][title] = "Title Größe"
+snippetProperties[titleSize][type] = "dropdown"
+snippetProperties[titleSize][default] = 4
+snippetProperties[titleSize][options][] = 1
+snippetProperties[titleSize][options][] = 2
+snippetProperties[titleSize][options][] = 3
+snippetProperties[titleSize][options][] = 4
+snippetProperties[titleSize][options][] = 5
+snippetProperties[titleSize][options][] = 6
 snippetProperties[textAlignment][title] = "Text alignment"
 snippetProperties[textAlignment][type] = "dropdown"
 snippetProperties[textAlignment][default] = ""
@@ -22,13 +29,13 @@ snippetProperties[contentPath][default] = "do-it-yourself/header"
 snippetProperties[contentPath][options][] = ""
 ==
 <div class="row">
-    <div class="col-xs-12 text-{{textAlignment}}" id="header-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}">
-        <h1>
+    <div class="col-xs-12">
+        <p class="h{{titleSize}} text-{{textAlignment}}">
             {{title}}
-        </h1>
-        <p class="subtext lead">
-            <strong>{{subtext}}</strong>
         </p>
-        {% content contentPath %}
+        
+        <p>
+            {% content contentPath %}
+        </p>
     </div>
 </div>

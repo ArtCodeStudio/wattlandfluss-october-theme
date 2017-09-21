@@ -21,10 +21,26 @@
                     data-icon-size="{{iconSize}}"
                     data-popup-text="{{popupText}}"
                     data-popup-add-lat="{{popupAddLat}}"
+                    data-link="{{link}}"
                 ></div>
             </div>
             <div class="col-xs-12 col-md-4 col-lg-4 col-xl-3 pl-3 d-flex align-items-center pt-3 pt-lg-0">
-                {% content handle ~ '/address' %}
+                <address itemscope itemtype="http://schema.org/LocalBusiness">
+                    <strong itemprop="name">{{this.theme.site_name}}</strong>
+                    <br><span itemprop="description">{{this.theme.site_desc}}</span>
+                    <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                    	<br>
+                    	<span itemprop="streetAddress">{{this.theme.street}}</span>
+                    	<br>
+                    	<span itemprop="postalCode">{{this.theme.zip}}</span>
+                    	<span itemprop="addressLocality">{{this.theme.city}}</span>
+                    	<br>
+                    </span>
+                    <a class="btn btn-outline-{{color}} mt-1" href="{{link}}" target="_blank">
+                        Anfahrt ermitteln
+                    </a>
+                </address>
+
             </div>
         </div>
     </div>
