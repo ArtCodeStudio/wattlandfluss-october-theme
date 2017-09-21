@@ -4,6 +4,7 @@
 
 .gradient-bg {
     @include vp-linear-gradient(223deg, $brand-success, $purple, $brand-success, $purple);
+    
 }
 /*
 .gradient-info-success-info-success-bg {

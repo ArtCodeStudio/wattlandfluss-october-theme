@@ -1,0 +1,31 @@
+[viewBag]
+snippetCode = "jumplink-snippet-header-with-title-subtext"
+snippetName = "Header mit Titel und Untertext"
+snippetProperties[title][title] = "Titel"
+snippetProperties[title][type] = "string"
+snippetProperties[title][default] = ""
+snippetProperties[title][options][] = ""
+snippetProperties[subtext][title] = "Untertext"
+snippetProperties[subtext][type] = "string"
+snippetProperties[subtext][default] = ""
+snippetProperties[subtext][options][] = ""
+snippetProperties[textAlignment][title] = "Text alignment"
+snippetProperties[textAlignment][type] = "dropdown"
+snippetProperties[textAlignment][default] = ""
+snippetProperties[textAlignment][options][left] = "Linksbündig"
+snippetProperties[textAlignment][options][center] = "Zentriert"
+snippetProperties[textAlignment][options][justify] = "Blocksatz"
+snippetProperties[textAlignment][options][right] = "Rechtsbündig"
+==
+<div class="pt-5" id="header-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-{{textAlignment}}">
+                <h1>
+                    {{title}}
+                </h1>
+                <p>{{subtext}}</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,213 @@
+[viewBag]
+snippetCode = "jumplink-snippet-prices"
+snippetName = "Preise"
+snippetProperties[title][title] = "Titel"
+snippetProperties[title][type] = "string"
+snippetProperties[title][default] = "Preise für Werkstattnutzung"
+snippetProperties[title][options][] = ""
+snippetProperties[note][title] = "Allgemeiner Hinweis"
+snippetProperties[note][type] = "string"
+snippetProperties[note][default] = "Die Karten gelten für 5 – 7 Stunden aktive Werkstattnutzung*"
+snippetProperties[note][options][] = ""
+snippetProperties[col1Name][title] = "Zeile 1 Name"
+snippetProperties[col1Name][type] = "string"
+snippetProperties[col1Name][default] = "Tageskarte"
+snippetProperties[col1Name][options][] = ""
+snippetProperties[col1Price][title] = "Zeile 1 Preis"
+snippetProperties[col1Price][type] = "string"
+snippetProperties[col1Price][default] = "18 EUR"
+snippetProperties[col1Price][options][] = ""
+snippetProperties[col1Note][title] = "Zeile 1 Hinweis"
+snippetProperties[col1Note][type] = "string"
+snippetProperties[col1Note][default] = ""
+snippetProperties[col1Note][options][] = ""
+snippetProperties[col2Name][title] = "Zeile 2 Name"
+snippetProperties[col2Name][type] = "string"
+snippetProperties[col2Name][default] = "5er-Karte"
+snippetProperties[col2Name][options][] = ""
+snippetProperties[col2Price][title] = "Zeile 2 Preis"
+snippetProperties[col2Price][type] = "string"
+snippetProperties[col2Price][default] = "80 EU"
+snippetProperties[col2Price][options][] = ""
+snippetProperties[col2Note][title] = "Zeile 2 Hinweis"
+snippetProperties[col2Note][type] = "string"
+snippetProperties[col2Note][default] = "gültig drei Monate"
+snippetProperties[col2Note][options][] = ""
+snippetProperties[col3Name][title] = "Zeile 3 Name"
+snippetProperties[col3Name][type] = "string"
+snippetProperties[col3Name][default] = "5er-Karte"
+snippetProperties[col3Name][options][] = ""
+snippetProperties[col3Price][title] = "Zeile 3 Preis"
+snippetProperties[col3Price][type] = "string"
+snippetProperties[col3Price][default] = "80 EUR"
+snippetProperties[col3Price][options][] = ""
+snippetProperties[col3Note][title] = "Zeile 3 Hinweis"
+snippetProperties[col3Note][type] = "string"
+snippetProperties[col3Note][default] = "gültig drei Monate"
+snippetProperties[col3Note][options][] = ""
+snippetProperties[col4Name][title] = "Zeile 4 Name"
+snippetProperties[col4Name][type] = "string"
+snippetProperties[col4Name][default] = "10er-Karte"
+snippetProperties[col4Name][options][] = ""
+snippetProperties[col4Price][title] = "Zeile 4 Preis"
+snippetProperties[col4Price][type] = "string"
+snippetProperties[col4Price][default] = "150 EUR"
+snippetProperties[col4Price][options][] = ""
+snippetProperties[col4Note][title] = "Zeile 4 Hinweis"
+snippetProperties[col4Note][type] = "string"
+snippetProperties[col4Note][default] = "gültig sechs Monate"
+snippetProperties[col4Note][options][] = ""
+snippetProperties[col5Name][title] = "Zeile 5 Name"
+snippetProperties[col5Name][type] = "string"
+snippetProperties[col5Name][default] = "Monatskarte"
+snippetProperties[col5Name][options][] = ""
+snippetProperties[col5Price][title] = "Zeile 5 Preis"
+snippetProperties[col5Price][type] = "string"
+snippetProperties[col5Price][default] = "142 EUR"
+snippetProperties[col5Price][options][] = ""
+snippetProperties[col5Note][title] = "Zeile 5 Hinweis"
+snippetProperties[col5Note][type] = "string"
+snippetProperties[col5Note][default] = ""
+snippetProperties[col5Note][options][] = ""
+snippetProperties[col6Name][title] = "Zeile 6 Name"
+snippetProperties[col6Name][type] = "string"
+snippetProperties[col6Name][default] = "Gruppentarif"
+snippetProperties[col6Name][options][] = ""
+snippetProperties[col6Price][title] = "Zeile 6 Preis"
+snippetProperties[col6Price][type] = "string"
+snippetProperties[col6Price][default] = "ab 6 Personen 5% pro Person"
+snippetProperties[col6Price][options][] = ""
+snippetProperties[col6Note][title] = "Zeile 6 Hinweis"
+snippetProperties[col6Note][type] = "string"
+snippetProperties[col6Note][default] = ""
+snippetProperties[col6Note][options][] = ""
+snippetProperties[col7Name][title] = "Zeile 7 Name"
+snippetProperties[col7Name][type] = "string"
+snippetProperties[col7Name][default] = ""
+snippetProperties[col7Name][options][] = ""
+snippetProperties[col7Price][title] = "Zeile 7 Preis"
+snippetProperties[col7Price][type] = "string"
+snippetProperties[col7Price][default] = ""
+snippetProperties[col7Price][options][] = ""
+snippetProperties[col7Note][title] = "Zeile 7 Hinweis"
+snippetProperties[col7Note][type] = "string"
+snippetProperties[col7Note][default] = ""
+snippetProperties[col7Note][options][] = ""
+snippetProperties[col8Name][title] = "Zeile 8 Name"
+snippetProperties[col8Name][type] = "string"
+snippetProperties[col8Name][default] = ""
+snippetProperties[col8Name][options][] = ""
+snippetProperties[col8Price][title] = "Zeile 8 Preis"
+snippetProperties[col8Price][type] = "string"
+snippetProperties[col8Price][default] = ""
+snippetProperties[col8Price][options][] = ""
+snippetProperties[col8Note][title] = "Zeile 8 Hinweis"
+snippetProperties[col8Note][type] = "string"
+snippetProperties[col8Note][default] = ""
+snippetProperties[col8Note][options][] = ""
+==
+{# Preise #}
+<div>
+    <div class="container pt-3">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <p class="h4 text-left">
+                    {{title}}
+                </p>
+                
+                <dl class="row">
+
+                    {% if col1Name %}
+                        {% if col1Note %}
+                            <dt class="col-sm-3 my-0">{{col1Name}}</dt>
+                            <dd class="col-sm-4 my-0">{{col1Price}}</dd>
+                            <dd class="col-sm-5 my-0">{{col1Note}}</dd>
+                        {% else %}
+                            <dt class="col-sm-3 my-0">{{col1Name}}</dt>
+                            <dd class="col-sm-9 my-0">{{col1Price}}</dd>
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if col2Name %}
+                        {% if col2Note %}
+                            <dt class="col-sm-3 my-0">{{col2Name}}</dt>
+                            <dd class="col-sm-4 my-0">{{col2Price}}</dd>
+                            <dd class="col-sm-5 my-0">{{col2Note}}</dd>
+                        {% else %}
+                            <dt class="col-sm-3 my-0">{{col2Name}}</dt>
+                            <dd class="col-sm-9 my-0">{{col2Price}}</dd>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if col3Name %}
+                        {% if col3Note %}
+                            <dt class="col-sm-3 my-0">{{col3Name}}</dt>
+                            <dd class="col-sm-4 my-0">{{col3Price}}</dd>
+                            <dd class="col-sm-5 my-0">{{col3Note}}</dd>
+                        {% else %}
+                            <dt class="col-sm-3 my-0">{{col3Name}}</dt>
+                            <dd class="col-sm-9 my-0">{{col3Price}}</dd>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if col4Name %}
+                        {% if col4Note %}
+                            <dt class="col-sm-3 my-0">{{col4Name}}</dt>
+                            <dd class="col-sm-4 my-0">{{col4Price}}</dd>
+                            <dd class="col-sm-5 my-0">{{col4Note}}</dd>
+                        {% else %}
+                            <dt class="col-sm-3 my-0">{{col4Name}}</dt>
+                            <dd class="col-sm-9 my-0">{{col4Price}}</dd>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if col5Name %}
+                        {% if col5Note %}
+                            <dt class="col-sm-3 my-0">{{col5Name}}</dt>
+                            <dd class="col-sm-4 my-0">{{col5Price}}</dd>
+                            <dd class="col-sm-5 my-0">{{col5Note}}</dd>
+                        {% else %}
+                            <dt class="col-sm-3 my-0">{{col5Name}}</dt>
+                            <dd class="col-sm-9 my-0">{{col5Price}}</dd>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if col6Name %}
+                        {% if col6Note %}
+                            <dt class="col-sm-3 my-0">{{col6Name}}</dt>
+                            <dd class="col-sm-4 my-0">{{col6Price}}</dd>
+                            <dd class="col-sm-5 my-0">{{col6Note}}</dd>
+                        {% else %}
+                            <dt class="col-sm-3 my-0">{{col6Name}}</dt>
+                            <dd class="col-sm-9 my-0">{{col6Price}}</dd>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if col7Name %}
+                        {% if col7Note %}
+                            <dt class="col-sm-3 my-0">{{col7Name}}</dt>
+                            <dd class="col-sm-4 my-0">{{col7Price}}</dd>
+                            <dd class="col-sm-5 my-0">{{col7Note}}</dd>
+                        {% else %}
+                            <dt class="col-sm-3 my-0">{{col7Name}}</dt>
+                            <dd class="col-sm-9 my-0">{{col7Price}}</dd>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if col8Name %}
+                        {% if col8Note %}
+                            <dt class="col-sm-3 my-0">{{col8Name}}</dt>
+                            <dd class="col-sm-4 my-0">{{col8Price}}</dd>
+                            <dd class="col-sm-5 my-0">{{col8Note}}</dd>
+                        {% else %}
+                            <dt class="col-sm-3 my-0">{{col8Name}}</dt>
+                            <dd class="col-sm-9 my-0">{{col8Price}}</dd>
+                        {% endif %}
+                    {% endif %}
+
+                </dl>
+                <p>{{note}}</p>
+            </div>
+        </div>
+    </div>
+</div>

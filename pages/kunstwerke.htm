@@ -4,12 +4,11 @@ layout = "jumplink-barba"
 is_hidden = 0
 contentType = "html"
 
-[product_list]
+[product_list product_list_handwerkskunst]
 categorySlug = "{{ :slug }}"
 sortOrder = "title asc"
 useCategoryFilter = 1
 categoryFilter = "handwerkskunst"
-productPage = "products/:slug"
 productPageSlug = "{{ :slug }}"
 noProductsMessage = "No product found"
 productsPerPage = 40
@@ -28,7 +27,7 @@ pageParam = ":page"
         </div>
     </div>
     <div class="container">
-        {% component 'product_list' %}
+        {% partial 'product_list/default' __SELF__ = product_list_handwerkskunst show_pagination=false column_classes='col-xs-12 col-sm-6 col-md-4 col-lg-4'%}
     </div>
 </div>
 <div class="background-01 py-4">

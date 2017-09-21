@@ -1,0 +1,15 @@
+title = "Termin"
+url = "/termine/:event_id"
+layout = "jumplink-barba"
+description = "Termin Detail Ansicht"
+is_hidden = 0
+contentType = "html"
+
+[proEvent]
+event_id = ":event_id"
+==
+<div class="pt-5" id="termin">
+    <div class="container">
+        {% partial 'PluginProevents/event_detail' __SELF__=proEvent %}
+    </div>
+</div>

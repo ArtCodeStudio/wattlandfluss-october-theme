@@ -1,0 +1,37 @@
+[viewBag]
+snippetCode = "jumplink-snippet-header-info-block"
+snippetName = "Info Block"
+snippetProperties[title][title] = "Titel"
+snippetProperties[title][type] = "string"
+snippetProperties[title][default] = "Schaue unverbindlich und kostenlos in einer Schnupperstunde vorbei."
+snippetProperties[title][options][] = ""
+snippetProperties[titleSize][title] = "Title Größe"
+snippetProperties[titleSize][type] = "dropdown"
+snippetProperties[titleSize][default] = 4
+snippetProperties[titleSize][options][] = 1
+snippetProperties[titleSize][options][] = 2
+snippetProperties[titleSize][options][] = 3
+snippetProperties[titleSize][options][] = 4
+snippetProperties[titleSize][options][] = 5
+snippetProperties[titleSize][options][] = 6
+snippetProperties[text][title] = "Text"
+snippetProperties[text][type] = "string"
+snippetProperties[text][default] = "*Die Nutzung der Geräte und Grundmaterialien sind im Preis inbegriffen. Spezieller Bedarf wird mit Absprache entsprechend extra berechnet. Keine Gültigkeit für Kurse und Workshops."
+snippetProperties[text][options][] = ""
+==
+{# Preise Info #}
+<div>
+    <div class="container pt-3">
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="h{{titleSize}} text-left">
+                    {{title}}
+                </p>
+                
+                <p>
+                    {{text}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

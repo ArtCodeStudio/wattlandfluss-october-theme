@@ -1,0 +1,143 @@
+description = "Öffnungszeiten"
+
+[viewBag]
+snippetCode = "jumplink-snippet-opening-hours"
+snippetName = "Öffnungszeiten"
+snippetProperties[title][title] = "Titel"
+snippetProperties[title][type] = "string"
+snippetProperties[title][default] = "Öffnungszeiten Kreativ-Werkstatt"
+snippetProperties[title][options][] = ""
+snippetProperties[subtext][title] = "Untertext"
+snippetProperties[subtext][type] = "string"
+snippetProperties[subtext][default] = "es heures d‘ouverture"
+snippetProperties[subtext][options][] = ""
+snippetProperties[monday][title] = "Montag Zeiten"
+snippetProperties[monday][type] = "string"
+snippetProperties[monday][default] = "geschlossen"
+snippetProperties[monday][options][] = ""
+snippetProperties[mondaySubtext][title] = "Montag Untertext"
+snippetProperties[mondaySubtext][type] = "string"
+snippetProperties[mondaySubtext][default] = "fermé"
+snippetProperties[mondaySubtext][options][] = ""
+snippetProperties[tuesday][title] = "Dienstag Zeiten"
+snippetProperties[tuesday][type] = "string"
+snippetProperties[tuesday][default] = "10.00 – 15.00 Uhr"
+snippetProperties[tuesday][options][] = ""
+snippetProperties[tuesdaySubtext][title] = "Dienstag Untertext"
+snippetProperties[tuesdaySubtext][type] = "string"
+snippetProperties[tuesdaySubtext][default] = ""
+snippetProperties[tuesdaySubtext][options][] = ""
+snippetProperties[wednesday][title] = "Mittwoch Zeiten"
+snippetProperties[wednesday][type] = "string"
+snippetProperties[wednesday][default] = "10.00 – 15.00 Uhr"
+snippetProperties[wednesday][options][] = ""
+snippetProperties[wednesdaySubtext][title] = "Mittwoch Untertext"
+snippetProperties[wednesdaySubtext][type] = "string"
+snippetProperties[wednesdaySubtext][default] = ""
+snippetProperties[wednesdaySubtext][options][] = ""
+snippetProperties[thursday][title] = "Donnerstag Zeiten"
+snippetProperties[thursday][type] = "string"
+snippetProperties[thursday][default] = "10.00 – 15.00 Uhr"
+snippetProperties[thursday][options][] = ""
+snippetProperties[thursdaySubtext][title] = "Donnerstag Untertext"
+snippetProperties[thursdaySubtext][type] = "string"
+snippetProperties[thursdaySubtext][default] = ""
+snippetProperties[thursdaySubtext][options][] = ""
+snippetProperties[friday][title] = "Freitag Zeiten"
+snippetProperties[friday][type] = "string"
+snippetProperties[friday][default] = "09.00 – 16.00 Uhr"
+snippetProperties[friday][options][] = ""
+snippetProperties[fridaySubtext][title] = "Freitag Untertext"
+snippetProperties[fridaySubtext][type] = "string"
+snippetProperties[fridaySubtext][default] = ""
+snippetProperties[fridaySubtext][options][] = ""
+snippetProperties[saturday][title] = "Samstag Zeiten"
+snippetProperties[saturday][type] = "string"
+snippetProperties[saturday][default] = "10.00 – 14.00 Uhr"
+snippetProperties[saturday][options][] = ""
+snippetProperties[saturdaySubtext][title] = "Samstag Untertext"
+snippetProperties[saturdaySubtext][type] = "string"
+snippetProperties[saturdaySubtext][default] = ""
+snippetProperties[saturdaySubtext][options][] = ""
+snippetProperties[sunday][title] = "Sonntag Zeiten"
+snippetProperties[sunday][type] = "string"
+snippetProperties[sunday][default] = "10.00 – 14.00 Uhr (1. Sonntag im Monat)"
+snippetProperties[sunday][options][] = ""
+snippetProperties[sundaySubtext][title] = "Sonntag Untertext"
+snippetProperties[sundaySubtext][type] = "string"
+snippetProperties[sundaySubtext][default] = ""
+snippetProperties[sundaySubtext][options][] = ""
+snippetProperties[note][title] = "Hinweis"
+snippetProperties[note][type] = "string"
+snippetProperties[note][default] = "*An den Kurswochenenden ist die Werkstatt nur für Kursteilnehmer geöffnet."
+snippetProperties[note][options][] = ""
+==
+{# Öffnungszeiten #}
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8 mx-auto">
+                <p class="h4 text-left">
+                    {{title}}
+                    <br>
+                    <span class="text-success font-weight-normal font-italic">{{subtext}}</span>
+                </p>
+                
+                <dl class="row">
+                    <dt class="col-sm-3 my-0">
+                        Montag <span class="text-success font-weight-normal font-italic">elundi</span>
+                    </dt>
+                    <dd class="col-sm-9 my-0">
+                        {{monday}} <span class="text-success font-weight-normal font-italic">{{mondaySubtext}}</span>
+                    </dd>
+                    
+                    <dt class="col-sm-3 my-0">
+                        Dienstag <span class="text-success font-weight-normal font-italic">mardi</span>
+                    </dt>
+                    <dd class="col-sm-9 my-0">
+                        {{tuesday}} <span class="text-success font-weight-normal font-italic">{{tuesdaySubtext}}</span>
+                    </dd>
+                    
+                    <dt class="col-sm-3 my-0">
+                        Mittwoch <span class="text-success font-weight-normal font-italic">mercredi</span>
+                    </dd>
+                    <dd class="col-sm-9 my-0">
+                        {{wednesday}} <span class="text-success font-weight-normal font-italic">{{wednesdaySubtext}}</span>
+                    </dd>
+                    
+                    <dt class="col-sm-3 my-0">
+                        Donnerstag <span class="text-success font-weight-normal font-italic">jeudi</span>
+                    </dd>
+                    <dd class="col-sm-9 my-0">
+                        {{thursday}} <span class="text-success font-weight-normal font-italic">{{thursdaySubtext}}</span>
+                    </dd>
+                    
+                    <dt class="col-sm-3 my-0">
+                        Freitag <span class="text-success font-weight-normal font-italic">vendredi</span>
+                    </dd>
+                    <dd class="col-sm-9 my-0">
+                        {{friday}} <span class="text-success font-weight-normal font-italic">{{fridaySubtext}}</span>
+                    </dd>
+                    
+                    <dt class="col-sm-3 my-0">
+                        Samstag* <span class="text-success font-weight-normal font-italic">samedi</span>
+                    </dd>
+                    <dd class="col-sm-9 my-0">
+                        {{saturday}} <span class="text-success font-weight-normal font-italic">{{saturdaySubtext}}</span>
+                    </dd>
+                    
+                    <dt class="col-sm-3 my-0">
+                        Sonntag* <span class="text-success font-weight-normal font-italic">dimanche</span>
+                    </dd>
+                    <dd class="col-sm-9 my-0">
+                        {{sunday}} <span class="text-success font-weight-normal font-italic">{{sundaySubtext}}</span>
+                    </dd>
+                </dl>
+                
+                <p>
+                    {{note}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

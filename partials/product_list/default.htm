@@ -2,6 +2,13 @@
 ==
 {% set category = __SELF__.category %}
 {% set product_list = __SELF__.products %}
+{% if show_pagination is not defined %}
+    {% set show_pagination = true %}
+{% endif %}
+{% if column_classes is not defined %}
+    {% set column_classes = 'col-xs-12 col-sm-6 col-md-4 col-lg-3' %}
+{% endif %}
+
 
 {% if (category) %}
     <div class="row">
@@ -31,7 +38,7 @@
         <div class="col-xs-12">
             <div class="row">
                 {% for product in product_list %}
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 product-grid-item">
+                <div class="{{column_classes}} product-grid-item">
                     <div href="{{ product.url }}" class="text-center">
                         {% if product.featured_images[0] %}
                             <div class="m-1">
@@ -57,7 +64,7 @@
         </div>
     </div>
 
-    {% if product_list %}
+    {% if show_pagination and product_list %}
         {% partial __SELF__ ~ "::pagination" %}
     {% endif %}
 {% endif %}

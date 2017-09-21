@@ -35,6 +35,33 @@ jumplink.cacheSelectors = function () {
   };
 };
 
+
+jumplink.initMomentDataApi = function () {
+
+    var $displayFromNow = $('[data-moment-display-from-now]');
+    // console.log($displayFromNow);
+    $displayFromNow.each(function () {
+        $this = $(this);
+        var date = moment($this.data('momentDisplayFromNow')).fromNow();
+        $this.text(date);
+    });
+    
+    var $displayToNow = $('[data-moment-display-to-now]');
+    $displayToNow.each(function () {
+        $this = $(this);
+        var date = moment($this.data('momentDisplayToNow')).fromNow();
+        $this.text(date);
+    });
+}
+
+jumplink.setLanguage = function () {
+    var langCode = jumplink.cache.$html.attr('lang');
+    
+    if(typeof(moment) !== 'undefined') {
+        moment.locale(langCode);
+    }
+}
+
 /**
  * Get the height of the main navbar, useful to set the page padding if the navbar is fixed
  */
@@ -391,6 +418,8 @@ var initTemplates = function () {
     jumplink.initDataApi();
     jumplink.resetNav();
     jumplink.setBodyId(currentStatus.namespace);
+    
+    jumplink.initMomentDataApi();
 
     if(typeof(Hyphenator) !== 'undefined') {
       Hyphenator.run();
@@ -677,6 +706,7 @@ var initBarba = function () {
  */
 var init = function ($) {
     jumplink.cacheSelectors();
+    jumplink.setLanguage();
     jumplink.initRightSidebar();
     initBarba();
 }

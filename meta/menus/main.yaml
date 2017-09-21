@@ -2,8 +2,13 @@ name: main
 items:
     -
         title: 'Kreative Werkstatt'
+        nesting: ''
         type: header
+        url: ''
         code: ''
+        reference: ''
+        cmsPage: ''
+        replace: ''
         viewBag:
             isHidden: '0'
             cssClass: kreative-werkstatt
@@ -11,55 +16,90 @@ items:
         items:
             -
                 title: 'Do it yourself'
+                nesting: ''
                 type: url
                 url: /kreative-werkstatt/do-it-yourself
                 code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
                 viewBag:
                     isHidden: '0'
                     cssClass: do-it-yourself
                     isExternal: '0'
             -
                 title: Kurse
+                nesting: ''
                 type: url
                 url: /kreative-werkstatt/kurse
                 code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
                 viewBag:
                     isHidden: '0'
                     cssClass: kurse
                     isExternal: '0'
             -
                 title: Workshops
+                nesting: ''
                 type: url
                 url: /kreative-werkstatt/workshops
                 code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
                 viewBag:
                     isHidden: '0'
                     cssClass: workshops
                     isExternal: '0'
     -
         title: Kunstwerke
+        nesting: ''
         type: url
         url: /kunstwerke
         code: ''
+        reference: ''
+        cmsPage: ''
+        replace: ''
         viewBag:
             isHidden: '0'
             cssClass: kunstwerke
             isExternal: '0'
     -
         title: Sprachkurse
+        nesting: ''
         type: url
         url: /sprachkurse
         code: ''
+        reference: ''
+        cmsPage: ''
+        replace: ''
         viewBag:
             isHidden: '0'
             cssClass: sprachkurse
             isExternal: '0'
     -
         title: Termine
+        nesting: ''
         type: url
         url: /termine
         code: ''
+        reference: ''
+        cmsPage: ''
+        replace: ''
         viewBag:
             isHidden: '0'
             cssClass: termine
+            isExternal: '0'
+    -
+        title: Öffnungszeiten
+        nesting: '0'
+        type: static-page
+        code: oeffnungszeiten
+        reference: oeffnungszeiten
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: oeffnungszeiten
             isExternal: '0'
