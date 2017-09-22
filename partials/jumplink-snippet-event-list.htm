@@ -1,4 +1,4 @@
-description = "Termine"
+description = "Snippet: Termine"
 
 [viewBag]
 snippetCode = "jumplink-snippet-event-list"
@@ -10,4 +10,10 @@ style = "simple_list"
 calendar = "All Calendars"
 num = 50
 ==
+{#
+Falls MySQL 5.7 verwendet wird muss der Strict SQL Mode deaktiviert werden, siehe 
+* https://serverpilot.io/community/articles/how-to-disable-strict-mode-in-mysql-5-7.html
+* https://octobercms.com/plugin/support/radiantweb-proevents/component-eventlist-generates-sql-error-select-list-is-not-in-group-by-clause
+#}
+
 {% partial 'PluginProevents/event_list' __SELF__=proEventList %}

@@ -1,18 +1,19 @@
 description = "Snippet: Produkt Liste (Home)"
 
+[viewBag]
+snippetCode = "jumplink-snippet-product-list-home"
+snippetName = "Produkt Liste (Home)"
+
 [product_list]
 categorySlug = "{{ :slug }}"
 sortOrder = "title asc"
 useCategoryFilter = 1
 categoryFilter = "startseite"
+productPage = "products/:slug"
 productPageSlug = "{{ :slug }}"
 noProductsMessage = "No product found"
 productsPerPage = 8
 pageParam = ":page"
-
-[viewBag]
-snippetCode = "jumplink-snippet-product-list-home"
-snippetName = "Produkt Liste (Home)"
 ==
 {# home produkte #}
 <div class="py-5">
@@ -30,7 +31,7 @@ snippetName = "Produkt Liste (Home)"
         {% component 'product_list' %}
         <div class="row">
             <div class="col-xs-12 d-flex justify-content-center">
-                <a href="{{ 'kunstwerke'|page }}" class="btn btn-outline-success">weitere ansehen</a>
+                <a href="/kunstwerke{#{ 'kunstwerke'|staticPage }#}" class="btn btn-outline-success">weitere ansehen</a>
             </div>
         </div>
     </div>

@@ -8,6 +8,9 @@
 {% if column_classes is not defined %}
     {% set column_classes = 'col-xs-12 col-sm-6 col-md-4 col-lg-3' %}
 {% endif %}
+{% if show_price is not defined %}
+    {% set show_price = false %}
+{% endif %}
 
 {% if wrapContainer %}
     <div class="container">
@@ -60,7 +63,12 @@
                             <p class="mb-0"><b>{{ product.title }}</b></p>
                             <small>
                                 {{ product.description|raw }}
-                                <p class="price-sku mb-0"><b>{{ product.sku }}</b> {{ product.price }} EUR</p>
+                                <p class="price-sku mb-0">
+                                    <b>{{ product.sku }}</b>
+                                    {% if show_price %}
+                                        {{ product.price }} EUR
+                                    {% endif %}
+                                </p>
                             </small>
                         </div>
                     </div>

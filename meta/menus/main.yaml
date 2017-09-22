@@ -4,8 +4,10 @@ items:
         title: 'Kreative Werkstatt'
         nesting: '1'
         type: static-page
+        url: ''
         code: no-link
         reference: kreative-werkstatt
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
@@ -28,8 +30,10 @@ items:
         title: Sprachunterricht
         nesting: '1'
         type: static-page
+        url: ''
         code: no-link
         reference: sprachunterricht
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
@@ -37,13 +41,11 @@ items:
             isExternal: '0'
     -
         title: Termine
-        nesting: ''
-        type: url
-        url: /termine
+        nesting: '0'
+        type: static-page
         code: ''
-        reference: ''
-        cmsPage: ''
-        replace: ''
+        reference: termine-neu
+        replace: '0'
         viewBag:
             isHidden: '0'
             cssClass: termine
