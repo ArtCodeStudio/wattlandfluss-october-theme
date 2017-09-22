@@ -2,63 +2,23 @@ name: main
 items:
     -
         title: 'Kreative Werkstatt'
-        nesting: ''
-        type: header
-        url: ''
-        code: ''
-        reference: ''
-        cmsPage: ''
-        replace: ''
+        nesting: '1'
+        type: static-page
+        code: no-link
+        reference: kreative-werkstatt
+        replace: '0'
         viewBag:
             isHidden: '0'
             cssClass: kreative-werkstatt
             isExternal: '0'
-        items:
-            -
-                title: 'Do it yourself'
-                nesting: '0'
-                type: static-page
-                url: ''
-                code: ''
-                reference: kreative-werkstatt-do-it-yourself
-                cmsPage: ''
-                replace: '0'
-                viewBag:
-                    isHidden: '0'
-                    cssClass: do-it-yourself
-                    isExternal: '0'
-            -
-                title: 'Kurse und Workshops'
-                nesting: '0'
-                type: static-page
-                url: ''
-                code: ''
-                reference: kreative-werkstatt-workshops
-                cmsPage: ''
-                replace: '0'
-                viewBag:
-                    isHidden: '0'
-                    cssClass: workshops
-                    isExternal: '0'
-            -
-                title: Über
-                nesting: '0'
-                type: static-page
-                url: ''
-                code: ueber
-                reference: ueber
-                cmsPage: ''
-                replace: '0'
-                viewBag:
-                    isHidden: '0'
-                    cssClass: ueber
-                    isExternal: '0'
     -
         title: Kunstwerke
         nesting: '0'
         type: static-page
+        url: ''
         code: ''
         reference: kunstwerke-neu
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
@@ -66,57 +26,15 @@ items:
             isExternal: '0'
     -
         title: Sprachunterricht
-        nesting: ''
-        type: header
-        url: ''
-        code: ''
-        reference: ''
-        cmsPage: ''
-        replace: ''
+        nesting: '1'
+        type: static-page
+        code: no-link
+        reference: sprachunterricht
+        replace: '0'
         viewBag:
             isHidden: '0'
             cssClass: sprachunterricht
             isExternal: '0'
-        items:
-            -
-                title: Sprachkurse
-                nesting: '0'
-                type: static-page
-                url: ''
-                code: ''
-                reference: sprachunterricht-sprachkurse
-                cmsPage: ''
-                replace: '0'
-                viewBag:
-                    isHidden: '0'
-                    cssClass: sprachkurse
-                    isExternal: '0'
-            -
-                title: Nachhilfe
-                nesting: '0'
-                type: static-page
-                url: ''
-                code: nachhilfe
-                reference: sprachunterricht-nachhilfe
-                cmsPage: ''
-                replace: '0'
-                viewBag:
-                    isHidden: '0'
-                    cssClass: nachhilfe
-                    isExternal: '0'
-            -
-                title: 'Für Kinder'
-                nesting: '0'
-                type: static-page
-                url: ''
-                code: ''
-                reference: sprachunterricht-fuer-kinder
-                cmsPage: ''
-                replace: '0'
-                viewBag:
-                    isHidden: '0'
-                    cssClass: fuer_kinder
-                    isExternal: '0'
     -
         title: Termine
         nesting: ''

@@ -1,11 +1,13 @@
 static-pages:
     index: {  }
-    oeffnungszeiten: {  }
-    kreative-werkstatt-do-it-yourself: {  }
-    ueber: {  }
-    kontakt: {  }
-    sprachunterricht-sprachkurse: {  }
-    sprachunterricht-nachhilfe: {  }
-    sprachunterricht-fuer-kinder: {  }
-    kreative-werkstatt-workshops: {  }
+    kreative-werkstatt:
+        kreative-werkstatt-do-it-yourself: {  }
+        kreative-werkstatt-workshops: {  }
+        ueber: {  }
     kunstwerke-neu: {  }
+    sprachunterricht:
+        sprachunterricht-nachhilfe: {  }
+        sprachunterricht-fuer-kinder: {  }
+        sprachunterricht-sprachkurse: {  }
+    oeffnungszeiten: {  }
+    kontakt: {  }
