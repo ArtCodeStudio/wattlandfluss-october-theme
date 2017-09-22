@@ -1,0 +1,16 @@
+description = "Produkt Liste (Handwerkskunst)"
+
+[viewBag]
+
+[product_list product_list_handwerkskunst]
+categorySlug = "{{ :slug }}"
+sortOrder = "title asc"
+useCategoryFilter = 1
+categoryFilter = "handwerkskunst"
+productPage = "products/:slug"
+productPageSlug = "{{ :slug }}"
+noProductsMessage = "No product found"
+productsPerPage = 40
+pageParam = ":page"
+==
+{% partial 'product_list/default' __SELF__ = product_list_handwerkskunst show_pagination=show_pagination column_classes=column_classes wrapContainer=wrapContainer wrapContainerFluid=wrapContainerFluid %}

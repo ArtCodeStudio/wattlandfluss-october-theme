@@ -1,3 +1,5 @@
+description = "Snippet: Header mit Titel und Untertext"
+
 [viewBag]
 snippetCode = "jumplink-snippet-header-with-title-subtext"
 snippetName = "Header mit Titel und Untertext"
@@ -16,12 +18,9 @@ snippetProperties[textAlignment][options][left] = "Linksbündig"
 snippetProperties[textAlignment][options][center] = "Zentriert"
 snippetProperties[textAlignment][options][justify] = "Blocksatz"
 snippetProperties[textAlignment][options][right] = "Rechtsbündig"
+snippetProperties[wrapContainer][title] = "Mit Rand (.container) umschließen"
+snippetProperties[wrapContainer][type] = "checkbox"
+snippetProperties[wrapContainer][default] = 0
+snippetProperties[wrapContainer][options][] = ""
 ==
-<div class="row" id="header-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}">
-    <div class="col-xs-12 text-{{textAlignment}}">
-        <h1>
-            {{title}}
-        </h1>
-        <p class="text-{{textAlignment}}">{{subtext}}</p>
-    </div>
-</div>
+{% partial 'jumplink-header-with-title-subtext' title=title textAlignment=textAlignment subtext=subtext wrapContainer=wrapContainer %}

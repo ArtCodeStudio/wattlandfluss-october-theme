@@ -1,0 +1,25 @@
+description = "Zentriertes Bild"
+
+[viewBag]
+==
+{% set filepath = 'assets/images/'~filename %}
+
+{% if wrapContainer %}
+    <div class="container">
+{% endif %}
+{% if wrapContainerFluid %}
+    <div class="container-fluid">
+{% endif %}
+
+<div class="row py-{{ySpacing}}">
+    <div class="col-xs-10 col-md-6 col-lg-3 mx-auto">
+        <img src="{{filepath | theme}}" alt="{{desc}}">
+    </div>
+</div>
+
+{% if wrapContainer %}
+    </div>
+{% endif %}
+{% if wrapContainerFluid %}
+    </div>
+{% endif %}

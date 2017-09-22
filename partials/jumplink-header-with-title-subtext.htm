@@ -1,0 +1,26 @@
+description = "Header mit Titel und Untertext"
+
+[viewBag]
+==
+{% if wrapContainer %}
+    <div class="container">
+{% endif %}
+{% if wrapContainerFluid %}
+    <div class="container-fluid">
+{% endif %}
+
+<div class="row" id="header-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}">
+    <div class="col-xs-12 text-{{textAlignment}}">
+        <h1>
+            {{title}}
+        </h1>
+        <p class="text-{{textAlignment}}">{{subtext|raw}}</p>
+    </div>
+</div>
+
+{% if wrapContainer %}
+    </div>
+{% endif %}
+{% if wrapContainerFluid %}
+    </div>
+{% endif %}

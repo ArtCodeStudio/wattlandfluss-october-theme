@@ -31,8 +31,10 @@ items:
                 title: 'Kurse und Workshops'
                 nesting: '0'
                 type: static-page
+                url: ''
                 code: ''
                 reference: kreative-werkstatt-workshops
+                cmsPage: ''
                 replace: '0'
                 viewBag:
                     isHidden: '0'
@@ -53,13 +55,11 @@ items:
                     isExternal: '0'
     -
         title: Kunstwerke
-        nesting: ''
-        type: url
-        url: /kunstwerke
+        nesting: '0'
+        type: static-page
         code: ''
-        reference: ''
-        cmsPage: ''
-        replace: ''
+        reference: kunstwerke-neu
+        replace: '0'
         viewBag:
             isHidden: '0'
             cssClass: kunstwerke

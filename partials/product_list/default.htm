@@ -9,6 +9,12 @@
     {% set column_classes = 'col-xs-12 col-sm-6 col-md-4 col-lg-3' %}
 {% endif %}
 
+{% if wrapContainer %}
+    <div class="container">
+{% endif %}
+{% if wrapContainerFluid %}
+    <div class="container-fluid">
+{% endif %}
 
 {% if (category) %}
     <div class="row">
@@ -67,4 +73,11 @@
     {% if show_pagination and product_list %}
         {% partial __SELF__ ~ "::pagination" %}
     {% endif %}
+{% endif %}
+
+{% if wrapContainer %}
+    </div>
+{% endif %}
+{% if wrapContainerFluid %}
+    </div>
 {% endif %}

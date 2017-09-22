@@ -1,0 +1,15 @@
+description = "Snippet: Zentriertes Bild"
+
+[viewBag]
+snippetCode = "jumplink-snippet-dekoration"
+snippetName = "Dekoration"
+snippetProperties[filename][title] = "Dateiname"
+snippetProperties[filename][type] = "string"
+snippetProperties[filename][default] = "dekoration-1.svg"
+snippetProperties[filename][options][] = ""
+snippetProperties[desc][title] = "Beschreibung"
+snippetProperties[desc][type] = "string"
+snippetProperties[desc][default] = "Schleife"
+snippetProperties[desc][options][] = ""
+==
+{% partial 'jumplink-centered-image' filename=filename desc=desc %}

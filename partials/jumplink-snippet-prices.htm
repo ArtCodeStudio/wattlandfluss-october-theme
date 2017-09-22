@@ -1,3 +1,5 @@
+description = "Preise"
+
 [viewBag]
 snippetCode = "jumplink-snippet-prices"
 snippetName = "Preise"
@@ -107,107 +109,103 @@ snippetProperties[col8Note][default] = ""
 snippetProperties[col8Note][options][] = ""
 ==
 {# Preise #}
-<div>
-    <div class="container pt-3">
-        <div class="row">
-            <div class="col-xs-12 col-md-6">
-                <p class="h4 text-left">
-                    {{title}}
-                </p>
-                
-                <dl class="row">
+<div class="row py-3">
+    <div class="col-xs-12 col-md-6">
+        <p class="h4 text-left">
+            {{title}}
+        </p>
+        
+        <dl class="row">
 
-                    {% if col1Name %}
-                        {% if col1Note %}
-                            <dt class="col-sm-3 my-0">{{col1Name}}</dt>
-                            <dd class="col-sm-4 my-0">{{col1Price}}</dd>
-                            <dd class="col-sm-5 my-0">{{col1Note}}</dd>
-                        {% else %}
-                            <dt class="col-sm-3 my-0">{{col1Name}}</dt>
-                            <dd class="col-sm-9 my-0">{{col1Price}}</dd>
-                        {% endif %}
-                    {% endif %}
-                    
-                    {% if col2Name %}
-                        {% if col2Note %}
-                            <dt class="col-sm-3 my-0">{{col2Name}}</dt>
-                            <dd class="col-sm-4 my-0">{{col2Price}}</dd>
-                            <dd class="col-sm-5 my-0">{{col2Note}}</dd>
-                        {% else %}
-                            <dt class="col-sm-3 my-0">{{col2Name}}</dt>
-                            <dd class="col-sm-9 my-0">{{col2Price}}</dd>
-                        {% endif %}
-                    {% endif %}
+            {% if col1Name %}
+                {% if col1Note %}
+                    <dt class="col-sm-3 my-0">{{col1Name}}</dt>
+                    <dd class="col-sm-4 my-0">{{col1Price}}</dd>
+                    <dd class="col-sm-5 my-0">{{col1Note}}</dd>
+                {% else %}
+                    <dt class="col-sm-3 my-0">{{col1Name}}</dt>
+                    <dd class="col-sm-9 my-0">{{col1Price}}</dd>
+                {% endif %}
+            {% endif %}
+            
+            {% if col2Name %}
+                {% if col2Note %}
+                    <dt class="col-sm-3 my-0">{{col2Name}}</dt>
+                    <dd class="col-sm-4 my-0">{{col2Price}}</dd>
+                    <dd class="col-sm-5 my-0">{{col2Note}}</dd>
+                {% else %}
+                    <dt class="col-sm-3 my-0">{{col2Name}}</dt>
+                    <dd class="col-sm-9 my-0">{{col2Price}}</dd>
+                {% endif %}
+            {% endif %}
 
-                    {% if col3Name %}
-                        {% if col3Note %}
-                            <dt class="col-sm-3 my-0">{{col3Name}}</dt>
-                            <dd class="col-sm-4 my-0">{{col3Price}}</dd>
-                            <dd class="col-sm-5 my-0">{{col3Note}}</dd>
-                        {% else %}
-                            <dt class="col-sm-3 my-0">{{col3Name}}</dt>
-                            <dd class="col-sm-9 my-0">{{col3Price}}</dd>
-                        {% endif %}
-                    {% endif %}
+            {% if col3Name %}
+                {% if col3Note %}
+                    <dt class="col-sm-3 my-0">{{col3Name}}</dt>
+                    <dd class="col-sm-4 my-0">{{col3Price}}</dd>
+                    <dd class="col-sm-5 my-0">{{col3Note}}</dd>
+                {% else %}
+                    <dt class="col-sm-3 my-0">{{col3Name}}</dt>
+                    <dd class="col-sm-9 my-0">{{col3Price}}</dd>
+                {% endif %}
+            {% endif %}
 
-                    {% if col4Name %}
-                        {% if col4Note %}
-                            <dt class="col-sm-3 my-0">{{col4Name}}</dt>
-                            <dd class="col-sm-4 my-0">{{col4Price}}</dd>
-                            <dd class="col-sm-5 my-0">{{col4Note}}</dd>
-                        {% else %}
-                            <dt class="col-sm-3 my-0">{{col4Name}}</dt>
-                            <dd class="col-sm-9 my-0">{{col4Price}}</dd>
-                        {% endif %}
-                    {% endif %}
+            {% if col4Name %}
+                {% if col4Note %}
+                    <dt class="col-sm-3 my-0">{{col4Name}}</dt>
+                    <dd class="col-sm-4 my-0">{{col4Price}}</dd>
+                    <dd class="col-sm-5 my-0">{{col4Note}}</dd>
+                {% else %}
+                    <dt class="col-sm-3 my-0">{{col4Name}}</dt>
+                    <dd class="col-sm-9 my-0">{{col4Price}}</dd>
+                {% endif %}
+            {% endif %}
 
-                    {% if col5Name %}
-                        {% if col5Note %}
-                            <dt class="col-sm-3 my-0">{{col5Name}}</dt>
-                            <dd class="col-sm-4 my-0">{{col5Price}}</dd>
-                            <dd class="col-sm-5 my-0">{{col5Note}}</dd>
-                        {% else %}
-                            <dt class="col-sm-3 my-0">{{col5Name}}</dt>
-                            <dd class="col-sm-9 my-0">{{col5Price}}</dd>
-                        {% endif %}
-                    {% endif %}
+            {% if col5Name %}
+                {% if col5Note %}
+                    <dt class="col-sm-3 my-0">{{col5Name}}</dt>
+                    <dd class="col-sm-4 my-0">{{col5Price}}</dd>
+                    <dd class="col-sm-5 my-0">{{col5Note}}</dd>
+                {% else %}
+                    <dt class="col-sm-3 my-0">{{col5Name}}</dt>
+                    <dd class="col-sm-9 my-0">{{col5Price}}</dd>
+                {% endif %}
+            {% endif %}
 
-                    {% if col6Name %}
-                        {% if col6Note %}
-                            <dt class="col-sm-3 my-0">{{col6Name}}</dt>
-                            <dd class="col-sm-4 my-0">{{col6Price}}</dd>
-                            <dd class="col-sm-5 my-0">{{col6Note}}</dd>
-                        {% else %}
-                            <dt class="col-sm-3 my-0">{{col6Name}}</dt>
-                            <dd class="col-sm-9 my-0">{{col6Price}}</dd>
-                        {% endif %}
-                    {% endif %}
+            {% if col6Name %}
+                {% if col6Note %}
+                    <dt class="col-sm-3 my-0">{{col6Name}}</dt>
+                    <dd class="col-sm-4 my-0">{{col6Price}}</dd>
+                    <dd class="col-sm-5 my-0">{{col6Note}}</dd>
+                {% else %}
+                    <dt class="col-sm-3 my-0">{{col6Name}}</dt>
+                    <dd class="col-sm-9 my-0">{{col6Price}}</dd>
+                {% endif %}
+            {% endif %}
 
-                    {% if col7Name %}
-                        {% if col7Note %}
-                            <dt class="col-sm-3 my-0">{{col7Name}}</dt>
-                            <dd class="col-sm-4 my-0">{{col7Price}}</dd>
-                            <dd class="col-sm-5 my-0">{{col7Note}}</dd>
-                        {% else %}
-                            <dt class="col-sm-3 my-0">{{col7Name}}</dt>
-                            <dd class="col-sm-9 my-0">{{col7Price}}</dd>
-                        {% endif %}
-                    {% endif %}
+            {% if col7Name %}
+                {% if col7Note %}
+                    <dt class="col-sm-3 my-0">{{col7Name}}</dt>
+                    <dd class="col-sm-4 my-0">{{col7Price}}</dd>
+                    <dd class="col-sm-5 my-0">{{col7Note}}</dd>
+                {% else %}
+                    <dt class="col-sm-3 my-0">{{col7Name}}</dt>
+                    <dd class="col-sm-9 my-0">{{col7Price}}</dd>
+                {% endif %}
+            {% endif %}
 
-                    {% if col8Name %}
-                        {% if col8Note %}
-                            <dt class="col-sm-3 my-0">{{col8Name}}</dt>
-                            <dd class="col-sm-4 my-0">{{col8Price}}</dd>
-                            <dd class="col-sm-5 my-0">{{col8Note}}</dd>
-                        {% else %}
-                            <dt class="col-sm-3 my-0">{{col8Name}}</dt>
-                            <dd class="col-sm-9 my-0">{{col8Price}}</dd>
-                        {% endif %}
-                    {% endif %}
+            {% if col8Name %}
+                {% if col8Note %}
+                    <dt class="col-sm-3 my-0">{{col8Name}}</dt>
+                    <dd class="col-sm-4 my-0">{{col8Price}}</dd>
+                    <dd class="col-sm-5 my-0">{{col8Note}}</dd>
+                {% else %}
+                    <dt class="col-sm-3 my-0">{{col8Name}}</dt>
+                    <dd class="col-sm-9 my-0">{{col8Price}}</dd>
+                {% endif %}
+            {% endif %}
 
-                </dl>
-                <p>{{note}}</p>
-            </div>
-        </div>
+        </dl>
+        <p>{{note}}</p>
     </div>
 </div>

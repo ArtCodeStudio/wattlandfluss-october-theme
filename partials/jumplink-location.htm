@@ -1,16 +1,18 @@
+description = "Anfahrtskarte"
+
 [viewBag]
 ==
 <div id="location-{{handle}}" class="pt-5">
-    <div class="container container-text">
+
         <div class="row">
             <div class="col-xs-12">
-                <h2 class="text-center text-{{color}}">{{title}}</h2>
+                <h2 class="text-left text-{{color}}">{{title}}</h2>
             </div>
         </div>
-    </div>
-    <div class="container-fluid mt-3">
+
+
         <div class="row bg-gray-2">
-            <div class="col-xs-12 col-md-8 col-lg-8 col-xl-9 pl-0">
+            <div class="col-xs-12 col-md-8 col-lg-8 col-xl-9">
                 <div class="w-100 h-400"
                     id="map-{{handle}}"
                     data-lat="{{lat}}"
@@ -24,7 +26,7 @@
                     data-link="{{link}}"
                 ></div>
             </div>
-            <div class="col-xs-12 col-md-4 col-lg-4 col-xl-3 pl-3 d-flex align-items-center pt-3 pt-lg-0">
+            <div class="col-xs-12 col-md-4 col-lg-4 col-xl-3 d-flex align-items-center px-xs-0 pl-lg-3 pt-3 pt-lg-0">
                 <address itemscope itemtype="http://schema.org/LocalBusiness">
                     <strong itemprop="name">{{this.theme.site_name}}</strong>
                     <br><span itemprop="description">{{this.theme.site_desc}}</span>
@@ -42,6 +44,6 @@
                 </address>
 
             </div>
-        </div>
+
     </div>
 </div>

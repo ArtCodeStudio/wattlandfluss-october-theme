@@ -1,0 +1,15 @@
+description = "Snippet: Anrufen"
+
+[viewBag]
+snippetCode = "jumplink-snippet-call-block"
+snippetName = "Anrufen"
+snippetProperties[wrapContainer][title] = "Mit .container umschließen"
+snippetProperties[wrapContainer][type] = "checkbox"
+snippetProperties[wrapContainer][default] = 0
+snippetProperties[wrapContainer][options][] = ""
+snippetProperties[wrapContainerFluid][title] = "Mit .container-fluid umschließen"
+snippetProperties[wrapContainerFluid][type] = "checkbox"
+snippetProperties[wrapContainerFluid][default] = 0
+snippetProperties[wrapContainerFluid][options][] = ""
+==
+{% partial 'jumplink-call-block' wrapContainer=wrapContainer wrapContainerFluid=wrapContainerFluid %}

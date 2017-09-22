@@ -1,0 +1,23 @@
+description = "Snippet: Produkt Liste (Handwerkskunst)"
+
+[viewBag]
+snippetCode = "jumplink-snippet-product-list-handwerkskunst"
+snippetName = "Produkt Liste (Handwerkskunst)"
+snippetProperties[showPagination][title] = "Pagination anzeigen"
+snippetProperties[showPagination][type] = "checkbox"
+snippetProperties[showPagination][default] = 0
+snippetProperties[showPagination][options][] = ""
+snippetProperties[columnClasses][title] = "Column Klassen"
+snippetProperties[columnClasses][type] = "string"
+snippetProperties[columnClasses][default] = "col-xs-12 col-sm-6 col-md-4 col-lg-4"
+snippetProperties[columnClasses][options][] = ""
+snippetProperties[wrapContainer][title] = "Mit .container umschließen"
+snippetProperties[wrapContainer][type] = "checkbox"
+snippetProperties[wrapContainer][default] = 0
+snippetProperties[wrapContainer][options][] = ""
+snippetProperties[wrapContainerFluid][title] = "Mit .container-fluid umschließen"
+snippetProperties[wrapContainerFluid][type] = "checkbox"
+snippetProperties[wrapContainerFluid][default] = 0
+snippetProperties[wrapContainerFluid][options][] = ""
+==
+{% partial 'jumplink-product-list-handwerkskunst' show_pagination=showPagination column_classes=columnClasses wrapContainer=wrapContainer wrapContainerFluid=wrapContainerFluid %}

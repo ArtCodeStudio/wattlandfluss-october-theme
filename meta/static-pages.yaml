@@ -1,5 +1,5 @@
 static-pages:
-    test: {  }
+    index: {  }
     oeffnungszeiten: {  }
     kreative-werkstatt-do-it-yourself: {  }
     ueber: {  }
@@ -7,5 +7,5 @@ static-pages:
     sprachunterricht-sprachkurse: {  }
     sprachunterricht-nachhilfe: {  }
     sprachunterricht-fuer-kinder: {  }
-    kreative-werkstatt-kurse: {  }
     kreative-werkstatt-workshops: {  }
+    kunstwerke-neu: {  }

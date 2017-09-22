@@ -1,4 +1,4 @@
-description = "Rohversion"
+description = "Inhaltsseite ohne .container"
 
 [staticPage]
 ==
@@ -35,5 +35,7 @@ function onMailSent() {
 ?>
 ==
 {% partial 'jumplink-layout-barba-top' %}
-    {% page %}
+    <div class="py-1 py-lg-5">
+        {% page %}
+    </div>
 {% partial 'jumplink-layout-barba-bottom' %}

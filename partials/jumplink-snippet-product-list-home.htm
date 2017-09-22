@@ -1,0 +1,37 @@
+description = "Snippet: Produkt Liste (Home)"
+
+[product_list]
+categorySlug = "{{ :slug }}"
+sortOrder = "title asc"
+useCategoryFilter = 1
+categoryFilter = "startseite"
+productPageSlug = "{{ :slug }}"
+noProductsMessage = "No product found"
+productsPerPage = 8
+pageParam = ":page"
+
+[viewBag]
+snippetCode = "jumplink-snippet-product-list-home"
+snippetName = "Produkt Liste (Home)"
+==
+{# home produkte #}
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="text-center">
+                    {% content 'home/products-title.txt' %}
+                </h1>
+                {% content 'home/products' %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% component 'product_list' %}
+        <div class="row">
+            <div class="col-xs-12 d-flex justify-content-center">
+                <a href="{{ 'kunstwerke'|page }}" class="btn btn-outline-success">weitere ansehen</a>
+            </div>
+        </div>
+    </div>
+</div>
