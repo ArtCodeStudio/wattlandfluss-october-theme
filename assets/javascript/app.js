@@ -40,7 +40,7 @@ jumplink.cacheSelectors = function () {
  * @see https://codepen.io/chrisboon27/pen/rEDIC
  */
 jumplink.movingBackground = function (selectorString, fittWidth, fittHeight) {
-    var movementStrength = 5;
+    var movementStrength = 20;
     var height = movementStrength / $(window).height();
     var width = movementStrength / $(window).width();
     // $(selectorString).css("background-size", 'calc(100% + 50px) calc(100% + 50px)');
