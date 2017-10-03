@@ -1,0 +1,29 @@
+.navbar {
+  min-height: 56px;
+}
+
+// underline nav
+.nav-tabs {
+  @extend .nav-tabs.nav-tabs-underline;
+}
+
+.card-header {
+  background-color: $card-cap-bg;
+}
+
+.breadcrumb {
+  .breadcrumb-item {
+    font-size: 1.25rem;
+    a {
+      color: $gray;
+    }
+  }
+}
+
+.list-group-item {
+  font-size: 14px;
+  font-weight: 500;
+  &.active {
+    font-weight: 600;
+  }
+}

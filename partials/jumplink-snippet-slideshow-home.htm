@@ -1,0 +1,26 @@
+description = "Snippet: Slideshow (Startseite)"
+
+[viewBag]
+snippetCode = "jumplink-snippet-slideshow-home"
+snippetName = "Slideshow (Startseite)"
+
+[slideshow slideshow_home]
+slideshow = 1
+numberOfSlide = 50
+==
+{# home slideshow #}
+<div class="pb-5 bg-gray-lighter">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="h5 text-center py-4 gradient-bg gradient-text animated-gradient">
+                    {% content 'home/slideshow-title.txt' %}
+                </p>
+                {% content 'home/slideshow' %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        {% partial 'slideshow_3_grid/default' __SELF__=slideshow_home handle='home-slideshow' %}
+    </div>
+</div>

@@ -21,7 +21,7 @@
     "tether": "^1.4.0",
     "simpler-sidebar": "^2.2.0",
     "bootstrap": "v4.0.0-alpha.6",
-    "bootstrap-backward": "^4.0.0-alpha.6",
+    "bootstrap-backward": "JumpLinkNetwork/bootstrap-backward#v4-0-0-alpha-5-scss-backward",
     "jumplink-components": "JumpLinkNetwork/jumplink-components#master",
     "barba.js": "luruke/barba.js#^1.0.0",
     "gsap": "^1.19.1",
@@ -34,8 +34,6 @@
     "moment": "^2.18.1"
   },
   "resolutions": {
-    "bootstrap": "v4.0.0-alpha.6",
-    "bootstrap-backward": "^4.0.0-alpha.6",
     "jquery": "2"
   }
 }
