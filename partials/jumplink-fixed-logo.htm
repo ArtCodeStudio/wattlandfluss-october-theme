@@ -1,0 +1,25 @@
+description = "Zeigt ein fixiertes Logo auf der Seite an"
+
+[viewBag]
+==
+{% set partialId = 'jumplink-fixed-logo' %}
+
+{% if source is not defined %}
+    {% set source = 'assets/images/logo.svg' %}
+{% endif %}
+
+{% if position is not defined %}
+    {% set position = 'top-left' %}
+{% endif %}
+
+{% if alt is not defined %}
+    {% set alt = 'Logo von' ~ this.theme.site_name %}
+{% endif %}
+
+{% if width is not defined %}
+    {% set width = '10rem' %}
+{% endif %}
+
+<a class="jumplink-partial {{partialId}} {{position}}" partial-name="{{partialId}}" href="/">
+    <img class="img-fluid" src="{{source | theme}}" alt="{{alt}}" style="width: {{width}}">
+</a>

@@ -1,5 +1,20 @@
-// JumpLink functions
-jumplink = window.jumplink || {};
+// JumpLink object
+window.jumplink = window.jumplink || {};
+
+// debugging https://github.com/visionmedia/debug
+window.jumplink.debug = window.jumplink.debug || {};
+window.jumplink.debug.barba = debug('theme:barba');
+window.jumplink.debug.events = debug('theme:events');
+window.jumplink.debug.tracking = debug('theme:tracking');
+window.jumplink.debug.raven = debug('theme:raven');
+window.jumplink.debug.image = debug('theme:image');
+window.jumplink.debug.info = debug('theme:info');
+window.jumplink.debug.error = debug('theme:error');
+window.jumplink.debug.warn = debug('theme:warn');
+window.jumplink.debug.browser = debug('theme:browser');
+
+// activate debuggin
+localStorage.debug = 'theme:*';
 
 
 /**
@@ -64,7 +79,7 @@ jumplink.movingBackground = function (selectorString, fittWidth, fittHeight) {
         $(selectorString).css('background-position', 'calc(50% + '+newvalueX+'px) calc(50% + '+newvalueY+'px)');
         
     });
-}
+};
 
 
 jumplink.initMomentDataApi = function () {
@@ -83,7 +98,7 @@ jumplink.initMomentDataApi = function () {
         var date = moment($this.data('momentDisplayToNow')).fromNow();
         $this.text(date);
     });
-}
+};
 
 jumplink.setLanguage = function () {
     var langCode = jumplink.cache.$html.attr('lang');
@@ -91,18 +106,7 @@ jumplink.setLanguage = function () {
     if(typeof(moment) !== 'undefined') {
         moment.locale(langCode);
     }
-}
-
-/**
- * Get the height of the main navbar, useful to set the page padding if the navbar is fixed
- */
-jumplink.getNavHeight = function () {
-    return jumplink.cache.$mainNavbar.outerHeight(true);
 };
-
-jumplink.setBodyId = function (namespace) {
-    jumplink.cache.$body.attr('id', namespace);
-}
 
 /**
  * Init the rightsidebar using simpler-sidebar and transformicons
@@ -332,7 +336,7 @@ var initProductCarousel = function() {
         ]
     };
     $slick.slick(slickSettings);
-}
+};
 
 /**
  * highlight product on click
@@ -345,125 +349,58 @@ var initProductList = function() {
     });
 };
 
-/**
- * Barba.js template
- */
-var initTemplateHome = function (dataset, data) {
-    console.log('init home');
-    jumplink.setNavActive('home');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-    initProductList();
-    jumplink.initCarousel('home-slideshow');
-};
 
 /**
- * Barba.js template
+ * To test if the jumplink.newPageReady was called at the first
  */
-var initTemplateDoItYourself = function (dataset, data) {
-    console.log('init do it yourself');
-    jumplink.setNavActive('do-it-yourself');
-    jumplink.setNavActive('kreative-werkstatt');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-    jumplink.initCarousel('do-it-yourself-slideshow'); 
-};
-
-/**
- * Barba.js template
- */
-var initTemplateKurse = function (dataset, data) {
-    console.log('init kurse');
-    jumplink.setNavActive('kurse');
-    jumplink.setNavActive('kreative-werkstatt');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-};
-
-/**
- * Barba.js template
- */
-var initTemplateWorkshops = function (dataset, data) {
-    console.log('init workshops');
-    jumplink.setNavActive('workshops');
-    jumplink.setNavActive('kreative-werkstatt');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-};
+window.jumplink.firstNewPageReadyEvent = true;
 
 
-/**
- * Barba.js template
- */
-var initTemplateKunstwerke = function (dataset, data) {
-    console.log('init kunstwerke', dataset);
-    jumplink.setNavActive('kunstwerke');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-    initProductList();
-    initProductCarousel();
-};
-
-var initTemplateSprachkurse = function (dataset, data) {
-    console.log('init sprachkurse');
-    jumplink.setNavActive('kontakt');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
+window.jumplink.templates.prepairTemplate = function(dataset) {
     
-};
+    // console.log('newPageReady');
+    var data = window.jumplink.parseDatasetJsonStrings(dataset);
 
-var initTemplateKontakt = function (dataset, data) {
-    console.log('init kontakt');
-    jumplink.setNavActive(dataset.namespace);
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-    jumplink.initLeadlet('main');
-};
+    window.jumplink.closeAllModals();
+    jumplink.initDataApi();
+    jumplink.resetNav();
+    jumplink.setBodyId(dataset.namespace);
+    
+    jumplink.initMomentDataApi();
+    
+    jumplink.movingBackground('.background-01', true, false);
+    jumplink.movingBackground('.background-01b', false, false);
 
-var initTemplateUeber = function (dataset, data) {
-    console.log('init über');
-    jumplink.setNavActive('ueber');
-    jumplink.setNavActive('kreative-werkstatt');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-};
+    if(typeof(Hyphenator) !== 'undefined') {
+      Hyphenator.run();
+    }
+    
+    if(typeof(Prism) !== 'undefined') {
+        Prism.highlightAll();
+    }
 
-var initTemplateSprachunterrichtKurse = function (dataset, data) {
-    console.log('init über');
-    jumplink.setNavActive('sprachkurse');
-    jumplink.setNavActive('sprachunterricht');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-};
+  // preload images again if failed in barba or this is the first page request
+  // window.jumplink.loadImagesByNamespace();
 
-var initTemplateSprachunterrichtNachhilfe = function (dataset, data) {
-    console.log('init über');
-    jumplink.setNavActive('nachhilfe');
-    jumplink.setNavActive('sprachunterricht');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-};
+  // window.jumplink.loadVideos();
 
-var initTemplateSprachunterrichtKinder = function (dataset, data) {
-    console.log('init über');
-    jumplink.setNavActive('fuer_kinder');
-    jumplink.setNavActive('sprachunterricht');
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-};
+  // window.jumplink.showHideNewsletterForm(dataset, data);
 
-var initTemplateDefault = function (dataset, data) {
-    console.log('init default');
-    jumplink.setNavActive(dataset.namespace);
-    jumplink.cache.$barbaWrapper.css( 'padding-top', jumplink.getNavHeight()+'px');
-};
+  // window.jumplink.initDataAttributes(dataset);
 
+  //  window.jumplink.setNavActive(dataset, data);
 
-/**
- * Run JavaScript for for special template
- * E.g. templates/product.liquid
- */
-var initTemplate = {
-  'willkommen': initTemplateHome,
-  'kreativewerkstattdoityourself': initTemplateDoItYourself,
-  'kreativewerkstattkurse': initTemplateKurse,
-  'kreativewerkstattworkshops': initTemplateWorkshops,
-  'kreativewerkstattüber': initTemplateUeber,
-  'kunstwerke': initTemplateKunstwerke,
-  'strandkorbvermietung': initTemplateSprachkurse,
-  'kontakt': initTemplateKontakt,
-  'sprachunterrichtsprachkurse': initTemplateSprachunterrichtKurse,
-  'sprachunterrichtnachhilfe': initTemplateSprachunterrichtNachhilfe,
-  'sprachunterrichtfürkinder': initTemplateSprachunterrichtKinder,
+  jumplink.debug.templates('dataset', dataset, 'data', data);
+
+  window.jumplink.partials.init(dataset, data);
+  window.jumplink.templates.init(dataset, data);
+
+  if(window.jumplink.firstNewPageReadyEvent) {
+    $(document).trigger('jumplink.newPageReady', [true, dataset, data]);
+    jumplink.firstNewPageReadyEvent = false;
+  } else {
+    $(document).trigger('jumplink.newPageReady', [false, dataset, data]);
+  }
 };
 
 /**
@@ -478,45 +415,9 @@ var initTemplates = function () {
   });
 
   Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {
-    // console.log('newPageReady');
-    var data = {}; // var data = ProductJS.Utilities.parseDatasetJsonStrings(container.dataset);
-
-    jumplink.closeAllModals();
-    jumplink.initDataApi();
-    jumplink.resetNav();
-    jumplink.setBodyId(currentStatus.namespace);
-    
-    jumplink.initMomentDataApi();
-    
-    jumplink.movingBackground('.background-01', true, false);
-    jumplink.movingBackground('.background-01b', false, false);
-
-    if(typeof(Hyphenator) !== 'undefined') {
-      Hyphenator.run();
-    }
-    
-    if(typeof(Prism) !== 'undefined') {
-        Prism.highlightAll();
-    }
-    
-
-    var template = initTemplateDefault;
-    if(initTemplate[currentStatus.namespace]) {
-        template = initTemplate[currentStatus.namespace];
-    } else {
-        console.warn("Template not defined: "+currentStatus.namespace+' use default template');
-    }
-    
-    templateDestoryer = template(container.dataset, data);
-    
-    if(typeof(templateDestoryer) !== 'undefined') {
-        Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {
-          templateDestoryer.destory();
-          Barba.Dispatcher.off( 'newPageReady', this );
-        });
-    } else {
-        // console.warn("template "+currentStatus.namespace+" needs a destroy function!");
-    }    
+          
+    window.jumplink.templates.prepairTemplate(container.dataset);
+   
   });
 };
 
@@ -778,6 +679,7 @@ var init = function ($) {
     jumplink.cacheSelectors();
     jumplink.setLanguage();
     jumplink.initRightSidebar();
+    jumplink.initBrowserDetection();
     initBarba();
 }
 

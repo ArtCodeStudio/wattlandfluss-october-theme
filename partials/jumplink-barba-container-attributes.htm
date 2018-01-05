@@ -13,6 +13,18 @@
    
 {% endfor %}
 
+{% if namespace is not defined or namespace is empty %}
+    {% set namespace = page.id | lower | replace({'/':'_'}) %}
+{% endif %}
+{% if namespace is not defined or namespace is empty %}
+    {% set namespace = this.page.id | lower | replace({'/':'_'}) %}
+{% endif %}
+{% if namespace is not defined or namespace is empty %}
+    {% set namespace = str_studly(this.page.title) | lower | replace({'/':'_'}) %}
+{% endif %}
+
+
+
 {% if activeItem %}
     data-static-menu-active-item-class="{{ activeItem.viewBag.cssClass }}"
     data-static-menu-active-item-title="{{ activeItem.title }}"
@@ -57,7 +69,8 @@
     data-blog-post-categories="{% for category in post.categories %}{{ category.slug }}{% if not loop.last %},{% endif %}{% endfor %}"
 {% endif %}
 
-data-namespace="{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}"
+{# data-namespace="{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}" #}
+data-namespace="{{ namespace }}"
 
 class="barba-container"
 id="{{ str_studly(this.page.title) | lower }}"
