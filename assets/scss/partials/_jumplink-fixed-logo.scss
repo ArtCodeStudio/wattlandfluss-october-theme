@@ -1,0 +1,8 @@
+.jumplink-fixed-logo {
+    position: fixed;
+    z-index: 99999;
+    &.top-left {
+        top: 15px;
+        left: 30px;
+    }
+}

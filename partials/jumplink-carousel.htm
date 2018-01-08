@@ -1,6 +1,13 @@
 [viewBag]
 ==
-<div id="{{ carousel_handle }}_carousel" class="controls-{{ color }}" role="listbox">
+{% set partialId = 'jumplink-carousel' %}
+
+<div
+    id="{{ carousel_handle }}_carousel"
+    class="jumplink-partial controls-{{ color }}"
+    role="listbox"
+    data-partial-name="{{partialId}}"
+>
     {% for i, slide in slideshow['slides'] %}
         {% if slide.link %}
             <a title="{{ slide.image.title }}" href='{{ slide.link }}' target='_blank'>

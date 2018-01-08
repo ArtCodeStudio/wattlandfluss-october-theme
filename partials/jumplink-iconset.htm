@@ -1,5 +1,7 @@
 [viewBag]
 ==
+{% set partialId = 'jumplink-iconset' %}
+
 {% if '.svg' in name %}
     {% set snippet= '../assets/iconset/' ~ name %}
 {% else %}
@@ -34,6 +36,10 @@
     {% set size = 32 %}
 {% endif %}
 
-<div aria-hidden='true' class='iconset {{name}} {{direction}} {{class}} {{color}} w-{{size}} h-{{size}}'>
+<div
+    aria-hidden='true'
+    class='jumplink-partial iconset {{name}} {{direction}} {{class}} {{color}} w-{{size}} h-{{size}}'
+    data-partial-name="{{partialId}}"
+>
     {% partial snippet %}
 </div>

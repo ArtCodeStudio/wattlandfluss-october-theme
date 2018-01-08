@@ -2,7 +2,10 @@ description = "Anrufen"
 
 [viewBag]
 ==
-<div class="background-01b py-4">
+{% set partialId = 'jumplink-call-block' %}
+
+
+<div class="jumplink-partial background-01b py-4" data-partial-name="{{partialId}}">
     
     {% if wrapContainer %}
         <div class="container bg-white py-4">

@@ -1,4 +1,4 @@
-description = "Zeigt ein fixiertes Logo auf der Seite an"
+description = "Zeigt ein fixiertes Logo auf der Seite an, beim scrollen wird ein Element der svg ausgeblendet"
 
 [viewBag]
 ==
@@ -20,6 +20,22 @@ description = "Zeigt ein fixiertes Logo auf der Seite an"
     {% set width = '10rem' %}
 {% endif %}
 
-<a class="jumplink-partial {{partialId}} {{position}}" partial-name="{{partialId}}" href="/">
-    <img class="img-fluid" src="{{source | theme}}" alt="{{alt}}" style="width: {{width}}">
+{% if offsetInPx is not defined %}
+    {% set offsetInPx = 20 %}
+{% endif %}
+
+{% if hideSelectorOnScroll is not defined %}
+    {% set hideSelectorOnScroll = '#text' %}
+{% endif %}
+
+<a
+    class="jumplink-partial {{partialId}} {{position}}"
+    data-partial-name="{{partialId}}"
+    data-hide-selector-on-scroll="{{hideSelectorOnScroll}}"
+    data-offset-in-px="{{offsetInPx}}"
+    href="/"
+    title="{{alt}}"
+    style="width: {{width}}"
+>
+    {% partial '../'~source %}
 </a>

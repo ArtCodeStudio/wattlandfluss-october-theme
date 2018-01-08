@@ -1,0 +1,136 @@
+/**
+ * JumpLink browser detection bar
+ */
+.jumplink-browser-detection-bar {
+  position: fixed;
+  top: unset !important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+  z-index: 9999;
+}
+
+.vivaldi-link, .firefox-link, .chrome-link, .safari-link, .opera-link, .edge-link {
+  padding-top: 100px;
+  background-repeat: no-repeat;
+  background-size: 80px auto;
+  background-position: center 4px;
+  text-align: center;
+}
+
+.vivaldi-link {
+  background-image: url('../jumplink_images/browser-vivaldi.png');
+}
+
+.firefox-link {
+  background-image: url('../jumplink_images/browser-firefox.png');
+}
+
+.chrome-link {
+  background-image: url('../jumplink_images/browser-chrome.png');
+}
+
+.safari-link {
+  background-image: url('../jumplink_images/browser-safari.png');
+}
+
+.opera-link {
+  background-image: url('../jumplink_images/browser-opera.png');
+}
+
+.edge-link {
+  background-image: url('../jumplink_images/browser-edge.png');
+}
+
+// browser supported or not classes
+.visible-on-browser-not-supported, .visible-on-browser-supported {
+  display: none;
+  visibility: hidden;
+}
+
+.browser-not-supported {
+  .visible-on-browser-not-supported {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.browser-supported {
+  .visible-on-browser-supported {
+    display: block;
+    visibility: visible;
+  }
+}
+
+// detected operating system classes
+
+.visible-on-linux,
+.visible-on-ios,
+.visible-on-android,
+.visible-on-windows,
+.visible-on-windows-phone,
+.visible-on-osx,
+.visible-on-other,
+.visible-on-chrome-os
+{
+  display: none;
+  visibility: hidden;
+}
+
+.os-family-linux {
+  .visible-on-linux {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.os-family-windows {
+  .visible-on-windows {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.os-family-osx {
+  .visible-on-osx {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.os-family-ios {
+  .visible-on-ios {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.os-family-android {
+  .visible-on-android {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.os-family-windows-phone {
+  .visible-on-windows-phone {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.os-family-chrome-os {
+  .visible-on-chrome-os {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.os-family-other {
+  .visible-on-other {
+    display: block;
+    visibility: visible;
+  }
+}

@@ -1,6 +1,8 @@
 [viewBag]
 ==
-<address itemscope itemtype="http://schema.org/LocalBusiness">
+{% set partialId = 'jumplink-address' %}
+
+<address class="jumplink-partial" data-partial-name="{{partialId}}" itemscope itemtype="http://schema.org/LocalBusiness">
     <strong itemprop="name">{{this.theme.site_name}}</strong>
     <br><span itemprop="description">{{this.theme.site_desc}}</span>
     <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">

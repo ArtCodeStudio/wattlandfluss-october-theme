@@ -2,6 +2,8 @@ description = "Zentriertes Bild"
 
 [viewBag]
 ==
+{% set partialId = 'jumplink-centered-image' %}
+
 {% set filepath = 'assets/images/'~filename %}
 
 {% if wrapContainer %}
@@ -11,7 +13,7 @@ description = "Zentriertes Bild"
     <div class="container-fluid">
 {% endif %}
 
-<div class="row py-{{ySpacing}}">
+<div class="jumplink-partial row py-{{ySpacing}}" data-partial-name="{{partialId}}">
     <div class="col-xs-10 col-md-6 col-lg-3 mx-auto">
         <img src="{{filepath | theme}}" alt="{{desc}}">
     </div>

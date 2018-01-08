@@ -1,7 +1,2 @@
-.jumplink-fixed-logo {
-    position: fixed;
-    &.top-left {
-        top: 15px;
-        left: 30px;
-    }
-}
+@import './partials/jumplink-fixed-logo';
+@import './partials/jumplink-browser-detection-bar';

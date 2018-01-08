@@ -14,7 +14,7 @@ window.jumplink.templates.init = function(dataset, data) {
     window.jumplink.templates[dataset.namespace](dataset, data);
     $(document).trigger('jumplink.initTemplateReady', [dataset, data]);
   } else {
-    window.jumplink.debug.templates(new Error('Template not defined: '+dataset.namespace));
+    window.jumplink.debug.templates('No javascript for template:', dataset.namespace);
   }
 };
 

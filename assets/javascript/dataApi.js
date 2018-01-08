@@ -149,7 +149,6 @@ jumplink.initLeadlet = function (handle) {
 };
 
 
-
 jumplink.initDataApi = function () {
   jumplink.initSlickMethods();
   jumplink.initCustomModals();

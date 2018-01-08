@@ -4,7 +4,44 @@ layout = "jumplink-barba"
 is_hidden = 0
 contentType = "html"
 ==
-<div class="container"id="browser-info">
+<?php
+function onSubmitBrowserForm() {
+    
+    Log::info('Contact from in browser detection from user: '.post('contact[firstname]'));
+    
+    $vars = [
+        'firstname'     => post('contact[firstname]'),
+        'name'          => post('contact[name]'),
+        'email'         => post('contact[email]'),
+        'phone'         => post('contact[phone]'),
+        'browser'       => post('contact[browser]'),
+        'version'       => post('contact[version]'),
+        'os'            => post('contact[os]'),
+        'engine'        => post('contact[engine]'),
+        'problem_description' => post('contact[problem_description]'),
+    ];
+    
+    $buildOwnerMessage = function ($message) use ($vars) {
+        // TODO use email and name from backend or theme settings
+        $message->to('moin@watt-land-fluss.de', 'watt-land-fluss');
+        // $message->subject("Neue Anfrage von ".$vars['name']." ".$vars['regard']);
+    };
+  
+    $buildSenderMessage = function ($message) use ($vars) {
+        $message->to($vars['email'] , $vars['firstname'].' '.$vars['name']);
+    };
+
+    // mail to site owner
+    // Mail::send('frontend::contact.notify', $vars, $buildOwnerMessage);
+    
+    // mail to contact sender
+    Mail::send('frontend::contact.notify-copy', $vars, $buildSenderMessage);
+
+    $this['result'] = "Nachricht abgeschickt";
+}
+?>
+==
+<div class="container pt-5 pb-4" id="browser-info">
     <div class="row">
       <div class="col-xs-12">
           <h1 class="text-center hidden">{{ page.title }}</h1>
@@ -28,98 +65,102 @@ contentType = "html"
         </div>
       </div>
 
-
-
       <div class="col-xs-12 visible-on-browser-not-supported">
-
-        <div class="row visible-on-linux">
-          <div class="col-xs-12">
-            <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
-          </div>
-          <div class="col-xs-12 col-md-3 firefox-link">
-            <a href="https://www.mozilla.com/firefox/">
-              Firefox<br>
-              <small>Mozilla Foundation</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 chrome-link">
-            <a href="https://www.google.com/chrome/browser/desktop/">
-              Chrome<br>
-              <small>Google</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 opera-link">
-            <a href="https://www.opera.com/">
-              Opera<br>
-              <small>Opera Software</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 vivaldi-link">
-            <a href="https://vivaldi.com/">
-              Vivaldi<br>
-              <small>Vivaldi Technologies</small>
-            </a>
-          </div>
+      
+        <div class="visible-on-linux">
+            <div class="row">
+              <div class="col-xs-12">
+                <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
+              </div>
+              <div class="col-xs-12 col-md-3 firefox-link">
+                <a href="https://www.mozilla.com/firefox/">
+                  Firefox<br>
+                  <small>Mozilla Foundation</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 chrome-link">
+                <a href="https://www.google.com/chrome/browser/desktop/">
+                  Chrome<br>
+                  <small>Google</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 opera-link">
+                <a href="https://www.opera.com/">
+                  Opera<br>
+                  <small>Opera Software</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 vivaldi-link">
+                <a href="https://vivaldi.com/">
+                  Vivaldi<br>
+                  <small>Vivaldi Technologies</small>
+                </a>
+              </div>
+            </div>
         </div>
 
-        <div class="row visible-on-windows">
-          <div class="col-xs-12">
-            <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
-          </div>
-          <div class="col-xs-12 col-md-3 firefox-link">
-            <a href="https://www.mozilla.com/firefox/">
-              Firefox<br>
-              <small>Mozilla Foundation</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 chrome-link">
-            <a href="https://www.google.com/chrome/browser/desktop/">
-              Chrome<br>
-              <small>Google</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 opera-link">
-            <a href="https://www.opera.com/">
-              Opera<br>
-              <small>Opera Software</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 edge-link">
-            <a href="https://www.microsoft.com/en-US/windows/microsoft-edge">
-              Edge<br>
-              <small>Microsoft</small>
-            </a>
-          </div>
+        <div class="visible-on-windows">
+            <div class="row">
+              <div class="col-xs-12">
+                <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
+              </div>
+              <div class="col-xs-12 col-md-3 firefox-link">
+                <a href="https://www.mozilla.com/firefox/">
+                  Firefox<br>
+                  <small>Mozilla Foundation</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 chrome-link">
+                <a href="https://www.google.com/chrome/browser/desktop/">
+                  Chrome<br>
+                  <small>Google</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 opera-link">
+                <a href="https://www.opera.com/">
+                  Opera<br>
+                  <small>Opera Software</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 edge-link">
+                <a href="https://www.microsoft.com/en-US/windows/microsoft-edge">
+                  Edge<br>
+                  <small>Microsoft</small>
+                </a>
+              </div>
+            </div>
         </div>
 
-        <div class="row visible-on-osx">
-          <div class="col-xs-12">
-            <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
-          </div>
-          <div class="col-xs-12 col-md-3 firefox-link">
-            <a href="https://www.mozilla.com/firefox/">
-              Firefox<br>
-              <small>Mozilla Foundation</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 chrome-link">
-            <a href="https://www.google.com/chrome/browser/desktop/">
-              Chrome<br>
-              <small>Google</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 opera-link">
-            <a href="https://www.opera.com/">
-              Opera<br>
-              <small>Opera Software</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 safari-link">
-            <a href="https://support.apple.com/en-us/HT204416">
-              Safari<br>
-              <small>Apple</small>
-            </a>
-          </div>
+        <div class="visible-on-osx">
+            <div class="row">
+              <div class="col-xs-12">
+                <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
+              </div>
+              <div class="col-xs-12 col-md-3 firefox-link">
+                <a href="https://www.mozilla.com/firefox/">
+                  Firefox<br>
+                  <small>Mozilla Foundation</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 chrome-link">
+                <a href="https://www.google.com/chrome/browser/desktop/">
+                  Chrome<br>
+                  <small>Google</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 opera-link">
+                <a href="https://www.opera.com/">
+                  Opera<br>
+                  <small>Opera Software</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 safari-link">
+                <a href="https://support.apple.com/en-us/HT204416">
+                  Safari<br>
+                  <small>Apple</small>
+                </a>
+              </div>
+            </div>
         </div>
 
         <div class="visible-on-ios">
@@ -151,51 +192,57 @@ contentType = "html"
           </div>
         </div>
 
-        <div class="row visible-on-windows-phone">
-          <div class="col-xs-12">
-            <div class="alert alert-danger">
-              <p>Leider wird Windows Phone nicht mehr weiter entwickelt, wir empfehlen Ihnen daher in Zukunft auf ein anderes Gerät mit einem aktuellen Browser zu wechseln.</p>
+        <div class="visible-on-windows-phone">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="alert alert-danger">
+                  <p>Leider wird Windows Phone nicht mehr weiter entwickelt, wir empfehlen Ihnen daher in Zukunft auf ein anderes Gerät mit einem aktuellen Browser zu wechseln.</p>
+                </div>
+              </div>
             </div>
-          </div>
         </div>
 
-        <div class="row visible-on-chrome-os">
-          <div class="col-xs-12">
-            <p>Unter Chromebooks / Chrome OS kann der eingebaute Browser nur zusammen mit dem Betriebssystem aktualisiert werden.</p>
-            <p>Bitte versuchen Sie <a class="text-info" href="https://support.google.com/chromebook/answer/177889">Chrome OS zu aktualisieren</a>, um die neuste Version benutzen zu können.</p>
-          </div>
+        <div class="visible-on-chrome-os">
+            <div class="row">
+              <div class="col-xs-12">
+                <p>Unter Chromebooks / Chrome OS kann der eingebaute Browser nur zusammen mit dem Betriebssystem aktualisiert werden.</p>
+                <p>Bitte versuchen Sie <a class="text-info" href="https://support.google.com/chromebook/answer/177889">Chrome OS zu aktualisieren</a>, um die neuste Version benutzen zu können.</p>
+              </div>
+            </div>
         </div>
 
-        <div class="row visible-on-other">
-          <div class="col-xs-12">
-            <div class="alert alert-danger">
-              <p>Leider konnten wir Ihr Betriebssystem nicht identifizieren, Sie können trotzdem versuchen einen der folgenden Browser zu installieren:</p>
+        <div class="visible-on-other">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="alert alert-danger">
+                  <p>Leider konnten wir Ihr Betriebssystem nicht identifizieren, Sie können trotzdem versuchen einen der folgenden Browser zu installieren:</p>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-3 firefox-link">
+                <a href="https://www.mozilla.com/firefox/">
+                  Firefox<br>
+                  <small>Mozilla Foundation</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 chrome-link">
+                <a href="https://www.google.com/chrome/browser/desktop/">
+                  Chrome<br>
+                  <small>Google</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 opera-link">
+                <a href="https://www.opera.com/">
+                  Opera<br>
+                  <small>Opera Software</small>
+                </a>
+              </div>
+              <div class="col-xs-12 col-md-3 vivaldi-link">
+                <a href="https://vivaldi.com/">
+                  Vivaldi<br>
+                  <small>Vivaldi Technologies</small>
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="col-xs-12 col-md-3 firefox-link">
-            <a href="https://www.mozilla.com/firefox/">
-              Firefox<br>
-              <small>Mozilla Foundation</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 chrome-link">
-            <a href="https://www.google.com/chrome/browser/desktop/">
-              Chrome<br>
-              <small>Google</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 opera-link">
-            <a href="https://www.opera.com/">
-              Opera<br>
-              <small>Opera Software</small>
-            </a>
-          </div>
-          <div class="col-xs-12 col-md-3 vivaldi-link">
-            <a href="https://vivaldi.com/">
-              Vivaldi<br>
-              <small>Vivaldi Technologies</small>
-            </a>
-          </div>
         </div>
 
       </div>
@@ -220,17 +267,19 @@ contentType = "html"
         </dl>
       </div>
 
-      <form action="">
+      <form
+        role="form"
+        data-request="onSubmitBrowserForm"
+        data-request-update="'jumplink-forms/confirm': '.confirm-container'"
+      >
 
         <div class="col-xs-12 description m-t-2">
           <p>Möchten Sie einen Fehler melden oder glauben wir sollten diesen Shop für Ihren Browser optimieren? Über Feedback sind wir sehr dankbar!</p>
         </div>
 
-        {# TODO % if form.posted_successfully? %}
-          <div class="col-xs-12 alert alert-success">
-            {{ 'contact.form.post_success' }}
-          </div>
-        {% endif %#}
+        <div class="confirm-container">
+
+        </div>
 
         {# TODO % if form.errors %}
         <div class="col-xs-12 alert alert-danger">

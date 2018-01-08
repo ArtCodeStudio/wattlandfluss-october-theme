@@ -2,7 +2,13 @@ description = "Anfahrtskarte"
 
 [viewBag]
 ==
-<div id="location-{{handle}}" class="pt-5">
+{% set partialId = 'jumplink-location' %}
+
+<div
+    id="location-{{handle}}"
+    class="jumplink-partial jumplink-location pt-5"
+    data-partial-name="{{partialId}}"
+>
 
         <div class="row">
             <div class="col-xs-12">
