@@ -1,6 +1,7 @@
 title = "Über deinen Browser"
 url = "/browser-detection"
 layout = "jumplink-barba"
+description = "Browsererkennung, veraltete Browser werden erkannt und Schritte zur Aktualisierung beschrieben oder alternative Browser angeboten."
 is_hidden = 0
 contentType = "html"
 ==
@@ -41,6 +42,37 @@ function onSubmitBrowserForm() {
 }
 ?>
 ==
+{#
+ # Please create two Mail Temaptes for the contact form
+ # 
+ # @example for confirmation email
+ # id: frontend::contact.notify-copy
+ #
+ # <p><strong>Danke für deine Anfrage</strong></p>
+ # <p><strong>Name:</strong> {{firstname}} {{name}}</p>
+ # <p><strong>Absender:</strong> {{email}}</p>
+ # <p><strong>Telefon:</strong> {{phone}}</p>
+ # <p><strong>Browser:</strong> {{browser}}</p>
+ # <p><strong>Version:</strong> {{version}}</p>
+ # <p><strong>Betriebssystem:</strong> {{os}}</p>
+ # <p><strong>Engine:</strong> {{engine}}</p>
+ # <p><strong>Problembeschreibung:</strong> {{problem_description}}</p>
+ #
+ # @example for site owner notification email
+ # id: frontend::contact.notify
+ #
+ # <p><strong>Neue Anfrage</strong>
+ # <p><strong>Name:</strong> {{firstname}} {{name}}</p>
+ # <p><strong>Absender:</strong> {{email}}</p>
+ # <p><strong>Telefon:</strong> {{phone}}</p>
+ # <p><strong>Browser:</strong> {{browser}}</p>
+ # <p><strong>Version:</strong> {{version}}</p>
+ # <p><strong>Betriebssystem:</strong> {{os}}</p>
+ # <p><strong>Engine:</strong> {{engine}}</p>
+ # <p><strong>Problembeschreibung:</strong> {{problem_description}}</p>
+ #
+ ##}
+
 <div class="container pt-5 pb-4" id="browser-info">
     <div class="row">
       <div class="col-xs-12">
@@ -61,7 +93,7 @@ function onSubmitBrowserForm() {
 
       <div class="col-xs-12 visible-on-browser-supported">
         <div class="alert alert-success">
-          Super! Dieser Shop ist für Ihren Browser optimiert, daher sollte alles ordnungsgemäß funktionieren. Falls es doch zu Problemen kommen sollte, haben Sie hier die Möglichkeit uns einen Fehlerbericht zu senden.
+          Super! Diese Seite ist für Ihren Browser optimiert, daher sollte alles ordnungsgemäß funktionieren. Falls es doch zu Problemen kommen sollte, haben Sie hier die Möglichkeit uns einen Fehlerbericht zu senden.
         </div>
       </div>
 
@@ -70,7 +102,7 @@ function onSubmitBrowserForm() {
         <div class="visible-on-linux">
             <div class="row">
               <div class="col-xs-12">
-                <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
+                <p>{{ 'browser.update.install_text' |_ }}</p>
               </div>
               <div class="col-xs-12 col-md-3 firefox-link">
                 <a href="https://www.mozilla.com/firefox/">
@@ -102,7 +134,7 @@ function onSubmitBrowserForm() {
         <div class="visible-on-windows">
             <div class="row">
               <div class="col-xs-12">
-                <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
+                <p>{{ 'browser.update.install_text' |_ }}</p>
               </div>
               <div class="col-xs-12 col-md-3 firefox-link">
                 <a href="https://www.mozilla.com/firefox/">
@@ -134,7 +166,7 @@ function onSubmitBrowserForm() {
         <div class="visible-on-osx">
             <div class="row">
               <div class="col-xs-12">
-                <p>Bitte aktualisieren Sie Ihren Browser oder installieren Sie sich einen der folgenden:</p>
+                <p>{{ 'browser.update.install_text' |_ }}</p>
               </div>
               <div class="col-xs-12 col-md-3 firefox-link">
                 <a href="https://www.mozilla.com/firefox/">
@@ -164,8 +196,9 @@ function onSubmitBrowserForm() {
         </div>
 
         <div class="visible-on-ios">
-          <p>Unter iPad/iPhone kann der eingebaute Browser nur zusammen mit dem Betriebssystem aktualisiert werden.</p>
-          <p>Bitte versuchen Sie <a class="text-info" href="https://support.apple.com/de-de/HT204204">iOS zu aktualisieren</a>, um die neuste Version benutzen zu können.</p>
+          <p>{{ 'browser.update.i_os_text_line_1' |_ }}</p>
+          <p></p>
+          <p>{{ 'browser.update.text_please' |_ }} <a class="text-info" href="https://support.apple.com/de-de/HT204204">{{ 'browser.update.text_please_name'|_({ name: 'iOS' }) }}</a>, {{ 'browser.update.text_please_2' |_ }}</p>
         </div>
 
         <div class="col-xs-12 visible-on-android">
@@ -205,8 +238,8 @@ function onSubmitBrowserForm() {
         <div class="visible-on-chrome-os">
             <div class="row">
               <div class="col-xs-12">
-                <p>Unter Chromebooks / Chrome OS kann der eingebaute Browser nur zusammen mit dem Betriebssystem aktualisiert werden.</p>
-                <p>Bitte versuchen Sie <a class="text-info" href="https://support.google.com/chromebook/answer/177889">Chrome OS zu aktualisieren</a>, um die neuste Version benutzen zu können.</p>
+                <p>{{ 'browser.update.chrome_os_text_line_1' |_ }}</p>
+                <p>{{ 'browser.update.text_please' |_ }} <a class="text-info" href="https://support.google.com/chromebook/answer/177889">{{ 'browser.update.text_please_name'|_({ name: 'Chrome OS' }) }}</a>, {{ 'browser.update.text_please_2' |_ }}</p>
               </div>
             </div>
         </div>
@@ -215,7 +248,7 @@ function onSubmitBrowserForm() {
             <div class="row">
               <div class="col-xs-12">
                 <div class="alert alert-danger">
-                  <p>Leider konnten wir Ihr Betriebssystem nicht identifizieren, Sie können trotzdem versuchen einen der folgenden Browser zu installieren:</p>
+                  <p>{{ 'browser.update.install_text' |_ }}</p>
                 </div>
               </div>
               <div class="col-xs-12 col-md-3 firefox-link">
@@ -248,21 +281,21 @@ function onSubmitBrowserForm() {
       </div>
 
       <div class="col-xs-12 m-t-2">
-        <p>Folgende Werte Ihres Browsers wurden erkannt:</p>
+        <p>{{ 'browser.platform.detected_text' |_ }}</p>
         <dl class="dl-horizontal">
-          <dt>Name</dt>
+          <dt>{{ 'browser.platform.name' |_ }}</dt>
           <dd>{platform.name}</dd>
-          <dt>Version</dt>
+          <dt>{{ 'browser.platform.version' |_ }}</dt>
           <dd>{platform.version}</dd>
-          <dt>Hauptversion</dt>
+          <dt>{{ 'browser.platform.version_number' |_ }}</dt>
           <dd>{platform.version_number}</dd>
-          <dt>Render-Engine</dt>
+          <dt>{{ 'browser.platform.layout' |_ }}</dt>
           <dd>{platform.layout}</dd>
-          <dt>Betriebssystem</dt>
+          <dt>{{ 'browser.platform.os' |_ }}</dt>
           <dd>{platform.os}</dd>
-          <dt>Betriebssystem-Familie</dt>
+          <dt>{{ 'browser.platform.family' |_ }}</dt>
           <dd>{platform.os.family}</dd>
-          <dt>Kompatibel</dt>
+          <dt>{{ 'browser.platform.supported' |_ }}</dt>
           <dd>{platform.supported}</dd>
         </dl>
       </div>
@@ -274,48 +307,38 @@ function onSubmitBrowserForm() {
       >
 
         <div class="col-xs-12 description m-t-2">
-          <p>Möchten Sie einen Fehler melden oder glauben wir sollten diesen Shop für Ihren Browser optimieren? Über Feedback sind wir sehr dankbar!</p>
+          <p>{{ 'browser.form.text' |_ }}</p>
         </div>
 
         <div class="confirm-container">
-
+            {# Placeholder this will include the send notification #}
         </div>
-
-        {# TODO % if form.errors %}
-        <div class="col-xs-12 alert alert-danger">
-          <!-- {{ form.errors.size }} or {{ form.errors | size }} -->
-          <p>Ihr Kontaktformular hat {{ form.errors | size | pluralize: ‘einen Fehler’, ‘einige Fehler’ }}. Um das Formular abzuschicken machen Sie bitte folgende Änderungen und versuchen Sie es erneut:</p>
-          {% for field in form.errors %}
-            <p>The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
-          {% endfor %}
-        </div>
-        {% endif %#}
 
         <div class="col-xs-12 col-sm-12" id="contactFormWrapper">
 
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="form-group">
-                <label class="sr-only">{{ 'contact.form.firstname' }}</label>
-                <input type="text" class="form-control text-left" id="contactFormFirstname" placeholder="{{ 'contact.form.firstname' }}" name="contact[firstname]">
+                <label class="sr-only">{{ 'contact.form.firstname' |_ }}</label>
+                <input type="text" class="form-control text-left" id="contactFormFirstname" placeholder="{{ 'contact.form.firstname' |_ }}" name="contact[firstname]">
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="form-group">
-                <label class="sr-only">{{ 'contact.form.name' }}</label>
-                <input type="text" class="form-control text-left" id="contactFormName" placeholder="{{ 'contact.form.name' }}" name="contact[name]">
+                <label class="sr-only">{{ 'contact.form.name' |_ }}</label>
+                <input type="text" class="form-control text-left" id="contactFormName" placeholder="{{ 'contact.form.name' |_ }}" name="contact[name]">
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="form-group">
-                <label class="sr-only">{{ 'contact.form.email' }}</label>
-                <input type="email" class="form-control text-left" required id="contactFormEmail" placeholder="{{ 'contact.form.email' }}" name="contact[email]">
+                <label class="sr-only">{{ 'contact.form.email' |_ }}</label>
+                <input type="email" class="form-control text-left" required id="contactFormEmail" placeholder="{{ 'contact.form.email' |_ }}" name="contact[email]">
               </div>
             </div>
             <div class="col-xs-12 col-sm-6">
               <div class="form-group">
-                <label class="sr-only">{{ 'contact.form.phone' }}</label>
-                <input type="text" class="form-control text-left" id="contactFormPhone" placeholder="{{ 'contact.form.phone' }}" name="contact[phone]">
+                <label class="sr-only">{{ 'contact.form.phone' |_ }}</label>
+                <input type="text" class="form-control text-left" id="contactFormPhone" placeholder="{{ 'contact.form.phone' |_ }}" name="contact[phone]">
               </div>
             </div>
 
@@ -347,12 +370,12 @@ function onSubmitBrowserForm() {
             <div class="col-xs-12">
               <div class="form-group">
                 <label class="sr-only">Problembeschreibung</label>
-                <textarea required rows="10" class="form-control" id="contactFormMessage" placeholder="Problembeschreibung" name="contact[problem_description]"></textarea>
+                <textarea required rows="10" class="form-control" id="contactFormMessage" placeholder="{{ 'contact.form.problem_description' |_ }}" name="contact[problem_description]"></textarea>
               </div>
             </div>
             <div class="col-xs-12">
               <div class="form-group text-left">
-                <input type="submit" class="btn btn-primary p-x-1" id="contactFormSubmit" value="{{ 'contact.form.send' }}" />
+                <input type="submit" class="btn btn-primary p-x-1" id="contactFormSubmit" value="{{ 'contact.form.send' |_ }}" />
               </div>
             </div>
           </div>

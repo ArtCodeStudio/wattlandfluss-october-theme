@@ -1,0 +1,37 @@
+description = "Snippet: Button"
+
+[viewBag]
+snippetCode = "jumplink-snippet-button"
+snippetName = "Button"
+snippetProperties[wrapContainer][title] = "Mit Rand (.container) umschließen"
+snippetProperties[wrapContainer][type] = "checkbox"
+snippetProperties[wrapContainer][default] = 0
+snippetProperties[wrapContainer][options][] = ""
+snippetProperties[buttonAlignment][title] = "Button Ausrichtung"
+snippetProperties[buttonAlignment][type] = "dropdown"
+snippetProperties[buttonAlignment][default] = ""
+snippetProperties[buttonAlignment][options][left] = "Linksbündig"
+snippetProperties[buttonAlignment][options][center] = "Zentriert"
+snippetProperties[buttonAlignment][options][justify] = "Blocksatz"
+snippetProperties[buttonAlignment][options][right] = "Rechtsbündig"
+==
+{% if wrapContainer %}
+    {% set containerClass = 'container'%}
+{% endif %}
+{% if wrapContainerFluid %}
+    {% set containerClass = 'container-fluid'%}
+{% endif %}
+
+<div class="pt-5">
+    <div class="{{containerClass}}">
+        <div class="row ">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 my-4 text-{{buttonAlignment}}">
+                        <a href="/termine{#{ 'termine'|staticPage }#}" class="btn btn-outline-success">Termine ansehen</a>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+</div>

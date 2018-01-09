@@ -21,7 +21,27 @@ description = "bottom html code for barba layouts"
             </button>
         </template>        
         
-        {# Deps TODO check jquery.lazy.plugins.js http://jquery.eisbehr.de/lazy/ #}
+        {#
+         # Deps:
+         # * juery because its jQuery
+         # * jquery.lazy to load images, videos and more asnyc
+         # * tether for bootstrap
+         # * Bootstrap 4 because its Bootstrap
+         # * jquery.simpler-sidebar for sidebars
+         # * barba for async page loading
+         # * TweenMax for barba page transitions, maybe we cloud replace this with native css
+         # * leaflet for location partials
+         # * slick for carousels, slideshows and galleries
+         # * mobile-events
+         # * Prism for syntax highlighting in the docs
+         # * Moment.js for events and dates
+         # * Debug for seperation in debug messages in the browser console (need to build the browser version)
+         # * Platform.js for browser detection
+         # * Sightglass for rivets
+         # * Rivets for dynamic templates like angular but much simpler
+         # *
+         # TODO check if jquery.lazy.plugins.js is usefull http://jquery.eisbehr.de/lazy/
+         #}
         <script src="{{ [
             'assets/vendor/jquery/dist/jquery.js',
             'assets/vendor/jquery-lazy/jquery.lazy.js',
@@ -38,6 +58,8 @@ description = "bottom html code for barba layouts"
             'assets/vendor/moment/min/moment-with-locales.js',
             'assets/vendor/visionmedia-debug/dist/debug.js',
             'assets/vendor/platform.js/platform.js',
+            'assets/vendor/sightglass/index.js',
+            'assets/vendor/rivets/dist/rivets.js',
         ]|theme }}" ></script>
         
         <script>
