@@ -116,6 +116,7 @@ jumplink.setLanguage = function () {
  * Init the rightsidebar using simpler-sidebar and transformicons
  * @see http://dcdeiv.github.io/simpler-sidebar/
  * @see http://www.transformicons.com/
+ * TODO move to partials?
  */
 jumplink.initRightSidebar = function () {
   // init tree before sidebar to cache tree events in sidebar to close the sidebar
@@ -198,37 +199,28 @@ jumplink.initRightSidebar = function () {
     }
   });
   
-    $rightSidebar.on('swiperight', function(e) { 
-        console.log('swiperight');
-        jumplink.toggleRightSidebar();
-    });
+  $rightSidebar.on('swiperight', function(e) { 
+      console.log('swiperight');
+      jumplink.toggleRightSidebar();
+  });
       
   $rightSidebar.show();
-
-  if(jumplink.cache && jumplink.cache.$window && jumplink.cache.$Sidebars) {
-    jumplink.cache.$window.resize(function() {
-      jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
-    });
-    jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
-  } else {
-    console.error(new Error('jumplink.cache is undefined'));
-  }
   
   
-  var $itemSlideMain = jumplink.cache.$listItemsCarousel;
+  
+  // if slide navigation is avable
+  if(jumplink.cache.$listItemsCarousel) {
 
-  if($itemSlideMain.hasClass('itemsilde-initialized')) {
+    if(jumplink.cache.$listItemsCarousel.hasClass('itemsilde-initialized')) {
     // window.jumplink.debug.itemslide('[initProductCarouselWithItemSlide] already created, stop');
-    // $itemSlideMain.reload();
+    jumplink.cache.$listItemsCarousel.reload();
     return;
-  } else {
-    // window.jumplink.cache.products = {}; // clear list
-  } 
-  
-  var width = $itemSlideMain.width();
-  $itemSlideMain.parent().css('min-width', width);
-
-  $itemSlideMain.itemslide({
+    }
+    
+    var width = jumplink.cache.$listItemsCarousel.width();
+    jumplink.cache.$listItemsCarousel.parent().css('min-width', width);
+    
+    jumplink.cache.$listItemsCarousel.itemslide({
     disable_slide: true,
     disable_autowidth: true,
     // left_sided: true,
@@ -236,10 +228,27 @@ jumplink.initRightSidebar = function () {
     one_item: true,
     parent_width: true,
     // duration: 1500
-  });
-   
+    });
+
+    window.jumplink.dataApi.initItemslide();
+  }
   
-  window.jumplink.dataApi.initItemslide();
+  
+  if(jumplink.cache && jumplink.cache.$window && jumplink.cache.$Sidebars) {
+    jumplink.cache.$window.resize(function() {
+      jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
+    });
+    jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
+    
+    if(jumplink.cache.$listItemsCarousel) {
+        var width = jumplink.cache.$listItemsCarousel.width();
+        jumplink.cache.$listItemsCarousel.parent().css('min-width', width);
+        jumplink.cache.$listItemsCarousel.reload();
+    }
+    
+  } else {
+    console.error(new Error('jumplink.cache is undefined'));
+  }
   
 };
 
