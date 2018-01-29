@@ -19,6 +19,58 @@ window.jumplink.templates.init = function(dataset, data) {
 };
 
 /**
+ * To test if the jumplink.newPageReady was called at the first
+ */
+window.jumplink.firstNewPageReadyEvent = true;
+
+
+window.jumplink.templates.prepairTemplate = function(dataset) {
+    
+    // console.log('newPageReady');
+    var data = window.jumplink.parseDatasetJsonStrings(dataset);
+
+    window.jumplink.closeAllModals();
+    jumplink.initDataApi();
+    jumplink.resetNav();
+    jumplink.setBodyId(dataset.namespace);
+    
+    jumplink.initMomentDataApi();
+
+    if(typeof(Hyphenator) !== 'undefined') {
+      Hyphenator.run();
+    }
+    
+    if(typeof(Prism) !== 'undefined') {
+        Prism.highlightAll();
+    }
+
+    // preload images again if failed in barba or this is the first page request
+    // window.jumplink.loadImagesByNamespace();
+    
+    // window.jumplink.loadVideos();
+    
+    // window.jumplink.showHideNewsletterForm(dataset, data);
+    
+    // window.jumplink.initDataAttributes(dataset);
+    
+    //  window.jumplink.setNavActive(dataset, data);
+    
+    jumplink.debug.templates('dataset', dataset, 'data', data);
+    
+    window.jumplink.loadImages();
+    
+    window.jumplink.partials.init(dataset, data);
+    window.jumplink.templates.init(dataset, data);
+    
+    if(window.jumplink.firstNewPageReadyEvent) {
+        $(document).trigger('jumplink.newPageReady', [true, dataset, data]);
+    jumplink.firstNewPageReadyEvent = false;
+    } else {
+        $(document).trigger('jumplink.newPageReady', [false, dataset, data]);
+    }
+};
+
+/**
  * init no-barba template like I am not a robot captcha (url /challenge)
  */
 window.jumplink.templates['no-barba'] = function (dataset, data) {

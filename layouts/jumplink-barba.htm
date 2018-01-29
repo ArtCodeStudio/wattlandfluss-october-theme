@@ -1,6 +1,8 @@
-description = "Inhaltsseite ohne .container"
+description = "Inhaltsseite ohne Titel"
 
 [staticPage]
+useContent = 1
+default = 0
 ==
 <?php
 // TODO wird diese funktion zweimal aufgerufen?
@@ -35,7 +37,7 @@ function onMailSent() {
 ?>
 ==
 {% partial 'jumplink-layout-barba-top' %}
-    <div class="py-1 py-lg-5">
+    <div class="py-5">
         {% page %}
     </div>
 {% partial 'jumplink-layout-barba-bottom' %}

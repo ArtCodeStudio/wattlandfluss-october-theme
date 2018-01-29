@@ -159,30 +159,43 @@ window.jumplink.isTouchDevice = function () {
 };
 
 /**
- * Preloading images with jQuery with callback after image is loaded
- * 
- * @see http://stackoverflow.com/a/476681/1465919
- * @see https://perishablepress.com/3-ways-preload-images-css-javascript-ajax/
+ * @see http://jquery.eisbehr.de/lazy/
+ * TODO update barba cache after image was loaded
  */
-window.jumplink.preloadImage = function ($element, src, srcOrignal, cb) {
-  return $(new Image()).attr("src", src).load(function() {
-    $image = $(this);
-    $image.unbind('load');
-    return cb($element, src, srcOrignal, $image);
-  });
-};
+window.jumplink.loadImages = function(loadAll, customSelector$) {
+  var delay = -1;
+  if(loadAll) {
+    delay = 0;
+  }
 
-/**
- * Preloading array of image sources
- * 
- * @see jumplink.preloadImage
- * @see https://perishablepress.com/3-ways-preload-images-css-javascript-ajax/
- */
-window.jumplink.preloadImages = function (arrayOfImages) {
-  $(arrayOfImages).each(function() {
-    jumplink.preloadImage(this);
+  if (!customSelector$) {
+    customSelector$ = $('.lazy');
+  }
+
+  customSelector$.Lazy({
+      // your configuration goes here
+      scrollDirection: 'vertical',
+      effect: "fadeIn",
+      effectTime: 600,
+      threshold: 0,
+      visibleOnly: true,
+      bind: 'event',
+      delay: delay,
+      beforeLoad: function(element) {
+        // called before an elements gets handled
+      },
+      afterLoad: function(element) {
+        window.jumplink.debug.image('afterLoad image', element);
+      },
+      onError: function(element) {
+        window.jumplink.debug.image('error loading image', element);
+      },
+      onFinishedAll: function() {
+        jumplink.replaceNoImage();
+      }
   });
-};
+}
+
 
 /**
  * Replace no images

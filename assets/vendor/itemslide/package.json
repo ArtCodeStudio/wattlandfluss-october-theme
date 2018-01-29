@@ -1,0 +1,40 @@
+{
+  "name": "itemslide",
+  "version": "1.3.0",
+  "description": "A simple and beautiful JavaScript touch carousel",
+  "main": "dist/itemslide.min.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "start": "start ./index.html",
+    "build": "grunt",
+    "watch": "watchify src/itemslide.js -o dist/bundle.js",
+    "test": "start ./tests/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itemslide/itemslide.github.io"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "carousel",
+    "touch",
+    "mobile",
+    "slide",
+    "swipe"
+  ],
+  "author": "Nir Lichtman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itemslide/itemslide.github.io/issues"
+  },
+  "devDependencies": {
+    "browserify": "^10.1.3",
+    "grunt": "^1.0.1",
+    "grunt-banner": "^0.5.0",
+    "grunt-browserify": "^3.8.0",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

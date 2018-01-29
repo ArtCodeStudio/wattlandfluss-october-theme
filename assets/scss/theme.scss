@@ -1,23 +1,63 @@
-//@error "Sorry, but `#{$grid-breakpoints-xs}` makes Problems";
-@import "fixes";
+// todo remove
 @import "../vendor/font-awesome/scss/font-awesome";
+
+// variables we neeed for all other scss files
 @import "variables";
+
+// overwrite variables only for this theme 
+@import "theme-variables";
+
+// slick styles
 @import "../vendor/slick-carousel/slick/slick";
 @import "../vendor/slick-carousel/slick/slick-theme";
-@import "../vendor/jumplink-components/scss/jumplink-components";
+
+// leaflet styles
 @import "../vendor/leaflet/dist/leaflet.css";
-// @import '../vendor/prism/themes/prism-okaidia.css';
-@import "sidebars";
-@import "pages";
-@import "icons";
-@import "nav";
-@import "text";
-@import "color";
-@import "fonts";
-@import "pagination";
-@import "button";
-@import "sizes";
+
+// browser prefixes rendered in scss
+@import '../vendor/sass-prefix-mixins/scss/prefixes';
+
+// utilities also bootstrap need
+@import 'utilities';
+
+// fixes for bootstrap we need
+@import 'fixes';
+
+// bootstrap 4 compatible with the scss version of octobercms
+@import '../vendor/bootstrap-backward/scss/bootstrap';
+
+// all custom styles for this theme
+@import "normalize";
 @import "carousel";
+@import "border";
+@import "colors";
+@import "cursor";
+@import "pagination";
+@import "breadcrumb";
+@import "javascript";
+@import "animations";
+@import "images";
+@import "styleicons";
+@import "utilities";
+@import "code";
+@import "button";
+@import "icons";
+@import "positions";
+@import "instagram";
+@import "modal";
+@import "iconset";
+@import "sizes";
+@import "text";
+@import "effects";
+@import "nav";
+@import "pages";
 @import "containers";
-@import "intergram";
+@import "shadow";
+@import "backgrounds";
+@import "fonts";
+@import "sidebars";
 @import "partials";
+@import "itemslide"; // style for https://github.com/JumpLinkNetwork/itemslide.github.io
+
+// overwrite styles only for this theme 
+@import "theme-customisations";

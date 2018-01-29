@@ -1,0 +1,134 @@
+description = "Event liste (info right of image)"
+
+[viewBag]
+==
+<?php
+use Radiantweb\Proevents\Components;
+use Radiantweb\Proevents\Models\GeneratedDate as GeneratedDateModel;
+use Radiantweb\Proevents\Models\Calendar as CalendarModel;
+
+function onStart()
+{
+    // anonymos classes only working on php7
+    $this['code'] = new class {
+        public function getItemDates($group,$event_id) {
+            $dates_string = '';
+            $events = new GeneratedDateModel();
+            $grouped_events = $events->getGroupedDates($event_id,$group);
+            foreach($grouped_events  as $e){
+                $dates_string .= 'am '.date('d.m.Y',strtotime($e->event_date)).' um ';
+                if($e->allday > 0){
+                    $dates_string .= 'den ganzen Tag <br/>';
+                }else{
+                    $dates_string .= date('H:i',strtotime($e->sttime)).' bis '.date('H:i',strtotime($e->entime)).'<br/>';
+                }
+            }
+        
+        
+            return $dates_string;
+        }
+        public function getCalender($calendar_id) {
+            return CalendarModel::find($calendar_id);
+        }
+    };
+}
+?>
+==
+{% if image_with_ratio is not defined %}
+    {% set image_with_ratio = true %}
+{% endif %}
+
+{% if image_ratio is not defined %}
+    {% set image_ratio = 'ratio-4-3' %}
+{% endif %}
+
+{% if link_to_detail is not defined %}
+    {% set link_to_detail = true %}
+{% endif %}
+
+{% if display_to_now is not defined %}
+    {% set display_to_now = false %}
+{% endif %}
+
+{% if display_calender_name is not defined %}
+    {% set display_to_now = false %}
+{% endif %}
+
+<div class="row">
+    {% for event_item in events %}
+    
+        {% set calenderName = code.getCalender(event_item.calendar_id).name %}
+        {% set calenderColor = code.getCalender(event_item.calendar_id).color %}
+    
+        <div class="col-xs-12 col-lg-4 pt-lg-5">
+            {% if event_item.event.featured_images[0]['path'] %}
+                {% if image_with_ratio %}
+                    <div class="lazy img-fluid background-box {{image_ratio}}" data-src="{{event_item.event.featured_images[0]['path']}}"></div>
+                {% else %}
+            	    <img class="lazy img-fluid" data-src="{{event_item.event.featured_images[0]['path']}}" alt="event_{{event.id}}" />
+            	{% endif %}
+            {% endif %}
+        </div>
+        <div class="card border-px-0 col-xs-12 col-lg-6">
+            <div class="card-header border-px-0 bg-white text-left px-0">
+				{% if event_item.grouped > 0 %}
+					{{ code.getItemDates(event_item.grouped_id,event_item.event_id)|raw }}
+					{{ event_item.event.multidate["date"] }}
+					{% for date in event_item.event.multidate %}
+					    {{date | json_encode()}}
+					{% endfor %}
+					
+				{% else %}
+				    <h3 style="color: #{{calenderColor}};">
+				    	{{ event_item.event_date|date(PE_DATE_SPOKEN) }}
+    					<small>
+        					{% if event_item.allday > 0 %}
+        						{{'den ganzen Tag'|_}}
+        					{% else %}
+        						{{ event_item.sttime|date(PE_DATE_TIME) }} - {{ event_item.entime|date(PE_DATE_TIME) }} Uhr
+        					{% endif %}
+    					</small>
+    					<br>
+                        <small>
+                            {{ event_item.title }}<br>
+                            {% if display_calender_name %}
+                                <small class="text-muted">
+                                    {{calenderName}}
+                                </small>
+                            {% endif %}
+                            {% if event_item.status != '' %}<small class="event_{{event_item.status}}">- {{event_item.status |_}}</small>{% endif %}
+                        </small>
+				    </h3>
+				    {% if display_to_now %}
+                        <small class="text-muted">
+                            <div data-moment-display-to-now="{{event_item.event_date|date('Y-m-d')}} {{event_item.sttime|date('H:i:s')}}">
+                                {{event_item.event_date|date('Y-m-d')}} {{event_item.sttime|date('g:i a')}}
+                            </div>
+                        </small>
+                    {% endif %}
+				{% endif %}
+            </div>
+            <div class="">
+                <p class="card-text">
+                    {% if event_item.excerpt %}
+                        {{ event_item.excerpt|raw }}
+                    {% else %}
+                        {{ event_item.content|raw }}
+                    {% endif %}
+                </p>
+            </div>
+            
+            <div class="card-footer border-px-0 bg-white px-0">
+                {% if link_to_detail %}
+                    <a class="text-success" href="{{ eventpage|page({'event_slug': event_item.title|replace({' ':'-'})|lower,'event_id': event_item.id }) }}/">
+                        mehr dazu
+                    </a>
+                {% endif %}
+            </div>
+            
+        </div>
+    {% endfor %}
+</div>
+{% if pagination > 0 %}
+	{{events.render|raw}}
+{% endif %}

@@ -1,0 +1,130 @@
+.btn {
+    // font-size: .9rem;
+    font-family: $font-family-second !important;
+}
+
+.btn-outline-dark {
+    @include border-dashed($gray-dark, $spacing: 20px, $width: 2px);
+}
+
+.btn {
+    // font-size: .9rem;
+    font-family: $font-family-second !important;
+}
+
+.sidebar-toggler-text {
+     font-family: $font-family-second !important;
+     font-size: .9rem;
+}
+
+.right-sidebar {
+    @include border-dashed($gray-dark, $spacing: 20px, $width: 2px);
+    padding: 2px;
+}
+
+/*
+a:not(.btn) {
+    // transition: color 200ms ease-out 1s;
+    &:hover {
+        // s@include vp-animation('colorChangeWarningDanger 3s ease-out infinite');
+        color: $brand-success;
+    }
+}
+
+
+.btn-outline-secondary {
+    &:hover {
+        color: $gray-dark;
+    }
+}
+
+.btn-outline-success {
+    color: $btn-success-border;
+    border-color: $btn-success-border;
+}
+*/
+
+// .pagination {
+//     &.disabled {
+//         opacity: 0;
+//     }
+// }
+
+
+// // Startseite
+// [data-namespace="willkommen"] {
+
+// }
+
+// // outsite of data-namespace
+// body#willkommen {
+//     #main-footer {
+//         display: none;
+//     }
+// }
+
+// // maintaince work
+// [data-namespace="maintenancework"] {
+//     .bg-as-border {
+//         padding: 1vw;
+//     }
+//     .lead {
+//         font-size: 9vw;
+//     }
+//     .subtext {
+//         font-size: 5vw;
+//         font-family: 'Overpass', sans-serif;
+//         color: black;
+//     }
+// }
+
+// [data-namespace="strandbasar"] {
+//     .slick-prev, .slick-next {
+//         svg {
+//             fill: $brand-warning !important;
+//         }
+//     }
+//     .slick-prev {
+//         left: -50px;
+//     }
+//     .slick-next {
+//         right: -50px;
+//     }
+// }
+
+// [data-namespace="strandgut"] {
+//     .slick-prev, .slick-next {
+//         svg {
+//             fill: $brand-danger !important;
+//         }
+//     }
+//     .slick-prev {
+//         left: -50px;
+//     }
+//     .slick-next {
+//         right: -50px;
+//     }
+// }
+
+// .logo-01 {
+//     max-width: 360px;
+// }
+
+// .logo-02 {
+//     max-width: 460px;
+// }
+
+// .background-01 {
+//     background-image: url(../images/background_01.jpg);
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     background-position: center center;
+// }
+
+// .background-01b {
+//     background-image: url(../images/background_01.jpg);
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     background-position: center center;
+// }
+

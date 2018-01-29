@@ -1,14 +1,15 @@
-.btn-outline-secondary {
-    &:hover {
-        color: $gray-dark;
-    }
+.btn-outline-dark {
+   @include button-outline-variant($gray-dark);
 }
 
-.btn-outline-success {
-    color: $btn-success-border;
-    border-color: $btn-success-border;
+.btn-outline-light {
+   @include button-outline-variant($gray-light);
 }
 
-.btn {
-    font-size: .9rem;
+.btn-dark {
+   @include button-variant($gray-dark, $gray-dark, $gray-dark);
+}
+
+.btn-light {
+   @include button-variant($gray-light, $gray-light, $gray-light);
 }

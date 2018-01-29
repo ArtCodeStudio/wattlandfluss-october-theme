@@ -1,0 +1,133 @@
+<html lang="en-US">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+
+    <!--Keywords-->
+    <meta name="keywords" content="JavaScript,carousel,mobile,touch,slide,jQuery">
+
+    <!--Thumbnails-->
+    <meta name="description" content="A simple and beautiful JavaScript touch carousel">
+    <link rel="image_src" href="http://itemslide.github.io/website-src/img/image.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ItemSlide.js - JavaScript touch carousel" />
+    <meta property="og:image" content="http://itemslide.github.io/website-src/img/image.jpg" />
+    <meta property="og:url" content="http://itemslide.github.io/" />
+    <meta property="og:description" content="A simple and beautiful JavaScript touch carousel" />
+
+    <meta name="twitter:image:src" content="http://itemslide.github.io/website-src/img/image.jpg" />
+    <meta name="twitter:description" content="A simple and beautiful JavaScript touch carousel">
+    <!--Thumbnails until here-->
+
+    <title>ItemSlide.js - JavaScript touch carousel</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600' rel='stylesheet' type='text/css'>
+
+    <!--Styles-->
+    <link href="website-src/layout.css" rel="stylesheet" />
+    <link href="website-src/sliding.css" rel="stylesheet" />
+    <!--Dependencies-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!--Optional-->
+    <!--Mousewheel compatible only with jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
+
+    <script src="dist/itemslide.min.js"></script>
+    <!--Website JS-->
+    <script src="website-src/sliding.js"></script>  <!-- Here the carousel is initialized -->
+
+</head>
+
+<body>
+    <header>
+        <a style="color:#FFF;text-decoration:none;" href="index.html">
+            <div id="headertext">ItemSlide<span style="font-size:4.3vh;">.js</span>
+            </div>
+          </a>
+            <table id="buttons-menu">
+                <tr>
+                    <td>
+                        <a id="docs" href="docs/index.html">
+                            Docs
+                        </a>
+                    </td>
+                    <td>
+                        <a id="github" href="https://github.com/itemslide/itemslide.github.io">
+                            Github
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+        <!--END OF BUTTONS MENU-->
+
+        <span id="downloadarea">
+        <a href="website-src/download.html" id="download">DOWNLOAD</a> (10K)
+        </span>
+    </header>
+
+    <div id="welcome">
+        <span class="content">
+        <img id="main-img" src="website-src/img/hero.svg"/>
+        <div id="maintitle">simple & beautiful<br/>
+            <span style="font-weight:400;">touch carousel</span><br/>
+            <span id="example-link"><a href="examples/fullscreen_navigation/index.html">Fullscreen Example</a></span>
+            <!--<span class="menu"><a href="examples/fullscreen_navigation/index.html">Full Screen Example</a></span>-->
+        </div>
+        </span>
+    </div>
+
+
+    <!--Here is the carousel-->
+    <div id="scrolling">
+        <!--Slider-->
+        <ul>
+            <li>
+                Swipe  <!-- Maybe add images or something here -->
+            </li>
+            <li>
+                Scroll
+            </li>
+            <li>
+                Swipe Up
+            </li>
+            <li>
+                Click to Slide
+            </li>
+            <li>
+                Mobile friendly
+            </li>
+        </ul>
+    </div>
+    <!--//-->
+
+
+    <!--Fotter from here-->
+    <div id="fotter" align="center">
+
+    <!--Social Links-->
+    <span id="links">
+    <iframe src="https://ghbtns.com/github-btn.html?user=itemslide&repo=itemslide.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+    <!--Twitter-->
+    <div id="twitterwrap">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://itemslide.github.io/" data-text="A simple and beautiful JavaScript touch carousel" data-hashtags="itemsilde">Tweet</a></div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </span>
+
+        Created by <a class="hrefs" href="https://github.com/nir9">Nir Lichtman</a>. Design by <a class="hrefs" href="http://iddan.co/">Iddan Aharonson</a>.
+    </div>
+    <!--Fotter untill here-->
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-56825472-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+</body>
+</html>

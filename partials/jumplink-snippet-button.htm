@@ -3,35 +3,89 @@ description = "Snippet: Button"
 [viewBag]
 snippetCode = "jumplink-snippet-button"
 snippetName = "Button"
-snippetProperties[wrapContainer][title] = "Mit Rand (.container) umschließen"
+snippetProperties[wrapContainer][title] = "Mit Rand"
 snippetProperties[wrapContainer][type] = "checkbox"
 snippetProperties[wrapContainer][default] = 0
 snippetProperties[wrapContainer][options][] = ""
-snippetProperties[buttonAlignment][title] = "Button Ausrichtung"
+snippetProperties[buttonAlignment][title] = "Ausrichtung"
 snippetProperties[buttonAlignment][type] = "dropdown"
-snippetProperties[buttonAlignment][default] = ""
+snippetProperties[buttonAlignment][default] = "left"
 snippetProperties[buttonAlignment][options][left] = "Linksbündig"
 snippetProperties[buttonAlignment][options][center] = "Zentriert"
 snippetProperties[buttonAlignment][options][justify] = "Blocksatz"
 snippetProperties[buttonAlignment][options][right] = "Rechtsbündig"
+snippetProperties[marginTop][title] = "Abstand oben"
+snippetProperties[marginTop][type] = "dropdown"
+snippetProperties[marginTop][default] = 1
+snippetProperties[marginTop][options][] = "keiner"
+snippetProperties[marginTop][options][] = "klein"
+snippetProperties[marginTop][options][] = "wenig"
+snippetProperties[marginTop][options][] = "mittel"
+snippetProperties[marginTop][options][] = "mehr"
+snippetProperties[marginTop][options][] = "groß"
+snippetProperties[marginBottom][title] = "Abstand unten"
+snippetProperties[marginBottom][type] = "dropdown"
+snippetProperties[marginBottom][default] = 1
+snippetProperties[marginBottom][options][] = "keiner"
+snippetProperties[marginBottom][options][] = "klein"
+snippetProperties[marginBottom][options][] = "wenig"
+snippetProperties[marginBottom][options][] = "mittel"
+snippetProperties[marginBottom][options][] = "mehr"
+snippetProperties[marginBottom][options][] = "groß"
+snippetProperties[buttonStyle][title] = "Style"
+snippetProperties[buttonStyle][type] = "dropdown"
+snippetProperties[buttonStyle][default] = "primary"
+snippetProperties[buttonStyle][options][outline-primary] = "Outline Primary"
+snippetProperties[buttonStyle][options][outline-secondary] = "Outline Secondary"
+snippetProperties[buttonStyle][options][outline-success] = "Outline Success"
+snippetProperties[buttonStyle][options][outline-danger] = "Outline Danger"
+snippetProperties[buttonStyle][options][outline-warning] = "Outline Warning"
+snippetProperties[buttonStyle][options][outline-info] = "Outline Info"
+snippetProperties[buttonStyle][options][outline-light] = "Outline Light"
+snippetProperties[buttonStyle][options][outline-dark] = "Outline Dark"
+snippetProperties[buttonStyle][options][primary] = "Primary"
+snippetProperties[buttonStyle][options][secondary] = "Secondary"
+snippetProperties[buttonStyle][options][success] = "Success"
+snippetProperties[buttonStyle][options][danger] = "Danger"
+snippetProperties[buttonStyle][options][warning] = "Warning"
+snippetProperties[buttonStyle][options][info] = "Info"
+snippetProperties[buttonStyle][options][light] = "Light"
+snippetProperties[buttonStyle][options][dark] = "Dark"
+snippetProperties[buttonStyle][options][link] = "Link"
+snippetProperties[buttonLabel][title] = "Label"
+snippetProperties[buttonLabel][type] = "string"
+snippetProperties[buttonLabel][default] = "Platzhalter"
+snippetProperties[buttonLabel][options][] = ""
+snippetProperties[jumpToPage][title] = "Gehe zu Seite"
+snippetProperties[jumpToPage][type] = "string"
+snippetProperties[jumpToPage][default] = ""
+snippetProperties[jumpToPage][options][] = ""
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
-{% endif %}
-{% if wrapContainerFluid %}
+{% else %}
     {% set containerClass = 'container-fluid'%}
 {% endif %}
 
-<div class="pt-5">
-    <div class="{{containerClass}}">
-        <div class="row ">
-            <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-xs-12 my-4 text-{{buttonAlignment}}">
-                        <a href="/termine{#{ 'termine'|staticPage }#}" class="btn btn-outline-success">Termine ansehen</a>
-                    </div>
+
+{% set btnClass = 'btn btn-' ~ buttonStyle %}
+
+
+{% set marginTopClass = 'mt-' ~ marginTop %}
+{% set marginBottomClass = 'mb-' ~ marginBottom %}
+
+{% set buttonAlignmentClass = 'text-' ~ buttonAlignment %}
+
+<div class="{{containerClass}}">
+    <div class="row ">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 {{marginTopClass}} {{marginBottomClass}} {{buttonAlignmentClass}}">
+                    <a href="{{jumpToPage | app}}" class="{{btnClass}}">
+                        {{buttonLabel}}
+                    </a>
                 </div>
             </div>
-       </div>
-    </div>
+        </div>
+   </div>
 </div>

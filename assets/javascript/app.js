@@ -46,7 +46,11 @@ jumplink.cacheSelectors = function () {
     lastElementClicked       : null,
     // to scroll to last product
     lastProductDataset       : null,
-    lastCollectionDataset       : null
+    lastCollectionDataset    : null,
+    
+    // itemslide
+    $listItemsCarousel       : $('#list-items-carousel'),
+    
   };
 };
 
@@ -118,15 +122,17 @@ jumplink.initRightSidebar = function () {
   var closingLinks = '.close-sidebar';
   var align = 'right';
   var trigger = '[data-toggle="sidebar"][data-target="#right-sidebar"]';
-  var mask = true;
+  var mask = false;
   var $rightSidebar = jumplink.cache.$rightSidebar;
+  var $tcon = $('.sidebar-toggler.tcon');
+  var defaultPaddingTop = 150;
 
   $rightSidebar.simplerSidebar({
     attr: "simplersidebar",
     init: "closed",
     top: 0,
     align: align, // sidebar.align
-    gap: 64, // sidebar.gap
+    gap: 0, // sidebar.gap
     animation: {
       duration: 500,
       easing: "swing"
@@ -136,7 +142,7 @@ jumplink.initRightSidebar = function () {
       quitter: closingLinks // sidebar.closingLinks
     },
     sidebar: {
-      width: 300
+      width: 500
     },
     mask: {
       display: mask,
@@ -153,12 +159,22 @@ jumplink.initRightSidebar = function () {
           open: function() {
             console.log('open');
             // icon animation for open
-            transformicons.transform($('.sidebar-toggler.tcon')[ 0 ]);
+            if($tcon.length) {
+                transformicons.transform($('.sidebar-toggler.tcon')[ 0 ]);
+            }
           },
           close: function() {
             console.log('close');
             // icon animation for close
-            transformicons.revert($('.sidebar-toggler.tcon')[ 0 ]);
+            if($tcon.length) {
+                transformicons.revert($('.sidebar-toggler.tcon')[ 0 ]);
+            }
+            
+            if(jumplink.cache.$listItemsCarousel) {
+                setTimeout(function(){
+                    jumplink.cache.$listItemsCarousel.gotoSlide(0);
+                }, 200);
+            }
           },
           both: function() {
 
@@ -176,7 +192,7 @@ jumplink.initRightSidebar = function () {
           both: function() {
             
           },
-          freezePage: true
+          freezePage: false
         }
       }
     }
@@ -191,12 +207,40 @@ jumplink.initRightSidebar = function () {
 
   if(jumplink.cache && jumplink.cache.$window && jumplink.cache.$Sidebars) {
     jumplink.cache.$window.resize(function() {
-      jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight()+'px');
+      jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
     });
-    jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight()+'px');
+    jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
   } else {
     console.error(new Error('jumplink.cache is undefined'));
   }
+  
+  
+  var $itemSlideMain = jumplink.cache.$listItemsCarousel;
+
+  if($itemSlideMain.hasClass('itemsilde-initialized')) {
+    // window.jumplink.debug.itemslide('[initProductCarouselWithItemSlide] already created, stop');
+    // $itemSlideMain.reload();
+    return;
+  } else {
+    // window.jumplink.cache.products = {}; // clear list
+  } 
+  
+  var width = $itemSlideMain.width();
+  $itemSlideMain.parent().css('min-width', width);
+
+  $itemSlideMain.itemslide({
+    disable_slide: true,
+    disable_autowidth: true,
+    // left_sided: true,
+    disable_scroll: true,
+    one_item: true,
+    parent_width: true,
+    // duration: 1500
+  });
+   
+  
+  window.jumplink.dataApi.initItemslide();
+  
 };
 
 /**
@@ -349,59 +393,6 @@ var initProductList = function() {
     });
 };
 
-
-/**
- * To test if the jumplink.newPageReady was called at the first
- */
-window.jumplink.firstNewPageReadyEvent = true;
-
-
-window.jumplink.templates.prepairTemplate = function(dataset) {
-    
-    // console.log('newPageReady');
-    var data = window.jumplink.parseDatasetJsonStrings(dataset);
-
-    window.jumplink.closeAllModals();
-    jumplink.initDataApi();
-    jumplink.resetNav();
-    jumplink.setBodyId(dataset.namespace);
-    
-    jumplink.initMomentDataApi();
-    
-    jumplink.movingBackground('.background-01', true, false);
-    jumplink.movingBackground('.background-01b', false, false);
-
-    if(typeof(Hyphenator) !== 'undefined') {
-      Hyphenator.run();
-    }
-    
-    if(typeof(Prism) !== 'undefined') {
-        Prism.highlightAll();
-    }
-
-  // preload images again if failed in barba or this is the first page request
-  // window.jumplink.loadImagesByNamespace();
-
-  // window.jumplink.loadVideos();
-
-  // window.jumplink.showHideNewsletterForm(dataset, data);
-
-  // window.jumplink.initDataAttributes(dataset);
-
-  //  window.jumplink.setNavActive(dataset, data);
-
-  jumplink.debug.templates('dataset', dataset, 'data', data);
-
-  window.jumplink.partials.init(dataset, data);
-  window.jumplink.templates.init(dataset, data);
-
-  if(window.jumplink.firstNewPageReadyEvent) {
-    $(document).trigger('jumplink.newPageReady', [true, dataset, data]);
-    jumplink.firstNewPageReadyEvent = false;
-  } else {
-    $(document).trigger('jumplink.newPageReady', [false, dataset, data]);
-  }
-};
 
 /**
  * Init Javascripts insite of barba.js

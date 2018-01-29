@@ -1,0 +1,35 @@
+[viewBag]
+
+[staticPage main]
+useContent = 1
+default = 0
+==
+{% if iconStyle is not defined %}
+    {% set iconStyle = 'text' %} {# 'text' | 'tcon' #}
+{% endif %}
+
+{% if mode is not defined %}
+    {% set mode = 'slide' %} {# 'slide' | 'toggle' #}
+{% endif %}
+
+
+<!-- Nav -->
+<nav class="fixed-top" id="main-navbar" itemscope itemtype="http://schema.org/SiteNavigationElement">
+    <div class="navbar navbar-light bg-transparent umplink-navbar_only-sidebar">
+        {% if iconStyle == 'tcon' %}
+            <button class="navbar-toggler navbar-toggler-right sidebar-toggler sidebar-toggler-tcon tcon tcon-menu--xcross hidden-print" type="button" data-toggle="sidebar" data-target="#right-sidebar" aria-controls="right-sidebar" aria-expanded="false" aria-label="Toggle Sidebar">
+                <span class="tcon-menu__lines" aria-hidden="true"></span>
+                <span class="tcon-visuallyhidden">toggle menu</span>
+            </button>
+        {% endif %}
+        
+        {% if iconStyle == 'text' %}
+            <button class="navbar-toggler navbar-toggler-right sidebar-toggler sidebar-toggler-text hidden-print" type="button" data-toggle="sidebar" data-target="#right-sidebar" aria-controls="right-sidebar" aria-expanded="false" aria-label="Toggle Sidebar">
+                Menü
+            </button>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- http://dcdeiv.github.io/simpler-sidebar/ -->
+{% partial 'jumplink-right-sidebar' mode=mode %}

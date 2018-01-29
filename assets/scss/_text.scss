@@ -1,20 +1,26 @@
-
-a:not(.btn) {
-    // transition: color 200ms ease-out 1s;
-    &:hover {
-        // s@include vp-animation('colorChangeWarningDanger 3s ease-out infinite');
-        color: $brand-success;
-    }
-}
-
-
+// https://blog.kulturbanause.de/2012/12/text-mit-verlauf-uberlagern-in-css3/
+// https://www.sitepoint.com/building-linear-gradient-mixin-sass/
 .gradient-text {
-    text-fill-color: transparent !important;
     -webkit-text-fill-color: transparent !important;
     text-fill-color: transparent !important;
-    -webkit-background-clip: text !important;
+    @include vp-background-clip(text !important);
 }
+
 
 strong {
     font-weight: $font-weight-bold;
+}
+
+/**
+ * Class to highlight text parts with your second font 
+ */
+.text-first {
+    font-family: $font-family-first;
+}
+
+/**
+ * Class to highlight text parts with your second font 
+ */
+.text-second {
+    font-family: $font-family-second;
 }

@@ -5,29 +5,73 @@ snippetCode = "jumplink-snippet-header-meta"
 snippetName = "Header mit Title und Beschreibung aus den Metadaten"
 snippetProperties[textAlignment][title] = "Text alignment"
 snippetProperties[textAlignment][type] = "dropdown"
-snippetProperties[textAlignment][default] = ""
+snippetProperties[textAlignment][default] = "left"
 snippetProperties[textAlignment][options][left] = "Linksbündig"
 snippetProperties[textAlignment][options][center] = "Zentriert"
 snippetProperties[textAlignment][options][justify] = "Blocksatz"
 snippetProperties[textAlignment][options][right] = "Rechtsbündig"
-snippetProperties[wrapContainer][title] = "Mit Rand (.container) umschließen"
+snippetProperties[wrapContainer][title] = "Mit Rand"
 snippetProperties[wrapContainer][type] = "checkbox"
 snippetProperties[wrapContainer][default] = 0
 snippetProperties[wrapContainer][options][] = ""
+snippetProperties[paddingTop][title] = "Abstand oben"
+snippetProperties[paddingTop][type] = "dropdown"
+snippetProperties[paddingTop][default] = 5
+snippetProperties[paddingTop][options][] = "keiner"
+snippetProperties[paddingTop][options][] = "klein"
+snippetProperties[paddingTop][options][] = "wenig"
+snippetProperties[paddingTop][options][] = "mittel"
+snippetProperties[paddingTop][options][] = "mehr"
+snippetProperties[paddingTop][options][] = "groß"
+snippetProperties[paddingBottom][title] = "Abstand unten"
+snippetProperties[paddingBottom][type] = "dropdown"
+snippetProperties[paddingBottom][default] = 0
+snippetProperties[paddingBottom][options][] = "keiner"
+snippetProperties[paddingBottom][options][] = "klein"
+snippetProperties[paddingBottom][options][] = "wenig"
+snippetProperties[paddingBottom][options][] = "mittel"
+snippetProperties[paddingBottom][options][] = "mehr"
+snippetProperties[paddingBottom][options][] = "groß"
+snippetProperties[titleFontFamily][title] = "Titel Schrift"
+snippetProperties[titleFontFamily][type] = "dropdown"
+snippetProperties[titleFontFamily][default] = "second"
+snippetProperties[titleFontFamily][options][first] = "Erste"
+snippetProperties[titleFontFamily][options][second] = "Zweite"
+snippetProperties[textFontFamily][title] = "Text Schrift"
+snippetProperties[textFontFamily][type] = "dropdown"
+snippetProperties[textFontFamily][default] = "first"
+snippetProperties[textFontFamily][options][first] = "Erste"
+snippetProperties[textFontFamily][options][second] = "Zweite"
+snippetProperties[titleWidth][title] = "Title Breite"
+snippetProperties[titleWidth][type] = "string"
+snippetProperties[titleWidth][default] = "100%"
+snippetProperties[titleWidth][options][] = ""
+snippetProperties[textWidth][title] = "Text Breite"
+snippetProperties[textWidth][type] = "string"
+snippetProperties[textWidth][default] = "100%"
+snippetProperties[textWidth][options][] = ""
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
-{% endif %}
-{% if wrapContainerFluid %}
+{% else %}
     {% set containerClass = 'container-fluid'%}
 {% endif %}
 
-<header class="pt-5">
+{% set paddingTopClass = 'pt-'~paddingTop %}
+{% set paddingBottomClass = 'pb-'~paddingBottom %}
+
+{% set buttonAlignmentClass = 'text-'~buttonAlignment %}
+
+{% set titleFontFamilyClass = 'text-'~titleFontFamily %}
+{% set textFontFamilyClass = 'text-'~titleFontFamily %}
+
+
+<header class="">
     <div class="{{containerClass}}">
-        <div class="row pt-5">
+        <div class="row">
             <div class="col-xs-12 text-{{textAlignment}}">
-                <h1 class="">{{page.meta_title | raw}}</h1>
-                <p>{{page.meta_description | raw}}</p>
+                <h1 class="{{titleFontFamilyClass}}" style="max-width: {{titleWidth}};">{{page.meta_title | raw}}</h1>
+                <p style="max-width: {{textWidth}};">{{page.meta_description | raw}}</p>
             </div>
         </div>
     </div>

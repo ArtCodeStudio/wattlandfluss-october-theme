@@ -1,17 +1,15 @@
 name: main
 items:
     -
-        title: 'Kreative Werkstatt'
+        title: Führungen
         nesting: '1'
         type: static-page
-        url: ''
         code: no-link
         reference: kreative-werkstatt
-        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
-            cssClass: kreative-werkstatt
+            cssClass: fuehrungen
             isExternal: '0'
     -
         title: Kunstwerke
@@ -43,8 +41,10 @@ items:
         title: Termine
         nesting: '0'
         type: static-page
+        url: ''
         code: ''
         reference: termine-neu
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'

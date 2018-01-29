@@ -1,0 +1,50 @@
+description = "sidebar items to slide"
+
+[viewBag]
+==
+<div class="list-items-carousel" id="list-items-carousel">
+    <div class="list-group">
+        {% for item in items %}
+            {% if item.code == 'no-link' %}
+                {% set url = '#' %}
+            {% else %}
+                {% set url = item.url %}
+            {% endif %}
+            {% set titleClass = str_studly(item.title) | lower | replace({'/':'_'}) %}
+            {% if item.items %}
+                <a class="list-group-item list-group-item-action {{ item.viewBag.cssClass }} {{titleClass}}" data-itemslide-method="gotoSlide" data-itemslide-slide="{{ loop.index }}" data-target="list-items-carousel" aria-expanded="false" aria-controls="collapseSidebarItems">
+                
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        {{ item.title }}
+                        {% partial 'jumplink-iconset' name='arrow_carrot' direction='right' color='black' size=24 %}
+                    </div>
+                </a>
+            {% else %}
+                <a class="close-sidebar list-group-item list-group-item-action {{ item.viewBag.cssClass }} {{titleClass}}" href="{{ url }}" itemprop="url">
+                    {{ item.title }}
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    
+    {% for item in items %}
+        {% if item.items %}
+            <div class="list-group">
+                 <a class="list-group-item list-group-item-action {{ item.viewBag.cssClass }} {{titleClass}}" data-itemslide-method="gotoSlide" data-itemslide-slide="0" data-target="list-items-carousel">
+                    Zurück
+                </a>
+                {% for item in item.items %}
+                    {% if item.code == 'no-link' %}
+                        {% set url = '#' %}
+                    {% else %}
+                        {% set url = item.url %}
+                    {% endif %}
+                    {% set titleClass = str_studly(item.title) | lower | replace({'/':'_'}) %}
+                    <a class="close-sidebar list-group-item list-group-item-action {{ item.viewBag.cssClass }} {{titleClass}}" href="{{ url }}" itemprop="url">
+                        {{ item.title }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

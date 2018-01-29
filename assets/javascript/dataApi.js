@@ -1,5 +1,79 @@
 // JumpLink functions
 jumplink = window.jumplink || {};
+jumplink.dataApi = window.jumplink.dataApi || {};
+
+// debugging https://github.com/visionmedia/debug
+window.jumplink.debug = window.jumplink.debug || {};
+window.jumplink.debug.dataApi = debug('theme:dataApi');
+
+
+window.jumplink.dataApi.initItemslide = function () {
+  var $itemslideMethod = $('[data-itemslide-method]');
+
+  // click events
+  $itemslideMethod.off('click').on('click', function() {
+    var $this = $(this);
+    var data = $this.data();
+    var method = data.itemslideMethod;
+    window.jumplink.debug.dataApi('[data-itemslide-method] click', data);
+    
+    // workaround
+    if(data.target === 'list-items-carousel') {
+      if(window.jumplink.cache.$listItemsCarousel) {
+        switch (method) {
+          case 'next':
+            window.jumplink.cache.$listItemsCarousel.next();
+            break;
+          case 'previous':
+            window.jumplink.cache.$listItemsCarousel.previous();
+            break;
+          case 'gotoSlide':
+            const slide = Number(data.itemslideSlide);
+            window.jumplink.debug.dataApi('[itemslide] gotoSlide', slide);
+            window.jumplink.cache.$listItemsCarousel.gotoSlide(slide);
+            break;
+        }
+      }
+    }
+  });
+
+  // state changes
+  $itemslideMethod.each(function(index) {
+    var $this = $(this);
+    var data = $this.data();
+    var method = data.itemslideMethod;
+    window.jumplink.debug.dataApi('[init state changes] data', data);
+    if(data.target === 'product-carousel') {
+      if(window.jumplink.cache.$productCarousel) {
+        window.jumplink.cache.$productCarousel.on('changeActiveIndex', function() {
+          var index = window.jumplink.cache.$productCarousel.getActiveIndex();
+          switch (method) {
+            case 'next':
+              var count = window.jumplink.getItemslideCount(window.jumplink.cache.$productCarousel);
+              if(count - 1 === index) {
+                $this.addClass('disabled');
+              } else {
+                $this.removeClass('disabled');
+              }
+              window.jumplink.debug.dataApi('[changeActiveIndex] next count', count, 'index', index);
+              break;
+            case 'previous':
+              if(index === 0) {
+                $this.addClass('disabled');
+              } else {
+                $this.removeClass('disabled');
+              }
+              window.jumplink.debug.dataApi('[changeActiveIndex] previous index', index);
+              break;
+          }
+        });
+      }
+    }
+
+  });
+
+};
+
 
 /**
  * Data bindings to call slick methods with target
@@ -153,4 +227,5 @@ jumplink.initDataApi = function () {
   jumplink.initSlickMethods();
   jumplink.initCustomModals();
   jumplink.initCustomCollapses();
+  jumplink.dataApi.initItemslide
 };

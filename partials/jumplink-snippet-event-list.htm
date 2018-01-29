@@ -3,6 +3,15 @@ description = "Snippet: Termine"
 [viewBag]
 snippetCode = "jumplink-snippet-event-list"
 snippetName = "Termine"
+snippetProperties[listStyle][title] = "Listenansicht"
+snippetProperties[listStyle][type] = "dropdown"
+snippetProperties[listStyle][default] = "infoRight"
+snippetProperties[listStyle][options][infoUnder] = "Info unter dem Bild"
+snippetProperties[listStyle][options][infoRight] = "Info rechts neben dem Bild"
+snippetProperties[wrapContainer][title] = "Mit Rand (.container) umschließen"
+snippetProperties[wrapContainer][type] = "checkbox"
+snippetProperties[wrapContainer][default] = 1
+snippetProperties[wrapContainer][options][] = ""
 
 [proEventList]
 eventpage = "PluginProevents/event-details"
@@ -16,4 +25,19 @@ Falls MySQL 5.7 verwendet wird muss der Strict SQL Mode deaktiviert werden, sieh
 * https://octobercms.com/plugin/support/radiantweb-proevents/component-eventlist-generates-sql-error-select-list-is-not-in-group-by-clause
 #}
 
-{% partial 'PluginProevents/event_list' __SELF__=proEventList %}
+{% set partialId = 'jumplink-snippet-event-list' %}
+
+{% if wrapContainer %}
+    {% set containerClass = 'container'%}
+{% else %}
+    {% set containerClass = 'container-fluid'%}
+{% endif %}
+
+<div class="{{containerClass}} py-5 jumplink-partial {{partialId}}" data-partial-name="{{partialId}}">
+    {% if listStyle == 'infoRight' %}
+        {% partial 'PluginProevents/event_list_info-right' __SELF__=proEventList %}
+    {% endif %}
+    {% if listStyle == 'infoUnder' %}
+        {% partial 'PluginProevents/event_list' __SELF__=proEventList %}
+    {% endif %}
+</div>
