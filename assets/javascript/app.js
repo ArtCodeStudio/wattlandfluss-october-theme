@@ -32,9 +32,6 @@ jumplink.cacheSelectors = function () {
 
     $mainNavbar              : $('#main-navbar'),
     $mainFooter              : $('#main-footer'),
-    $leftSidebar             : $('#left-sidebar'),
-    $rightSidebar            : $('#right-sidebar'),
-    $Sidebars                : $('#right-sidebar, #left-sidebar'),
     // $navTree                 : $('#nav-tree'),
 
     $barbaWrapper            : $('#barba-wrapper'),
@@ -42,14 +39,13 @@ jumplink.cacheSelectors = function () {
     $prevArrowTeplate        : $('#slick-prev-arrow'),
     $nextArrowTeplate        : $('#slick-next-arrow'),
     
+    $listItemsCarousel       : $('#list-items-carousel'),
+    
     // barba
     lastElementClicked       : null,
     // to scroll to last product
     lastProductDataset       : null,
     lastCollectionDataset    : null,
-    
-    // itemslide
-    $listItemsCarousel       : $('#list-items-carousel'),
     
   };
 };
@@ -110,146 +106,6 @@ jumplink.setLanguage = function () {
     if(typeof(moment) !== 'undefined') {
         moment.locale(langCode);
     }
-};
-
-/**
- * Init the rightsidebar using simpler-sidebar and transformicons
- * @see http://dcdeiv.github.io/simpler-sidebar/
- * @see http://www.transformicons.com/
- * TODO move to partials?
- */
-jumplink.initRightSidebar = function () {
-  // init tree before sidebar to cache tree events in sidebar to close the sidebar
-  var closingLinks = '.close-sidebar';
-  var align = 'right';
-  var trigger = '[data-toggle="sidebar"][data-target="#right-sidebar"]';
-  var mask = false;
-  var $rightSidebar = jumplink.cache.$rightSidebar;
-  var $tcon = $('.sidebar-toggler.tcon');
-  var defaultPaddingTop = 150;
-
-  $rightSidebar.simplerSidebar({
-    attr: "simplersidebar",
-    init: "closed",
-    top: 0,
-    align: align, // sidebar.align
-    gap: 0, // sidebar.gap
-    animation: {
-      duration: 500,
-      easing: "swing"
-    },
-    selectors: {
-      trigger: trigger, // opener
-      quitter: closingLinks // sidebar.closingLinks
-    },
-    sidebar: {
-      width: 500
-    },
-    mask: {
-      display: mask,
-      css: {
-        backgroundColor: "black",
-        opacity: 0.5,
-        filter: "Alpha(opacity=50)",
-        'z-index': 998,
-      }
-    },
-    events: {
-      on: {
-        animation: {
-          open: function() {
-            console.log('open');
-            // icon animation for open
-            if($tcon.length) {
-                transformicons.transform($('.sidebar-toggler.tcon')[ 0 ]);
-            }
-          },
-          close: function() {
-            console.log('close');
-            // icon animation for close
-            if($tcon.length) {
-                transformicons.revert($('.sidebar-toggler.tcon')[ 0 ]);
-            }
-            
-            if(jumplink.cache.$listItemsCarousel) {
-                setTimeout(function(){
-                    jumplink.cache.$listItemsCarousel.gotoSlide(0);
-                }, 200);
-            }
-          },
-          both: function() {
-
-          },
-        }
-      },
-      callbacks: {
-        animation: {
-          open: function() {
-
-          },
-          close: function() {
-
-          },
-          both: function() {
-            
-          },
-          freezePage: false
-        }
-      }
-    }
-  });
-  
-  $rightSidebar.on('swiperight', function(e) { 
-      console.log('swiperight');
-      jumplink.toggleRightSidebar();
-  });
-      
-  $rightSidebar.show();
-  
-  
-  
-  // if slide navigation is avable
-  if(jumplink.cache.$listItemsCarousel) {
-
-    if(jumplink.cache.$listItemsCarousel.hasClass('itemsilde-initialized')) {
-    // window.jumplink.debug.itemslide('[initProductCarouselWithItemSlide] already created, stop');
-    jumplink.cache.$listItemsCarousel.reload();
-    return;
-    }
-    
-    var width = jumplink.cache.$listItemsCarousel.width();
-    jumplink.cache.$listItemsCarousel.parent().css('min-width', width);
-    
-    jumplink.cache.$listItemsCarousel.itemslide({
-    disable_slide: true,
-    disable_autowidth: true,
-    // left_sided: true,
-    disable_scroll: true,
-    one_item: true,
-    parent_width: true,
-    // duration: 1500
-    });
-
-    window.jumplink.dataApi.initItemslide();
-  }
-  
-  
-  if(jumplink.cache && jumplink.cache.$window && jumplink.cache.$Sidebars) {
-    jumplink.cache.$window.resize(function() {
-      jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
-    });
-    jumplink.cache.$Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
-    
-    if(jumplink.cache.$listItemsCarousel) {
-        var width = jumplink.cache.$listItemsCarousel.width();
-        jumplink.cache.$listItemsCarousel.parent().css('min-width', width);
-        jumplink.cache.$listItemsCarousel.reload();
-    }
-    
-  } else {
-    console.error(new Error('jumplink.cache is undefined'));
-  }
-  
 };
 
 /**
@@ -678,7 +534,6 @@ var initBarba = function () {
 var init = function ($) {
     jumplink.cacheSelectors();
     jumplink.setLanguage();
-    jumplink.initRightSidebar();
     jumplink.initBrowserDetection();
     initBarba();
 }

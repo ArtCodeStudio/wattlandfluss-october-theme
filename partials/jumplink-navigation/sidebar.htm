@@ -1,0 +1,49 @@
+[viewBag]
+
+[staticMenu mainMenu]
+code = "main"
+
+[staticMenu footerMenu]
+code = "footer"
+==
+{% set partialId = 'jumplink-sidebar' %}
+
+{% if mode is not defined %}
+    {% set mode = 'slide' %} {# 'slide' | 'toggle' #}
+{% endif %}
+
+{% if position is not defined %}
+    {% set position = 'right' %} {# 'right' | 'left' #}
+{% endif %}
+
+{% if mask is not defined %}
+    {% set mask = true %} {# 'slide' | 'toggle' #}
+{% endif %}
+
+{% set items = mainMenu.menuItems | merge(footerMenu.menuItems) %}
+
+<!-- http://dcdeiv.github.io/simpler-sidebar/ -->
+<div
+    id="{{position}}-sidebar"
+    data-partial-name="{{partialId}}"
+    data-items="{{items | json_encode() }}"
+    data-mode="{{mode}}"
+    data-position="{{position}}"
+    data-padding-top-by-navbar="false"
+    data-mask="{{mask}}"
+    class="jumplink-partial {{partialId}} {{position}}-sidebar hidden-print bg-white"
+    itemscope
+    itemtype="http://schema.org/WPSideBar"
+>
+    <div id="sidebar-wrapper" class="sidebar-wrapper d-flex flex-column">
+
+        {% if mode == 'slide' %}
+            {% partial 'jumplink-navigation/sidebar-items-slide' items=items class='text-xs-center text-md-left sidebar-list-group list-group' %}
+        {% endif %}
+        
+        {% if mode == 'toggle' %}
+            {% partial 'jumplink-navigation/sidebar-items-toggle' items=items class='text-xs-center text-md-left sidebar-list-group list-group' %}
+        {% endif %}
+        
+    </div>
+</div>

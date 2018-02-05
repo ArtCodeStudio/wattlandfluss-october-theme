@@ -22,6 +22,6 @@ description = "top html code for barba layouts"
         {# Content #}
         <section id="layout-content">
             {% partial 'jumplink-fixed-logo' source='assets/images/logo.svg' position='top-left' width= '10rem' alt='Logo von'~this.theme.site_name %}
-            {% partial 'jumplink-navbar_only-right-sidebar' %}
+            {% partial 'jumplink-navigation/navbar_only-sidebar' %}
             <div id="barba-wrapper">
                 <div {% partial 'jumplink-barba-container-attributes' %}>

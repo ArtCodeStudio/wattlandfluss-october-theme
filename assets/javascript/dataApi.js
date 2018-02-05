@@ -6,8 +6,10 @@ jumplink.dataApi = window.jumplink.dataApi || {};
 window.jumplink.debug = window.jumplink.debug || {};
 window.jumplink.debug.dataApi = debug('theme:dataApi');
 
-
-window.jumplink.dataApi.initItemslide = function () {
+/**
+ * Init itemslode methods as data api, you need to give over the target wich is the id without `#` and $element wich is the selected jquery element of the itemslide
+ */
+window.jumplink.dataApi.initItemslide = function (target, $element) {
   var $itemslideMethod = $('[data-itemslide-method]');
 
   // click events
@@ -15,22 +17,23 @@ window.jumplink.dataApi.initItemslide = function () {
     var $this = $(this);
     var data = $this.data();
     var method = data.itemslideMethod;
-    window.jumplink.debug.dataApi('[data-itemslide-method] click', data);
+    window.jumplink.debug.dataApi('[data-itemslide-method] click', data, target, $element);
     
     // workaround
-    if(data.target === 'list-items-carousel') {
-      if(window.jumplink.cache.$listItemsCarousel) {
+    if(data.target === target) {
+      if($element) {
+        window.jumplink.debug.dataApi('[initItemslide] $element', $element);
         switch (method) {
           case 'next':
-            window.jumplink.cache.$listItemsCarousel.next();
+            $element.next();
             break;
           case 'previous':
-            window.jumplink.cache.$listItemsCarousel.previous();
+            $element.previous();
             break;
           case 'gotoSlide':
             const slide = Number(data.itemslideSlide);
             window.jumplink.debug.dataApi('[itemslide] gotoSlide', slide);
-            window.jumplink.cache.$listItemsCarousel.gotoSlide(slide);
+            $element.gotoSlide(slide);
             break;
         }
       }
@@ -43,13 +46,14 @@ window.jumplink.dataApi.initItemslide = function () {
     var data = $this.data();
     var method = data.itemslideMethod;
     window.jumplink.debug.dataApi('[init state changes] data', data);
-    if(data.target === 'product-carousel') {
-      if(window.jumplink.cache.$productCarousel) {
-        window.jumplink.cache.$productCarousel.on('changeActiveIndex', function() {
-          var index = window.jumplink.cache.$productCarousel.getActiveIndex();
+    if(data.target === target) {
+      if($element) {
+        $element.on('changeActiveIndex', function() {
+          var index = $element.getActiveIndex();
+          window.jumplink.debug.dataApi('[changeActiveIndex]', 'index', index, 'method', method);
           switch (method) {
             case 'next':
-              var count = window.jumplink.getItemslideCount(window.jumplink.cache.$productCarousel);
+              var count = window.jumplink.getItemslideCount($element);
               if(count - 1 === index) {
                 $this.addClass('disabled');
               } else {
@@ -65,12 +69,21 @@ window.jumplink.dataApi.initItemslide = function () {
               }
               window.jumplink.debug.dataApi('[changeActiveIndex] previous index', index);
               break;
+            case 'gotoSlide':
+                const slide = Number(data.itemslideSlide);
+                if(slide === index) {
+                    $this.addClass('disabled');
+                } else {
+                    $this.removeClass('disabled');
+                }
+                break;
           }
         });
       }
     }
 
   });
+
 
 };
 
@@ -227,5 +240,5 @@ jumplink.initDataApi = function () {
   jumplink.initSlickMethods();
   jumplink.initCustomModals();
   jumplink.initCustomCollapses();
-  jumplink.dataApi.initItemslide
+  // jumplink.dataApi.initItemslide('list-items-carousel', window.jumplink.cache.$listItemsCarousel);
 };

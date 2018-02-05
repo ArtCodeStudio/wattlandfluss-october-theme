@@ -1,7 +1,25 @@
-description = "sidebar items to slide"
+description = "sidebar items to slide like a slideshow"
 
 [viewBag]
 ==
+<div class="navbar navbar-light bg-transparent d-flex flex-row justify-content-between flex-nowrap">
+    <div
+        class="nav-item nav-link p-0 text-second"
+        data-itemslide-method="gotoSlide"
+        data-itemslide-slide="0"
+        data-target="list-items-carousel"
+    >
+       Zurück
+    </div>
+    <div
+        class="nav-item nav-link p-0 text-second"
+        data-toggle="sidebar"
+        data-target="#right-sidebar"
+    >
+       X
+    </div>
+</div> 
+
 <div class="list-items-carousel" id="list-items-carousel">
     <div class="list-group">
         {% for item in items %}
@@ -30,9 +48,6 @@ description = "sidebar items to slide"
     {% for item in items %}
         {% if item.items %}
             <div class="list-group">
-                 <a class="list-group-item list-group-item-action {{ item.viewBag.cssClass }} {{titleClass}}" data-itemslide-method="gotoSlide" data-itemslide-slide="0" data-target="list-items-carousel">
-                    Zurück
-                </a>
                 {% for item in item.items %}
                     {% if item.code == 'no-link' %}
                         {% set url = '#' %}
