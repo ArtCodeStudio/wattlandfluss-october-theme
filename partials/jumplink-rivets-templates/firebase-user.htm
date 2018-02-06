@@ -1,0 +1,13 @@
+[viewBag]
+==
+<template id="firebase-user">
+    <div class="row">
+        <div rv-hide="user" class="col-12 col-md-6">
+            <firebase-signin-form></firebase-signin-form>
+        </div>
+        
+        <div rv-if="user" class="col-12 col-md-6">
+            <firebase-signout-form user="user"></firebase-signout-form>
+        </div>
+    </div>
+</template>

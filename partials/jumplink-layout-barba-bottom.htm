@@ -22,8 +22,8 @@ description = "bottom html code for barba layouts"
             </button>
         </template>
         
-         {# templates for rivets.js #}
-
+        {# templates for rivets.js #}
+        {% partial 'jumplink-rivets-templates/default' %}
         
         {#
          # Deps:
@@ -66,6 +66,8 @@ description = "bottom html code for barba layouts"
             'assets/vendor/platform.js/platform.js',
             'assets/vendor/sightglass/index.js',
             'assets/vendor/rivets/dist/rivets.js',
+            'assets/vendor/firebase/firebase.js',
+            'assets/vendor/firebase/firebase-firestore.js',
             'assets/vendor/barba.js/dist/barba.js',
         ]|theme }}" ></script>
         
@@ -82,6 +84,7 @@ description = "bottom html code for barba layouts"
             'assets/javascript/templates.js',
             'assets/javascript/browser-detection.js',
             'assets/javascript/partials.js',
+            'assets/javascript/firebase.js',
             
             'assets/javascript/components.js',
             'assets/javascript/adapters.js',

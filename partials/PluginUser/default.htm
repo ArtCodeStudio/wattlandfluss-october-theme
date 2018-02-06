@@ -1,0 +1,35 @@
+[viewBag]
+==
+{% if wrapContainer %}
+    {% set containerClass = 'container'%}
+{% else %}
+    {% set containerClass = 'container-fluid'%}
+{% endif %}
+
+<div class="{{containerClass}}">
+
+    {% if not user %}
+    
+        <div class="row">
+    
+            <div class="col-md-6">
+                {% partial 'PluginUser/signin' %}
+            </div>
+    
+            <div class="col-md-6">
+                {% partial 'PluginUser/register' %}
+            </div>
+    
+        </div>
+    
+    {% else %}
+    
+        {% partial 'PluginUser/activation_check' %}
+    
+        {% partial 'PluginUser/update' %}
+    
+        {% partial 'PluginUser/deactivate_link' %}
+    
+    {% endif %}
+    
+</div>
