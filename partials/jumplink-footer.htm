@@ -5,54 +5,72 @@ code = "footer"
 ==
 {% set partialId = 'jumplink-footer' %}
 
+{% if mode is not defined %}
+    {% set mode = 'horizontal_menu' %} {# 'horizontal_menu' | 'vertical_menu' #}
+{% endif %}
+
+
 <footer
     class="jumplink-partial jumplink-footer"
     data-partial-name="{{partialId}}"
+    data-mode="{{mode}}"
+    data-items="{{footerMenu.menuItems | json_encode() }}"
     id="main-footer"
     itemscope
     itemtype="http://schema.org/SiteNavigationElement"
 >
-    <div class="container py-1 py-lg-3">
-        <div class="row">
-            <div class="col-xs-12 col-md-8 d-flex flex-column justify-content-center">
-                {% content 'footer' %}
-                <a href="{{ 'home'|page }}">
-                    <img class="img-fluid w-100 logo-01 d-block mx-auto my-5" src="{{'assets/images/logo-latelier-creatif.svg' | theme}}" alt="L‘ Atelier Créatif">
-                </a>
+    {% if mode == 'vertical_menu' %}
+        <div class="container py-1 py-lg-3">
+            <div class="row">
+                <div class="col-xs-12 col-md-8 d-flex flex-column justify-content-center">
+                    {% content 'footer' %}
+                    <a href="{{ 'home'|page }}">
+                        <img class="img-fluid w-100 logo-01 d-block mx-auto my-5" src="{{'assets/images/logo.svg' | theme}}" alt="L‘ Atelier Créatif">
+                    </a>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <ul class="list-unstyled">
+                        <li><b>Kreative-Werkstatt</b></li>
+                        <li>
+                            <a class="nav-item do-it-yourself" href="{{'kreative-werkstatt-do-it-yourself'|staticPage}}">Do it yourself</a>
+                        </li>
+                        <li>
+                            <a class="nav-item workshops" href="{{'kreative-werkstatt-workshops'|staticPage}}">Kurse und Workshops</a>
+                        </li>
+                        <li>
+                            <a class="nav-item workshops" href="{{'ueber'|staticPage}}">Über</a>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled mt-3">
+                        <li><b>Sprachunterricht</b></li>
+                        <li><a class="nav-item sprachkurse" href="{{'sprachunterricht-sprachkurse'|staticPage}}">Sprachkurse</a></li>
+                        <li><a class="nav-item nachhilfe" href="{{'sprachunterricht-nachhilfe'|staticPage}}">Nachhilfe</a></li>
+                        <li><a class="nav-item fuer_kinder" href="{{'sprachunterricht-fuer-kinder'|staticPage}}">Für Kinder</a></li>
+                    </ul>
+                    <ul class="list-unstyled mt-3">
+                        <li><b>Termine</b></li>
+                        <li><a class="nav-item termine" href="{{'PluginProevents/termine'|page}}">Im Überblick</a></li>
+                    </ul>  
+                    
+                    <ul class="list-unstyled mt-3">
+                        {% partial 'jumplink-navigation/list-items' items=footerMenu.menuItems %}
+                    </ul>
+                </div>
             </div>
-            <div class="col-xs-12 col-md-4">
-                <ul class="list-unstyled">
-                    <li><b>Kreative-Werkstatt</b></li>
-                    <li>
-                        <a class="nav-item do-it-yourself" href="{{'kreative-werkstatt-do-it-yourself'|staticPage}}">Do it yourself</a>
-                    </li>
-                    <li>
-                        <a class="nav-item workshops" href="{{'kreative-werkstatt-workshops'|staticPage}}">Kurse und Workshops</a>
-                    </li>
-                    <li>
-                        <a class="nav-item workshops" href="{{'ueber'|staticPage}}">Über</a>
-                    </li>
-                </ul>
-                <ul class="list-unstyled mt-3">
-                    <li><b>Sprachunterricht</b></li>
-                    <li><a class="nav-item sprachkurse" href="{{'sprachunterricht-sprachkurse'|staticPage}}">Sprachkurse</a></li>
-                    <li><a class="nav-item nachhilfe" href="{{'sprachunterricht-nachhilfe'|staticPage}}">Nachhilfe</a></li>
-                    <li><a class="nav-item fuer_kinder" href="{{'sprachunterricht-fuer-kinder'|staticPage}}">Für Kinder</a></li>
-                </ul>
-                <ul class="list-unstyled mt-3">
-                    <li><b>Termine</b></li>
-                    <li><a class="nav-item termine" href="{{'PluginProevents/termine'|page}}">Im Überblick</a></li>
-                </ul>  
+        </div>
+    {% endif %}
+    
+    {% if mode == 'horizontal_menu' %}
+
+        <div class="navbar navbar-toggleable-md navbar-light bg-transparent jumplink-navbar_extend-horizontally">
+            <div class="container mx-0 mx-md-auto">
+            
+                <div class="w-100 hidden-print">
+                    {% partial 'jumplink-navigation/navbar-items' items=footerMenu.menuItems class='hidden-md-down navbar-nav d-flex justify-content-center' itemClass='nav-item' %}
+                </div>
                 
-                <ul class="list-unstyled mt-3">
-                    {% partial 'jumplink-navigation/list-items' items=footerMenu.menuItems %}
-                </ul>
             </div>
         </div>
-    </div>
-    <div class="background-01">
-        <div class="py-4 d-flex justify-content-center">
-            <a href="{{'PluginProevents/termine'|page}}" class="btn btn-outline-secondary">Termine ansehen</a>
-        </div>
-    </div>
+
+    {% endif %}
 </footer>

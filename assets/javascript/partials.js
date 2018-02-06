@@ -18,7 +18,7 @@ window.jumplink.partials.init = function(dataset, data) {
     window.jumplink.debug.partials('$partial', $partial);
     var partialID = $partial.data('partialName'); // allways the second class is the partial name
     
-    if(window.jumplink.isFunction(window.jumplink.partials[partialID])) {
+    if(window.jumplink.utilities.isFunction(window.jumplink.partials[partialID])) {
         if(!$partial.hasClass('partial-initialized')) {
             window.jumplink.debug.partials('init '+partialID);
             window.jumplink.partials[partialID]($partials, $partial, dataset, data);
@@ -32,6 +32,26 @@ window.jumplink.partials.init = function(dataset, data) {
       window.jumplink.debug.partials('no javascript for partial:', partialID);
     }
   });
+};
+
+window.jumplink.partials['jumplink-iconset'] = function($partials, $partial, dataset, data) {
+    var partialData = $partial.data();
+    window.jumplink.debug.partials('jumplink-iconset', partialData);
+};
+
+window.jumplink.partials['jumplink-snippet-images-row'] = function($partials, $partial, dataset, data) {
+    var partialData = $partial.data();
+    window.jumplink.debug.partials('jumplink-snippet-images-row', partialData);
+};
+
+window.jumplink.partials['jumplink-snippet-event-list'] = function($partials, $partial, dataset, data) {
+    var partialData = $partial.data();
+    window.jumplink.debug.partials('jumplink-snippet-event-list', partialData);
+};
+
+window.jumplink.partials['jumplink-footer'] = function($partials, $partial, dataset, data) {
+    var partialData = $partial.data();
+    window.jumplink.debug.partials('jumplink-footer', partialData);
 };
 
 /**
@@ -184,9 +204,9 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
     if($Sidebars) {
         if(partialData.paddingTopByNavbar) {
             $window.resize(function() {
-              $Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
+              $Sidebars.css( 'padding-top', jumplink.utilities.getNavHeight() + defaultPaddingTop +'px');
             });
-            $Sidebars.css( 'padding-top', jumplink.getNavHeight() + defaultPaddingTop +'px');
+            $Sidebars.css( 'padding-top', jumplink.utilities.getNavHeight() + defaultPaddingTop +'px');
         } else {
             $Sidebars.css( 'padding-top', defaultPaddingTop +'px');
         }
@@ -199,19 +219,4 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
     } else {
         console.error(new Error('$Sidebars is undefined'));
     }
-};
-
-window.jumplink.partials['jumplink-iconset'] = function($partials, $partial, dataset, data) {
-    var partialData = $partial.data();
-    window.jumplink.debug.partials('jumplink-iconset', partialData);
-};
-
-window.jumplink.partials['jumplink-snippet-images-row'] = function($partials, $partial, dataset, data) {
-    var partialData = $partial.data();
-    window.jumplink.debug.partials('jumplink-snippet-images-row', partialData);
-};
-
-window.jumplink.partials['jumplink-snippet-event-list'] = function($partials, $partial, dataset, data) {
-    var partialData = $partial.data();
-    window.jumplink.debug.partials('jumplink-snippet-event-list', partialData);
 };

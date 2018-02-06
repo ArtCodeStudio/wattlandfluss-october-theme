@@ -1,5 +1,32 @@
 // JumpLink object
 window.jumplink = window.jumplink || {};
+window.jumplink.utilities = window.jumplink.utilities || {};
+
+/**
+ * Check if element is visible after scrolling
+ * 
+ * @see https://stackoverflow.com/a/488073/1465919
+ * @example
+ * 
+ * var isElementInView = window.jumplink.utilities.isElementInView($('#flyout-left-container'), false);
+ * if (isElementInView) {
+ *     console.log('in view');
+ * } else {
+ *     console.log('out of view');
+ * }
+ */
+window.jumplink.utilities.isElementInView = function(element, fullyInView) {
+    var pageTop = $(window).scrollTop();
+    var pageBottom = pageTop + $(window).height();
+    var elementTop = $(element).offset().top;
+    var elementBottom = elementTop + $(element).height();
+
+    if (fullyInView === true) {
+        return ((pageTop < elementTop) && (pageBottom > elementBottom));
+    } else {
+        return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+    }
+}
 
 
 /**
@@ -7,7 +34,7 @@ window.jumplink = window.jumplink || {};
  * 
  * @see theme.liquid for .barba-container  
  */
-window.jumplink.parseDatasetJsonStrings = function (dataset) {
+window.jumplink.utilities.parseDatasetJsonStrings = function (dataset) {
   var data = {};
   if(typeof(dataset.productJsonString) === 'string') {
     data.product = JSON.parse(dataset.productJsonString);
@@ -36,11 +63,11 @@ window.jumplink.parseDatasetJsonStrings = function (dataset) {
 /**
  * Get the height of the main navbar, useful to set the page padding if the navbar is fixed
  */
-jumplink.getNavHeight = function () {
+jumplink.utilities.getNavHeight = function () {
     return jumplink.cache.$mainNavbar.outerHeight(true);
 };
 
-jumplink.setBodyId = function (namespace) {
+jumplink.utilities.setBodyId = function (namespace) {
     jumplink.cache.$body.attr('id', namespace);
 };
 
@@ -49,7 +76,7 @@ jumplink.setBodyId = function (namespace) {
  * 
  * @see http://stackoverflow.com/a/1100653/1465919
  */
-window.jumplink.justDigits = function (str) {
+jumplink.utilities.justDigits = function (str) {
   var num = str.replace(/[^-\d\.]/g, '');
   if(isNaN(num)) {
     return 0;
@@ -58,23 +85,14 @@ window.jumplink.justDigits = function (str) {
   }
 };
 
-/**
- * Detect if current device is a touch device
- * 
- * @see https://github.com/Modernizr/Modernizr/blob/master/feature-detects/touchevents.js
- */
-window.jumplink.isTouchDevice = function () {
-  return ('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch;
-};
-
-window.jumplink.isFunction = function (value) {
+jumplink.utilities.isFunction = function (value) {
   return typeof(value) === 'function';
 };
 
 /**
  * Detect if current device has localStorage support
  */
-window.jumplink.hasLocalStorage = function() {
+jumplink.utilities.hasLocalStorage = function() {
   var mod = 'modernizr';
   if(typeof(jumplink._hasLocalStorage) === 'boolean') {
     return jumplink._hasLocalStorage;
@@ -98,7 +116,7 @@ window.jumplink.hasLocalStorage = function() {
  * featureTest( 'position', 'sticky' )
  * @see https://github.com/filamentgroup/fixed-sticky/blob/master/fixedsticky.js
  */
-window.jumplink.featureTest = function ( property, value, noPrefixes ) {
+jumplink.utilities.featureTest = function ( property, value, noPrefixes ) {
   // Thanks Modernizr! https://github.com/phistuck/Modernizr/commit/3fb7217f5f8274e2f11fe6cfeda7cfaf9948a1f5
   var prop = property + ':',
     el = document.createElement( 'test' ),
@@ -115,35 +133,8 @@ window.jumplink.featureTest = function ( property, value, noPrefixes ) {
 /**
  * Generate random number between two numbers
  */
-window.jumplink.rand = function (min, max) {
+jumplink.utilities.rand = function (min, max) {
   return Math.floor(Math.random()*(max-min+1)+min);
-};
-
-
-// Do not use window.alert!
-(function(proxied) {
-  window.alert = function() {
-    // do something here
-    return proxied.apply(this, arguments);
-  };
-})(console.log);
-
-/**
- * featureTest( 'position', 'sticky' )
- * @see https://github.com/filamentgroup/fixed-sticky/blob/master/fixedsticky.js
- */
-window.jumplink.featureTest = function ( property, value, noPrefixes ) {
-  // Thanks Modernizr! https://github.com/phistuck/Modernizr/commit/3fb7217f5f8274e2f11fe6cfeda7cfaf9948a1f5
-  var prop = property + ':',
-    el = document.createElement( 'test' ),
-    mStyle = el.style;
-
-  if( !noPrefixes ) {
-    mStyle.cssText = prop + [ '-webkit-', '-moz-', '-ms-', '-o-', '' ].join( value + ';' + prop ) + value + ';';
-  } else {
-    mStyle.cssText = prop + value;
-  }
-  return mStyle[ property ].indexOf( value ) !== -1;
 };
 
 /**
@@ -151,7 +142,7 @@ window.jumplink.featureTest = function ( property, value, noPrefixes ) {
  * 
  * @see https://github.com/Modernizr/Modernizr/blob/master/feature-detects/touchevents.js
  */
-window.jumplink.isTouchDevice = function () {
+window.jumplink.utilities.isTouchDevice = function () {
   if(platform.name === 'Epiphany') {
     return false;
   }
@@ -162,7 +153,7 @@ window.jumplink.isTouchDevice = function () {
  * @see http://jquery.eisbehr.de/lazy/
  * TODO update barba cache after image was loaded
  */
-window.jumplink.loadImages = function(loadAll, customSelector$) {
+jumplink.utilities.loadImages = function(loadAll, customSelector$) {
   var delay = -1;
   if(loadAll) {
     delay = 0;
@@ -191,7 +182,7 @@ window.jumplink.loadImages = function(loadAll, customSelector$) {
         window.jumplink.debug.image('error loading image', element);
       },
       onFinishedAll: function() {
-        jumplink.replaceNoImage();
+        jumplink.utilities.replaceNoImage();
       }
   });
 }
@@ -201,7 +192,7 @@ window.jumplink.loadImages = function(loadAll, customSelector$) {
  * Replace no images
  * Useful to replace Shopify Images with a custom placeholder image
  */
-window.jumplink.replaceNoImageSrc = function() {
+jumplink.utilities.replaceNoImageSrc = function() {
   var $images = $('[src*="no-image-"]');
   $images.each(function(index) {
     var $this = $(this);
@@ -209,7 +200,7 @@ window.jumplink.replaceNoImageSrc = function() {
   });
 };
 
-window.jumplink.replaceNoImageBackground = function() {
+jumplink.utilities.replaceNoImageBackground = function() {
   var $images = $('[style*="no-image-"]');
   $images.each(function(index) {
     var $this = $(this);
@@ -217,29 +208,29 @@ window.jumplink.replaceNoImageBackground = function() {
   });
 };
 
-window.jumplink.replaceNoImage = function() {
-  jumplink.replaceNoImageSrc();
-  jumplink.replaceNoImageBackground();
+jumplink.utilities.replaceNoImage = function() {
+  jumplink.utilities.replaceNoImageSrc();
+  jumplink.utilities.replaceNoImageBackground();
 };
 
 /**
  * Get hash from address bar
  */
-window.jumplink.getHash = function () {
+jumplink.utilities.getHash = function () {
   return window.location.hash;
 };
 
 /**
  * Change hash from address bar
  */
-window.jumplink.updateHash = function (hash) {
+jumplink.utilities.updateHash = function (hash) {
   return window.location.hash = hash;
 };
 
 /**
  * Remove hash from address bar
  */
-window.jumplink.removeHash = function () {
+jumplink.utilities.removeHash = function () {
   return history.pushState("", document.title, window.location.pathname + window.location.search);
 };
 
@@ -261,7 +252,7 @@ window.jumplink.getCurrentLocation = function(href) {
  * Cause back button to close Bootstrap modal windows
  * @see https://gist.github.com/thedamon/9276193
  */
-window.jumplink.initModalHistoryBack = function (modalSelector) {
+window.jumplink.utilities.initModalHistoryBack = function (modalSelector) {
 
   if(!modalSelector) {
     modalSelector = ".modal";
@@ -282,7 +273,7 @@ window.jumplink.initModalHistoryBack = function (modalSelector) {
  * Get Image of E-Mail by Gravawtar
  * @see https://stackoverflow.com/questions/705344/loading-gravatar-using-$
  */
-window.jumplink.getGravatar = function (emailOrHash, classes, withHash, placeholder) {
+window.jumplink.utilities.getGravatar = function (emailOrHash, classes, withHash, placeholder) {
   var src = null;
 
   if(typeof(emailOrHash) === 'undefined' || emailOrHash === null || !emailOrHash.length) {
@@ -308,7 +299,7 @@ window.jumplink.getGravatar = function (emailOrHash, classes, withHash, placehol
 /**
  * 
  */
-window.jumplink.initGravatarElements = function (selector, classes) {
+window.jumplink.utilities.initGravatarElements = function (selector, classes) {
   if(!classes) {
     classes = "";
   }
@@ -350,7 +341,7 @@ window.jumplink.initGravatarElements = function (selector, classes) {
 /**
  * Set each element of $elements to the height of the heightest element to have all elements with the same height 
  */
-window.jumplink.sameHeightElements = function ($elements, defaultHeight) {
+window.jumplink.utilities.sameHeightElements = function ($elements, defaultHeight) {
     if(!defaultHeight) {
       defaultHeight = 'auto';
     }
@@ -380,7 +371,7 @@ window.jumplink.sameHeightElements = function ($elements, defaultHeight) {
  * Performs a smooth page scroll to an anchor on the same page.y
  * @see https://css-tricks.com/snippets/jquery/smooth-scrolling/
  */
-window.jumplink.initSmoothPageScroll = function () {
+window.jumplink.utilities.initSmoothPageScroll = function () {
     var pathname = window.location.pathname;
     var selectpathname = pathname.replace('/', '\\/')+"#";
     var selector = "a[href*='"+selectpathname+"']:not([href='#'])";
@@ -402,6 +393,6 @@ window.jumplink.initSmoothPageScroll = function () {
  * Close all opend bootstrap modals
  * @see http://v4-alpha.getbootstrap.com/components/modal/
  */
-window.jumplink.closeAllModals = function () {
+window.jumplink.utilities.closeAllModals = function () {
   jumplink.cache.$body.removeClass('modal-open').removeAttr('style');
 };

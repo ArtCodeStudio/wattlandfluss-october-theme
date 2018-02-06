@@ -37,7 +37,8 @@
     "platform.js": "bestiejs/platform.js#^1.3.4",
     "sightglass": "^0.2.6",
     "rivets": "^0.9.6",
-    "itemslide": "JumpLinkNetwork/itemslide.github.io#master"
+    "itemslide": "JumpLinkNetwork/itemslide.github.io#master",
+    "vivus": "^0.4.3"
   },
   "resolutions": {
     "jquery": "2"

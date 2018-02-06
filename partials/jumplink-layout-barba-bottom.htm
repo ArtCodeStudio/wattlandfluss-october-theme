@@ -9,6 +9,7 @@ description = "bottom html code for barba layouts"
         
         {% partial 'jumplink-browser-detection-bar' %}
         
+        {# templates for slick #}
         <template id="slick-prev-arrow">
             <button type="button" data-role="none" class="slick-prev slick-prev-iconset slick-arrow w-24 h-24" aria-label="Previous" role="button">
                 {% partial 'jumplink-iconset' name='arrow_carrot_thin' direction='left' color='gray' size='24' %}
@@ -19,7 +20,10 @@ description = "bottom html code for barba layouts"
             <button type="button" data-role="none" class="slick-next slick-next-iconset slick-arrow w-24 h-24" aria-label="Next" role="button">
                 {% partial 'jumplink-iconset' name='arrow_carrot_thin' direction='right' color='gray' size='24' %}
             </button>
-        </template>        
+        </template>
+        
+         {# templates for rivets.js #}
+
         
         {#
          # Deps:
@@ -57,11 +61,12 @@ description = "bottom html code for barba layouts"
             'assets/vendor/jquery-touch-events/src/jquery.mobile-events.js',
             'assets/vendor/prism/prism.js',
             'assets/vendor/moment/min/moment-with-locales.js',
+            'assets/vendor/vivus/dist/vivus.js',
             'assets/vendor/visionmedia-debug/dist/debug.js',
             'assets/vendor/platform.js/platform.js',
             'assets/vendor/sightglass/index.js',
             'assets/vendor/rivets/dist/rivets.js',
-             'assets/vendor/barba.js/dist/barba.js',
+            'assets/vendor/barba.js/dist/barba.js',
         ]|theme }}" ></script>
         
         <script>
@@ -88,6 +93,11 @@ description = "bottom html code for barba layouts"
         
         {% framework %}
         {% scripts %}
+        
+         {# start script #}
+        <script src="{{ [
+            'assets/javascript/app.js',
+        ]|theme }}"></script>
 
     </body>
 </html>
