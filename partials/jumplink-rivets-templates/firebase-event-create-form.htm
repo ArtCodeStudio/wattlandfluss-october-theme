@@ -1,0 +1,65 @@
+[viewBag]
+==
+<template id="firebase-event-create-form">
+
+    <div class="form-group">
+      <label for="newEventType">Typ</label>
+      <br>
+      <select class="custom-select" id="newEventType">
+        <option rv-each-type="types">{type.label}</option>
+      </select>
+    </div>
+
+  <div class="form-group">
+    <label for="newEventTitle">Titel</label>
+    <input type="text" class="form-control" id="newEventTitle" aria-describedby="newEventTitleDesc" placeholder="Neuer Titel" rv-value="newEvent.title">
+    <small id="newEventTitleDesc" class="form-text text-muted">Der Hauptname deines Ereignisses.</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="newEventSubtitle">Untertitel</label>
+    <input type="text" class="form-control" id="newEventSubtitle" aria-describedby="newEventSubtitleDesc" placeholder="Neuer Untertitel" rv-value="newEvent.subtitle">
+    <small id="newEventSubtitleDesc" class="form-text text-muted">Kurzbeschreibung deines neuen Ereignisses.</small>
+  </div>
+    
+  <div class="form-group">
+    <label for="newEventDesc">Untertitel</label>
+    <textarea class="form-control" id="newEventDesc" name="editordata" rows="6" aria-describedby="newEventDescDesc" placeholder="Deine neue Beschreibung" rv-value="newEvent.description"></textarea>
+    <small id="newEventDescDesc" class="form-text text-muted">Hauptbeschreibung deines neuen Ereignisses.</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="newEventEquipment">Ausstattung</label>
+    <input type="text" class="form-control" id="newEventEquipment" aria-describedby="newEventEquipmentDesc" placeholder="Equipment" rv-value="newEvent.equipment"></textarea>
+    <small id="newEventEquipmentDesc" class="form-text text-muted">Ausstattung die mitzubringen ist.</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="newEventStartAt">Tag</label>
+    <input type="date" class="form-control" id="newEventStartAt" aria-describedby="newEventStartAtDesc" {#rv-value="newEvent.startAt"#}>
+    <small id="newEventStartAtDesc" class="form-text text-muted">Der Tag des Ereignisses.</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="newEventStartTimeAt">Von</label>
+    <input type="time" class="form-control" id="newEventStartTimeAt" aria-describedby="newEventStartTimeAtDesc" rv-value="newEvent.startTimeAt">
+    <small id="newEventStartTimeAtDesc" class="form-text text-muted">Startzeit des Ereignisses.</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="newEventEndTimeAt">Bis</label>
+    <input type="time" class="form-control" id="newEventEndTimeAt" aria-describedby="newEventEndTimeAtDesc" rv-value="newEvent.endTimeAt">
+    <small id="newEventEndTimeAtDesc" class="form-text text-muted">Endzeit des Ereignisses.</small>
+  </div>
+    
+  <div class="form-group">
+    <label for="newEventPrice">Preis in €</label>
+    <input type="number" class="form-control" id="newEventPrice" aria-describedby="newEventPriceDesc" rv-value="newEvent.price">
+    <small id="newEventPriceDesc" class="form-text text-muted">Preis pro Person in Euro.</small>
+  </div>
+  
+  <global-modal></global-modal>
+    
+  <button class="btn btn-primary" rv-on-click="createEvent">Event anlegen</button>
+
+</template>

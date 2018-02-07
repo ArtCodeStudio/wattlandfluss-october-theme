@@ -16,6 +16,10 @@
 
 $fa-font-path: "../vendor/font-awesome/fonts/";
 
+.btn-group, .btn-group-vertical {
+    display: inline-flex !important;
+}
+
 
 // Convert value to bool
 // @see http://hugogiraudel.com/2014/01/27/casting-types-in-sass/

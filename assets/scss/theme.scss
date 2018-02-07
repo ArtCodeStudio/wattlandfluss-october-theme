@@ -26,6 +26,7 @@
 // bootstrap 4 compatible with the scss version of octobercms
 @import '../vendor/bootstrap-backward/scss/bootstrap';
 
+
 // all custom styles for this theme
 @import "normalize";
 @import "carousel";
@@ -58,6 +59,8 @@
 @import "sidebars";
 @import "partials";
 @import "itemslide"; // style for https://github.com/JumpLinkNetwork/itemslide.github.io
+@import "./extensions/_summernote";
+@import "./extensions/_calendar";
 
 // overwrite styles only for this theme 
 @import "theme-customisations";

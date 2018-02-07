@@ -1,0 +1,44 @@
+{
+  "name": "pg-calendar",
+  "description": "Beautiful and eidetic jQuery date picker plguin.",
+  "main": [
+    "dist/js/pignose.calendar.js"
+  ],
+  "authors": [
+    "PIGNOSE <kennethan@nhpcw.com> (http://www.pigno.se)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "datepicker",
+    "toggle",
+    "date",
+    "material",
+    "pignose",
+    "kennethanceyer",
+    "jquery",
+    "plugin"
+  ],
+  "homepage": "https://github.com/KennethanCeyer/PIGNOSE-Calendar",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "test",
+    "tests"
+  ],
+  "version": "1.4.27",
+  "_release": "1.4.27",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.4.27",
+    "commit": "b984f6ffcfabf05041cd54a05b6d7ff6aaaf2f99"
+  },
+  "_source": "https://github.com/KennethanCeyer/PIGNOSE-Calendar.git",
+  "_target": "^1.4.27",
+  "_originalSource": "pg-calendar",
+  "_direct": true
+}

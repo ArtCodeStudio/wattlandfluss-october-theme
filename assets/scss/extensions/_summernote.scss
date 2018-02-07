@@ -1,0 +1,11 @@
+// summernote wysiwyg
+// @import '../vendor/summernote/src/less/summernote-bs4.scss';
+// @import '../vendor/summernote/dist/summernote.css';
+@import '../vendor/summernote/dist/summernote-bs4.css';
+
+.note-editor {
+    .btn-light {
+        background: none;
+        border: none;
+    }
+}

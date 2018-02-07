@@ -1,11 +1,13 @@
 [viewBag]
 ==
 <template id="firebase-signout-form">
-    <h3>Angemeldet als {user.email}</h3>
+    <div rv-show="user">
+        <h3>Angemeldet als {user.email}</h3>
+        
+        <div rv-show="signinErrorMessage" class="alert alert-danger" role="alert">
+          {signinErrorMessage}
+        </div>
     
-    <div rv-show="signinErrorMessage" class="alert alert-danger" role="alert">
-      {signinErrorMessage}
+        <button class="btn btn-default" rv-on-click="signOut">Sign out</button>
     </div>
-
-    <button class="btn btn-default" rv-on-click="signout">Sign out</button>
 </template>
