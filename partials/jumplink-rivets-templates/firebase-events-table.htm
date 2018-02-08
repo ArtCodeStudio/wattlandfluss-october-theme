@@ -1,0 +1,29 @@
+[viewBag]
+==
+<template id="firebase-events-table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Titel</th>
+          <th scope="col">Beginn</th>
+          <th scope="col">Typ</th>
+          <th scope="col">Kalender</th>
+          <th scope="col">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr rv-each-event="events">
+          <td>{event.title}</td>
+          <td>{event.startAt | date 'DD.MM.YYYY'} {event.startAt | time 'HH:mm'} Uhr</td>
+          <td>{event.type}</td>
+          <td>{event.calendar}</td>
+          <td>
+              <button class="btn btn-link" data-href="{{'firebase/event-edit' |page({ id: ':id' }) }}" rv-data-id="event.id" rv-on-click="edit">Bearbeiten</button>
+              <button class="btn btn-danger" rv-data-id="event.id" rv-on-click="delete">Löschen</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <a href="{{'firebase/event-create' |page }}" class="btn btn-primary">Ereignis anlegen</a>
+</template>

@@ -1,0 +1,17 @@
+title = "Ereignis bearbeiten"
+url = "/admin/event/:id/edit"
+layout = "jumplink-barba-default-page"
+is_hidden = 0
+contentType = "html"
+==
+<?php
+function onStart()
+{
+    // anonymos classes only working on php7
+    $this['event_id'] = $this->param('id');
+}
+?>
+==
+<div class="container">
+    <firebase-event-form id="'{{event_id}}'"></firebase-event-create-form>
+</div>

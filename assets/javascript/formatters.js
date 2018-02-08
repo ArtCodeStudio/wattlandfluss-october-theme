@@ -322,3 +322,47 @@ rivets.formatters.set = function(obj, key, value) {
 rivets.formatters.gcd = function(a, b) {
   return (b == 0) ? a : rivets.formatters.gcd(b, a%b);
 };
+
+
+// Date formatters
+// @see https://github.com/matthieuriolo/rivetsjs-stdlib/blob/master/src/rivetsstdlib.js
+
+/* date functions */
+
+rivets.formatters.date = function(target, format) {
+    return moment(target).format(format || 'DD.MM.YYYY');
+};
+
+rivets.formatters.time = function(target, format) {
+    return moment(target).format(format || 'HH:mm');
+};
+
+rivets.formatters.datetime = function(target, format) {
+    return moment(target).format(format);
+};
+
+rivets.formatters.toTimestamp = function(target) {
+    return moment(target).format("X");
+};
+
+rivets.formatters.toDate = function(target) {
+    return moment.unix(target).toDate();
+};
+
+rivets.formatters.toMoment = function(target) {
+    return moment(target);
+};
+
+/**
+ * The date formatter returns a formatted date string according to the moment.js
+ * formatting syntax.
+ *
+ * ```html
+ * <span rv-value="model:date | date 'dddd, MMMM Do'"></span>
+ * ```
+ *
+ * @see {@link http://momentjs.com/docs/#/displaying} for format options.
+ */
+rivets.formatters.dateFormat = function(target, val) {
+    return moment(target).format(val);
+};
