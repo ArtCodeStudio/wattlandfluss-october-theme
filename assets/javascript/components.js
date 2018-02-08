@@ -236,20 +236,15 @@ rivets.components['firebase-event-form'] = {
     
     /**
      * init wysiwyg for description input
-     * @see https://summernote.org/
+     * @see https://github.com/KennethanCeyer/pg-calendar/wiki/Documentation
      */
     $eventDesc.summernote({
         placeholder: 'Deine neue Beschreibung',
         height: 200,
         toolbar: [
-            // [groupName, [list of button]]
             ['style', ['bold', 'italic', 'underline', 'clear']],
-            // ['font', ['strikethrough', 'superscript', 'subscript']],
-            // ['fontsize', ['fontsize']],
-            // ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
-            // ['height', ['height']]
-            ['Misc', ['undo', 'redo']],
+            ['Misc', ['undo', 'redo', 'codeview', 'fullscreen']],
         ],
         callbacks: {
             onChange: function(contents, $editable) {
@@ -332,24 +327,11 @@ rivets.components['firebase-event-form'] = {
             controller.event = event;
             
             $eventStartAt.pignoseCalendar('set', controller.event.startAt);
-            /*
-            this is not working:
-            controller.title = event.title;
-            controller.subtitle = event.subtitle;
-            controller.description = event.description;
-            controller.equipment = event.equipment;
-            controller.startAt = event.startAt;
-            controller.startTimeAt = event.startTimeAt;
-            controller.endTimeAt = event.endTimeAt;
-            controller.price = event.price;
-            controller.type = event.type;
-            controller.calendar = event.calendar;
-            */
             
             controller.debug('getEvent done', controller.event);
         })
         .catch(function(error) {  
-            showGlobalModal({
+            jumplink.utilities.showGlobalModal({
                 title: 'Ereignis konnte nicht geladen werden',
                 body: error.message,
             });
@@ -367,10 +349,6 @@ rivets.components['firebase-event-form'] = {
         setTimeout(function() {
             setDefaultValues();
         }, 200);
-    }
-    
-    var showGlobalModal = function (data) {
-        $.event.trigger('rivets:global-modal', [true, data]);
     }
     
     var getSelectedValue = function(selector) { 
@@ -436,14 +414,14 @@ rivets.components['firebase-event-form'] = {
         dbEvents.doc(controller.id).update(updateEvent)
         .then(function() {
             var message = 'Ereignis erfolgreich aktualisiert';
-            showGlobalModal({
+            jumplink.utilities.showGlobalModal({
                 title: 'Erfolgreich angelegt',
                 body: message,
             });
              controller.debug(message);
         })
         .catch(function(error) {  
-            showGlobalModal({
+            jumplink.utilities.showGlobalModal({
                 title: 'Konnte nicht angelegt werden',
                 body: error.message,
             });
@@ -460,14 +438,14 @@ rivets.components['firebase-event-form'] = {
         dbEvents.add(newEvent)
         .then(function(docRef) {
             var message = 'Ereignis mit der ID ' + docRef.id + ' erfolgreich eingetragen';
-            showGlobalModal({
+            jumplink.utilities.showGlobalModal({
                 title: 'Erfolgreich angelegt',
                 body: message,
             });
             controller.debug(message, docRef);
         })
         .catch(function(error) {  
-            showGlobalModal({
+            jumplink.utilities.showGlobalModal({
                 title: 'Ereignis konnte nicht angelegt werden',
                 body: error.message,
             });
@@ -507,14 +485,14 @@ rivets.components['firebase-events-table'] = {
             });
         })
         .catch(function(error) {  
-            showGlobalModal({
+            jumplink.utilities.showGlobalModal({
                 title: 'Ereignis konnte nicht geladen werden',
                 body: error.message,
             });
             controller.debug('error', error);
         });
     }
-    getEvents();
+   
     
     controller.delete = function(event, controller) {
         var $this = $(event.target);
@@ -528,7 +506,7 @@ rivets.components['firebase-events-table'] = {
             getEvents();
         }).catch(function(error) {
             var message = error.message;
-            showGlobalModal({
+            jumplink.utilities.showGlobalModal({
                 title: 'Ereignis konnte nicht gelöscht werden',
                 body: error.message,
             });
@@ -537,7 +515,6 @@ rivets.components['firebase-events-table'] = {
         
     };
     
-    
     controller.edit = function(event, controller) {
         var $this = $(event.target);
         controller.debug('edit', $this.data());
@@ -545,7 +522,60 @@ rivets.components['firebase-events-table'] = {
         var href = $this.data('href').replace(':id', id);
         Barba.Pjax.goTo(href);
     };
+    
+     getEvents();
+    return controller;
+  }
+};
+
+
+rivets.components['firebase-events-beautiful-next'] = {
+
+  template: function() {
+    return $('template#firebase-events-beautiful-next').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:firebase-event-table');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    var db = firebase.firestore();
+    var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
+    controller.title = data.title;
+    controller.type = data.type;
+    controller.event = {};
+
+    var getEvent = function() {
+         dbEvents.where('type', "==", data.type).orderBy("startAt").limit(1).get()
+        .then((querySnapshot) => {
+            //ycontroller.events = querySnapshot.data();
+            controller.debug('event', controller.events, querySnapshot);
+            querySnapshot.forEach((doc) => {
+                var event = doc.data();
+                event.id = doc.id;
+                controller.event = event;
+            });
+        })
+        .catch(function(error) {  
+            jumplink.utilities.showGlobalModal({
+                title: 'Ereignis konnte nicht geladen werden',
+                body: error.message,
+            });
+            controller.debug('error', error);
+        });
+    }
+    
+    
+    controller.requests = function(event, controller) {
+        var $this = $(event.target);
+        controller.debug('edit', $this.data());
+        var id = $this.data('id');
+        var href = $this.data('href').replace(':id', id);
+        Barba.Pjax.goTo(href);
+    };
         
+    getEvent();
     return controller;
   }
 };

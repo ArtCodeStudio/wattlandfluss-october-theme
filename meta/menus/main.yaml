@@ -1,44 +1,71 @@
 name: main
 items:
     -
-        title: Führungen
+        title: Touren
         nesting: '1'
         type: static-page
+        url: ''
         code: no-link
         reference: kreative-werkstatt
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
             cssClass: fuehrungen
             isExternal: '0'
+        items:
+            -
+                title: Watt
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: kreative-werkstatt-do-it-yourself
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: Land
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: kreative-werkstatt-workshops
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: Fluss
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: ueber
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: Spezial
+                nesting: '0'
+                type: static-page
+                code: ''
+                reference: fuehrungen-spezial
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
     -
-        title: Kunstwerke
-        nesting: '0'
-        type: static-page
-        url: ''
-        code: ''
-        reference: kunstwerke-neu
-        cmsPage: ''
-        replace: '0'
-        viewBag:
-            isHidden: '0'
-            cssClass: kunstwerke
-            isExternal: '0'
-    -
-        title: Sprachunterricht
-        nesting: '1'
-        type: static-page
-        url: ''
-        code: no-link
-        reference: sprachunterricht
-        cmsPage: ''
-        replace: '0'
-        viewBag:
-            isHidden: '0'
-            cssClass: sprachunterricht
-            isExternal: '0'
-    -
-        title: Termine
+        title: 'öffentliche Führung'
         nesting: '0'
         type: static-page
         url: ''
@@ -48,15 +75,41 @@ items:
         replace: '0'
         viewBag:
             isHidden: '0'
+            cssClass: oeffentliche_fuehrung
+            isExternal: '0'
+    -
+        title: 'eigene Tour planen'
+        nesting: '1'
+        type: static-page
+        url: ''
+        code: no-link
+        reference: eigene-tour-planen
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: sprachunterricht
+            isExternal: '0'
+    -
+        title: Kontakt
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: kontakt
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
             cssClass: termine
             isExternal: '0'
     -
-        title: Öffnungszeiten
+        title: Über
         nesting: '0'
         type: static-page
         url: ''
         code: oeffnungszeiten
-        reference: oeffnungszeiten
+        reference: ueber-2
         cmsPage: ''
         replace: '0'
         viewBag:

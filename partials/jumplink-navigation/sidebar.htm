@@ -20,9 +20,17 @@ code = "footer"
     {% set mask = true %} {# 'slide' | 'toggle' #}
 {% endif %}
 
-{% set items = mainMenu.menuItems | merge(footerMenu.menuItems) %}
+{% if mergeWithFooter is not defined %}
+    {% set mergeWithFooter = false %} 
+{% endif %}
 
-<!-- http://dcdeiv.github.io/simpler-sidebar/ -->
+{% if mergeWithFooter %}
+    {% set items = mainMenu.menuItems | merge(footerMenu.menuItems) %}
+{% else %}
+    {% set items = mainMenu.menuItems %}
+{% endif %}
+
+{# http://dcdeiv.github.io/simpler-sidebar/ #}
 <div
     id="{{position}}-sidebar"
     data-partial-name="{{partialId}}"

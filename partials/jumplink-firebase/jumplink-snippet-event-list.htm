@@ -1,0 +1,18 @@
+description = "Snippet: Ereignisse (Firebase)"
+
+[viewBag]
+snippetCode = "snippet-jumplink-firebase-event-list"
+snippetName = "Ereignisse (Firebase)"
+==
+{% set partialId = 'jumplink-snippet-firebase-event-list' %}
+
+{% if wrapContainer %}
+    {% set containerClass = 'container'%}
+{% else %}
+    {% set containerClass = 'container-fluid'%}
+{% endif %}
+
+<div class="{{containerClass}} py-5">
+    {# rivets component #}
+    <firebase-events-beautiful-next title="'Nächste öffentliche Führung'" type="'öffentliche Führung'"></firebase-events-beautiful-next>
+</div>

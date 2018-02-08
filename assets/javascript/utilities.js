@@ -3,6 +3,14 @@ window.jumplink = window.jumplink || {};
 window.jumplink.utilities = window.jumplink.utilities || {};
 
 /**
+ * Show global modal with rivets.js
+ * Needs the global-modal component in dom
+ */
+window.jumplink.utilities.showGlobalModal = function (data) {
+    $.event.trigger('rivets:global-modal', [true, data]);
+}
+
+/**
  * Check if element is visible after scrolling
  * 
  * @see https://stackoverflow.com/a/488073/1465919

@@ -1,8 +1,8 @@
-description = "Snippet: Produkt Liste (Handwerkskunst)"
+description = "Snippet: Produkt Liste (Catalog Plugin)"
 
 [viewBag]
-snippetCode = "jumplink-snippet-product-list-handwerkskunst"
-snippetName = "Produkt Liste (Handwerkskunst)"
+snippetCode = "jumplink-snippet-product-list-catalog-plugin"
+snippetName = "Produkt Liste (Catalog Plugin)"
 snippetProperties[showPagination][title] = "Pagination anzeigen"
 snippetProperties[showPagination][type] = "checkbox"
 snippetProperties[showPagination][default] = 0
@@ -20,4 +20,4 @@ snippetProperties[wrapContainerFluid][type] = "checkbox"
 snippetProperties[wrapContainerFluid][default] = 0
 snippetProperties[wrapContainerFluid][options][] = ""
 ==
-{% partial 'jumplink-product-list-handwerkskunst' show_pagination=showPagination column_classes=columnClasses wrapContainer=wrapContainer wrapContainerFluid=wrapContainerFluid %}
+{% partial 'jumplink-product-list-catalog-plugin' show_pagination=showPagination column_classes=columnClasses wrapContainer=wrapContainer wrapContainerFluid=wrapContainerFluid %}
