@@ -579,3 +579,54 @@ rivets.components['firebase-events-beautiful-next'] = {
     return controller;
   }
 };
+
+rivets.components['firebase-events-beautiful-next-each'] = {
+
+  template: function() {
+    return $('template#firebase-events-beautiful-next-each').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:firebase-event-table');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    var db = firebase.firestore();
+    var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
+    controller.title = data.title;
+    controller.type = data.type;
+    controller.events = [];
+
+    var getEventEach = function() {
+         dbEvents.where('type', "==", data.type).where('calendar', "==", 'Watt').orderBy("startAt").limit(1).get()
+        .then((querySnapshot) => {
+            //ycontroller.events = querySnapshot.data();
+            controller.debug('event', controller.events, querySnapshot);
+            querySnapshot.forEach((doc) => {
+                var event = doc.data();
+                event.id = doc.id;
+                controller.events.push(event);
+            });
+        })
+        .catch(function(error) {  
+            jumplink.utilities.showGlobalModal({
+                title: 'Ereignis konnte nicht geladen werden',
+                body: error.message,
+            });
+            controller.debug('error', error);
+        });
+    }
+    
+    
+    controller.requests = function(event, controller) {
+        var $this = $(event.target);
+        controller.debug('edit', $this.data());
+        var id = $this.data('id');
+        var href = $this.data('href').replace(':id', id);
+        Barba.Pjax.goTo(href);
+    };
+        
+    getEventEach();
+    return controller;
+  }
+};

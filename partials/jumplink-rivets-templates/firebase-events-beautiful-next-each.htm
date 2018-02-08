@@ -1,0 +1,37 @@
+description = "Schöne Darstellung der nächsten Events jeden Kalenders für die Seitenbesucher"
+
+[viewBag]
+==
+<template id="firebase-events-beautiful-next-each">
+  
+    <div rv-show="events">
+    
+        <div rv-each-event="events" class="row">
+            <div class="col-12 col-md-6">
+            
+            </div>
+            
+            <div class="col-12 col-md-6">
+              <p class="pb-2"><strong>{title}</strong></p>
+              <div
+                rv-class-text-primary="event.calendar | eq 'Fluss'"
+                rv-class-text-warning="event.calendar | eq 'Watt'"
+                rv-class-text-success="event.calendar | eq 'Land'"
+              >
+                  <h2>
+                      {event.startAt | date 'DD.MM.YYYY'}
+                      <small>{event.startAt | time 'HH:mm'} Uhr</small>
+                  </h2>
+                  <h4>
+                      {event.title}
+                  </h4>
+              </div>
+    
+              <p>{event.subtitle}</p>
+              <button class="btn btn-link" rv-data-id="event.id" rv-on-click="delete">mehr dazu</button>
+            </div>
+    </div>
+
+  
+
+</template>

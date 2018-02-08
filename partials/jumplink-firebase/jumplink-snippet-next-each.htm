@@ -1,0 +1,16 @@
+description = "Snippet: Nächstes Ereignis jeden Kalenders (Firebase)"
+
+[viewBag]
+snippetCode = "jumplink-firebase-snippet-next-each"
+snippetName = "Nächstes Ereignis jeden Kalenders (Firebase)"
+==
+{% if wrapContainer %}
+    {% set containerClass = 'container'%}
+{% else %}
+    {% set containerClass = 'container-fluid'%}
+{% endif %}
+
+<div class="{{containerClass}} py-5">
+    {# rivets component #}
+    <firebase-events-beautiful-next-each title="'Nächste öffentliche Führung'" type="'öffentliche Führung'"></firebase-events-beautiful-next-each>
+</div>
