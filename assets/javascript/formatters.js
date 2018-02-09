@@ -35,6 +35,16 @@ rivets.formatters.empty = function(a) {
   return !a.length;
 };
 
+rivets.formatters.and = function(a, b) {
+  return a && b;
+};
+
+rivets.formatters.or = function(a, b) {
+  return a || b;
+};
+
+
+
 /**
  * Adds a number to an output.
  * 
@@ -277,6 +287,19 @@ rivets.formatters.justDigits = function (str) {
 }
 
 /**
+ * Prüft ob eine Zahl gerade ist oder nicht
+ * Check if a number is even or not
+ */
+rivets.formatters.even = function (num) {
+  return (num % 2) === 0;
+}
+
+rivets.formatters.uneven = function (num) {
+  return (num % 2) !== 0;
+}
+
+
+/**
  * Returns true if value index it the last index of the array. Returns false if it is not the last index.
  * 
  * ```
@@ -351,6 +374,18 @@ rivets.formatters.toDate = function(target) {
 
 rivets.formatters.toMoment = function(target) {
     return moment(target);
+};
+
+/**
+ * Get the duration between two dates
+ * @example  {startAt | duration endAt | asHours }
+ */
+rivets.formatters.duration = function(start, end) {
+    return moment.duration(moment(end).diff(start));
+};
+
+rivets.formatters.asHours = function(date) {
+    return date.asHours();
 };
 
 /**

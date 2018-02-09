@@ -1,51 +1,9 @@
 [viewBag]
 snippetCode = "walking-path"
 snippetName = "Walking Path"
+snippetProperties[svgFilename][title] = "SVG Bild Dateiname"
+snippetProperties[svgFilename][type] = "string"
+snippetProperties[svgFilename][default] = "walking-path-01.svg"
+snippetProperties[svgFilename][options][] = ""
 ==
-{% if wrapContainer %}
-    {% set containerClass = 'container'%}
-{% else %}
-    {% set containerClass = 'container-fluid'%}
-{% endif %}
-
-
-<div id="walking-path-01-svg" class="{{containerClass}}">
-    <div class="row ">
-        <div class="col-xs-12 col-md-8">
-            {% partial '../assets/images/walking-path-01.svg' %}
-        </div>
-    </div>
-</div>
-
-<style type="text/css">
-    @keyframes walking-path {
-      from {
-        stroke-dashoffset: 0;
-      }
-      to {
-        stroke-dashoffset: 1000;
-      }
-    }
-    
-    @keyframes draw-path {
-      from {
-        stroke-dashoffset: 0;
-      }
-      to {
-        stroke-dashoffset: 2000;
-      }
-    }
-        
-
-
-    #walking-path-01-svg .path {
-        stroke-dasharray: 2000 !important;
-        stroke-dashoffset: 0;
-        animation: draw-path 10s linear alternate 1;
-        animation-fill-mode: forwards; /* hold last frame */
-    }
-    
-    #walking-path-01-svg .dashed {
-        animation: walking-path 100s linear alternate infinite;
-    }
-</style>
+{% partial 'jumplink-decorations/walking-path' containerClass=containerClass svgFilename=svgFilename %}

@@ -1,5 +1,10 @@
-// https://blog.kulturbanause.de/2012/12/text-mit-verlauf-uberlagern-in-css3/
-// https://www.sitepoint.com/building-linear-gradient-mixin-sass/
+/**
+ * This class uses the background color for the font color so you can use a gradient background
+ * class like bg-gradient-success-info-warning to have a gradient font color.
+ * You can also animate the gradient with a animated-gradient class
+ * @see https://blog.kulturbanause.de/2012/12/text-mit-verlauf-uberlagern-in-css3/
+ * @see https://www.sitepoint.com/building-linear-gradient-mixin-sass/
+ */
 .gradient-text {
     -webkit-text-fill-color: transparent !important;
     text-fill-color: transparent !important;

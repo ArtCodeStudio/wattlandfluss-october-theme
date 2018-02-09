@@ -1,5 +1,37 @@
-.gradient-bg {
-    @include vp-linear-gradient(223deg, $brand-success, $brand-primary, $brand-warning, $brand-success);
+// https://www.gradient-animator.com/
+@include vp-keyframes(animatedBackgroundGradient) {
+    0%{background-position:100% 0%}
+    50%{background-position:0% 100%}
+    100%{background-position:100% 0%}
+}
+
+@include vp-keyframes(colorChangeDangerWarning) {
+    0%{color: $brand-success;}
+    50%{color: $brand-primary;}
+    100%{color: $brand-warning;}
+}
+
+@include vp-keyframes(colorChangeWarningDanger) {
+    0%{color: $brand-success;}
+    50%{color: $brand-primary;}
+    100%{color: $brand-warning;}
+}
+
+/**
+ * ANimated background, you neet this class in addition to a bg-gradient class like bg-gradient-success-info-warning
+ * @see https://www.gradient-animator.com/
+ */
+.animated-gradient {
+    background-size: 600% 600% !important;
+    @include vp-animation('animatedBackgroundGradient 9s ease infinite');
+}
+
+.gradient-bg, .bg-gradient-state-success-info-warning {
+    @include vp-linear-gradient(223deg, $state-success-bg, $state-info-bg, $state-warning-bg);
+}
+
+.gradient-bg, .bg-gradient-success-info-warning {
+    @include vp-linear-gradient(223deg, $state-success-text, $state-info-text, $state-warning-text);
 }
 
 .gradient-primary-danger-primary-danger-bg {
@@ -17,6 +49,23 @@
     -webkit-border-image: -webkit-linear-gradient(to bottom left, $brand-warning 0%, $brand-danger 100%);
     border-image: linear-gradient(to bottom left, $brand-warning 0%, $brand-danger 100%);
     border-image-slice: 1;
+}
+
+
+.bg-state-info {
+  background-color: $state-info-bg;
+}
+
+.bg-state-danger {
+  background-color: $state-danger-bg;
+}
+
+.bg-state-success {
+  background-color: $state-success-bg;
+}
+
+.bg-state-warning {
+  background-color: $state-warning-bg;
 }
 
 .bg-body {
@@ -45,35 +94,6 @@
 
 .bg-gray {
     background-color: $gray-lighter;
-}
-
-.gradient-bg {
-    @include vp-linear-gradient(223deg, $brand-success, $brand-primary, $brand-warning, $brand-success);
-}
-
-// https://www.gradient-animator.com/
-@include vp-keyframes(animatedBackgroundGradient) {
-    0%{background-position:100% 0%}
-    50%{background-position:0% 100%}
-    100%{background-position:100% 0%}
-}
-
-@include vp-keyframes(colorChangeDangerWarning) {
-    0%{color: $brand-success;}
-    50%{color: $brand-primary;}
-    100%{color: $brand-warning;}
-}
-
-@include vp-keyframes(colorChangeWarningDanger) {
-    0%{color: $brand-success;}
-    50%{color: $brand-primary;}
-    100%{color: $brand-warning;}
-}
-
-// https://www.gradient-animator.com/
-.animated-gradient {
-    background-size: 600% 600% !important;
-    @include vp-animation('animatedBackgroundGradient 9s ease infinite');
 }
 
 

@@ -212,8 +212,8 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
         }
         
         if($listItemsCarousel) {
-            var width = $listItemsCarousel.width();
-            $listItemsCarousel.parent().css('min-width', width);
+            var minWidth = $listItemsCarousel.width();
+            $listItemsCarousel.parent().css('min-width', minWidth);
             $listItemsCarousel.reload();
         }
     } else {

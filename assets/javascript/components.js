@@ -222,6 +222,7 @@ rivets.components['firebase-event-form'] = {
         calendar: '',
     };
     
+    // TODO save in own db
     controller.calendars = [
         {id:1, label: 'Watt'},
         {id:2, label: 'Land'},
@@ -229,6 +230,7 @@ rivets.components['firebase-event-form'] = {
         {id:4, label: 'Spezial'},
     ];
     
+    // TODO save in own db
     controller.types = [
         {id:1, label: 'öffentliche Führung'},
         {id:2, label: 'Führung Anfragen'},
@@ -593,40 +595,122 @@ rivets.components['firebase-events-beautiful-next-each'] = {
     var $el = $(el);
     var db = firebase.firestore();
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
+    
+    controller.containerClass = data.containerClass;
     controller.title = data.title;
     controller.type = data.type;
     controller.events = [];
+    
+    controller.calendars = [
+        {id:1, label: 'Watt'},
+        {id:2, label: 'Land'},
+        {id:3, label: 'Fluss'},
+        {id:4, label: 'Spezial'},
+    ];
 
     var getEventEach = function() {
-         dbEvents.where('type', "==", data.type).where('calendar', "==", 'Watt').orderBy("startAt").limit(1).get()
-        .then((querySnapshot) => {
-            //ycontroller.events = querySnapshot.data();
-            controller.debug('event', controller.events, querySnapshot);
-            querySnapshot.forEach((doc) => {
-                var event = doc.data();
-                event.id = doc.id;
-                controller.events.push(event);
+        // delete old getted events
+        controller.events = [];
+        
+        // get next event for each calendar
+        controller.calendars.forEach(function(calendar) {
+             dbEvents.where('type', "==", data.type).where('calendar', "==", calendar.label).orderBy("startAt").limit(1).get()
+            .then((querySnapshot) => {
+                //ycontroller.events = querySnapshot.data();
+                controller.debug('event', controller.events, querySnapshot);
+                querySnapshot.forEach((doc) => {
+                    var event = doc.data();
+                    event.id = doc.id;
+                    controller.events.push(event);
+                });
+            })
+            .catch(function(error) {  
+                jumplink.utilities.showGlobalModal({
+                    title: 'Ereignis konnte nicht geladen werden',
+                    body: error.message,
+                });
+                controller.debug('error', error);
             });
-        })
-        .catch(function(error) {  
-            jumplink.utilities.showGlobalModal({
-                title: 'Ereignis konnte nicht geladen werden',
-                body: error.message,
-            });
-            controller.debug('error', error);
         });
     }
     
+    getEventEach();
+    return controller;
+  }
+};
+
+rivets.components['firebase-event-beautiful'] = {
+  template: function() {
+    return $('template#firebase-event-beautiful').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:firebase-event-beautiful');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+
+    controller.title = data.title;
+    controller.event = data.event;
+    controller.index = data.index;
+    controller.color = 'black';
+    controller.number = jumplink.utilities.rand(1, 4);
+    controller.imageFilename = 'path-0' + controller.number + '.svg';
+    
+    switch(controller.event.calendar) {
+        case 'Watt':
+            controller.color = 'warning';
+            break;
+        case 'Land':
+            controller.color = 'success';
+            break;
+        case 'Fluss':
+            controller.color = 'info';
+            break;
+        case 'Spezial':
+            controller.color = 'gradient';
+            break;
+    }
     
     controller.requests = function(event, controller) {
         var $this = $(event.target);
-        controller.debug('edit', $this.data());
-        var id = $this.data('id');
-        var href = $this.data('href').replace(':id', id);
-        Barba.Pjax.goTo(href);
+        controller.debug('requests', controller.event);
     };
         
-    getEventEach();
+
+    return controller;
+  }
+}
+
+rivets.components['walking-path'] = {
+
+  template: function() {
+    return $('template#walking-path').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:walking-path');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    
+    controller.svg = '';
+    controller.path = data.path;
+    controller.color = data.color;
+    controller.filename = data.filename;
+    controller.class = controller.filename + ' walking-path-wrapper';
+    
+    var loadSvg = function() {
+        $.get(data.path + '/' + data.filename, function(data) {
+          var svg = new XMLSerializer().serializeToString(data.documentElement);
+          controller.svg = svg.replace('bg-color', 'fill-' + controller.color);
+          controller.debug('svg', controller.svg);
+        });
+    }
+    
+    controller.containerClass = data.containerClass;
+
+    loadSvg();
     return controller;
   }
 };

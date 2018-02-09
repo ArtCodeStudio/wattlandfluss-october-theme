@@ -1,0 +1,62 @@
+[viewBag]
+==
+<template id="firebase-event-beautiful">
+
+    <div rv-if="index | lt 1" class="row">
+        <div class="col-12 col-md-6 offset-md-6">
+            <p class="pb-2"><strong>{title}</strong></p>
+        </div>
+    </div>
+     
+    <div class="row">
+
+        <div rv-if="index | even" class="col-12 col-md-6">
+            <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
+            Bild
+        </div>
+        
+        <div class="col-12 col-md-6">
+            <h3
+                rv-class-text-info="event.calendar | eq 'Fluss'"
+                rv-class-text-warning="event.calendar | eq 'Watt'"
+                rv-class-text-success="event.calendar | eq 'Land'"
+                rv-class-gradient-text="event.calendar | eq 'Spezial'"
+                rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
+                rv-class-animated-gradient="event.calendar | eq 'Spezial'"
+            >
+                {event.title}
+            </h3>
+            <h4>
+                
+            </h4>
+            <p>{event.subtitle}</p>
+            
+            <p rv-html="event.description"></p>
+            
+            <p class="mb-01">
+                <strong>Datum:</strong> {event.startAt | date 'DD.MM.YYYY'}
+            </p>
+            <p class="mb-01">
+                <strong>Beginn:</strong> {event.startAt | time 'HH:mm'} Uhr
+            </p>
+            <p class="mb-01">
+                <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
+            </p>
+            <p class="mb-01">
+                <strong>Ausstattung:</strong> {event.equipment}
+            </p>
+            
+            <button class="btn btn-outline-dark mt-1" rv-data-id="event.id" rv-on-click="requests">
+                <span class="px-2">Anfrage</span>
+            </button>
+            
+        </div>
+        
+        <div rv-if="index | uneven" class="col-12 col-md-6">
+            <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
+            Bild
+        </div>
+        
+    </div>
+ 
+</template>

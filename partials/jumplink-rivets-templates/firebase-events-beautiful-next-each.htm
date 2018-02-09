@@ -4,34 +4,17 @@ description = "Schöne Darstellung der nächsten Events jeden Kalenders für die
 ==
 <template id="firebase-events-beautiful-next-each">
   
-    <div rv-show="events">
-    
-        <div rv-each-event="events" class="row">
-            <div class="col-12 col-md-6">
-            
-            </div>
-            
-            <div class="col-12 col-md-6">
-              <p class="pb-2"><strong>{title}</strong></p>
-              <div
-                rv-class-text-primary="event.calendar | eq 'Fluss'"
-                rv-class-text-warning="event.calendar | eq 'Watt'"
-                rv-class-text-success="event.calendar | eq 'Land'"
-              >
-                  <h2>
-                      {event.startAt | date 'DD.MM.YYYY'}
-                      <small>{event.startAt | time 'HH:mm'} Uhr</small>
-                  </h2>
-                  <h4>
-                      {event.title}
-                  </h4>
-              </div>
-    
-              <p>{event.subtitle}</p>
-              <button class="btn btn-link" rv-data-id="event.id" rv-on-click="delete">mehr dazu</button>
-            </div>
+    <div rv-each-event="events" rv-show="events"
+        class="my-0 py-5"
+        rv-class-bg-state-info="event.calendar | eq 'Fluss'"
+        rv-class-bg-state-warning="event.calendar | eq 'Watt'"
+        rv-class-bg-state-success="event.calendar | eq 'Land'"
+        rv-class-animated-gradient="event.calendar | eq 'Spezial'"
+        rv-class-bg-gradient-state-success-info-warning="event.calendar | eq 'Spezial'"
+        
+    >
+        <div rv-class="containerClass">   
+            <firebase-event-beautiful title="title" event="event" index="%event%"></firebase-event-beautiful>
+        </div>
     </div>
-
-  
-
 </template>

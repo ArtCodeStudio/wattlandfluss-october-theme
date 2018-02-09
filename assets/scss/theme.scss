@@ -38,13 +38,11 @@
 @import "javascript";
 @import "animations";
 @import "images";
-@import "styleicons";
 @import "utilities";
 @import "code";
 @import "button";
 @import "icons";
 @import "positions";
-@import "instagram";
 @import "modal";
 @import "iconset";
 @import "sizes";
@@ -58,9 +56,15 @@
 @import "fonts";
 @import "sidebars";
 @import "partials";
-@import "itemslide"; // style for https://github.com/JumpLinkNetwork/itemslide.github.io
+@import "spacings";
+
+@import "./extensions/_intergram";
+@import "./extensions/_styleicons";
+@import "./extensions/_itemslide"; // style for https://github.com/JumpLinkNetwork/itemslide.github.io
 @import "./extensions/_summernote";
 @import "./extensions/_calendar";
+
+@import "./rivets-components/_walking-path";
 
 // overwrite styles only for this theme 
 @import "theme-customisations";

@@ -1,0 +1,88 @@
+// for walking-path rivets component
+@keyframes walking-svg-path-backward {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+
+@keyframes walking-svg-path-forward {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawing-svg-path-backward {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 2000;
+  }
+}
+
+@keyframes drawing-svg-path-forward {
+  from {
+    stroke-dashoffset: 2000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.walking-svg-path-forward {
+    animation: walking-svg-path-forward 100s linear alternate infinite;
+}
+
+.walking-svg-path-backward {
+    animation: walking-svg-path-backward 100s linear alternate infinite;
+}
+
+.drawing-svg-path-backward {
+    stroke-dasharray: 2000 !important;
+    stroke-dashoffset: 2000;
+    animation: drawing-svg-path-forward 10s linear alternate 1;
+    animation-fill-mode: forwards; /* hold last frame */
+}
+
+.drawing-svg-path-backward {
+    stroke-dasharray: 2000 !important;
+    stroke-dashoffset: 0;
+    animation: drawing-svg-path-backward 10s linear alternate 1;
+}
+
+
+.walking-path-wrapper {
+    width: 100%;
+    position: absolute;
+    top: -300px;
+    svg {
+        width: 100%;
+    }
+}
+
+
+.fill-primary {
+    fill: $brand-primary !important;
+}
+
+.fill-success {
+    fill: $brand-success !important;
+}
+
+.fill-warning {
+    fill: $brand-warning !important;
+}
+
+.fill-danger {
+    fill: $brand-danger !important;
+}
+
+.fill-info {
+    fill: $brand-info !important;
+}
