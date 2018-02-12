@@ -193,6 +193,9 @@ rivets.formatters.productImageSize = rivets.formatters.product_image_size;
  * @see https://help.shopify.com/themes/liquid/filters/array-filters#size
  */
 rivets.formatters.size = function(a) {
+  if(!a) {
+    return 0;   
+  }
   return a.length;
 };
 

@@ -68,6 +68,23 @@ description = "For Admins: Edit or create an event"
     <small id="eventPriceDesc" class="form-text text-muted">Preis pro Person in Euro.</small>
   </div>
   
+    <div rv-show="event.images | size" class="box__files">
+        <label for="eventImages">
+            Bilder
+        </label>
+        <div class="file" id="eventImages" rv-each-file="event.images">
+            <img class="img-fluid" rv-src="file.downloadURL" rv-alt="file.metadata.name" rv-id="file.metadata.name">
+            <label rv-for="file.metadata.name">
+                <small>
+                    {file.metadata.name}
+                </small>
+            </label>
+            
+        </div>
+    </div> 
+  
+  <file-upload uploaded-files="uploadedImages"></file-upload>
+  
   <global-modal></global-modal>
     
   <button rv-if="id | not" class="btn btn-primary" rv-on-click="createEvent">Event anlegen</button>

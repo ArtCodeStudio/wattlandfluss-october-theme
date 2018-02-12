@@ -9,6 +9,10 @@ window.jumplink.debug = window.jumplink.debug || {};
 window.jumplink.debug.templates = debug('theme:templates');
 
 
+// rivets model
+window.jumplink.model = {};
+
+
 window.jumplink.templates.init = function(dataset, data) {
   if(typeof(window.jumplink.templates[dataset.namespace]) === 'function' ) {
     window.jumplink.templates[dataset.namespace](dataset, data);
@@ -28,8 +32,10 @@ window.jumplink.templates.prepairTemplate = function(dataset) {
     
     // console.log('newPageReady');
     var data = window.jumplink.utilities.parseDatasetJsonStrings(dataset);
+
+    window.jumplink.model.dataset = dataset;
     
-    rivets.bind($('#barba-wrapper'), dataset);
+    rivets.bind($('#barba-wrapper'), window.jumplink.model);
 
     window.jumplink.utilities.closeAllModals();
     jumplink.initDataApi();

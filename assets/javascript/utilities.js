@@ -8,7 +8,11 @@ window.jumplink.utilities = window.jumplink.utilities || {};
  */
 window.jumplink.utilities.showGlobalModal = function (data) {
     $.event.trigger('rivets:global-modal', [true, data]);
-}
+};
+
+window.jumplink.utilities.cloneArray = function (array) {
+    return array.slice(0);
+};
 
 /**
  * Check if element is visible after scrolling
@@ -96,6 +100,15 @@ jumplink.utilities.justDigits = function (str) {
 jumplink.utilities.isFunction = function (value) {
   return typeof(value) === 'function';
 };
+
+/**
+ * 
+ * @see https://stackoverflow.com/a/4775737/1465919
+ */
+jumplink.utilities.isArray = function (value) {
+    return Object.prototype.toString.call( value ) === '[object Array]';
+};
+
 
 /**
  * Detect if current device has localStorage support
