@@ -1,0 +1,14 @@
+[viewBag]
+==
+<template id="preview-files">
+    <div rv-show="files | size" class="files-header">
+        <label>
+            {label}
+        </label>
+    </div>
+    <div rv-if="files | size" class="files-body">
+        <div class="file" rv-each-file="files">
+            <preview-file file="file" index="%file%"></preview-file>
+        </div>
+    </div>
+</template>

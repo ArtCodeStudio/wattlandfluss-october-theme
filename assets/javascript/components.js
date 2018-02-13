@@ -215,6 +215,7 @@ rivets.components['firebase-event-form'] = {
     // to store uploaded Images in event
     controller.uploadedImages = [];
     
+    // start values of a event to have it not undefined, will be replaced in next steps
     controller.event = {
         title: '',
         subtitle: '',
@@ -226,6 +227,7 @@ rivets.components['firebase-event-form'] = {
         price: "0,0",
         type: '',
         calendar: '',
+        images: [],
     };
     
     // TODO save in own db
@@ -281,9 +283,11 @@ rivets.components['firebase-event-form'] = {
     // watch for upload event from :file-upload component
     $(document).bind('rivets:file-upload:complete', function (event, files) {
         controller.debug('rivets:file-upload:complete', files);
-        // controller.uploadedImages = files;
     });
     
+    /**
+     * Sets the default values for an event e.g. if you want to create a new one
+     */
     var setDefaultValues = function () {
         controller.debug('setDefaultValues', controller.id);
         
@@ -365,6 +369,9 @@ rivets.components['firebase-event-form'] = {
         }, 200);
     }
     
+    /**
+     * Get the selected value of a select option DOM element
+     */
     var getSelectedValue = function(selector) { 
         $selected = $(selector + ' option:selected');
         return $selected.text();
@@ -403,6 +410,7 @@ rivets.components['firebase-event-form'] = {
             price: Number(controller.event.price),
             type: controller.event.type,
             calendar: controller.event.calendar,
+            images: controller.event.images,
         };
         
         // split times in hour and minutes
@@ -419,8 +427,15 @@ rivets.components['firebase-event-form'] = {
         newEvent.startAt = newEvent.startAt.toDate();
         newEvent.endAt = newEvent.endAt.toDate();
         
+        // Merge old images with new uploaded images
+        if(!jumplink.utilities.isArray(newEvent.images)) {
+            controller.debug('no images are set, init image object with empty array!')
+            newEvent.images = [];
+        }
+        newEvent.images.push.apply(newEvent.images, controller.uploadedImages);
         
-        newEvent.images = controller.uploadedImages;
+        // remove uploadedImages images
+        controller.uploadedImages = [];
         
         return newEvent;
     }
@@ -477,6 +492,9 @@ rivets.components['firebase-event-form'] = {
   }
 };
 
+/**
+ * Component to list the events in a table for the backend
+ */
 rivets.components['firebase-events-table'] = {
 
   template: function() {
@@ -548,7 +566,9 @@ rivets.components['firebase-events-table'] = {
   }
 };
 
-
+/**
+ * Component to show the events in frontend for the visitors
+ */
 rivets.components['firebase-events-beautiful-next'] = {
 
   template: function() {
@@ -600,6 +620,9 @@ rivets.components['firebase-events-beautiful-next'] = {
   }
 };
 
+/**
+ * Component to show the events in frontend for the visitors
+ */
 rivets.components['firebase-events-beautiful-next-each'] = {
 
   template: function() {
@@ -657,6 +680,9 @@ rivets.components['firebase-events-beautiful-next-each'] = {
   }
 };
 
+/**
+ * Component to show the events in frontend for the visitors
+ */
 rivets.components['firebase-event-beautiful'] = {
   template: function() {
     return $('template#firebase-event-beautiful').html();
@@ -753,7 +779,7 @@ rivets.components['file-upload'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:walking-path');
+    controller.debug = debug('rivets:file-upload');
     controller.debug('initialize', el, data);
     var $el = $(el);
     
@@ -880,6 +906,7 @@ rivets.components['file-upload'] = {
         }))
         .then(function(files) {
             $.event.trigger('rivets:file-upload:complete', [files]);
+            controller.isUploading = false;
         });
     }
 
@@ -961,6 +988,109 @@ rivets.components['file-upload'] = {
         controller.hasFocus = false;
     });
 
+    return controller;
+  }
+};
+
+/**
+ * Component to show uploaded files or files added to a event
+ */
+rivets.components['uploaded-files'] = {
+
+  template: function() {
+    return $('template#uploaded-files').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:uploaded-files');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    controller.files = data.files;
+    controller.label = data.label || 'Files';
+    
+    /**
+     * Called if clicked delete button on uploaded-file component template
+     */
+    controller.delete = function(event, file) {
+        var $this = $(event.target);
+        controller.debug('[delete]');
+        var index = controller.files.indexOf(file);
+        if(index !== -1) {
+        	controller.files.splice(index, 1);
+        }
+    }
+    
+    return controller;
+  }
+};
+
+/**
+ * Single file of the uploaded-files component
+ */
+rivets.components['uploaded-file'] = {
+
+  template: function() {
+    return $('template#uploaded-file').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:uploaded-file');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    controller.file = data.file;
+    
+    /**
+     * Called if clicked delete button in this component template
+     */
+    controller.delete = function(event, controller) {
+        controller.debug('[delete]');
+        data.onDelete(event, controller.file);
+    }
+    
+    
+    return controller;
+  }
+};
+
+/**
+ * Component to show files they will be uploaded, similar to uploaded-files but shown before the upload is complete
+ */
+rivets.components['preview-files'] = {
+
+  template: function() {
+    return $('template#preview-files').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:preview-files');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    controller.files = data.files;
+    controller.label = data.label || 'Files';
+        
+    return controller;
+  }
+};
+
+/**
+ * Single file of the preview-files component
+ */
+rivets.components['preview-file'] = {
+
+  template: function() {
+    return $('template#preview-file').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:preview-file');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    controller.file = data.file;
+    
     return controller;
   }
 };

@@ -1,0 +1,31 @@
+uploaded-file {
+    max-width: 200px;
+    display: block;
+    position: relative;
+    label {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .actions {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        display: none;
+    }
+    
+    &:hover {
+        img {
+            filter: grayscale(100%);
+        }
+        .actions {
+            display: flex;
+            // text-align: center;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    }
+
+}

@@ -1,0 +1,14 @@
+[viewBag]
+==
+<template id="uploaded-files">
+    <div rv-show="files | size" class="files-header">
+        <label>
+            {label}
+        </label>
+    </div>
+    <div rv-if="files | size" class="files-body">
+        <div class="file" rv-each-file="files">
+            <uploaded-file file="file" index="%file%" on-delete="delete"></uploaded-file>
+        </div>
+    </div>
+</template>

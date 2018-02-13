@@ -58,14 +58,9 @@
 @import "partials";
 @import "spacings";
 
-@import "./extensions/_intergram";
-@import "./extensions/_styleicons";
-@import "./extensions/_itemslide"; // style for https://github.com/JumpLinkNetwork/itemslide.github.io
-@import "./extensions/_summernote";
-@import "./extensions/_calendar";
+@import "./extensions/_index";
 
-@import "./rivets-components/_walking-path";
-@import "./rivets-components/_file-upload";
+@import "./components/_index";
 
 // overwrite styles only for this theme 
 @import "theme-customisations";

@@ -2,20 +2,7 @@
 ==
 <template id="file-upload">
 
-    <div rv-show="uploadedFiles | size" class="box__files">
-        <label for="uploadedFiles">
-            Bilder
-        </label>
-        <div class="file" id="uploadedFiles" rv-each-file="uploadedFiles">
-            <img class="img-fluid" rv-src="file.downloadURL" rv-alt="file.metadata.name" rv-id="file.metadata.name">
-            <label rv-for="file.metadata.name">
-                <small>
-                    {file.metadata.name}
-                </small>
-            </label>
-            
-        </div>
-    </div> 
+    <uploaded-files label="'Neue Dateien'" files="uploadedFiles"></uploaded-files>
 
     <form class="file-upload-box" method="post" action="" enctype="multipart/form-data" rv-class-is-dragover="isDragover" rv-class-is-uploading="isUploading">
         <div class="box__input">
@@ -26,21 +13,7 @@
             <button class="box__button" type="submit">Upload</button>
         </div>
 
-        <div rv-show="previewFiles | size" class="box__files">
-            <label for="filesToUpload">
-                Bilder werden hochgeladen..
-            </label>
-            <div class="file" id="filesToUpload" rv-each-file="previewFiles">
-                <img class="img-fluid" rv-src="file.dataURL" rv-alt="file.name" rv-id="file.name">
-                <label rv-for="file.name">
-                    <small>
-                        {file.name}
-                    </small>
-                    
-                </label>
-                
-            </div>
-        </div>
+        <preview-files label="'Bilder werden hochgeladen..'" files="previewFiles"></preview-files>
     </form>
 
 </template>
