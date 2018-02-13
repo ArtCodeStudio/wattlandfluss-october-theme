@@ -347,6 +347,8 @@ rivets.components['firebase-event-form'] = {
             $eventStartAt.pignoseCalendar('set', controller.event.startAt);
             
             controller.debug('getEvent done', controller.event);
+            
+            return controller.event;
         })
         .catch(function(error) {  
             jumplink.utilities.showGlobalModal({
@@ -453,7 +455,11 @@ rivets.components['firebase-event-form'] = {
                 title: 'Erfolgreich angelegt',
                 body: message,
             });
-             controller.debug(message);
+            controller.debug(message);
+            return getEvent(controller.id);
+        })
+        .then(function(event) {
+        
         })
         .catch(function(error) {  
             jumplink.utilities.showGlobalModal({
@@ -478,6 +484,10 @@ rivets.components['firebase-event-form'] = {
                 body: message,
             });
             controller.debug(message, docRef);
+            return getEvent(controller.id);
+        })
+        .then(function(event) {
+        
         })
         .catch(function(error) {  
             jumplink.utilities.showGlobalModal({

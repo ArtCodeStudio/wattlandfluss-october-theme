@@ -10,9 +10,9 @@
      
     <div class="row">
 
-        <div rv-if="index | even" class="col-12 col-md-6">
+        <div rv-if="index | even" class="col-12 col-md-6 col-md-image-left" rv-class-mt-0="index | eq 0">
             <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
-            Bild
+            <img rv-src="event.images | get 0 | get 'downloadURL'" rv-alt="event.images | get 0 | get 'metadata' | get 'name'" class="img-fluid py-2">
         </div>
         
         <div class="col-12 col-md-6">
@@ -52,9 +52,9 @@
             
         </div>
         
-        <div rv-if="index | uneven" class="col-12 col-md-6">
+        <div rv-if="index | uneven" class="col-12 col-md-6 col-md-image-right">
             <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
-            Bild
+            <img rv-src="event.images | get 0 | get 'downloadURL'" rv-alt="event.images | get 0 | get 'metadata' | get 'name'" class="img-fluid py-2">
         </div>
         
     </div>

@@ -316,15 +316,19 @@ rivets.formatters.last = function(array, index) {
 };
 
 /**
- * Get property of object
+ * Get property of object or array
  * @see https://gist.github.com/der-On/cdafe908847e2b882691
  */
 rivets.formatters.get = function(obj, key) {
-  if (obj && typeof obj === 'object') {
+  if (jumplink.utilities.isObject(obj) || jumplink.utilities.isArray(obj)) {
     return obj[key];
   }
   return null;
 };
+
+/**
+ * Alias for get formatter
+ */
 rivets.formatters['.'] = rivets.formatters.get;
 
 /**

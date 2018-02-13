@@ -109,6 +109,14 @@ jumplink.utilities.isArray = function (value) {
     return Object.prototype.toString.call( value ) === '[object Array]';
 };
 
+/**
+ * 
+ * @see https://stackoverflow.com/a/4775737/1465919
+ */
+jumplink.utilities.isObject = function (obj) {
+    return obj && typeof obj === 'object';
+};
+
 
 /**
  * Detect if current device has localStorage support

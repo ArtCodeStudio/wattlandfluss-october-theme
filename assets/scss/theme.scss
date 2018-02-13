@@ -55,12 +55,11 @@
 @import "backgrounds";
 @import "fonts";
 @import "sidebars";
-@import "partials";
 @import "spacings";
 
-@import "./extensions/_index";
-
-@import "./components/_index";
+@import "partials/_index";
+@import "extensions/_index";
+@import "components/_index";
 
 // overwrite styles only for this theme 
 @import "theme-customisations";
