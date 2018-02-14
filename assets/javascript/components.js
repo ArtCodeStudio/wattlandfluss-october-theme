@@ -189,7 +189,81 @@ rivets.components['global-modal'] = {
 };
 
 /**
+ * Component with some utilities fpr a select with generated select options 
+ */
+rivets.components['rv-select'] = {
+  template: function() {
+    return $('template#rv-select').html();
+  },
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:rv-select');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    var $select = $el.find('select');
+    
+    controller.label = data.label;
+    controller.values = data.values;
+    controller.id = Date.now();
+    controller.selected = controller.values[0];
+    
+    /**
+     * Get the selected value of a select option DOM element
+     */
+    controller.get = function() { 
+        $selected = $select.children('option:selected');
+        if($selected.length) {
+            var data = $selected.data();
+            if(data.index >= 0) {
+                var value = controller.values[data.index];
+                controller.debug('get', value );
+                return value;
+            }
+        }
+        return null;
+    };
+    
+    /**
+     * set a value
+     */
+    controller.set = function(value) {
+        $select.val(value).change();
+        controller.debug('set', value );
+        return controller.get();
+    };
+    
+    controller.values.forEach(function(value, i) {
+        var $option = $('<option>', {
+            'data-index': i,
+            'data-id': value.id,
+            value: value.value,
+            text : value.label,
+        });
+        
+        // select first element by default
+        if(i === 0) {
+            $option.attr('selected', true);
+        }
+        
+        $select.append($option);
+    });
+    
+    $select.on('change', function() {
+        var $this = $(this);
+        var value = controller.get();
+        controller.selected = value;
+        data.selected = controller.selected;
+        data.onChange(data.selected);
+        controller.debug('select', value );
+    });
+
+    return controller;
+  }
+}
+
+/**
  * Component to create or update events in firebase
+ * TODO event (with date) / variable event (without fix date)
  */
 rivets.components['firebase-event-form'] = {
 
@@ -208,6 +282,10 @@ rivets.components['firebase-event-form'] = {
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
     var $eventDesc = $(el).find('#eventDesc');
     var $eventStartAt = $(el).find('#eventStartAt');
+    
+    controller.typeChanged = function(type) {
+        controller.debug('typeChanged', type);
+    };
     
     // if id is set the event will be updated otherwise it will be created
     controller.id = data.id;
@@ -240,8 +318,8 @@ rivets.components['firebase-event-form'] = {
     
     // TODO save in own db
     controller.types = [
-        {id:1, label: 'öffentliche Führung'},
-        {id:2, label: 'Führung Anfragen'},
+        {id:1, label: 'öffentliche Führung', value: 'fix'},
+        {id:2, label: 'Führung Anfragen', value: 'variable'},
     ];
     
     /**
@@ -336,7 +414,8 @@ rivets.components['firebase-event-form'] = {
             // update description for wysiwyg
             $eventDesc.summernote('code', event.description);
             
-            var selectedType = setSelectedValue('#eventType', event.type);
+            var selectedType = setSelectedValue('#eventType select', event.type);
+            // var selectedType = controller.setType(event.type);
             controller.debug('selectedType', selectedType);
             
             var selectedCalendar = setSelectedValue('#eventCalendar', event.calendar);
@@ -376,18 +455,21 @@ rivets.components['firebase-event-form'] = {
      */
     var getSelectedValue = function(selector) { 
         $selected = $(selector + ' option:selected');
-        return $selected.text();
+        return $selected.val();
     };
     
     /**
      * set a value (not by the value attribute but by the text content of the option) on a select dom element
      */
     var setSelectedValue = function(selector, value) {
-        var selector = selector + ' option:contains("' + value + '")';
-        controller.debug('setSelectedValue', selector, value);
-        $selected = $(selector);
-        $selected.attr('selected','selected');
-        return $selected.text();
+        // var selector = selector + ' option:contains("' + value + '")';
+        //controller.debug('setSelectedValue', selector, value);
+        //$selected = $(selector);
+        //$selected.attr('selected','selected');
+        
+        $select = $(selector);
+        $select.val(value).change();
+        return getSelectedValue(selector);
     };
     
     /**
@@ -395,7 +477,8 @@ rivets.components['firebase-event-form'] = {
      */
     var formatControllerEventForFirestore = function() {
         // WORKAROUND for select element
-        controller.event.type = getSelectedValue('#eventType');
+        controller.event.type = getSelectedValue('#eventType select');
+        // controller.event.type = controller.getType().value;
         controller.event.calendar = getSelectedValue('#eventCalendar');
         
         // WORKAROUND otherwise rivets seems to hold the old data setted before :(

@@ -4,13 +4,17 @@ description = "For Admins: Edit or create an event"
 ==
 <template id="firebase-event-form">
 
+    <!--
     <div class="form-group">
         <label for="eventType">Typ</label>
         <br>
         <select class="custom-select" id="eventType">
-        <option rv-each-type="types">{type.label}</option>
+            <option rv-each-type="types">{type.label}</option>
         </select>
     </div>
+    -->
+    
+    <rv-select id="eventType" label="'Typ'" values="types" get="getType" set="setType" on-change="typeChanged"></rv-select>
     
     <div class="form-group">
         <label for="eventCalendar">Kalender</label>
