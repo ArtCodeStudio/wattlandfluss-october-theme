@@ -263,7 +263,9 @@ rivets.components['rv-select'] = {
 
 /**
  * Component to create or update events in firebase
- * TODO event (with date) / variable event (without fix date)
+ * types:
+ *  * fix (event with date)
+ * * variable (event without date)
  */
 rivets.components['firebase-event-form'] = {
 
@@ -281,10 +283,17 @@ rivets.components['firebase-event-form'] = {
     
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
     var $eventDesc = $(el).find('#eventDesc');
+    var $eventNote = $(el).find('#eventNote');
     var $eventStartAt = $(el).find('#eventStartAt');
     
     controller.typeChanged = function(type) {
         controller.debug('typeChanged', type);
+        controller.event.type = type.value;
+    };
+    
+    controller.calendarChanged = function(calendar) {
+        controller.debug('typeChanged', calendar);
+        controller.event.calendar = calendar.value;
     };
     
     // if id is set the event will be updated otherwise it will be created
@@ -302,24 +311,27 @@ rivets.components['firebase-event-form'] = {
         startAt: '',
         startTimeAt: '',
         endTimeAt: '',
-        price: "0,0",
+        price: 0.0,
+        pricetext: '',
         type: '',
         calendar: '',
+        offer: '',
+        note: '',
         images: [],
     };
     
     // TODO save in own db
     controller.calendars = [
-        {id:1, label: 'Watt'},
-        {id:2, label: 'Land'},
-        {id:3, label: 'Fluss'},
-        {id:4, label: 'Spezial'},
+        {id:1, label: 'Watt', value: 'Watt'},
+        {id:2, label: 'Land', value: 'Land'},
+        {id:3, label: 'Fluss', value: 'Fluss'},
+        {id:4, label: 'Spezial', value: 'Spezial'},
     ];
     
-    // TODO save in own db
+    // TODO save types in own db
     controller.types = [
         {id:1, label: 'öffentliche Führung', value: 'fix'},
-        {id:2, label: 'Führung Anfragen', value: 'variable'},
+        {id:2, label: 'Führung anfragen', value: 'variable'},
     ];
     
     /**
@@ -338,6 +350,23 @@ rivets.components['firebase-event-form'] = {
             onChange: function(contents, $editable) {
                 console.log('onChange:', contents, $editable);
                 controller.event.description = contents;
+                controller.debug('onChange', contents, controller.event);
+            }
+        }
+    });
+    
+    $eventNote.summernote({
+        placeholder: 'Notiz',
+        height: 200,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['Misc', ['undo', 'redo', 'codeview', 'fullscreen']],
+        ],
+        callbacks: {
+            onChange: function(contents, $editable) {
+                console.log('onChange:', contents, $editable);
+                controller.event.note = contents;
                 controller.debug('onChange', contents, controller.event);
             }
         }
@@ -379,17 +408,21 @@ rivets.components['firebase-event-form'] = {
         controller.event.endTimeAt = '16:00';
         
         // title, subtitle
-        controller.event.title = 'Dein Fußabdruck im Meer';
-        controller.event.subtitle = 'Wattwanderung im Sinne der Nachhaltigkeit - wie man die Natur genießt, ohne sie zu stören.';
+        controller.event.title = '';
+        controller.event.subtitle = '';
         
         // description
-        controller.event.description = '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>';
+        controller.event.description = '';
         $eventDesc.summernote('code', controller.event.description);
         
-        controller.event.equipment = 'festes Schuhwerk, wetterfeste Kleidung';
+        $eventNote.summernote('code', controller.event.note);
+        
+        controller.event.equipment = '';
         
         // price
         controller.event.price = 25;
+        controller.event.pricetext = '';
+        
         
         controller.debug('set default values', controller.event);
     }
@@ -414,11 +447,13 @@ rivets.components['firebase-event-form'] = {
             // update description for wysiwyg
             $eventDesc.summernote('code', event.description);
             
+            $eventNote.summernote('code', event.note);
+            
             var selectedType = setSelectedValue('#eventType select', event.type);
             // var selectedType = controller.setType(event.type);
             controller.debug('selectedType', selectedType);
             
-            var selectedCalendar = setSelectedValue('#eventCalendar', event.calendar);
+            var selectedCalendar = setSelectedValue('#eventCalendar select', event.calendar);
             controller.debug('selectedCalendar', selectedCalendar);
             
             controller.event = event;
@@ -479,7 +514,7 @@ rivets.components['firebase-event-form'] = {
         // WORKAROUND for select element
         controller.event.type = getSelectedValue('#eventType select');
         // controller.event.type = controller.getType().value;
-        controller.event.calendar = getSelectedValue('#eventCalendar');
+        controller.event.calendar = getSelectedValue('#eventCalendar select');
         
         // WORKAROUND otherwise rivets seems to hold the old data setted before :(
         controller.event.startAt = $('#eventStartAt').val();
@@ -493,8 +528,11 @@ rivets.components['firebase-event-form'] = {
             // startTimeAt: controller.event.startTimeAt,
             endAt: moment(controller.event.startAt),
             price: Number(controller.event.price),
+            pricetext: controller.event.pricetext || null,
             type: controller.event.type,
             calendar: controller.event.calendar,
+            note: controller.event.note || null,
+            offer: controller.event.offer || null,
             images: controller.event.images,
         };
         
@@ -517,6 +555,7 @@ rivets.components['firebase-event-form'] = {
             controller.debug('no images are set, init image object with empty array!')
             newEvent.images = [];
         }
+        
         newEvent.images.push.apply(newEvent.images, controller.uploadedImages);
         
         // remove uploadedImages images
@@ -542,14 +581,14 @@ rivets.components['firebase-event-form'] = {
             return getEvent(controller.id);
         })
         .then(function(event) {
-        
+            return event;
         })
-        .catch(function(error) {  
+        .catch(function(error) {
+            controller.debug('error', error);
             jumplink.utilities.showGlobalModal({
                 title: 'Konnte nicht angelegt werden',
                 body: error.message,
             });
-            controller.debug('error', error);
         });
     }
       
@@ -567,17 +606,18 @@ rivets.components['firebase-event-form'] = {
                 body: message,
             });
             controller.debug(message, docRef);
+            controller.id = docRef.id;
             return getEvent(controller.id);
         })
         .then(function(event) {
-        
+            return event;
         })
-        .catch(function(error) {  
+        .catch(function(error) {
+            controller.debug('error', error);
             jumplink.utilities.showGlobalModal({
                 title: 'Ereignis konnte nicht angelegt werden',
                 body: error.message,
             });
-            controller.debug('error', error);
         });
     };
 
@@ -664,7 +704,10 @@ rivets.components['firebase-events-table'] = {
  */
 rivets.components['firebase-events-beautiful-next'] = {
 
-  template: function() {
+  template: function(a, b) {
+    controller = this;
+    console.log('firebase-events-beautiful-next template', a, b);
+    console.log(this);
     return $('template#firebase-events-beautiful-next').html();
   },
 
@@ -716,15 +759,15 @@ rivets.components['firebase-events-beautiful-next'] = {
 /**
  * Component to show the events in frontend for the visitors
  */
-rivets.components['firebase-events-beautiful-next-each'] = {
+rivets.components['firebase-events-beautiful'] = {
 
   template: function() {
-    return $('template#firebase-events-beautiful-next-each').html();
+    return $('template#firebase-events-beautiful').html();
   },
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-event-table');
+    controller.debug = debug('rivets:firebase-events-beautiful');
     controller.debug('initialize', el, data);
     var $el = $(el);
     var db = firebase.firestore();
@@ -733,42 +776,51 @@ rivets.components['firebase-events-beautiful-next-each'] = {
     controller.containerClass = data.containerClass;
     controller.title = data.title;
     controller.type = data.type;
+    controller.calendar = data.calendar;
+    controller.style = data.style;
+    
     controller.events = [];
     
-    controller.calendars = [
-        {id:1, label: 'Watt'},
-        {id:2, label: 'Land'},
-        {id:3, label: 'Fluss'},
-        {id:4, label: 'Spezial'},
-    ];
 
-    var getEventEach = function() {
+    var getEvents = function() {
         // delete old getted events
         controller.events = [];
+        var ref;
         
-        // get next event for each calendar
-        controller.calendars.forEach(function(calendar) {
-             dbEvents.where('type', "==", data.type).where('calendar', "==", calendar.label).orderBy("startAt").limit(1).get()
-            .then((querySnapshot) => {
-                //ycontroller.events = querySnapshot.data();
-                controller.debug('event', controller.events, querySnapshot);
-                querySnapshot.forEach((doc) => {
-                    var event = doc.data();
-                    event.id = doc.id;
-                    controller.events.push(event);
-                });
-            })
-            .catch(function(error) {  
-                jumplink.utilities.showGlobalModal({
-                    title: 'Ereignis konnte nicht geladen werden',
-                    body: error.message,
-                });
-                controller.debug('error', error);
+        switch(controller.calendar) {
+            case 'Watt':
+            case 'Land':
+            case 'Fluss':
+            case 'Spezial':
+                ref = dbEvents.where('type', "==", data.type).where('calendar', "==", controller.calendar).orderBy("startAt");
+                break;
+            default:
+                // all calendars
+                ref = dbEvents.where('type', "==", data.type).orderBy("startAt");
+                break;
+        }
+        
+         ref.get()
+        .then((querySnapshot) => {
+            //ycontroller.events = querySnapshot.data();
+            controller.debug('event', querySnapshot);
+            querySnapshot.forEach((doc) => {
+                var event = doc.data();
+                event.id = doc.id;
+                controller.events.push(event);
+            });
+        })
+        .catch(function(error) {
+            controller.debug('error', error);
+            jumplink.utilities.showGlobalModal({
+                title: 'Ereignis konnte nicht geladen werden',
+                body: error.message,
             });
         });
+
     }
     
-    getEventEach();
+    getEvents();
     return controller;
   }
 };
@@ -788,8 +840,10 @@ rivets.components['firebase-event-beautiful'] = {
     var $el = $(el);
 
     controller.title = data.title;
+    controller.containerClass = data.containerClass;
     controller.event = data.event;
     controller.index = data.index;
+    controller.style = data.style; // choose template 'fix' | 'variable' | 'custom'
     controller.color = 'black';
     controller.number = jumplink.utilities.rand(1, 4);
     controller.imageFilename = 'path-0' + controller.number + '.svg';
@@ -926,7 +980,6 @@ rivets.components['file-upload'] = {
         controller.debug('[getIndexByName]', file.name, index);
         return index;
     }
-    
     
     var previewFiles = function(files) {
         files.forEach(function(file) {

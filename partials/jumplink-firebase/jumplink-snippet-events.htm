@@ -1,0 +1,41 @@
+description = "Snippet: Alle nächsten Ereignisse (Firebase)"
+
+[viewBag]
+snippetCode = "jumplink-firebase-snippet-next-each"
+snippetName = "Alle nächsten Ereignisse (Firebase)"
+snippetProperties[type][title] = "Typ"
+snippetProperties[type][type] = "dropdown"
+snippetProperties[type][default] = "fix"
+snippetProperties[type][options][fix] = "Öffentliche Führung"
+snippetProperties[type][options][variable] = "Führung anfragen"
+snippetProperties[title][title] = "Titel"
+snippetProperties[title][type] = "string"
+snippetProperties[title][default] = "Nächste öffentliche Führung"
+snippetProperties[title][options][] = ""
+snippetProperties[wrapContainer][title] = "Mit Container umschließen"
+snippetProperties[wrapContainer][type] = "checkbox"
+snippetProperties[wrapContainer][default] = "true"
+snippetProperties[wrapContainer][options][] = ""
+snippetProperties[style][title] = "Style"
+snippetProperties[style][type] = "dropdown"
+snippetProperties[style][default] = "fix"
+snippetProperties[style][options][fix] = "Öffentliche Führung"
+snippetProperties[style][options][variable] = "Führung anfragen"
+snippetProperties[calendar][title] = "Kalender"
+snippetProperties[calendar][type] = "dropdown"
+snippetProperties[calendar][default] = ""
+snippetProperties[calendar][options][all] = "Alle"
+snippetProperties[calendar][options][Watt] = "Watt"
+snippetProperties[calendar][options][Land] = "Land"
+snippetProperties[calendar][options][Fluss] = "Fluss"
+snippetProperties[calendar][options][Spezial] = "Spezial"
+==
+{% if wrapContainer %}
+    {% set containerClass = 'container'%}
+{% else %}
+    {% set containerClass = 'container-fluid'%}
+{% endif %}
+
+
+{# rivets component #}
+<firebase-events-beautiful style="'{{style}}'" container-class="'{{containerClass}}'" title="'{{title}}'" type="'{{type}}'" calendar="'{{calendar}}'"></firebase-events-beautiful>
