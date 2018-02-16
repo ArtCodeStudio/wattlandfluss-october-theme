@@ -53,19 +53,19 @@ items:
                     isHidden: '0'
                     cssClass: ''
                     isExternal: '0'
-            -
-                title: Spezial
-                nesting: '0'
-                type: static-page
-                url: ''
-                code: ''
-                reference: fuehrungen-spezial
-                cmsPage: ''
-                replace: '0'
-                viewBag:
-                    isHidden: '0'
-                    cssClass: ''
-                    isExternal: '0'
+    -
+        title: Spezial
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: fuehrungen-spezial
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
     -
         title: 'öffentliche Führung'
         nesting: '0'
@@ -100,7 +100,7 @@ items:
         reference: historie
         replace: '0'
         viewBag:
-            isHidden: '0'
+            isHidden: '1'
             cssClass: ''
             isExternal: '0'
     -

@@ -6,6 +6,7 @@ description = "Für Admins: Tabelle mit Events zum Veralten"
     <table class="table">
       <thead>
         <tr>
+          <th scope="col">Aktiviert</th>
           <th scope="col">Titel</th>
           <th scope="col">Beginn</th>
           <th scope="col">Typ</th>
@@ -15,8 +16,14 @@ description = "Für Admins: Tabelle mit Events zum Veralten"
       </thead>
       <tbody>
         <tr rv-each-event="events">
+          <td class="text-center">
+           <span rv-show="event.active">✓</span>
+           <span rv-hide="event.active"></span>
+          </td>
           <td>{event.title}</td>
-          <td>{event.startAt | date 'DD.MM.YYYY'} {event.startAt | time 'HH:mm'} Uhr</td>
+          <td>
+              <span rv-hide="event.type | eq 'variable'">{event.startAt | date 'DD.MM.YYYY'}</span> {event.startAt | time 'HH:mm'} Uhr
+          </td>
           <td>{event.type}</td>
           <td>{event.calendar}</td>
           <td>

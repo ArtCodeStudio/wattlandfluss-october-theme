@@ -4,7 +4,35 @@ description = "Schöne Darstellung der nächsten Events jeden Kalenders für die
 ==
 <template id="firebase-events-beautiful">
   
-    <div rv-each-event="events" rv-show="events">
-        <firebase-event-beautiful type="type" calendar="calendar" style="style" title="title" event="event" limit="limit" index="%event%" container-class="containerClass"></firebase-event-beautiful>
+    <div rv-hide="events | empty" rv-each-event="events">
+        <firebase-event-beautiful
+            type="type"
+            calendar="calendar"
+            active="active"
+            style="style"
+            title="title"
+            event="event"
+            limit="limit"
+            index="%event%"
+            start-time="startTime"
+            container-class="containerClass"
+        ></firebase-event-beautiful>
+    </div>
+    
+    {# FIXME rv-class="containerClass" is not working but in other template this works?! #}
+    <div rv-show="events | empty" {# rv-class="containerClass" #} class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <span rv-if="startTime | eq 'future'">
+                    Leider gibt es momentan keine zukünftige Veranstaltungen.
+                </span>
+                <span rv-if="startTime | eq 'past'">
+                    Es gibt noch keine vergangene Veranstaltung.
+                </span>
+                <span rv-if="startTime | eq 'all'">
+                    Es gibt noch keine Veranstaltung, bitte haben Sie noch etwas Geduld.
+                </span>
+            </div>
+        </div>
     </div>
 </template>

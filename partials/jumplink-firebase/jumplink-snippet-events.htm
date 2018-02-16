@@ -8,11 +8,12 @@ snippetProperties[type][type] = "dropdown"
 snippetProperties[type][default] = "fix"
 snippetProperties[type][options][fix] = "Öffentliche Führung"
 snippetProperties[type][options][variable] = "Führung anfragen"
+snippetProperties[type][options][all] = "Alle"
 snippetProperties[title][title] = "Titel"
 snippetProperties[title][type] = "string"
-snippetProperties[title][default] = "Nächste öffentliche Führung"
+snippetProperties[title][default] = ""
 snippetProperties[title][options][] = ""
-snippetProperties[wrapContainer][title] = "Mit Container umschließen"
+snippetProperties[wrapContainer][title] = "Mit Rand"
 snippetProperties[wrapContainer][type] = "checkbox"
 snippetProperties[wrapContainer][default] = "true"
 snippetProperties[wrapContainer][options][] = ""
@@ -40,6 +41,20 @@ snippetProperties[startTime][default] = "future"
 snippetProperties[startTime][options][future] = "Zukunft"
 snippetProperties[startTime][options][past] = "Vergangenheit"
 snippetProperties[startTime][options][all] = "Alle"
+snippetProperties[active][title] = "Aktiviert"
+snippetProperties[active][type] = "dropdown"
+snippetProperties[active][default] = "true"
+snippetProperties[active][options][true] = "Ja"
+snippetProperties[active][options][false] = "Nein"
+snippetProperties[active][options][all] = "Beides"
+snippetProperties[excludeCalendar][title] = "Kalender ausschließen"
+snippetProperties[excludeCalendar][type] = "dropdown"
+snippetProperties[excludeCalendar][default] = "none"
+snippetProperties[excludeCalendar][options][none] = "Keinen"
+snippetProperties[excludeCalendar][options][Watt] = "Watt"
+snippetProperties[excludeCalendar][options][Land] = "Land"
+snippetProperties[excludeCalendar][options][Fluss] = "Fluss"
+snippetProperties[excludeCalendar][options][Spezial] = "Spezial"
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
@@ -48,4 +63,14 @@ snippetProperties[startTime][options][all] = "Alle"
 {% endif %}
 
 {# rivets component #}
-<firebase-events-beautiful style="'{{style}}'" container-class="'{{containerClass}}'" title="'{{title}}'" type="'{{type}}'" calendar="'{{calendar}}'" start-time="'{{startTime}}'" limit="{{limit}}"></firebase-events-beautiful>
+<firebase-events-beautiful
+    style="'{{style}}'"
+    container-class="'{{containerClass}}'"
+    title="'{{title}}'"
+    type="'{{type}}'"
+    calendar="'{{calendar}}'"
+    exclude-calendar="'{{excludeCalendar}}'"
+    active="'{{active}}'"
+    start-time="'{{startTime}}'"
+    limit="{{limit}}">
+</firebase-events-beautiful>

@@ -3,10 +3,22 @@ description = "For Admins: Edit or create an event"
 [viewBag]
 ==
 <template id="firebase-event-form">
+
+    <h1 rv-show="id">{titleEdit}</h1>
+    <h1 rv-hide="id">{titleCreate}</h1>
     
-    <rv-select id="eventType" label="'Typ'" values="types" on-change="typeChanged"></rv-select>
+    <div class="form-group">
+        <label class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="eventActive" checked="true" rv-checked="event.active">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Aktiviert</span>
+        </label>
+        <small id="eventActiveDesc" class="mt-0 mb-2 form-text text-muted">Nicht aktivierte Veranstaltungen werden ausgeblendet.</small>
+    </div>
     
-    <rv-select id="eventCalendar" label="'Kalender'" values="calendars" on-change="calendarChanged"></rv-select>
+    <rv-select id="eventType" label="'Typ'" description="'Öffentliche Führungen sind Führungen mit Datum, Führung die angefragt werden können haben kein Datum.'" values="types" on-change="typeChanged"></rv-select>
+    
+    <rv-select id="eventCalendar" label="'Kalender'" description="'Der Kalender in dem die Veranstaltung eingeordnet werden soll.'" values="calendars" on-change="calendarChanged"></rv-select>
     
     <div class="form-group">
         <label for="eventTitle">Titel</label>

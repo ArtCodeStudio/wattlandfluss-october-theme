@@ -118,11 +118,26 @@ jumplink.utilities.isNumber = function(n) {
 }
 
 /**
- * 
+ * heck if type is Object
  * @see https://stackoverflow.com/a/4775737/1465919
  */
 jumplink.utilities.isObject = function (obj) {
     return obj && typeof obj === 'object';
+};
+
+/**
+ * Check if type is Boolean
+ * @see https://stackoverflow.com/a/28814615/1465919
+ */
+jumplink.utilities.isBoolean = function (boolean) {
+    return typeof(boolean) == typeof(true);
+};
+
+/**
+ * Check if value is undefined
+ */
+jumplink.utilities.isUndefined = function (value) {
+    return typeof(value) === 'undefined';
 };
 
 /**

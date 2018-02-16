@@ -32,7 +32,7 @@ rivets.formatters.not = function(a) {
 };
 
 rivets.formatters.empty = function(a) {
-  return !a.length;
+  return !rivets.formatters.size(a);
 };
 
 rivets.formatters.and = function(a, b) {
@@ -198,6 +198,16 @@ rivets.formatters.size = function(a) {
   }
   return a.length;
 };
+
+/**
+ * Alias for size formatter
+ */
+rivets.formatters.length = rivets.formatters.size;
+
+/**
+ * Alias for size formatter
+ */
+rivets.formatters.count = rivets.formatters.size;
 
 /**
  * Strips tabs, spaces, and newlines (all whitespace) from the left and right side of a string.

@@ -34,7 +34,6 @@ rivets.components['firebase-user'] = {
         }
     });
     
-
     return controller;
   }
 };
@@ -203,6 +202,7 @@ rivets.components['rv-select'] = {
     var $select = $el.find('select');
     
     controller.label = data.label;
+    controller.description = data.description;
     controller.values = data.values;
     controller.id = Date.now();
     controller.selected = controller.values[0];
@@ -299,11 +299,15 @@ rivets.components['firebase-event-form'] = {
     // if id is set the event will be updated otherwise it will be created
     controller.id = data.id;
     
+    controller.titleEdit = 'Ereignis bearbeiten';
+    controller.titleCreate = 'Ereignis anlegen';
+    
     // to store uploaded Images in event
     controller.uploadedImages = [];
     
     // start values of a event to have it not undefined, will be replaced in next steps
     controller.event = {
+        active: true,
         title: '',
         subtitle: '',
         description: '',
@@ -398,6 +402,8 @@ rivets.components['firebase-event-form'] = {
     var setDefaultValues = function () {
         controller.debug('setDefaultValues', controller.id);
         
+        controller.event.active = true;
+        
         // start at and date picker
         var today = moment().format('YYYY-MM-DD');
         $eventStartAt.pignoseCalendar('set', today);
@@ -456,6 +462,9 @@ rivets.components['firebase-event-form'] = {
             var selectedCalendar = setSelectedValue('#eventCalendar select', event.calendar);
             controller.debug('selectedCalendar', selectedCalendar);
             
+            event.active = event.active === true;
+            setCheckboxValue('#eventActive', event.active);
+            
             controller.event = event;
             
             $eventStartAt.pignoseCalendar('set', controller.event.startAt);
@@ -497,15 +506,19 @@ rivets.components['firebase-event-form'] = {
      * set a value (not by the value attribute but by the text content of the option) on a select dom element
      */
     var setSelectedValue = function(selector, value) {
-        // var selector = selector + ' option:contains("' + value + '")';
-        //controller.debug('setSelectedValue', selector, value);
-        //$selected = $(selector);
-        //$selected.attr('selected','selected');
-        
         $select = $(selector);
         $select.val(value).change();
         return getSelectedValue(selector);
     };
+    
+    var setCheckboxValue = function(selector, value) {
+        $(selector).prop('checked', value);
+    }
+    
+    var getCheckboxValue = function(selector) {
+        $(selector).is(':checked');
+    }
+    
     
     /**
      * create a new event object to store in firebase datastore database
@@ -516,10 +529,8 @@ rivets.components['firebase-event-form'] = {
         // controller.event.type = controller.getType().value;
         controller.event.calendar = getSelectedValue('#eventCalendar select');
         
-        // WORKAROUND otherwise rivets seems to hold the old data setted before :(
-        controller.event.startAt = $('#eventStartAt').val();
-        
         var newEvent = {
+            active: controller.event.active,
             title: controller.event.title,
             subtitle: controller.event.subtitle,
             description: controller.event.description,
@@ -592,7 +603,7 @@ rivets.components['firebase-event-form'] = {
         });
     }
       
-    controller.createEvent = function(event, controller) {
+    controller.createEvent = function(event) {
 
         var newEvent = formatControllerEventForFirestore();
         
@@ -600,13 +611,14 @@ rivets.components['firebase-event-form'] = {
         
         dbEvents.add(newEvent)
         .then(function(docRef) {
-            var message = 'Ereignis mit der ID ' + docRef.id + ' erfolgreich eingetragen';
+            controller.id = docRef.id;
+            var message = 'Ereignis mit der ID ' + controller.id + ' erfolgreich eingetragen';
+            controller.debug(message, docRef);
+            
             jumplink.utilities.showGlobalModal({
                 title: 'Erfolgreich angelegt',
                 body: message,
             });
-            controller.debug(message, docRef);
-            controller.id = docRef.id;
             return getEvent(controller.id);
         })
         .then(function(event) {
@@ -717,15 +729,33 @@ rivets.components['firebase-events-beautiful'] = {
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
     
     
-    controller.containerClass = data.containerClass;
+    controller.containerClass = data.containerClass || 'container';
     controller.title = data.title;
     controller.type = data.type;
     controller.calendar = data.calendar;
+    controller.excludeCalendar = data.excludeCalendar;
     // start time of the orders in the future, from the past or all
     controller.startTime = data.startTime || 'future'; // 'future' | 'past' | 'all'
     controller.style = data.style;
     data.limit = Number(data.limit);
+    if(data.limit === 0) {
+        data.limit = 100;
+    }
     controller.limit = data.limit;
+    
+    /**
+     * if active is not set it is true
+     * String will be casted to boolean
+     * active can be true | false | 'all'
+     */
+    if(jumplink.utilities.isUndefined(data.active)) {
+        data.active = true;
+    } else if(data.active === 'true') {
+        data.active = true;
+    } else if(data.active === 'false') {
+        data.active = false;
+    }
+    controller.active = data.active;
     
     controller.events = [];
     
@@ -741,8 +771,19 @@ rivets.components['firebase-events-beautiful'] = {
             case 'variable':
                 ref = ref.where('type', "==", data.type);
                 break;
+            case 'all':
             default:
                 // all types
+                ref = ref;
+                break;
+        }
+        
+        switch(controller.active) {
+            case true:
+            case false:
+                ref = ref.where('active', "==", controller.active);
+                break;
+            case 'all':
                 ref = ref;
                 break;
         }
@@ -755,6 +796,7 @@ rivets.components['firebase-events-beautiful'] = {
             case 'Spezial':
                 ref = ref.where('calendar', "==", controller.calendar);
                 break;
+            case 'all':
             default:
                 // all calendars
                 ref = ref;
@@ -762,28 +804,35 @@ rivets.components['firebase-events-beautiful'] = {
         }
         
         // get events only in future
-        switch(controller.startTime) {
-            case 'future':
-                var now = new Date();
-                controller.debug('get events in future from', now);
-                ref = ref.where('startAt', ">=", now);
-                break;
-            case 'past':
-                var now = new Date();
-                controller.debug('get events from the past in reference to', now);
-                ref = ref.where('startAt', "<", now);
-                break;
-            case 'all':
-                controller.debug('get events from the past and in the future');
-                ref = ref;
-                break;
+        if(controller.type !== 'variable') {
+            switch(controller.startTime) {
+                case 'future':
+                    var now = new Date();
+                    controller.debug('get events in future from', now);
+                    ref = ref.where('startAt', ">=", now);
+                    break;
+                case 'past':
+                    var now = new Date();
+                    controller.debug('get events from the past in reference to', now);
+                    ref = ref.where('startAt', "<", now);
+                    break;
+                case 'all':
+                default:
+                    controller.debug('get events from the past and in the future');
+                    ref = ref;
+                    break;
+            }
         }
         
-        // set limit
-        if (jumplink.utilities.isNumber(controller.limit) && controller.limit >= 1) {
+        /**
+         * Only set limit if no exclude is set otherwise limit is not working
+         * If excludes is set we have a client site limit implement with a counter (search for 'count')
+         */
+        if (controller.excludeCalendar === 'none' && controller.limit >= 1) {
             controller.debug('set limit of orders to', controller.limit);
             ref = ref.limit(controller.limit);
         }
+
         
         // set order
         ref = ref.orderBy("startAt");
@@ -792,10 +841,17 @@ rivets.components['firebase-events-beautiful'] = {
         .then((querySnapshot) => {
             //ycontroller.events = querySnapshot.data();
             controller.debug('event', querySnapshot);
+            var count = 0;
             querySnapshot.forEach((doc) => {
-                var event = doc.data();
-                event.id = doc.id;
-                controller.events.push(event);
+                // own client site limit to make excludeCalendar working
+                if(count <= controller.limit) {
+                    var event = doc.data();
+                    event.id = doc.id;
+                    if(event.calendar !== controller.excludeCalendar) {
+                        count++;
+                        controller.events.push(event);
+                    }
+                }
             });
         })
         .catch(function(error) {
@@ -828,7 +884,11 @@ rivets.components['firebase-event-beautiful'] = {
     var $el = $(el);
 
     controller.title = data.title;
-    controller.containerClass = data.containerClass;
+    controller.active = data.active;
+    controller.calendar = data.calendar;
+    controller.type = data.type;
+    controller.limit = data.limit;
+    controller.containerClass = data.containerClass || 'container';
     controller.event = data.event;
     controller.index = data.index;
     controller.style = data.style; // choose template 'fix' | 'variable' | 'custom'
@@ -878,6 +938,7 @@ rivets.components['walking-path'] = {
     controller.color = data.color;
     controller.filename = data.filename;
     controller.class = controller.filename + ' walking-path-wrapper';
+    controller.containerClass = data.containerClass || 'container';
     
     // randomly flip the svg horizontal
     if(jumplink.utilities.rand(0, 1) === 1) {
@@ -891,8 +952,6 @@ rivets.components['walking-path'] = {
         });
     }
     
-    controller.containerClass = data.containerClass;
-
     loadSvg();
     return controller;
   }
