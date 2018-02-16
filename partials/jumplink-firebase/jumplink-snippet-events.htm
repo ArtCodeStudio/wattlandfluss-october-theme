@@ -2,7 +2,7 @@ description = "Snippet: Ereignisse (Firebase)"
 
 [viewBag]
 snippetCode = "jumplink-firebase-snippet-next-each"
-snippetName = "Ereignisse (Firebase)"
+snippetName = "Ereignisse"
 snippetProperties[type][title] = "Typ"
 snippetProperties[type][type] = "dropdown"
 snippetProperties[type][default] = "fix"
@@ -34,6 +34,12 @@ snippetProperties[limit][title] = "Limit (als Nummer, 0 für ohne Limit)"
 snippetProperties[limit][type] = "string"
 snippetProperties[limit][default] = 0
 snippetProperties[limit][options][] = ""
+snippetProperties[startTime][title] = "Startzeit"
+snippetProperties[startTime][type] = "dropdown"
+snippetProperties[startTime][default] = "future"
+snippetProperties[startTime][options][future] = "Zukunft"
+snippetProperties[startTime][options][past] = "Vergangenheit"
+snippetProperties[startTime][options][all] = "Alle"
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
@@ -41,6 +47,5 @@ snippetProperties[limit][options][] = ""
     {% set containerClass = 'container-fluid'%}
 {% endif %}
 
-
 {# rivets component #}
-<firebase-events-beautiful style="'{{style}}'" container-class="'{{containerClass}}'" title="'{{title}}'" type="'{{type}}'" calendar="'{{calendar}}'" limit="{{limit}}"></firebase-events-beautiful>
+<firebase-events-beautiful style="'{{style}}'" container-class="'{{containerClass}}'" title="'{{title}}'" type="'{{type}}'" calendar="'{{calendar}}'" start-time="'{{startTime}}'" limit="{{limit}}"></firebase-events-beautiful>

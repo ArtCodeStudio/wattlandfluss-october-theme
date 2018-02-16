@@ -721,6 +721,8 @@ rivets.components['firebase-events-beautiful'] = {
     controller.title = data.title;
     controller.type = data.type;
     controller.calendar = data.calendar;
+    // start time of the orders in the future, from the past or all
+    controller.startTime = data.startTime || 'future'; // 'future' | 'past' | 'all'
     controller.style = data.style;
     data.limit = Number(data.limit);
     controller.limit = data.limit;
@@ -759,8 +761,27 @@ rivets.components['firebase-events-beautiful'] = {
                 break;
         }
         
+        // get events only in future
+        switch(controller.startTime) {
+            case 'future':
+                var now = new Date();
+                controller.debug('get events in future from', now);
+                ref = ref.where('startAt', ">=", now);
+                break;
+            case 'past':
+                var now = new Date();
+                controller.debug('get events from the past in reference to', now);
+                ref = ref.where('startAt', "<", now);
+                break;
+            case 'all':
+                controller.debug('get events from the past and in the future');
+                ref = ref;
+                break;
+        }
+        
         // set limit
         if (jumplink.utilities.isNumber(controller.limit) && controller.limit >= 1) {
+            controller.debug('set limit of orders to', controller.limit);
             ref = ref.limit(controller.limit);
         }
         

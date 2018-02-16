@@ -57,8 +57,10 @@ items:
                 title: Spezial
                 nesting: '0'
                 type: static-page
+                url: ''
                 code: ''
                 reference: fuehrungen-spezial
+                cmsPage: ''
                 replace: '0'
                 viewBag:
                     isHidden: '0'
@@ -89,6 +91,17 @@ items:
         viewBag:
             isHidden: '0'
             cssClass: sprachunterricht
+            isExternal: '0'
+    -
+        title: Historie
+        nesting: '0'
+        type: static-page
+        code: ''
+        reference: historie
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
             isExternal: '0'
     -
         title: Kontakt
