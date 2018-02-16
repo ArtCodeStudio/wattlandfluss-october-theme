@@ -24,7 +24,7 @@
         
                 <div rv-if="index | even" class="col-xs-12 col-md-6 col-md-image-left" rv-class-mt-0="index | eq 0">
                     <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
-                    <img rv-src="event.images | get 0 | get 'downloadURL'" rv-alt="event.images | get 0 | get 'metadata' | get 'name'" class="img-fluid py-2">
+                    <img rv-src="event.images | first | get 'downloadURL'" rv-alt="event.images | first | get 'metadata' | get 'name'" class="img-fluid py-2">
                 </div>
                 
                 <div class="col-xs-12 col-md-6">
@@ -68,7 +68,7 @@
                 
                 <div rv-if="index | uneven" class="col-xs-12 col-md-6 col-md-image-right">
                     <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
-                    <img rv-src="event.images | get 0 | get 'downloadURL'" rv-alt="event.images | get 0 | get 'metadata' | get 'name'" class="img-fluid py-2">
+                    <img rv-src="event.images | first | get 'downloadURL'" rv-alt="event.images | first | get 'metadata' | get 'name'" class="img-fluid py-2">
                 </div>
                 
             </div>
@@ -142,7 +142,7 @@
     >
         <div class="row my-5" rv-show="event">
             <div class="col-xs-12 col-md-6">
-                <img rv-src="event.images | get 0 | get 'downloadURL'" rv-alt="event.images | get 0 | get 'metadata' | get 'name'" class="img-fluid pt-5">
+                <img rv-src="event.images | first | get 'downloadURL'" rv-alt="event.images | first | get 'metadata' | get 'name'" class="img-fluid pt-5">
             </div>
             
             <div class="col-xs-12 col-md-6">

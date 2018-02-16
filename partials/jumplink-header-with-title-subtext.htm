@@ -3,18 +3,18 @@ description = "Header mit Titel und Untertext"
 [viewBag]
 ==
 {% if wrapContainer %}
-    <div class="container">
+    <div class="container text-{{textAlignment}} {{paddingTopClass}} {{paddingBottomClass}}">
 {% endif %}
 {% if wrapContainerFluid %}
-    <div class="container-fluid">
+    <div class="container-fluid text-{{textAlignment}} {{paddingTopClass}} {{paddingBottomClass}}">
 {% endif %}
 
 <div class="row" id="header-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}">
-    <div class="col-xs-12 text-{{textAlignment}}">
-        <h1>
-            {{title}}
+    <div class="{{columnClass}}">
+        <h1 class="{{titleFontFamilyClass}}">
+            {{title|raw}}
         </h1>
-        <p class="text-{{textAlignment}}">{{subtext|raw}}</p>
+        <p class="{{subtextFontFamilyClass}}">{{subtext|raw}}</p>
     </div>
 </div>
 

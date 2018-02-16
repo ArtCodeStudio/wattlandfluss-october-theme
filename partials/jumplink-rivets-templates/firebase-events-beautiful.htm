@@ -19,8 +19,19 @@ description = "Schöne Darstellung der nächsten Events jeden Kalenders für die
         ></firebase-event-beautiful>
     </div>
     
-    {# FIXME rv-class="containerClass" is not working but in other template this works?! #}
-    <div rv-show="events | empty" {# rv-class="containerClass" #} class="container">
+    <div rv-if="events | empty | not">
+        <firebase-events-beautiful-gallery
+            title="title"
+            type="type"
+            calendar="calendar"
+            style="style"
+            events="events"
+            container-class="containerClass"
+        ></firebase-events-beautiful-gallery>
+    </div>
+    
+    {# TODO add rv-if="initialisiert" to make  rv-class="containerClass" working #}
+    <div rv-show="events | empty" rv-class="containerClass">
         <div class="row">
             <div class="col-xs-12">
                 <span rv-if="startTime | eq 'future'">

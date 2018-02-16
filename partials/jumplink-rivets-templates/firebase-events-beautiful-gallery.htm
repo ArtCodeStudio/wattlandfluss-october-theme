@@ -1,0 +1,14 @@
+[viewBag]
+==
+<template id="firebase-events-beautiful-gallery">
+    <div rv-class="containerClass">
+        <div class="row">
+            <div class="col-xs-12" rv-each-event="events">
+                <div rv-each-image="event.images">
+                    {image | json}
+                    <img rv-src="image.downloadURL" rv-alt="image.metadata.name" class="img-fluid pt-5">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
