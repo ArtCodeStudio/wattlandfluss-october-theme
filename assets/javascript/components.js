@@ -728,7 +728,7 @@ rivets.components['firebase-events-beautiful'] = {
     var db = firebase.firestore();
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
     
-    
+    controller.ready = false;
     controller.containerClass = data.containerClass || 'container';
     controller.title = data.title;
     controller.type = data.type;
@@ -837,7 +837,7 @@ rivets.components['firebase-events-beautiful'] = {
         // set order
         ref = ref.orderBy("startAt");
         
-        ref.get()
+        return ref.get()
         .then((querySnapshot) => {
             //ycontroller.events = querySnapshot.data();
             controller.debug('event', querySnapshot);
@@ -864,7 +864,87 @@ rivets.components['firebase-events-beautiful'] = {
 
     }
     
-    getEvents();
+    getEvents()
+    .then(function() {
+        controller.ready = true;
+    });
+    
+    return controller;
+  }
+};
+
+/**
+ * Component to show the images of all events
+ */
+rivets.components['firebase-events-beautiful-gallery'] = {
+
+  template: function() {
+    return $('template#firebase-events-beautiful-gallery').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:firebase-events-beautiful-gallery');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    
+    controller.ready = false;
+    controller.containerClass = data.containerClass || 'container';
+    controller.title = data.title;
+    controller.type = data.type;
+    controller.calendar = data.calendar;
+    controller.style = data.style;
+    controller.events = data.events;
+    
+    controller.images = [];
+    controller.photoSwipeImages = [];
+    
+    controller.events.forEach(function(event) {
+        controller.debug('event', event);
+        event.images.forEach(function(image) {
+            controller.images.push(image);
+            var photoSwipeImage = {
+                src: image.downloadURL,
+                w: 800,
+                h: 600,
+            };
+            controller.photoSwipeImages.push(photoSwipeImage);
+        });
+       
+    });
+    
+    // TODO move to rv-img component
+    setTimeout(function(){
+        $el.find('.lazy').Lazy();
+         controller.ready = true;
+    }, 100);
+    
+    
+
+    var openPhotoSwipe = function() {
+        var pswpElement = $el.find('.pswp')[0];
+    
+
+        // define options (if needed)
+        var options = {
+             // history & focus options are disabled on CodePen        
+            history: false,
+            focus: false,
+    
+            showAnimationDuration: 0,
+            hideAnimationDuration: 0
+            
+        };
+        
+        var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, controller.photoSwipeImages, options);
+        gallery.init();
+    };
+    
+    openPhotoSwipe();
+    
+    
+    controller.debug('images', controller.images);
+
     return controller;
   }
 };

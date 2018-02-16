@@ -233,10 +233,13 @@ snippetProperties[offsetxl][options][] = "12/12"
 {% set titleFontFamilyClass = 'text-'~titleFontFamily %}
 {% set textFontFamilyClass = 'text-'~titleFontFamily %}
 
+{% set columnClass = 'col-xs-'~xs~' offset-xs-'~offsetxs~' col-sm-'~sm~' offset-sm-'~offsetsm~' col-md-'~md~' offset-md-'~offsetmd~' col-lg-'~lg~' offset-lg-'~offsetlg%}
+
+
 <header class="">
     <div class="{{containerClass}} {{paddingTopClass}} {{paddingBottomClass}}">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="{{columnClass}}">
                 <p class="h{{titleSize}} text-{{textAlignment}} {{titleFontFamilyClass}}">
                     {{title}}
                 </p>

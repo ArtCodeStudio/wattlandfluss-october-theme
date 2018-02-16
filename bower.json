@@ -41,7 +41,8 @@
     "vivus": "^0.4.3",
     "firebase": "^4.9.0",
     "summernote": "^0.8.9",
-    "pg-calendar": "^1.4.27"
+    "pg-calendar": "^1.4.27",
+    "photoswipe": "^4.1.2"
   },
   "resolutions": {
     "jquery": "2"

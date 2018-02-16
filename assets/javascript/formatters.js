@@ -133,15 +133,24 @@ rivets.formatters.pluralize = function(input, singular, plural) {
   }
 };
 
-rivets.formatters.array_element = function(array, index) {
+/**
+ * Array formatter to get value by index
+ */
+rivets.formatters.index = function(array, index) {
   return array[index];
 };
 
-rivets.formatters.array_first = function(array) {
+/**
+ * Array formatter to get the first element of an array
+ */
+rivets.formatters.first = function(array) {
   return array[0];
 };
 
-rivets.formatters.array_last = function(array) {
+/**
+ * Array formatter to get the last element of an array
+ */
+rivets.formatters.last = function(array) {
   return array[array.length - 1];
 };
 
@@ -251,6 +260,16 @@ rivets.formatters.handleize = function (str) {
 rivets.formatters.default = function(value, args) {
   return (typeof value !== 'undefined' && value !== null) ? value : args;
 };
+
+
+
+/**
+ * Converts a string into JSON format.
+ * @see https://help.shopify.com/themes/liquid/filters/additional-filters#json
+ */
+rivets.formatters.json = function (object) {
+    return JSON.stringify(object);
+}
 
 /**
  * True if array contains property or containts property with value
