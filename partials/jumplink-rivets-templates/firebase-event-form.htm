@@ -3,16 +3,6 @@ description = "For Admins: Edit or create an event"
 [viewBag]
 ==
 <template id="firebase-event-form">
-
-    <!--
-    <div class="form-group">
-        <label for="eventType">Typ</label>
-        <br>
-        <select class="custom-select" id="eventType">
-            <option rv-each-type="types">{type.label}</option>
-        </select>
-    </div>
-    -->
     
     <rv-select id="eventType" label="'Typ'" values="types" on-change="typeChanged"></rv-select>
     

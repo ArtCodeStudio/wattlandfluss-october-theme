@@ -228,7 +228,7 @@ rivets.components['rv-select'] = {
      */
     controller.set = function(value) {
         $select.val(value).change();
-        controller.debug('set', value );
+        controller.debug('set', value);
         return controller.get();
     };
     
@@ -702,63 +702,6 @@ rivets.components['firebase-events-table'] = {
 /**
  * Component to show the events in frontend for the visitors
  */
-rivets.components['firebase-events-beautiful-next'] = {
-
-  template: function(a, b) {
-    controller = this;
-    console.log('firebase-events-beautiful-next template', a, b);
-    console.log(this);
-    return $('template#firebase-events-beautiful-next').html();
-  },
-
-  initialize: function(el, data) {
-    var controller = this;
-    controller.debug = debug('rivets:firebase-event-table');
-    controller.debug('initialize', el, data);
-    var $el = $(el);
-    var db = firebase.firestore();
-    var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
-    controller.title = data.title;
-    controller.type = data.type;
-    controller.event = {};
-
-    var getEvent = function() {
-         dbEvents.where('type', "==", data.type).orderBy("startAt").limit(1).get()
-        .then((querySnapshot) => {
-            //ycontroller.events = querySnapshot.data();
-            controller.debug('event', controller.events, querySnapshot);
-            querySnapshot.forEach((doc) => {
-                var event = doc.data();
-                event.id = doc.id;
-                controller.event = event;
-            });
-        })
-        .catch(function(error) {  
-            jumplink.utilities.showGlobalModal({
-                title: 'Ereignis konnte nicht geladen werden',
-                body: error.message,
-            });
-            controller.debug('error', error);
-        });
-    }
-    
-    
-    controller.requests = function(event, controller) {
-        var $this = $(event.target);
-        controller.debug('edit', $this.data());
-        var id = $this.data('id');
-        var href = $this.data('href').replace(':id', id);
-        Barba.Pjax.goTo(href);
-    };
-        
-    getEvent();
-    return controller;
-  }
-};
-
-/**
- * Component to show the events in frontend for the visitors
- */
 rivets.components['firebase-events-beautiful'] = {
 
   template: function() {
@@ -773,11 +716,14 @@ rivets.components['firebase-events-beautiful'] = {
     var db = firebase.firestore();
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
     
+    
     controller.containerClass = data.containerClass;
     controller.title = data.title;
     controller.type = data.type;
     controller.calendar = data.calendar;
     controller.style = data.style;
+    data.limit = Number(data.limit);
+    controller.limit = data.limit;
     
     controller.events = [];
     
@@ -785,22 +731,43 @@ rivets.components['firebase-events-beautiful'] = {
     var getEvents = function() {
         // delete old getted events
         controller.events = [];
-        var ref;
+        var ref = dbEvents;
         
-        switch(controller.calendar) {
+        // set type filter
+        switch (controller.type) {
+            case 'fix':
+            case 'variable':
+                ref = ref.where('type', "==", data.type);
+                break;
+            default:
+                // all types
+                ref = ref;
+                break;
+        }
+        
+        // set calendar filter
+        switch (controller.calendar) {
             case 'Watt':
             case 'Land':
             case 'Fluss':
             case 'Spezial':
-                ref = dbEvents.where('type', "==", data.type).where('calendar', "==", controller.calendar).orderBy("startAt");
+                ref = ref.where('calendar', "==", controller.calendar);
                 break;
             default:
                 // all calendars
-                ref = dbEvents.where('type', "==", data.type).orderBy("startAt");
+                ref = ref;
                 break;
         }
         
-         ref.get()
+        // set limit
+        if (jumplink.utilities.isNumber(controller.limit) && controller.limit >= 1) {
+            ref = ref.limit(controller.limit);
+        }
+        
+        // set order
+        ref = ref.orderBy("startAt");
+        
+        ref.get()
         .then((querySnapshot) => {
             //ycontroller.events = querySnapshot.data();
             controller.debug('event', querySnapshot);

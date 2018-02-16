@@ -2,7 +2,9 @@
 ==
 <template id="firebase-event-beautiful">
 
-    {# Template for the 'fix' events #}
+    {#
+     # Template for the 'fix' events with a fix date to book
+     #}
     <div
         rv-if="style | eq 'fix'"
         rv-class-bg-state-info="event.calendar | eq 'Fluss'"
@@ -56,6 +58,8 @@
                         <strong>Ausstattung:</strong> {event.equipment}
                     </p>
                     
+                    <p rv-if="event.note" rv-html="event.note"></p>
+                    
                     <button class="btn btn-outline-dark mt-1" rv-data-id="event.id" rv-on-click="requests">
                         <span class="px-2">Anfrage</span>
                     </button>
@@ -71,6 +75,9 @@
         </div>
     </div>
     
+    {#
+     # Template for the 'variable' events without a fix date
+     #}
     <div
         rv-if="style | eq 'variable'"
         rv-class="containerClass"
@@ -116,5 +123,41 @@
                         
         </div>
     </div>
- 
+    
+    {#
+     # Template for a single event, e.g. to display the next event on home
+     # Do not need to set the limit to 1 for this
+     #}
+     <div
+        rv-if="style | eq 'single'"
+        rv-class="containerClass"
+    >
+        <div class="row my-5" rv-show="event">
+            <div class="col-12 col-md-6">
+                <img rv-src="event.images | get 0 | get 'downloadURL'" rv-alt="event.images | get 0 | get 'metadata' | get 'name'" class="img-fluid pt-5">
+            </div>
+            
+            <div class="col-12 col-md-6">
+              <p class="pb-2"><strong>{title}</strong></p>
+              <div
+                rv-class-text-primary="event.calendar | eq 'Fluss'"
+                rv-class-text-warning="event.calendar | eq 'Watt'"
+                rv-class-text-success="event.calendar | eq 'Land'"
+                rv-class-gradient-text="event.calendar | eq 'Spezial'"
+                rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
+                rv-class-animated-gradient="event.calendar | eq 'Spezial'"
+              >
+                  <h2>
+                      {event.startAt | date 'DD.MM.YYYY'}
+                      <small>{event.startAt | time 'HH:mm'} Uhr</small><br>
+                      <small>{event.title}</small>
+                  </h2>
+              </div>
+    
+              <p>{event.subtitle}</p>
+              <button class="btn btn-link" rv-data-id="event.id" rv-on-click="delete">mehr dazu</button>
+            </div>
+        </div>
+    </div>
+    
 </template>

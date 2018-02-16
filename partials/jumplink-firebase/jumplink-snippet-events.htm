@@ -1,8 +1,8 @@
-description = "Snippet: Alle nächsten Ereignisse (Firebase)"
+description = "Snippet: Ereignisse (Firebase)"
 
 [viewBag]
 snippetCode = "jumplink-firebase-snippet-next-each"
-snippetName = "Alle nächsten Ereignisse (Firebase)"
+snippetName = "Ereignisse (Firebase)"
 snippetProperties[type][title] = "Typ"
 snippetProperties[type][type] = "dropdown"
 snippetProperties[type][default] = "fix"
@@ -21,6 +21,7 @@ snippetProperties[style][type] = "dropdown"
 snippetProperties[style][default] = "fix"
 snippetProperties[style][options][fix] = "Öffentliche Führung"
 snippetProperties[style][options][variable] = "Führung anfragen"
+snippetProperties[style][options][single] = "Einzelnes Event"
 snippetProperties[calendar][title] = "Kalender"
 snippetProperties[calendar][type] = "dropdown"
 snippetProperties[calendar][default] = ""
@@ -29,6 +30,10 @@ snippetProperties[calendar][options][Watt] = "Watt"
 snippetProperties[calendar][options][Land] = "Land"
 snippetProperties[calendar][options][Fluss] = "Fluss"
 snippetProperties[calendar][options][Spezial] = "Spezial"
+snippetProperties[limit][title] = "Limit (als Nummer, 0 für ohne Limit)"
+snippetProperties[limit][type] = "string"
+snippetProperties[limit][default] = 0
+snippetProperties[limit][options][] = ""
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
@@ -38,4 +43,4 @@ snippetProperties[calendar][options][Spezial] = "Spezial"
 
 
 {# rivets component #}
-<firebase-events-beautiful style="'{{style}}'" container-class="'{{containerClass}}'" title="'{{title}}'" type="'{{type}}'" calendar="'{{calendar}}'"></firebase-events-beautiful>
+<firebase-events-beautiful style="'{{style}}'" container-class="'{{containerClass}}'" title="'{{title}}'" type="'{{type}}'" calendar="'{{calendar}}'" limit="{{limit}}"></firebase-events-beautiful>

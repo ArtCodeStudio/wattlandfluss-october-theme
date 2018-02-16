@@ -102,12 +102,20 @@ jumplink.utilities.isFunction = function (value) {
 };
 
 /**
- * 
+ * Check if variable is an Array
  * @see https://stackoverflow.com/a/4775737/1465919
  */
 jumplink.utilities.isArray = function (value) {
     return Object.prototype.toString.call( value ) === '[object Array]';
 };
+
+/**
+ * Check whether variable is number or string in JavaScript
+ * @see https://stackoverflow.com/a/1421988/1465919
+ */
+jumplink.utilities.isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && !isNaN(n - 0);
+}
 
 /**
  * 
@@ -116,7 +124,6 @@ jumplink.utilities.isArray = function (value) {
 jumplink.utilities.isObject = function (obj) {
     return obj && typeof obj === 'object';
 };
-
 
 /**
  * Detect if current device has localStorage support
