@@ -3423,10 +3423,8 @@ form:
             default: DE123456789
 require:
     - RainLab.Pages
+    - RainLab.Translate
     - RainLab.Sitemap
-    - Flosch.Slideshow
     - Xeor.ContentType
-    - Tiipiik.Catalog
     - Romanov.ClearCacheWidget
-    - Radiantweb.Proevents
 

@@ -55,6 +55,18 @@ snippetProperties[excludeCalendar][options][Watt] = "Watt"
 snippetProperties[excludeCalendar][options][Land] = "Land"
 snippetProperties[excludeCalendar][options][Fluss] = "Fluss"
 snippetProperties[excludeCalendar][options][Spezial] = "Spezial"
+snippetProperties[showGallery][title] = "Zeige Galerie"
+snippetProperties[showGallery][type] = "checkbox"
+snippetProperties[showGallery][default] = 0
+snippetProperties[showGallery][options][] = ""
+snippetProperties[galleryTitle][title] = "Galerie Titel"
+snippetProperties[galleryTitle][type] = "string"
+snippetProperties[galleryTitle][default] = ""
+snippetProperties[galleryTitle][options][] = ""
+snippetProperties[galleryText][title] = "Galerie Text"
+snippetProperties[galleryText][type] = "string"
+snippetProperties[galleryText][default] = ""
+snippetProperties[galleryText][options][] = ""
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
@@ -72,5 +84,9 @@ snippetProperties[excludeCalendar][options][Spezial] = "Spezial"
     exclude-calendar="'{{excludeCalendar}}'"
     active="'{{active}}'"
     start-time="'{{startTime}}'"
-    limit="{{limit}}">
+    limit="{{limit}}"
+    show-gallery="{{showGallery}}"
+    gallery-title="'{{galleryTitle}}'"
+    gallery-text="'{{galleryText}}'"
+    >
 </firebase-events-beautiful>

@@ -23,12 +23,15 @@ description = "Schöne Darstellung der nächsten Events jeden Kalenders für die
         
         <div rv-if="events | empty | not">
             <firebase-events-beautiful-gallery
+                rv-if="showGallery"
                 title="title"
                 type="type"
                 calendar="calendar"
                 style="style"
                 events="events"
                 container-class="containerClass"
+                header-title="galleryTitle"
+                header-text="galleryText"
             ></firebase-events-beautiful-gallery>
         </div>
         
