@@ -44,6 +44,8 @@ description = "For Admins: Edit or create an event"
         <small id="eventStartAtDesc" class="form-text text-muted">Der Tag des Ereignisses.</small>
     </div>
     
+    <rv-checkbox id="eventShowTimes" description="'Wenn ausgewählt wird die Start und Endzeit angezeigt, ansonsten nicht.'" default="true" label="'Mit Zeiten'" on-change="showTimesChanged"></rv-checkbox>
+    
     <div class="form-group">
         <label for="eventStartTimeAt">Von</label>
         <input type="time" class="form-control" id="eventStartTimeAt" aria-describedby="eventStartTimeAtDesc" rv-value="event.startTimeAt">

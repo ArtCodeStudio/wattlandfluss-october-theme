@@ -83,10 +83,8 @@ items:
         title: 'eigene Tour planen'
         nesting: '1'
         type: static-page
-        url: ''
-        code: no-link
+        code: ''
         reference: eigene-tour-planen
-        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
@@ -96,8 +94,10 @@ items:
         title: Historie
         nesting: '0'
         type: static-page
+        url: ''
         code: ''
         reference: historie
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '1'

@@ -12,6 +12,7 @@
         rv-class-bg-state-success="event.calendar | eq 'Land'"
         rv-class-animated-gradient="event.calendar | eq 'Spezial'"
         rv-class-bg-gradient-state-success-info-warning="event.calendar | eq 'Spezial'"
+        rv-id="event.id"
     >
         <div rv-class="containerClass | append ' my-0 py-5'">
             <div rv-if="index | lt 1" class="row">
@@ -45,17 +46,30 @@
                     
                     <p rv-if="event.description" rv-html="event.description"></p>
                     
+                   
                     <p rv-if="event.type | eq 'fix'" class="mb-01">
                         <strong>Datum:</strong> {event.startAt | date 'DD.MM.YYYY'}
                     </p>
-                    <p class="mb-01">
-                        <strong>Beginn:</strong> {event.startAt | time 'HH:mm'} Uhr
-                    </p>
-                    <p class="mb-01">
-                        <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
-                    </p>
+                    
+                    <div rv-if="event.showTimes">
+                        <p class="mb-01">
+                            <strong>Beginn:</strong> {event.startAt | time 'HH:mm'} Uhr
+                        </p>
+                        <p class="mb-01">
+                            <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
+                        </p>
+                    </div>
+                    
                     <p rv-if="event.equipment" class="mb-01">
                         <strong>Ausstattung:</strong> {event.equipment}
+                    </p>
+                    
+                    {# If event has grouped event childrens #}
+                    <p rv-if="event.groupedEvents | empty | not">
+                        <strong>Weitere Termine:</strong>
+                        <span rv-each-grouped="event.groupedEvents">
+                            {grouped.startAt | date 'DD.MM.YYYY'}
+                        </span>
                     </p>
                     
                     <p rv-if="event.note" rv-html="event.note"></p>
@@ -97,20 +111,20 @@
                     <small class="text-second">{event.subtitle}</small><br>
                     {event.title}
                 </h3>
-
-                <p></p>
                 
                 <p rv-if="event.description" rv-html="event.description"></p>
                 
                 <p rv-show="event.type | eq 'fix'" class="mb-01">
                     <strong>Datum:</strong> {event.startAt | date 'DD.MM.YYYY'}
                 </p>
-                <p class="mb-01">
-                    <strong>Beginn:</strong> {event.startAt | time 'HH:mm'} Uhr
-                </p>
-                <p class="mb-01">
-                    <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
-                </p>
+                <div rv-if="event.showTimes">
+                    <p class="mb-01">
+                        <strong>Beginn:</strong> {event.startAt | time 'HH:mm'} Uhr
+                    </p>
+                    <p class="mb-01">
+                        <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
+                    </p>
+                </div>
                 <p rv-hide="event.pricetext" class="mb-01">
                     <span rv-show="event.price | gt 0">
                         <strong>Preis:</strong>
@@ -123,6 +137,14 @@
                 </p>
                 <p rv-show="event.equipment" class="mb-01">
                     <strong>Ausstattung:</strong> {event.equipment}
+                </p>
+                
+                {# If event has grouped event childrens #}
+                <p rv-if="event.groupedEvents | empty | not">
+                    <strong>Weitere Termine:</strong>
+                    <span rv-each-grouped="event.groupedEvents">
+                        {grouped.startAt | date 'DD.MM.YYYY'}
+                    </span>
                 </p>
                 
                 <p rv-html="event.note"></p>
@@ -157,13 +179,13 @@
               >
                   <h2>
                       {event.startAt | date 'DD.MM.YYYY'}
-                      <small>{event.startAt | time 'HH:mm'} Uhr</small><br>
-                      <small>{event.title}</small>
+                      <small rv-if="event.showTimes">{event.startAt | time 'HH:mm'} Uhr</small>
+                      <br><small>{event.title}</small>
                   </h2>
               </div>
     
               <p>{event.subtitle}</p>
-              <button class="btn btn-link" rv-data-id="event.id" rv-on-click="delete">mehr dazu</button>
+              <button class="btn btn-link" rv-data-id="event.id" rv-on-click="show">mehr dazu</button>
             </div>
         </div>
     </div>

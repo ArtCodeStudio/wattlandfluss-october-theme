@@ -204,8 +204,10 @@ rivets.components['rv-select'] = {
     controller.label = data.label;
     controller.description = data.description;
     controller.values = data.values;
-    controller.id = Date.now();
+    controller.id = data.id ? 'rv-select-'+data.id : Date.now();
+    
     controller.selected = controller.values[0];
+    data.onChange(controller.selected);
     
     /**
      * Get the selected value of a select option DOM element
@@ -252,13 +254,50 @@ rivets.components['rv-select'] = {
         var $this = $(this);
         var value = controller.get();
         controller.selected = value;
-        data.selected = controller.selected;
+        // data.selected = controller.selected;
         if (jumplink.utilities.isFunction(data.onChange)) {
-            data.onChange(data.selected);
+            data.onChange(controller.selected);
         }
         controller.debug('select', value );
     });
 
+    return controller;
+  }
+}
+
+rivets.components['rv-checkbox'] = {
+  template: function() {
+    return $('template#rv-checkbox').html();
+  },
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:rv-checkbox');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    var $checkbox = $el.find('input[type="checkbox"]');
+    
+    controller.ready = false;
+    controller.label = data.label;
+    controller.description = data.description;
+    controller.values = data.values;
+    controller.id = data.id ? 'rv-checkbox-'+data.id : Date.now();
+    controller.checked = data.default;
+    jumplink.utilities.setCheckboxValue($checkbox, controller.checked);
+        
+    $checkbox.change(function() {
+        controller.checked = $checkbox.is(":checked");
+        controller.debug('changed', controller.checked);
+        if (jumplink.utilities.isFunction(data.onChange)) {
+            data.onChange(controller.checked);
+        }
+    });
+    
+    // WORKAROUND
+    setTimeout(function() {
+        controller.ready = true;
+    }, 200);
+    
+    
     return controller;
   }
 }
@@ -298,6 +337,13 @@ rivets.components['firebase-event-form'] = {
         controller.event.calendar = calendar.value;
     };
     
+    controller.showTimesChanged = function(showTimes) {
+        controller.debug('showTimesChanged', showTimes);
+        controller.event.showTimes = showTimes;
+    };
+    
+    
+    
     // if id is set the event will be updated otherwise it will be created
     controller.id = data.id;
     
@@ -314,6 +360,7 @@ rivets.components['firebase-event-form'] = {
         subtitle: '',
         description: '',
         equipment: '',
+        showTimes: true,
         startAt: '',
         startTimeAt: '',
         endTimeAt: '',
@@ -405,11 +452,12 @@ rivets.components['firebase-event-form'] = {
         controller.debug('setDefaultValues', controller.id);
         
         controller.event.active = true;
+        jumplink.utilities.setCheckboxValue('#eventActive', controller.event.active);
         
         // start at and date picker
-        var today = moment().format('YYYY-MM-DD');
-        $eventStartAt.pignoseCalendar('set', today);
-        controller.event.startAt = today;
+        // var today = moment().format('YYYY-MM-DD');
+        // $eventStartAt.pignoseCalendar('set', today);
+        // controller.event.startAt = today;
         
         // start and end time
         controller.event.startTimeAt = '14:00';
@@ -467,6 +515,9 @@ rivets.components['firebase-event-form'] = {
             event.active = event.active === true;
             jumplink.utilities.setCheckboxValue('#eventActive', event.active);
             
+            event.showTimes = event.showTimes === true;
+            jumplink.utilities.setCheckboxValue('#eventShowTimes input', event.showTimes);
+            
             controller.event = event;
             
             $eventStartAt.pignoseCalendar('set', controller.event.startAt);
@@ -512,6 +563,7 @@ rivets.components['firebase-event-form'] = {
             subtitle: controller.event.subtitle,
             description: controller.event.description,
             equipment: controller.event.equipment,
+            showTimes: controller.event.showTimes,
             startAt: moment(controller.event.startAt),
             // startTimeAt: controller.event.startTimeAt,
             endAt: moment(controller.event.startAt),
@@ -906,6 +958,43 @@ rivets.components['firebase-events-table'] = {
             controller.debug('error', error);
         });
     }
+    
+    controller.sort = function(event, controller) {
+        var $this = $(event.target);
+        var data = $this.data();
+        // data.sortProperty
+        
+        if(!data.sortDirection) {
+            data.sortDirection = 'asc'
+        } else {
+            if(data.sortDirection === 'asc') {
+                data.sortDirection = 'desc';
+            } else {
+                data.sortDirection = 'asc';
+            }
+        }
+        $this.data('sortDirection', data.sortDirection);
+        
+        controller.debug('sort', data);
+        
+        controller.events.sort(function(a, b) {
+            var result = 0;
+            switch(data.sortProperty) {
+                default:
+                    if(a[data.sortProperty] < b[data.sortProperty]) {
+                        result = -1;
+                    }
+                    if(a[data.sortProperty] > b[data.sortProperty]) {
+                        result = 1;
+                    }
+                break;
+            }
+            if(data.sortDirection === 'desc') {
+                result = result * -1;
+            }
+            return result;
+        });
+    };
    
     
     controller.delete = function(event, controller) {
@@ -1041,6 +1130,8 @@ rivets.components['firebase-events-beautiful'] = {
     controller.showGallery = data.showGallery === true || data.showGallery === 'true' || data.showGallery === 1;
     controller.galleryTitle = data.galleryTitle;
     controller.galleryText = data.galleryText;
+    controller.groupBy = data.groupBy; // group events e.g. by 'title' | 'subtitle' | 'handle' or not with 'none'
+    controller.detailPage = data.detailPage; // For more info links
     
     // start time of the orders in the future, from the past or all
     controller.startTime = data.startTime || 'future'; // 'future' | 'past' | 'all'
@@ -1066,6 +1157,48 @@ rivets.components['firebase-events-beautiful'] = {
     controller.active = data.active;
     
     controller.events = [];
+    
+    var getEventByProperty = function(events, property, value) {
+        var foundEvent = null;
+        events.forEach(function(event) {
+            if(event[property] && event[property] === value) {
+                foundEvent = event;
+                return foundEvent;
+            }
+        });
+        return foundEvent;
+    }
+    
+    var pushEventGroupedByProperty = function(events, event, groupBy) {
+        
+        switch(groupBy) {
+            // supported properties
+            case 'title':
+            case 'subtitle':
+            case 'handle':
+                var allreadyPushedEvent = getEventByProperty(events, groupBy, event[groupBy]);
+                if(allreadyPushedEvent === null) {
+                    // push event as new event to default list
+                    events.push(event);
+                    return event;
+                }
+                // check if event has allready a groupedEvents array otherwise create it
+                if(!jumplink.utilities.isArray(allreadyPushedEvent.groupedEvents)) {
+                    allreadyPushedEvent.groupedEvents = [];
+                }
+                // push event to existing event
+                allreadyPushedEvent.groupedEvents.push(event);
+                return allreadyPushedEvent;
+                break;
+            // properties they will just pushed without grouping
+            case 'none':
+            default:
+                events.push(event);
+                break;
+                
+        }
+        return event;
+    }
     
 
     var getEvents = function() {
@@ -1157,7 +1290,7 @@ rivets.components['firebase-events-beautiful'] = {
                     event.id = doc.id;
                     if(event.calendar !== controller.excludeCalendar) {
                         count++;
-                        controller.events.push(event);
+                        pushEventGroupedByProperty(controller.events, event, controller.groupBy);
                     }
                 }
             });
@@ -1324,6 +1457,7 @@ rivets.components['firebase-event-beautiful'] = {
     controller.debug('initialize', el, data);
     var $el = $(el);
 
+    controller.ready = false;
     controller.title = data.title;
     controller.active = data.active;
     controller.calendar = data.calendar;
@@ -1336,6 +1470,7 @@ rivets.components['firebase-event-beautiful'] = {
     controller.color = 'black';
     controller.number = jumplink.utilities.rand(1, 4);
     controller.imageFilename = 'path-0' + controller.number + '.svg';
+    controller.detailPage = data.detailPage; // For more info links
     
     switch(controller.event.calendar) {
         case 'Watt':
@@ -1354,9 +1489,34 @@ rivets.components['firebase-event-beautiful'] = {
     
     controller.requests = function(event, controller) {
         var $this = $(event.target);
-        controller.debug('requests', controller.event);
+        var data = $this.data();
+        controller.debug('requests', controller.event, data);
     };
-        
+    
+    controller.show = function(event, controller) {
+        var $this = $(event.target);
+        var data = $this.data();
+        controller.debug('show', controller.event, data);
+        Barba.Pjax.goTo(controller.detailPage + '#'+data.id);
+    }
+    
+    var checkHash = function() {
+        var hash = jumplink.utilities.getHash();
+        controller.debug('[checkHash] hash', hash);
+        if(hash === '#'+controller.event.id) {
+            controller.debug('[checkHash] TODO scroll to event', $el.offset().top);
+            
+            $('html, body').animate({
+                scrollTop: $el.offset().top
+            }, 500);
+        }
+    }
+    
+    // WORKAROUND
+    setTimeout(function() {
+        controller.ready = true;
+        checkHash();
+    }, 200);
 
     return controller;
   }

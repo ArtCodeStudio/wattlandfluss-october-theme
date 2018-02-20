@@ -6,12 +6,24 @@ description = "Für Admins: Tabelle mit Events zum Veralten"
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Aktiviert</th>
-          <th scope="col">Titel</th>
-          <th scope="col">Beginn</th>
-          <th scope="col">Typ</th>
-          <th scope="col">Kalender</th>
-          <th scope="col">Aktion</th>
+          <th scope="col" data-sort-property="active" rv-on-click="sort">
+              Aktiviert
+             </th>
+          <th scope="col" data-sort-property="title" rv-on-click="sort">
+              Titel
+             </th>
+          <th scope="col" data-sort-property="startAt" rv-on-click="sort">
+              Beginn
+             </th>
+          <th scope="col" data-sort-property="type" rv-on-click="sort">
+              Typ
+          </th>
+          <th scope="col" data-sort-property="calendar" rv-on-click="sort">
+              Kalender
+          </th>
+          <th scope="col">
+              Aktion
+          </th>
         </tr>
       </thead>
       <tbody>
