@@ -2,6 +2,7 @@
 ==
 <template id="firebase-events-beautiful-gallery">
     <div
+        rv-if="images | empty | not"
         rv-class-bg-state-info="calendar | eq 'Fluss'"
         rv-class-bg-state-warning="calendar | eq 'Watt'"
         rv-class-bg-state-success="calendar | eq 'Land'"

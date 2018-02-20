@@ -6,11 +6,11 @@ window.jumplink.utilities = window.jumplink.utilities || {};
  * Show global modal with rivets.js
  * Needs the global-modal component in dom
  */
-window.jumplink.utilities.showGlobalModal = function (data) {
+jumplink.utilities.showGlobalModal = function (data) {
     $.event.trigger('rivets:global-modal', [true, data]);
 };
 
-window.jumplink.utilities.cloneArray = function (array) {
+jumplink.utilities.cloneArray = function (array) {
     return array.slice(0);
 };
 
@@ -27,7 +27,7 @@ window.jumplink.utilities.cloneArray = function (array) {
  *     console.log('out of view');
  * }
  */
-window.jumplink.utilities.isElementInView = function(element, fullyInView) {
+jumplink.utilities.isElementInView = function(element, fullyInView) {
     var pageTop = $(window).scrollTop();
     var pageBottom = pageTop + $(window).height();
     var elementTop = $(element).offset().top;
@@ -42,11 +42,37 @@ window.jumplink.utilities.isElementInView = function(element, fullyInView) {
 
 
 /**
+ * Get the selected value of a select option DOM element
+ */
+jumplink.utilities.getSelectedValue = function(selector) { 
+    $selected = $(selector + ' option:selected');
+    return $selected.val();
+};
+
+/**
+ * set a value (not by the value attribute but by the text content of the option) on a select dom element
+ */
+jumplink.utilities.setSelectedValue = function(selector, value) {
+    $select = $(selector);
+    $select.val(value).change();
+    return window.jumplink.utilities.getSelectedValue(selector);
+};
+
+jumplink.utilities.setCheckboxValue = function(selector, value) {
+    $(selector).prop('checked', value);
+};
+
+jumplink.utilities.getCheckboxValue = function(selector) {
+    $(selector).is(':checked');
+};
+
+
+/**
  * Parse jsonstrings in datasets of the .barba-container
  * 
  * @see theme.liquid for .barba-container  
  */
-window.jumplink.utilities.parseDatasetJsonStrings = function (dataset) {
+jumplink.utilities.parseDatasetJsonStrings = function (dataset) {
   var data = {};
   if(typeof(dataset.productJsonString) === 'string') {
     data.product = JSON.parse(dataset.productJsonString);

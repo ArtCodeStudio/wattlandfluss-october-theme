@@ -120,7 +120,7 @@ rivets.formatters.slice = function(value, start, end) {
 };
 
 rivets.formatters.pluralize = function(input, singular, plural) {
-  if (plural == null) {
+  if (plural === null) {
     plural = singular + 's';
   }
   if (CartJS.Utils.isArray(input)) {
@@ -137,21 +137,21 @@ rivets.formatters.pluralize = function(input, singular, plural) {
  * Array formatter to get value by index
  */
 rivets.formatters.index = function(array, index) {
-  return array[index];
+  return (array && array.length >= index) ? array[index] : null;
 };
 
 /**
  * Array formatter to get the first element of an array
  */
 rivets.formatters.first = function(array) {
-  return array[0];
+  return (array && array.length) ? array[0] : null;
 };
 
 /**
  * Array formatter to get the last element of an array
  */
 rivets.formatters.last = function(array) {
-  return array[array.length - 1];
+  return (array && array.length) ? array[array.length - 1] : null;
 };
 
 // Add Shopify-specific formatters for Rivets.js.
@@ -201,11 +201,8 @@ rivets.formatters.productImageSize = rivets.formatters.product_image_size;
  * 
  * @see https://help.shopify.com/themes/liquid/filters/array-filters#size
  */
-rivets.formatters.size = function(a) {
-  if(!a) {
-    return 0;   
-  }
-  return a.length;
+rivets.formatters.size = function(array) {
+  return (array && array.length) ? array.length : 0;
 };
 
 /**
@@ -224,7 +221,7 @@ rivets.formatters.count = rivets.formatters.size;
  */
 rivets.formatters.strip = function (str) {
   return $.trim(str);
-}
+};
 
 /**
  * Converts a string into uppercase.
@@ -232,7 +229,7 @@ rivets.formatters.strip = function (str) {
  */
 rivets.formatters.upcase = function (str) {
   return str.toUpperCase();
-}
+};
 
 /**
  * Converts a string into lowercase.
@@ -240,7 +237,7 @@ rivets.formatters.upcase = function (str) {
  */
 rivets.formatters.downcase = function (str) {
   return str.toLowerCase();
-}
+};
 
 /**
  * Formats a string into a handle.
@@ -251,7 +248,7 @@ rivets.formatters.handleize = function (str) {
   str = str.replace(/[^\w\s]/gi, '') // http://stackoverflow.com/a/4374890
   str = rivets.formatters.downcase(str);
   return str.replace(/ /g,"-");
-}
+};
 
 /**
  * Set default value
@@ -269,7 +266,7 @@ rivets.formatters.default = function(value, args) {
  */
 rivets.formatters.json = function (object) {
     return JSON.stringify(object);
-}
+};
 
 /**
  * True if array contains property or containts property with value
@@ -316,7 +313,7 @@ rivets.formatters.justDigits = function (str) {
   } else {
     return Number(num);
   }
-}
+};
 
 /**
  * Prüft ob eine Zahl gerade ist oder nicht
@@ -324,11 +321,11 @@ rivets.formatters.justDigits = function (str) {
  */
 rivets.formatters.even = function (num) {
   return (num % 2) === 0;
-}
+};
 
 rivets.formatters.uneven = function (num) {
   return (num % 2) !== 0;
-}
+};
 
 
 /**

@@ -253,7 +253,9 @@ rivets.components['rv-select'] = {
         var value = controller.get();
         controller.selected = value;
         data.selected = controller.selected;
-        data.onChange(data.selected);
+        if (jumplink.utilities.isFunction(data.onChange)) {
+            data.onChange(data.selected);
+        }
         controller.debug('select', value );
     });
 
@@ -441,7 +443,7 @@ rivets.components['firebase-event-form'] = {
         
         dbEvents.doc(id).get()
         .then(function(docRef) {                        
-            controller.debug('getEvent', docRef.data());
+            controller.debug('getEvent start', docRef.data());
             var event = docRef.data();
              
             event.startTimeAt = moment(event.startAt).format('HH:mm');
@@ -455,19 +457,20 @@ rivets.components['firebase-event-form'] = {
             
             $eventNote.summernote('code', event.note);
             
-            var selectedType = setSelectedValue('#eventType select', event.type);
+            var selectedType = jumplink.utilities.setSelectedValue('#eventType select', event.type);
             // var selectedType = controller.setType(event.type);
             controller.debug('selectedType', selectedType);
             
-            var selectedCalendar = setSelectedValue('#eventCalendar select', event.calendar);
+            var selectedCalendar = jumplink.utilities.setSelectedValue('#eventCalendar select', event.calendar);
             controller.debug('selectedCalendar', selectedCalendar);
             
             event.active = event.active === true;
-            setCheckboxValue('#eventActive', event.active);
+            jumplink.utilities.setCheckboxValue('#eventActive', event.active);
             
             controller.event = event;
             
             $eventStartAt.pignoseCalendar('set', controller.event.startAt);
+            $eventStartAt.val(controller.event.startAt);
             
             controller.debug('getEvent done', controller.event);
             
@@ -495,39 +498,13 @@ rivets.components['firebase-event-form'] = {
     }
     
     /**
-     * Get the selected value of a select option DOM element
-     */
-    var getSelectedValue = function(selector) { 
-        $selected = $(selector + ' option:selected');
-        return $selected.val();
-    };
-    
-    /**
-     * set a value (not by the value attribute but by the text content of the option) on a select dom element
-     */
-    var setSelectedValue = function(selector, value) {
-        $select = $(selector);
-        $select.val(value).change();
-        return getSelectedValue(selector);
-    };
-    
-    var setCheckboxValue = function(selector, value) {
-        $(selector).prop('checked', value);
-    }
-    
-    var getCheckboxValue = function(selector) {
-        $(selector).is(':checked');
-    }
-    
-    
-    /**
      * create a new event object to store in firebase datastore database
      */
     var formatControllerEventForFirestore = function() {
         // WORKAROUND for select element
-        controller.event.type = getSelectedValue('#eventType select');
+        controller.event.type = jumplink.utilities.getSelectedValue('#eventType select');
         // controller.event.type = controller.getType().value;
-        controller.event.calendar = getSelectedValue('#eventCalendar select');
+        controller.event.calendar = jumplink.utilities.getSelectedValue('#eventCalendar select');
         
         var newEvent = {
             active: controller.event.active,
@@ -637,6 +614,260 @@ rivets.components['firebase-event-form'] = {
   }
 };
 
+rivets.components['firebase-calendar-form'] = {
+
+  template: function() {
+    return $('template#firebase-calendar-form').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:firebase-calendar-form');
+    controller.debug('initialize', el, data);
+    
+    var $el = $(el);
+    var db = firebase.firestore();
+    var $calendarDesc = $(el).find('#calendarDesc');
+    var $calendarNote = $(el).find('#calendarNote');
+    
+    var dbCalendars = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('calendars');
+
+    
+    // if id is set the event will be updated otherwise it will be created
+    controller.id = data.id;
+    
+    controller.titleEdit = 'Kalender bearbeiten';
+    controller.titleCreate = 'Kalender anlegen';
+    
+    // to store uploaded Images in event
+    controller.uploadedImages = [];
+    
+    // start values of a event to have it not undefined, will be replaced in next steps
+    controller.calendar = {
+        active: true,
+        name: '',
+        title: '',
+        subtitle: '',
+        description: '',
+        note: '',
+        type: '',
+        images: [],
+    };
+    
+    // TODO save types in own db
+    controller.types = [
+        {id:1, label: 'Veranstaltungen', value: 'events'},
+        // {id:2, label: 'Zimmerreservierung', value: 'room-reservation'},
+    ];
+    
+    /**
+     * init wysiwyg for description input
+     * @see https://github.com/KennethanCeyer/pg-calendar/wiki/Documentation
+     */
+    $calendarDesc.summernote({
+        placeholder: 'Deine neue Beschreibung',
+        height: 200,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['Misc', ['undo', 'redo', 'codeview', 'fullscreen']],
+        ],
+        callbacks: {
+            onChange: function(contents, $editable) {
+                console.log('onChange:', contents, $editable);
+                controller.calendar.description = contents;
+                controller.debug('onChange', contents, controller.calendar);
+            }
+        }
+    });
+    
+    $calendarNote.summernote({
+        placeholder: 'Deine neue Notiz',
+        height: 200,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['Misc', ['undo', 'redo', 'codeview', 'fullscreen']],
+        ],
+        callbacks: {
+            onChange: function(contents, $editable) {
+                console.log('onChange:', contents, $editable);
+                controller.calendar.note = contents;
+                controller.debug('onChange', contents, controller.calendar);
+            }
+        }
+    });
+    
+    /**
+     * Sets the default values for an event e.g. if you want to create a new one
+     */
+    var setDefaultValues = function () {
+        controller.debug('setDefaultValues', controller.id);
+        
+        controller.calendar.active = true;
+        jumplink.utilities.setCheckboxValue('#calendarActive', controller.calendar.active);
+                
+        // title, subtitle
+        controller.calendar.name = '';
+        controller.calendar.title = '';
+        controller.calendar.subtitle = '';
+        
+        // description
+        controller.calendar.description = '';
+        $calendarDesc.summernote('code', controller.calendar.description);
+        
+        // note
+        controller.calendar.note = '';
+        $calendarNote.summernote('code', controller.calendar.note);
+        
+        controller.debug('set default values', controller.calendar);
+    }
+    
+    /**
+     *  Get event by id and set it to the forms
+     */
+    var getCalendar = function (id) {
+        controller.debug('controller', id);
+        
+        dbCalendars.doc(id).get()
+        .then(function(docRef) {                        
+            controller.debug('getCalendar', docRef.data());
+            var calendar = docRef.data();
+
+            
+            // update description for wysiwyg
+            $calendarDesc.summernote('code', calendar.description);
+            
+            $calendarNote.summernote('code', calendar.note);
+            
+            var selectedType = jumplink.utilities.setSelectedValue('#calendarType select', calendar.type);
+            // var selectedType = controller.setType(event.type);
+            controller.debug('selectedType', selectedType);
+            
+            calendar.active = calendar.active === true;
+            jumplink.utilities.setCheckboxValue('#calendarActive', calendar.active);
+            
+            controller.calendar = calendar;
+            
+            controller.debug('getCalendar done', controller.calendar);
+            
+            return controller.calendar;
+        })
+        .catch(function(error) {  
+            jumplink.utilities.showGlobalModal({
+                title: 'Kalender konnte nicht geladen werden',
+                body: error.message,
+            });
+            controller.debug('error', error);
+        });
+    }
+    
+    /**
+     *  Set default values or get event by id
+     */
+    if(controller.id) {
+        getCalendar(controller.id);
+    } else {
+        // WORKAROUND to set the current valuesafter rivets view is initialized?
+        setTimeout(function() {
+            setDefaultValues();
+        }, 200);
+    }    
+    
+    /**
+     * create a new event object to store in firebase datastore database
+     */
+    var formatControllerCalendarForFirestore = function() {
+        controller.calendar.type = jumplink.utilities.getSelectedValue('#calendarType select');
+        
+        var calendar = {
+            active: controller.calendar.active,
+            name: controller.calendar.name,
+            title: controller.calendar.title,
+            subtitle: controller.calendar.subtitle,
+            description: controller.calendar.description,
+            type: controller.calendar.type,
+            note: controller.calendar.note || null,
+            images: controller.calendar.images,
+        };
+        
+        
+        // Merge old images with new uploaded images
+        if(!jumplink.utilities.isArray(calendar.images)) {
+            controller.debug('no images are set, init image object with empty array!')
+            calendar.images = [];
+        }
+        
+        calendar.images.push.apply(calendar.images, controller.uploadedImages);
+        
+        // remove uploadedImages images
+        controller.uploadedImages = [];
+        
+        return calendar;
+    }
+    
+    controller.updateCalendar = function(event, controller) {
+        
+        var updateCalendar = formatControllerCalendarForFirestore();
+        
+        controller.debug('updateCalendar', controller.id, updateCalendar);
+        
+        dbCalendars.doc(controller.id).update(updateCalendar)
+        .then(function() {
+            var message = 'Kalender erfolgreich aktualisiert';
+            jumplink.utilities.showGlobalModal({
+                title: 'Erfolgreich angelegt',
+                body: message,
+            });
+            controller.debug(message);
+            return getCalendar(controller.id);
+        })
+        .then(function(calendar) {
+            return calendar;
+        })
+        .catch(function(error) {
+            controller.debug('error', error);
+            jumplink.utilities.showGlobalModal({
+                title: 'Fehler',
+                body: error.message,
+            });
+        });
+    }
+      
+    controller.createCalendar = function(event) {
+
+        var calendar = formatControllerCalendarForFirestore();
+        
+        controller.debug('createCalendar', calendar, data, jumplink.firebase.config.customerDomain);
+        
+        dbCalendars.add(calendar)
+        .then(function(docRef) {
+            controller.id = docRef.id;
+            var message = 'Kalender mit der ID ' + controller.id + ' erfolgreich eingetragen';
+            controller.debug(message, docRef);
+            
+            jumplink.utilities.showGlobalModal({
+                title: 'Kalender angelegt',
+                body: message,
+            });
+            return getCalendar(controller.id);
+        })
+        .then(function(calendar) {
+            return calendar;
+        })
+        .catch(function(error) {
+            controller.debug('error', error);
+            jumplink.utilities.showGlobalModal({
+                title: 'Kalender konnte nicht angelegt werden',
+                body: error.message,
+            });
+        });
+    };
+
+    return controller;
+  }
+};
+
 /**
  * Component to list the events in a table for the backend
  */
@@ -707,6 +938,79 @@ rivets.components['firebase-events-table'] = {
     };
     
      getEvents();
+    return controller;
+  }
+};
+
+/**
+ * Component to list the events in a table for the backend
+ */
+rivets.components['firebase-calendars-table'] = {
+
+  template: function() {
+    return $('template#firebase-calendars-table').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:firebase-calendars-table');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    var db = firebase.firestore();
+    var dbCalendars = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('calendars');
+    controller.calendars = [];
+
+    var getCalendars = function() {
+         dbCalendars.get()
+        .then((querySnapshot) => {
+            controller.debug('calendars', controller.calendars, querySnapshot);
+            controller.calendars = [];
+            querySnapshot.forEach((doc) => {
+                var calendar = doc.data();
+                calendar.id = doc.id;
+                controller.calendars.push(calendar);
+            });
+        })
+        .catch(function(error) {  
+            jumplink.utilities.showGlobalModal({
+                title: 'Kalender konnte nicht geladen werden',
+                body: error.message,
+            });
+            controller.debug('error', error);
+        });
+    }
+   
+    
+    controller.delete = function(event, controller) {
+        var $this = $(event.target);
+        var id = $this.data('id');
+        controller.debug('delete', $this.data());
+        
+        dbCalendars.doc(id).delete()
+        .then(function() {
+            var message = 'Kalender erfolgreich gelöscht';
+            controller.debug(message);
+            getCalendars();
+        }).catch(function(error) {
+            var message = error.message;
+            jumplink.utilities.showGlobalModal({
+                title: 'Kalender konnte nicht gelöscht werden',
+                body: error.message,
+            });
+            controller.debug(message, error);
+        });
+        
+    };
+    
+    controller.edit = function(event, controller) {
+        var $this = $(event.target);
+        controller.debug('edit', $this.data());
+        var id = $this.data('id');
+        var href = $this.data('href').replace(':id', id);
+        Barba.Pjax.goTo(href);
+    };
+    
+    getCalendars();
     return controller;
   }
 };
@@ -915,10 +1219,17 @@ rivets.components['firebase-events-beautiful-gallery'] = {
                 image.src = image.downloadURL;
                 /** path to small image placeholder, large image will be loaded on top */
                 image.msrc = image.downloadURL;
-                /** image width */
-                image.w = image.customMetadata.width || 800;
-                /** image height */
-                image.h = image.customMetadata.height || 600;
+                if (image.customMetadata) {
+                    /** image width */
+                    image.w = image.customMetadata.width || 800;
+                    /** image height */
+                    image.h = image.customMetadata.height || 600;
+                } else {
+                    /** image width */
+                    image.w = 800;
+                    /** image height */
+                    image.h = 600;
+                }
                 /** image caption */
                 image.title = image.metadata.name;
                 /** custom HTML @see http://photoswipe.com/documentation/custom-html-in-slides.html */

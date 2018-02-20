@@ -1,0 +1,17 @@
+title = "Kalendar bearbeiten"
+url = "/admin/calendar/:id/edit"
+layout = "jumplink-barba"
+is_hidden = 0
+contentType = "html"
+==
+<?php
+function onStart()
+{
+    // anonymos classes only working on php7
+    $this['calendar_id'] = $this->param('id');
+}
+?>
+==
+<div class="container">
+    <firebase-calendar-form id="'{{calendar_id}}'"></firebase-calendar-form>
+</div>
