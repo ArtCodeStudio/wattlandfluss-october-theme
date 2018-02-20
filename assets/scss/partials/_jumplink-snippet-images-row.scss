@@ -1,5 +1,5 @@
 .jumplink-snippet-images-row {
-    a {
+    .wrapper {
         display: block;
         position: relative;
         .background-box-hover {
@@ -12,6 +12,49 @@
         &:hover {
             .background-box-hover {
                 opacity: 0.7;
+            }
+        }
+        
+        .content {
+            position: absolute;
+            padding: 2rem;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: auto;
+            
+            .content-texts {
+                color: white !important; // TODO make changeable in snippet
+                
+                .content-title {
+                    @extend .h2; // TODO make changeable in snippet
+                    @extend .text-second; // TODO make changeable in snippet
+                }
+            }
+        
+            &.content-position-h-left {
+                text-align: left;
+            }
+            &.content-position-h-right {
+                text-align: right;
+            }
+            &.content-position-h-center {
+                text-align: center;
+            }
+            
+            &.content-position-v-top {
+                top: 0;
+            }
+            &.content-position-v-bottom {
+                bottom: 0;
+            }
+            &.content-position-v-center {
+                height: 100%;
+                top: 0;
+                bottom: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
         }
     }

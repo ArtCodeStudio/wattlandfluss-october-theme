@@ -96,6 +96,10 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
     var $listItemsCarousel = window.jumplink.cache.$listItemsCarousel;
     var $window = $(window);
     
+    var close = function () {
+        $(closingLinks).trigger('click');
+    }
+    
     $rightSidebar.simplerSidebar({
         attr: "simplersidebar",
         init: "closed",
@@ -111,7 +115,7 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
           quitter: closingLinks // sidebar.closingLinks
         },
         sidebar: {
-          width: 500
+          width: $(window).width() > 768 ? 500 : '40vw',
         },
         mask: {
           display: mask,
@@ -126,14 +130,14 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
           on: {
             animation: {
               open: function() {
-                console.log('open');
+                window.jumplink.debug.partials('open');
                 // icon animation for open
                 if($tcon.length) {
                     transformicons.transform($('.sidebar-toggler.tcon')[ 0 ]);
                 }
               },
               close: function() {
-                console.log('close');
+                window.jumplink.debug.partials('close');
                 // icon animation for close
                 if($tcon.length) {
                     transformicons.revert($('.sidebar-toggler.tcon')[ 0 ]);
@@ -161,18 +165,19 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
               both: function() {
                 
               },
-              freezePage: false
+              freezePage: true,
             }
           }
         }
     });
     
-    $rightSidebar.on('swiperight', function(e) { 
-        console.log('swiperight');
-        jumplink.toggleRightSidebar();
+    $rightSidebar.off('swiperight').on('swiperight', function(e) { 
+        window.jumplink.debug.partials('swiperight');
+        close();
     });
       
     $rightSidebar.show();
+    jumplink.utilities.triggerResize();
     
     // if slide navigation is avable
     if($listItemsCarousel) {

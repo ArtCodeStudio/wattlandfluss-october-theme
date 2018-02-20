@@ -14,6 +14,12 @@ jumplink.utilities.cloneArray = function (array) {
     return array.slice(0);
 };
 
+jumplink.utilities.triggerResize = function () {
+    window.dispatchEvent(new Event('resize'));
+};
+
+
+
 /**
  * Check if element is visible after scrolling
  * 

@@ -49,6 +49,44 @@ $enable-hover-media-query:  to-bool($enable-hover-media-query);
 $enable-grid-classes:       to-bool($enable-grid-classes);
 $enable-print-styles:       to-bool($enable-print-styles);
 
+
+.col-12 {
+    @extend .col-xs-12;
+}
+.col-11 {
+    @extend .col-xs-11;
+}
+.col-10 {
+    @extend .col-xs-10;
+}
+.col-9 {
+    @extend .col-xs-9;
+}
+.col-8 {
+    @extend .col-xs-8;
+}
+.col-7 {
+    @extend .col-xs-7;
+}
+.col-6 {
+    @extend .col-xs-6;
+}
+.col-5 {
+    @extend .col-xs-5;
+}
+.col-4 {
+    @extend .col-xs-4;
+}
+.col-3 {
+    @extend .col-xs-3;
+}
+.col-2 {
+    @extend .col-xs-2;
+}
+.col-1 {
+    @extend .col-xs-1;
+}
+
 /*
 .col-xs-12 {
     @extend .col-12;

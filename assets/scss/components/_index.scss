@@ -1,3 +1,9 @@
+// template elements are just used with javascript ad should not be shown in the template
+template {
+    display: none;
+}
+
+
 @import 'firebase-events-beautiful';
 @import 'firebase-event-beautiful';
 
