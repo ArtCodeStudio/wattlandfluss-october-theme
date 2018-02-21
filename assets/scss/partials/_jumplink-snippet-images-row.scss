@@ -1,31 +1,34 @@
-.jumplink-snippet-images-row {
+.jumplink-snippet-images-row, .jumplink-snippet-image-row, .jumplink-snippet-image-row-with-content {
     .wrapper {
         display: block;
         position: relative;
-        .background-box-hover {
-            opacity: 0;
+
+        .content-layer {
             position: absolute;
-            transition: opacity .25s ease-in-out;
             width: 100%;
             height: 100%;
+            // default opacity if hover effect is disabled
+            // opacity: 0.7;
+            &.background-box-hover {
+                opacity: 0;
+                transition: opacity .25s ease-in-out;
+            }
         }
+        
         &:hover {
             .background-box-hover {
-                opacity: 0.7;
+                opacity: 0.7; // default opacity for hover effect
             }
         }
         
         .content {
             position: absolute;
-            padding: 2rem;
             left: 0;
             right: 0;
             width: 100%;
             height: auto;
             
             .content-texts {
-                color: white !important; // TODO make changeable in snippet
-                
                 .content-title {
                     @extend .h2; // TODO make changeable in snippet
                     @extend .text-second; // TODO make changeable in snippet

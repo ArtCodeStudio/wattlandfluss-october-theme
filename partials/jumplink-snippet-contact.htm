@@ -1,0 +1,63 @@
+description = "Snippet: Contact Form"
+
+[viewBag]
+snippetCode = "jumplink-contact"
+snippetName = "Contact Form"
+snippetProperties[contentPath][title] = "Inhalt Dateiname (Optional)"
+snippetProperties[contentPath][type] = "string"
+snippetProperties[contentPath][default] = "contact"
+snippetProperties[contentPath][options][] = ""
+snippetProperties[source][title] = "Bild Quelle"
+snippetProperties[source][type] = "string"
+snippetProperties[source][default] = ""
+snippetProperties[source][options][] = ""
+==
+
+<div class="bg-gray-lighter" id="contact" data-target="#contact">
+    <header class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="confirm-container">
+                        {# This will contain the confirmation when the email is successfully sent #}
+                    </div>
+                    <form class="csontactForm" role="form"
+                          data-request="onMailSent"
+                          data-request-update="'jumplink-forms/confirm': '.confirm-container'">
+                        <div class="form-groups">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-success" name="name" required placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-warning" name="email" required placeholder="E-Mail">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-danger" name="regard" required placeholder="Betreff">
+                            </div>
+                            <fieldset class="form-group">
+                                <textarea class="form-control" name="message" rows="6" required placeholder="Deine Nachricht an mich"></textarea>
+                            </fieldset>
+                            {% if __SELF__.enableCaptcha %}
+                                <div class="form-group">
+                                    <div class="g-recaptcha" data-sitekey="{{ __SELF__.siteKey }}"></div>
+                                </div>
+                            {% endif %}
+                            <button type="submit" class="btn pull-xs-right">Absenden</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <h2 class="text-xs-center">{{headertext}}</h2>
+                    {% if source %}
+                        <img class="center-block p-b-2" src="{{source | media}}">
+                    {% endif %}
+                    <div class="mb-3">
+                        {% if contentPath %}
+                            {% content contentPath %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

@@ -11,5 +11,13 @@ snippetProperties[wrapContainerFluid][title] = "Mit .container-fluid umschließe
 snippetProperties[wrapContainerFluid][type] = "checkbox"
 snippetProperties[wrapContainerFluid][default] = 0
 snippetProperties[wrapContainerFluid][options][] = ""
+snippetProperties[title][title] = "title"
+snippetProperties[title][type] = "string"
+snippetProperties[title][default] = ""
+snippetProperties[title][options][] = ""
+snippetProperties[contentPath][title] = "Inhalt Dateiname (Optional)"
+snippetProperties[contentPath][type] = "string"
+snippetProperties[contentPath][default] = ""
+snippetProperties[contentPath][options][] = ""
 ==
-{% partial 'jumplink-call-block' wrapContainer=wrapContainer wrapContainerFluid=wrapContainerFluid %}
+{% partial 'jumplink-call-block' wrapContainer=wrapContainer wrapContainerFluid=wrapContainerFluid title=title contentPath=contentPath %}

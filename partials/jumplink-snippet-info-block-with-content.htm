@@ -5,7 +5,7 @@ snippetCode = "jumplink-snippet-info-block-with-content"
 snippetName = "Info Block mit Inhalt"
 snippetProperties[title][title] = "Titel"
 snippetProperties[title][type] = "string"
-snippetProperties[title][default] = "Schaue unverbindlich und kostenlos in einer Schnupperstunde vorbei."
+snippetProperties[title][default] = ""
 snippetProperties[title][options][] = ""
 snippetProperties[titleSize][title] = "Title Größe"
 snippetProperties[titleSize][type] = "dropdown"
@@ -23,9 +23,13 @@ snippetProperties[textAlignment][options][left] = "Linksbündig"
 snippetProperties[textAlignment][options][center] = "Zentriert"
 snippetProperties[textAlignment][options][justify] = "Blocksatz"
 snippetProperties[textAlignment][options][right] = "Rechtsbündig"
+snippetProperties[text][title] = "Text"
+snippetProperties[text][type] = "string"
+snippetProperties[text][default] = ""
+snippetProperties[text][options][] = ""
 snippetProperties[contentPath][title] = "Inhalt Dateiname"
 snippetProperties[contentPath][type] = "string"
-snippetProperties[contentPath][default] = "do-it-yourself/header"
+snippetProperties[contentPath][default] = ""
 snippetProperties[contentPath][options][] = ""
 snippetProperties[wrapContainer][title] = "Mit Rand"
 snippetProperties[wrapContainer][type] = "checkbox"
@@ -252,7 +256,10 @@ snippetProperties[offsetxl][options][] = "12/12"
             </p>
             
             <p class="{{textFontFamilyClass}}" style="max-width: {{textWidth}};">
-                {% content contentPath %}
+                {{text}}
+                {% if contentPath %}
+                    {% content contentPath %}
+                {% endif %}
             </p>
         </div>
     </div>

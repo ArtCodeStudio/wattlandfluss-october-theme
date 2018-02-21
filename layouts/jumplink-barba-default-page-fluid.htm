@@ -3,9 +3,6 @@ description = "Inhaltsseite mit Titel (volle Breite)"
 [staticPage]
 useContent = 1
 default = 0
-
-[session]
-security = "all"
 ==
 {% partial 'jumplink-layout-barba-top' %}
     <div class="container-fluid">
@@ -18,10 +15,5 @@ security = "all"
 
     <div class="">
         {% page %}
-        
-        {% if user %}
-            <p>Hello {{ user.name }}</p>
-        {% endif %}
-
     </div>
 {% partial 'jumplink-layout-barba-bottom' %}

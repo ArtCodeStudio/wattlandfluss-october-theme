@@ -4,12 +4,22 @@ description = "Anfahrtskarte"
 ==
 {% set partialId = 'jumplink-location' %}
 
+{% if wrapContainer %}
+    {% set containerClass = 'container'%}
+{% else %}
+    {% set containerClass = 'container-fluid'%}
+{% endif %}
+
+
 <div
     id="location-{{handle}}"
     class="jumplink-partial jumplink-location pt-5"
     data-partial-name="{{partialId}}"
+    data-handle="{{handle}}"
 >
 
+
+    <div class="{{containerClass}}">
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="text-left text-{{color}}">{{title}}</h2>
@@ -50,6 +60,7 @@ description = "Anfahrtskarte"
                 </address>
 
             </div>
+        </div>
 
     </div>
 </div>

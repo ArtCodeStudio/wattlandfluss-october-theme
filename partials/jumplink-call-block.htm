@@ -18,11 +18,13 @@ description = "Anrufen"
         <div class="row">
             <div class="col-xs-12">
                 <h1 class="text-center">
-                    {% content 'products/call-title.txt' %}
+                    {{title}}
                 </h1>
                 <div class="row">
                     <div class="col-xs-12 col-md-8 offset-md-2 px-3">
-                        {% content 'products/call' %}
+                        {% if contentPath %}
+                            {% content contentPath %}
+                        {% endif %}
                         <p class="text-center display-4">
                             <a href="tel:{{str_camel(this.theme.phone_number)}}">{{this.theme.phone_number}}</a>
                         </p>
