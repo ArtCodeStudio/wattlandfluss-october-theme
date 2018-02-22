@@ -1,0 +1,43 @@
+
+// material design like inputs
+.form-group {
+    
+    .form-control {
+        padding: 0.9rem;
+        padding-bottom: 0.5rem;
+        font-size: 0.8em;
+        margin: 28px 0px 10px;
+        display: block;
+        resize: none;
+        overflow: hidden;
+        
+        &::-webkit-input-placeholder {
+            transition: transform 0.3s ease-in-out, 
+            font-size 0.3s ease-in-out, 
+            visibility 0.3s ease-in-out;
+        }
+        
+        &:focus, &:valid {
+            &::-webkit-input-placeholder {
+                color: $black;
+                font-size: 0.8em;
+                transform: translateY(-20px);
+                visibility: visible !important;
+                opacity: 1;
+            }
+        }
+    }
+    
+    input.form-control {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+
+    textarea.form-control {
+        // border: 1px solid;  
+        padding-top: 1.5rem;
+        // margin-top: 3.4rem !important;
+    }
+
+}

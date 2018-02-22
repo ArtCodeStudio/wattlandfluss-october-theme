@@ -3,6 +3,7 @@
     font-family: $font-family-second !important;
 }
 
+// TODO custom class
 .btn-outline-dark {
     @include border-dashed($gray-dark, $spacing: 20px, $width: 2px);
 }
@@ -20,6 +21,10 @@
 .right-sidebar {
     @include border-dashed($gray-dark, $spacing: 20px, $width: 2px);
     padding: 2px;
+}
+
+.form-control {
+    border-style: dashed;
 }
 
 /*
