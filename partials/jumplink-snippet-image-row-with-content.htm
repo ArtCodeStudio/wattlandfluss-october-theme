@@ -308,18 +308,9 @@ snippetProperties[hoverLayer][type] = "checkbox"
 snippetProperties[hoverLayer][default] = 0
 snippetProperties[hoverLayer][options][] = ""
 snippetProperties[ratio][title] = "Seitenverhältnis"
-snippetProperties[ratio][type] = "dropdown"
-snippetProperties[ratio][default] = "ratio-16-9"
-snippetProperties[ratio][options][ratio-1-1] = "1:1"
-snippetProperties[ratio][options][ratio-2-3] = "2:3"
-snippetProperties[ratio][options][ratio-2-1] = "2:1"
-snippetProperties[ratio][options][ratio-1-2] = "1:2"
-snippetProperties[ratio][options][ratio-3-2] = "3:2"
-snippetProperties[ratio][options][ratio-4-3] = "4:3"
-snippetProperties[ratio][options][ratio-16-9] = "16:9"
-snippetProperties[ratio][options][ratio-3-4] = "3:4"
-snippetProperties[ratio][options][ratio-3-10] = "3:10"
-snippetProperties[ratio][options][ratio-10-17] = "10:17"
+snippetProperties[ratio][type] = "string"
+snippetProperties[ratio][default] = "16:9"
+snippetProperties[ratio][options][] = ""
 ==
 {% set partialId = 'jumplink-snippet-image-row-with-content' %}
 
@@ -354,9 +345,9 @@ snippetProperties[ratio][options][ratio-10-17] = "10:17"
 {% set fontColorClass = 'text-' ~ fontColor %}
 
 {% if hoverLayer %}
-    {% set contentLayerClass = 'content-layer background-box ' ~ ratio ~ ' background-box-hover bg-' ~ color %}
+    {% set contentLayerClass = 'content-layer content-layer-hover bg-' ~ color %}
 {% else %}
-    {% set contentLayerClass = 'content-layer background-box ' ~ ratio ~ ' bg-' ~ color %}
+    {% set contentLayerClass = 'content-layer bg-' ~ color %}
 {% endif %}
 
 {# set the wrapper tag, if url is set it is a a element otherwise a div #}
@@ -366,16 +357,17 @@ snippetProperties[ratio][options][ratio-10-17] = "10:17"
     {% set wrapperTag = 'div' %}
 {% endif %}
 
+{% set ratios = ratio|split(':') %}
+
 <div
     class="{{containerClass}} {{spacingClass}} jumplink-partial {{partialId}}"
     data-partial-name="{{partialId}}"
-    data-load-image-on-viewport=="{{loadImageOnViewport}}"
     >
     <div class="row">
         <div class="{{columnClass}} {{columnSpacingClass}}">
             <{{wrapperTag}} class="wrapper" href="{{url | app}}">
                 {# content layer with the selected background color #}
-                <div class="{{contentLayerClass}}">
+                <div class="{{contentLayerClass}}" >
                     <div class="content {{contentPostionClass}} {{contentSpacingClass}}">
                         <div class="content-texts {{fontColorClass}}">
                             <div class="content-title" style="max-width: {{titleWidth}};">
@@ -390,7 +382,7 @@ snippetProperties[ratio][options][ratio-10-17] = "10:17"
                         </div>
                     </div>
                 </div>
-                <div class="lazy background-box {{ratio}}" data-src="{{source}}"></div>
+                <rv-img src="'{{source}}'" alt="'{{title}}'" ratio="'{{ratio}}'" visible-only="{{loadImageOnViewport}}"></rv-img>
             </{{wrapperTag}}>
         </div>
     </div>

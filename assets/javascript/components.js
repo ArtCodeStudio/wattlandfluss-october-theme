@@ -302,6 +302,107 @@ rivets.components['rv-checkbox'] = {
   }
 }
 
+rivets.components['rv-img'] = {
+  template: function() {
+    return $('template#rv-img').html();
+  },
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:rv-img');
+    
+    var $el = $(el);
+    controller.src = data.src;
+    controller.alt = data.alt;
+    controller.style = '';
+    
+    if(data.ratio) {
+        controller.ratio = data.ratio.split(':');
+        controller.ratio[0] = Number(controller.ratio[0]);
+        controller.ratio[1] = Number(controller.ratio[1]);
+        controller.heightInPercent = (controller.ratio[1] / controller.ratio[0] * 100);
+        controller.style = 'padding-top: ' + controller.heightInPercent + '%;';
+    }
+    
+    if(data.width && data.height) {
+        controller.ratio = [];
+        controller.ratio[0] = Number(data.width);
+        controller.ratio[1] = Number(data.height);
+        controller.heightInPercent = (controller.ratio[1] / controller.ratio[0] * 100);
+        controller.style = 'padding-top: ' + controller.heightInPercent + '%;';
+    }
+    
+    var options = {
+        scrollDirection: data.scrollDirection || 'vertical',
+        effect: data.effect || "fadeIn",
+        effectTime: Number(data.effectTime || 600),
+        threshold: Number(data.threshold || 0),
+        visibleOnly: data.visibleOnly === true || data.visibleOnly === 'true',
+        bind: 'event',
+        delay: Number(data.delay || -1),
+        /**  called before an elements gets handled */
+        beforeLoad: function(element) {
+            controller.debug('[beforeLoad]', element, controller);
+            if (jumplink.utilities.isFunction(data.beforeLoad)) {
+                data.beforeLoad($el, controller);
+            }
+        },
+        
+        /**  called after an element was successfully handled */
+        afterLoad: function(element) {
+            controller.debug('[afterLoad]', element, controller);
+            // controller.style = 'padding-top: ' + controller.heightInPercent + '%;';
+            if (jumplink.utilities.isFunction(data.afterLoad)) {
+                data.afterLoad($el, controller);
+            }
+        },
+        
+        /** called whenever an element could not be handled */
+        onError: function(element) {
+            controller.debug('[onError] image "' + controller.src + '" could not be loaded');
+            if (jumplink.utilities.isFunction(data.onError)) {
+                data.onError($el, controller);
+            }
+        },
+        
+        /**  called once all elements was handled */
+        onFinishedAll: function() {
+            controller.debug('[onFinishedAll]', controller);
+            if (jumplink.utilities.isFunction(data.onFinishedAll)) {
+                data.onFinishedAll($el, controller);
+            }
+        },
+    };
+    
+    controller.debug('initialize', el, data, controller);
+    
+    setTimeout(function() {
+        controller.ready = true;
+    }, 100);    
+    
+    /**
+     * For lazy loading options see https://github.com/eisbehr-/jquery.lazy#configuration-parameters
+     */
+    setTimeout(function() {
+        var $img = $el.find('.lazy');
+                
+        $img.Lazy(options);
+        
+        controller.debug('init Lazy', options, $img, $img.data());
+
+        
+        if(data.ratio) {
+            // controller.style = 'padding-top: ' + controller.heightInPercent + '%;';
+        }
+    
+    }, 200);
+    
+
+    
+    return controller;
+  }
+}
+
+
 /**
  * Component to create or update events in firebase
  * types:
@@ -1365,11 +1466,8 @@ rivets.components['firebase-events-beautiful-gallery'] = {
                 }
                 /** image caption */
                 image.title = image.metadata.name;
-                /** custom HTML @see http://photoswipe.com/documentation/custom-html-in-slides.html */
-                // image.html = '';
-                /** save link to element for getThumbBoundsFn */
-                // el:
                 image.index = index;
+                // image.ratio = image.w + ':' + image.h;
     
                 images.push(image);
             });
@@ -1382,10 +1480,10 @@ rivets.components['firebase-events-beautiful-gallery'] = {
         e = e || window.event;
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
-        var $target = $(e.target || e.srcElement);
+        var $target = $(e.target || e.srcElement).parent().parent(); // parent to get the rivets rv-img component root element
         var data = $target.data();
 
-        controller.debug('[onThumbnailsClick] $target', $target, data);
+        controller.debug('[onThumbnailsClick] $target', $target, $target, data);
 
         if(data.index >= 0) {
             // open PhotoSwipe if valid index found
@@ -1398,40 +1496,9 @@ rivets.components['firebase-events-beautiful-gallery'] = {
         $.event.trigger('rivets:photoswipe:open', [$imagesWrapper, index, controller.images]);
     };
     
-    // TODO move to rv-img component
+    // WORKAROUND
     setTimeout(function() {
-        $imagesWrapper.find('.lazy').Lazy({
-            scrollDirection: 'vertical',
-            effect: "fadeIn",
-            effectTime: 600,
-            threshold: 0,
-            visibleOnly: true,
-            bind: 'event',
-            delay: -1,
-            /**  called before an elements gets handled */
-            beforeLoad: function(element) {
-                // var imageSrc = element.data('src');
-                // controller.debug('[Lazy] image "' + imageSrc + '" is about to be loaded');
-            },
-            
-            /**  called after an element was successfully handled */
-            afterLoad: function(element) {
-                // var imageSrc = element.data('src');
-                // controller.debug('[Lazy] image "' + imageSrc + '" was loaded successfully');
-            },
-            
-            /** called whenever an element could not be handled */
-            onError: function(element) {
-                var imageSrc = element.data('src');
-                controller.debug('[Lazy] image "' + imageSrc + '" could not be loaded');
-            },
-            
-            /**  called once all elements was handled */
-            onFinishedAll: function() {
-                // controller.debug('[Lazy] finished loading all images');
-            },
-        });
-         controller.ready = true;
+     controller.ready = true;
     }, 100);
     
     
@@ -1471,6 +1538,16 @@ rivets.components['firebase-event-beautiful'] = {
     controller.number = jumplink.utilities.rand(1, 4);
     controller.imageFilename = 'path-0' + controller.number + '.svg';
     controller.detailPage = data.detailPage; // For more info links
+    
+    if(controller.event.images.length) {
+        var image = controller.event.images[0];
+        controller.imageSrc = image.downloadURL;
+        controller.imageAlt = image.metadata.name;
+        if (image.customMetadata) {
+            controller.imageW = image.customMetadata.width || 800;
+            controller.imageH = image.customMetadata.height || 600;
+        }
+    }
     
     switch(controller.event.calendar) {
         case 'Watt':

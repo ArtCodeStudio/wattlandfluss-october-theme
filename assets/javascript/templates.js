@@ -65,7 +65,7 @@ window.jumplink.templates.prepairTemplate = function(dataset) {
     
     jumplink.debug.templates('dataset', dataset, 'data', data);
     
-    window.jumplink.utilities.loadImages();
+    // window.jumplink.utilities.loadImages();
     
     window.jumplink.partials.init(dataset, data);
     window.jumplink.templates.init(dataset, data);

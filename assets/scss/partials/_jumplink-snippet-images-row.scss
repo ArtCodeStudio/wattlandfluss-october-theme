@@ -9,14 +9,14 @@
             height: 100%;
             // default opacity if hover effect is disabled
             // opacity: 0.7;
-            &.background-box-hover {
+            &.content-layer-hover {
                 opacity: 0;
                 transition: opacity .25s ease-in-out;
             }
         }
         
         &:hover {
-            .background-box-hover {
+            .content-layer-hover {
                 opacity: 0.7; // default opacity for hover effect
             }
         }

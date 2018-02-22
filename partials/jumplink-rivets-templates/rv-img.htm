@@ -1,0 +1,8 @@
+[viewBag]
+==
+<template id="rv-img">
+    <div rv-if="ready">
+        <div rv-if="ratio" rv-data-src="src" rv-title="alt" class="lazy img-fluid background-box" rv-style="style"></div>
+        <img rv-if="ratio | not" rv-data-src="src" rv-alt="alt" class="lazy img-fluid" rv-style="style">
+    </div>
+</template>

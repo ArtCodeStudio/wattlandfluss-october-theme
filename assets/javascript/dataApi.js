@@ -81,10 +81,7 @@ window.jumplink.dataApi.initItemslide = function (target, $element) {
         });
       }
     }
-
   });
-
-
 };
 
 
@@ -120,7 +117,7 @@ jumplink.initSlickMethods = function () {
 
 /**
  * Data bindings for custom modals
- * Use the `data-toggle="modal-no-touch"` attribute if you wish to open a modal online on no touch devices
+ * Use the `data-toggle="modal-no-touch"` attribute if you wish to open a modal only on no touch devices
  */
 jumplink.initCustomModals = function () {
   var $modalNoTouch = $('[data-toggle="modal-no-touch"]');

@@ -42,11 +42,12 @@ window.jumplink.partials['jumplink-iconset'] = function($partials, $partial, dat
 window.jumplink.partials['jumplink-snippet-images-row'] = function($partials, $partial, dataset, data) {
     var partialData = $partial.data();
     window.jumplink.debug.partials('jumplink-snippet-images-row', partialData);
-    var loadAllImages = !partialData.loadImageOnViewport;
-    jumplink.utilities.loadImages(loadAllImages, $partial.find('.lazy'));
 };
 
-window.jumplink.partials['jumplink-snippet-image-row-with-content'] = window.jumplink.partials['jumplink-snippet-images-row'];
+window.jumplink.partials['jumplink-snippet-image-row-with-content'] = function($partials, $partial, dataset, data) {
+    var partialData = $partial.data();
+    window.jumplink.debug.partials('jumplink-snippet-image-row-with-content', partialData);
+};
 
 window.jumplink.partials['jumplink-snippet-event-list'] = function($partials, $partial, dataset, data) {
     var partialData = $partial.data();

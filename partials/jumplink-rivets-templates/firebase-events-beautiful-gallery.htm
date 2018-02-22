@@ -21,7 +21,15 @@
         <div class="container-fluid pb-5 px-3">
             <div class="row images-row">
                 <div class="col-xs-12 col-md-4 my-1" rv-each-image="images">
-                    <div rv-data-src="image.src" rv-alt="image.title" rv-title="image.title" rv-data-index="%image%" rv-on-click="onThumbnailsClick" class="lazy img-fluid background-box ratio-4-3"></div>
+                    <rv-img
+                        src="image.src"
+                        alt="image.title"
+                        width="image.w"
+                        height="image.h"
+                        visible-only="true"
+                        rv-data-index="%image%"
+                        rv-on-click="onThumbnailsClick"
+                    ></rv-img>
                 </div>
             </div>
         </div>
