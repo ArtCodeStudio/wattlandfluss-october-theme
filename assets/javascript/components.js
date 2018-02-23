@@ -1529,10 +1529,17 @@ rivets.components['firebase-events-beautiful-gallery'] = {
     
     // WORKAROUND
     setTimeout(function() {
-     controller.ready = true;
+     controller.ready = true;     
     }, 100);
     
-    
+    setTimeout(function() {
+        $imagesWrapper.masonry({
+          // options...
+          itemSelector: '.image-col',
+          // columnWidth: 200
+        });
+    }, 300);
+
     
     controller.images = getImagesFromEvents(controller.events);
     controller.debug('images', controller.images);

@@ -4,14 +4,19 @@
         position: relative;
 
         .content-layer {
+            z-index: 1;
             position: absolute;
             width: 100%;
             height: 100%;
-            // default opacity if hover effect is disabled
-            // opacity: 0.7;
+            opacity: 1;
+            
             &.content-layer-hover {
                 opacity: 0;
                 transition: opacity .25s ease-in-out;
+            }
+            
+            &:not(.content-layer-hover) {
+                
             }
         }
         
@@ -29,6 +34,7 @@
             height: auto;
             
             .content-texts {
+                z-index: 1;
                 .content-title {
                     @extend .h2; // TODO make changeable in snippet
                     @extend .text-second; // TODO make changeable in snippet
@@ -61,5 +67,4 @@
             }
         }
     }
-
 }

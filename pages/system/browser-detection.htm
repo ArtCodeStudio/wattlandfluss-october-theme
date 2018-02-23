@@ -33,10 +33,10 @@ function onSubmitBrowserForm() {
     };
 
     // mail to site owner
-    // Mail::send('frontend::contact.notify', $vars, $buildOwnerMessage);
+    Mail::send('frontend::browser.notify', $vars, $buildOwnerMessage);
     
     // mail to contact sender
-    Mail::send('frontend::contact.notify-copy', $vars, $buildSenderMessage);
+    Mail::send('frontend::browser.notify-copy', $vars, $buildSenderMessage);
 
     $this['result'] = "Nachricht abgeschickt";
 }

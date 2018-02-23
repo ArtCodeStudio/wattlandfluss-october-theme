@@ -128,7 +128,7 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
             backgroundColor: "black",
             opacity: 0.5,
             filter: "Alpha(opacity=50)",
-            'z-index': 1000,
+            'z-index': 3003,
           }
         },
         events: {
