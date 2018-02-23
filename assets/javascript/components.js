@@ -4,6 +4,31 @@ window.jumplink.debug = window.jumplink.debug || {};
 window.jumplink.debug.components = debug('theme:components');
 
 /**
+ * Single file of the preview-files component
+ */
+rivets.components['spinner'] = {
+
+  template: function() {
+    return $('template#spinner').html();
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:spinner');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    controller.name = data.name;    
+    
+    if(data.colorClass) {
+        $el.find('[data-color="bg"]').addClass('bg-' + data.colorClass);
+        $el.find('[data-color="bg-before"]').addClass('bg-' + data.colorClass + '-before');
+    }
+    
+    return controller;
+  }
+};
+
+/**
  * 
  */
 rivets.components['firebase-user'] = {
@@ -314,6 +339,8 @@ rivets.components['rv-img'] = {
     controller.src = data.src;
     controller.alt = data.alt;
     controller.style = '';
+    controller.ready = false;
+    controller.loaded = false;
     
     if(data.ratio) {
         controller.ratio = data.ratio.split(':');
@@ -341,6 +368,7 @@ rivets.components['rv-img'] = {
         delay: Number(data.delay || -1),
         /**  called before an elements gets handled */
         beforeLoad: function(element) {
+            controller.loaded = false;
             controller.debug('[beforeLoad]', element, controller);
             if (jumplink.utilities.isFunction(data.beforeLoad)) {
                 data.beforeLoad($el, controller);
@@ -349,6 +377,8 @@ rivets.components['rv-img'] = {
         
         /**  called after an element was successfully handled */
         afterLoad: function(element) {
+            controller.loaded = true;
+            $el.find('spinner').remove();
             controller.debug('[afterLoad]', element, controller);
             // controller.style = 'padding-top: ' + controller.heightInPercent + '%;';
             if (jumplink.utilities.isFunction(data.afterLoad)) {
@@ -366,6 +396,7 @@ rivets.components['rv-img'] = {
         
         /**  called once all elements was handled */
         onFinishedAll: function() {
+            controller.loaded = true;
             controller.debug('[onFinishedAll]', controller);
             if (jumplink.utilities.isFunction(data.onFinishedAll)) {
                 data.onFinishedAll($el, controller);

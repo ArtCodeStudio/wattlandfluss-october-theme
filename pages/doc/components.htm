@@ -1,0 +1,53 @@
+title = "Components"
+url = "/doc/components"
+layout = "jumplink-barba"
+description = "Components in this theme are based on Rivets.js."
+is_hidden = 0
+contentType = "html"
+==
+{# header #}
+<header class="pt-5 pb-4 gradient-info-success-info-success-bg animated-gradient text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="d-flex d-flex align-items-center">
+                    {{this.page.title}}
+                </h1>
+                <p class="lead">
+                    Components in this theme are html dom elements with custom with its own functionality.
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container py-3">
+    {# Iconset #}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-success" role="alert">
+              <strong>Mind!</strong> You should be familiar with the <a href="http://rivetsjs.com/">Rivets.js</a> to understand how the components and this templates are working.
+            </div>
+            <h2>Spinner</h2>
+            <div class="row">
+                <div class="col-xs-12">
+                    If you want to show a spinneer e.g as loading animation as long as the user is waiting for anythin you can use the spinner component:
+                    <spinner name="'rotating-plane'"></spinner>
+                    HTML:
+                    <pre class="language-html mb-3"><code class="language-html">{% filter escape %}<spinner name="'rotating-plane'"></spinner>{% endfilter %}</code></pre>
+                    
+                    Available spinners:
+                    <div class="row">
+                        {% for colorClass in ['primary', 'success', 'info', 'warning', 'danger', 'black', 'gray', 'gray-light', 'gray-lighter', 'gray-lightes', 'white'] %}
+                            {% for sninner in ['rotating-plane', 'double-bounce', 'wave', 'wandering-cubes', 'pulse', 'chasing-dots', 'three-bounce', 'circle', 'cube-grid', 'fading-circle', 'folding-cube'] %}
+                                <div class="col-xs-6 col-md-3 py-5 {% if colorClass == 'white' %} bg-primary {% endif %}" >
+                                    <spinner name="'{{sninner}}'" color-class="'{{colorClass}}'"></spinner>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

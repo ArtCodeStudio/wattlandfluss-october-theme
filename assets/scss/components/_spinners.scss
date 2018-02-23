@@ -1,0 +1,70 @@
+/**
+ * A set of spinners
+ * @sources:
+ * * https://github.com/tobiasahlin/SpinKit
+ */
+@import "spinners/variables";
+
+@import "spinners/rotating-plane";
+@import "spinners/double-bounce";
+@import "spinners/wave";
+@import "spinners/wandering-cubes";
+@import "spinners/pulse";
+@import "spinners/chasing-dots";
+@import "spinners/three-bounce";
+@import "spinners/circle";
+@import "spinners/cube-grid";
+@import "spinners/fading-circle";
+@import "spinners/folding-cube";
+
+spinner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bg-white-before:before {
+    background-color: $white !important;
+}
+.bg-black-before:before {
+    background-color: $black !important;
+}
+
+.bg-primary-before:before {
+    background-color: $brand-primary !important;
+}
+
+.bg-success-before:before {
+    background-color: $brand-success !important;
+}
+
+.bg-info-before:before {
+    background-color: $brand-info !important;
+}
+
+.bg-warning-before:before {
+    background-color: $brand-warning !important;
+}
+
+.bg-danger-before:before {
+    background-color: $brand-danger !important;
+}
+
+.bg-gray-dark-before:before {
+    background-color: $gray-dark !important;
+}
+.bg-gray-before:before {
+    background-color: $gray !important;
+}
+.bg-gray-light-before:before {
+    background-color: $gray-light !important;
+}
+.bg-gray-lighter-before:before {
+    background-color: $gray-lighter !important;
+}
+.bg-gray-lightest-before:before {
+    background-color: $gray-lightest !important;
+}
