@@ -43,10 +43,6 @@ window.jumplink.templates.prepairTemplate = function(dataset) {
     jumplink.utilities.setBodyId(dataset.namespace);
     
     jumplink.initMomentDataApi();
-
-    if(typeof(Hyphenator) !== 'undefined') {
-      Hyphenator.run();
-    }
     
     if(typeof(Prism) !== 'undefined') {
         Prism.highlightAll();
@@ -62,6 +58,9 @@ window.jumplink.templates.prepairTemplate = function(dataset) {
     // window.jumplink.initDataAttributes(dataset);
     
     //  window.jumplink.setNavActive(dataset, data);
+    
+    
+    jumplink.utilities.hyphenate();
     
     jumplink.debug.templates('dataset', dataset, 'data', data);
     

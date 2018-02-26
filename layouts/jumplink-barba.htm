@@ -19,13 +19,11 @@ function onSubmitContact() {
     
     $buildOwnerMessage = function ($message) use ($vars) {
         // TODO use email and name from backend or theme settings
-        $message->to('pascal@jumplink.eu', 'watt-land-fluss');
-        // $message->subject("Neue Anfrage von ".$vars['name']);
+        $message->to('moin@watt-land-fluss.de', 'watt-land-fluss.de');
     };
     
     $buildSenderMessage = function ($message) use ($vars) {
         $message->to($vars['email'], $vars['name']);
-        // $message->subject("Kopie deiner Anfrage");
     };
 
     // mail to site owner

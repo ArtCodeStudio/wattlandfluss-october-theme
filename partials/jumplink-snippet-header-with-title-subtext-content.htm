@@ -16,7 +16,6 @@ snippetProperties[textAlignment][options][left] = "Linksbündig"
 snippetProperties[textAlignment][options][center] = "Zentriert"
 snippetProperties[textAlignment][options][justify] = "Blocksatz"
 snippetProperties[textAlignment][options][right] = "Rechtsbündig"
-
 snippetProperties[titleFontFamily][title] = "Titel Schrift"
 snippetProperties[titleFontFamily][type] = "dropdown"
 snippetProperties[titleFontFamily][default] = "second"
@@ -27,7 +26,6 @@ snippetProperties[subtextFontFamily][type] = "dropdown"
 snippetProperties[subtextFontFamily][default] = "first"
 snippetProperties[subtextFontFamily][options][first] = "Erste"
 snippetProperties[subtextFontFamily][options][second] = "Zweite"
-
 snippetProperties[titleWidth][title] = "Title Breite"
 snippetProperties[titleWidth][type] = "string"
 snippetProperties[titleWidth][default] = "100%"
@@ -36,7 +34,6 @@ snippetProperties[subtextWidth][title] = "Untertext Breite"
 snippetProperties[subtextWidth][type] = "string"
 snippetProperties[subtextWidth][default] = "100%"
 snippetProperties[subtextWidth][options][] = ""
-
 snippetProperties[contentPath][title] = "Inhalt Dateiname"
 snippetProperties[contentPath][type] = "string"
 snippetProperties[contentPath][default] = "do-it-yourself/header"
@@ -241,11 +238,11 @@ snippetProperties[offsetxl][options][] = "12/12"
 <div class="{{containerClass}} text-{{textAlignment}} {{paddingTopClass}} {{paddingBottomClass}}">
     <div class="row">
         <div class="{{columnClass}}" id="header-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}">
-            <h1 class="{{titleFontFamilyClass}}" style="max-width: {{titleWidth}};">
+            <h1 class="hyphenate {{titleFontFamilyClass}}" style="max-width: {{titleWidth}};">
                 {{title|raw}}
             </h1>
             <p class="{{subtextFontFamilyClass}} subtext lead" style="max-width: {{textWidth}};">
-                <strong>{{subtext|raw}}</strong>
+                <strong class="hyphenate">{{subtext|raw}}</strong>
             </p>
             <div class="">
                 {% content contentPath %}

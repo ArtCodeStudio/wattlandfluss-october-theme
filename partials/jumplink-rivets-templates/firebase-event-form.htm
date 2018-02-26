@@ -96,6 +96,7 @@ description = "For Admins: Edit or create an event"
     
     <button rv-if="id | not" class="btn btn-primary" rv-on-click="createEvent">Event anlegen</button>
     <button rv-if="id" class="btn btn-primary" rv-on-click="updateEvent">Event aktualisieren</button>
+    <button rv-if="id" class="btn btn-primary" rv-on-click="duplicateEvent">Event duplizieren</button>
     
     <a href="{{'firebase/events-table' |page }}" class="btn btn-default">Ereignisse anzeigen</a>
 

@@ -22,8 +22,27 @@ description = "bottom html code for barba layouts"
             </button>
         </template>
         
+        <p class="hyphenate" lang="de" style="display:none;">FORCEHYPHENOPOLY</p>
+        
         {# templates for rivets.js #}
         {% partial 'jumplink-rivets-templates/default' %}
+        
+        <script>
+            var Hyphenopoly = {
+                require: {
+                    "de": "Elektrizitätskraftwerk"
+                },
+                paths: {
+                    patterndir: "{{'assets/vendor/Hyphenopoly/patterns' | theme}}/",
+                    maindir: "{{'assets/vendor/Hyphenopoly' | theme}}/"
+                },
+                setup: {
+                    classnames: {
+                        "hyphenate": {}
+                    }
+                }
+            };
+        </script>
         
         {#
          # Deps:
@@ -37,6 +56,7 @@ description = "bottom html code for barba layouts"
          # * leaflet for location partials
          # * slick for carousels, slideshows and galleries
          # * mobile-events
+         # * Hyphenopoly - JavaScript polyfill for client-side hyphenation - https://github.com/mnater/Hyphenopoly
          # * Prism for syntax highlighting in the docs
          # * Moment.js for events and dates
          # * Debug for seperation in debug messages in the browser console (need to build the browser version)
@@ -64,6 +84,7 @@ description = "bottom html code for barba layouts"
             'assets/vendor/leaflet/dist/leaflet.js',
             'assets/vendor/slick-carousel/slick/slick.js',
             'assets/vendor/jquery-touch-events/src/jquery.mobile-events.js',
+            'assets/vendor/Hyphenopoly/Hyphenopoly_Loader.js',
             'assets/vendor/prism/prism.js',
             'assets/vendor/moment/min/moment-with-locales.js',
             'assets/vendor/vivus/dist/vivus.js',

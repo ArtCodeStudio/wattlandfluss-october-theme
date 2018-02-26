@@ -793,6 +793,10 @@ rivets.components['firebase-event-form'] = {
             });
         });
     };
+    
+    controller.duplicateEvent = function(event) {
+        controller.id = undefined;
+    }
 
     return controller;
   }
@@ -1630,7 +1634,11 @@ rivets.components['firebase-event-beautiful'] = {
     // WORKAROUND
     setTimeout(function() {
         controller.ready = true;
-        checkHash();
+        setTimeout(function() {
+            checkHash();
+            jumplink.utilities.hyphenate();
+        }, 200);
+        
     }, 200);
 
     return controller;

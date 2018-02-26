@@ -17,7 +17,7 @@
         <div rv-class="containerClass | append ' my-0 py-5'">
             <div rv-if="index | lt 1" class="row">
                 <div class="col-xs-12 col-md-6 offset-md-6">
-                    <p class="pb-2"><strong>{title}</strong></p>
+                    <p class="pb-2"><strong class="hyphenate">{title}</strong></p>
                 </div>
             </div>
              
@@ -30,6 +30,7 @@
                 
                 <div class="col-xs-12 col-md-6">
                     <h3
+                        class="hyphenate"
                         rv-class-text-info="event.calendar | eq 'Fluss'"
                         rv-class-text-warning="event.calendar | eq 'Watt'"
                         rv-class-text-success="event.calendar | eq 'Land'"
@@ -42,7 +43,7 @@
                     <h4>
                         
                     </h4>
-                    <p rv-if="event.subtitle">{event.subtitle}</p>
+                    <p class="hyphenate" rv-if="event.subtitle">{event.subtitle}</p>
                     
                     <p rv-if="event.description" rv-html="event.description"></p>
                     
@@ -108,8 +109,8 @@
                     rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
                     rv-class-animated-gradient="event.calendar | eq 'Spezial'"
                 >
-                    <small class="text-second">{event.subtitle}</small><br>
-                    {event.title}
+                    <small class="hyphenate text-second">{event.subtitle}</small><br>
+                    <span class="hyphenate">{event.title}</span>
                 </h3>
                 
                 <p rv-if="event.description" rv-html="event.description"></p>
@@ -168,7 +169,7 @@
             </div>
             
             <div class="col-xs-12 col-md-6">
-              <p class="pb-2"><strong>{title}</strong></p>
+              <p class="pb-2"><strong class="hyphenate">{title}</strong></p>
               <div
                 rv-class-text-primary="event.calendar | eq 'Fluss'"
                 rv-class-text-warning="event.calendar | eq 'Watt'"
@@ -177,14 +178,14 @@
                 rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
                 rv-class-animated-gradient="event.calendar | eq 'Spezial'"
               >
-                  <h2>
+                  <h2 class="hyphenate">
                       {event.startAt | date 'DD.MM.YYYY'}
                       <small rv-if="event.showTimes">{event.startAt | time 'HH:mm'} Uhr</small>
-                      <br><small>{event.title}</small>
+                      <br><small class="hyphenate">{event.title}</small>
                   </h2>
               </div>
     
-              <p>{event.subtitle}</p>
+              <p class="hyphenate">{event.subtitle}</p>
               <button class="btn btn-link" rv-data-id="event.id" rv-on-click="show">mehr dazu</button>
             </div>
         </div>

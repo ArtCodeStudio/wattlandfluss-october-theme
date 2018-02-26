@@ -1,0 +1,10 @@
+// https://github.com/mnater/Hyphenopoly
+.hyphenate {
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+}

@@ -24,8 +24,7 @@ function onSubmitBrowserForm() {
     
     $buildOwnerMessage = function ($message) use ($vars) {
         // TODO use email and name from backend or theme settings
-        $message->to('moin@watt-land-fluss.de', 'watt-land-fluss');
-        // $message->subject("Neue Anfrage von ".$vars['name']." ".$vars['regard']);
+        $message->to('moin@watt-land-fluss.de', 'watt-land-fluss.de');
     };
   
     $buildSenderMessage = function ($message) use ($vars) {

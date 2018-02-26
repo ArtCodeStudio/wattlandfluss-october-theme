@@ -43,7 +43,8 @@
     "summernote": "^0.8.9",
     "pg-calendar": "^1.4.27",
     "photoswipe": "^4.1.2",
-    "masonry-layout": "^4.2.1"
+    "masonry-layout": "^4.2.1",
+    "Hyphenopoly": "mnater/Hyphenopoly"
   },
   "resolutions": {
     "jquery": "2"

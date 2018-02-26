@@ -18,6 +18,21 @@ jumplink.utilities.triggerResize = function () {
     window.dispatchEvent(new Event('resize'));
 };
 
+jumplink.utilities.triggerResize = function () {
+    window.dispatchEvent(new Event('resize'));
+};
+
+/**
+ * run Hyphenopoly
+ * @see https://github.com/mnater/Hyphenopoly
+ */
+jumplink.utilities.hyphenate = function() {
+    if(Hyphenopoly && Hyphenopoly.elementsReady) {
+        setTimeout(function () {
+            Hyphenopoly.evt(["timeout"]);
+        }, Hyphenopoly.c.timeout);
+    }
+}
 
 
 /**
