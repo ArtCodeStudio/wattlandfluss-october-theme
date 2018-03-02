@@ -2,49 +2,47 @@ description = "Für Admins: Tabelle mit Events zum Veralten"
 
 [viewBag]
 ==
-<template id="firebase-events-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col" data-sort-property="active" rv-on-click="sort">
-              Aktiviert
-             </th>
-          <th scope="col" data-sort-property="title" rv-on-click="sort">
-              Titel
-             </th>
-          <th scope="col" data-sort-property="startAt" rv-on-click="sort">
-              Beginn
-             </th>
-          <th scope="col" data-sort-property="type" rv-on-click="sort">
-              Typ
-          </th>
-          <th scope="col" data-sort-property="calendar" rv-on-click="sort">
-              Kalender
-          </th>
-          <th scope="col">
-              Aktion
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr rv-each-event="events">
-          <td class="text-center">
-           <span rv-show="event.active">✓</span>
-           <span rv-hide="event.active"></span>
-          </td>
-          <td>{event.title}</td>
-          <td>
-              <span rv-hide="event.type | eq 'variable'">{event.startAt | date 'DD.MM.YYYY'}</span> {event.startAt | time 'HH:mm'} Uhr
-          </td>
-          <td>{event.type}</td>
-          <td>{event.calendar}</td>
-          <td>
-              <button class="btn btn-link" data-href="{{'firebase/event-edit' |page({ id: ':id' }) }}" rv-data-id="event.id" rv-on-click="edit">Bearbeiten</button>
-              <button class="btn btn-danger" rv-data-id="event.id" rv-on-click="delete">Löschen</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <a href="{{'firebase/event-create' |page }}" class="btn btn-primary">Ereignis anlegen</a>
-</template>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" data-sort-property="active" rv-on-click="sort">
+          Aktiviert
+         </th>
+      <th scope="col" data-sort-property="title" rv-on-click="sort">
+          Titel
+         </th>
+      <th scope="col" data-sort-property="startAt" rv-on-click="sort">
+          Beginn
+         </th>
+      <th scope="col" data-sort-property="type" rv-on-click="sort">
+          Typ
+      </th>
+      <th scope="col" data-sort-property="calendar" rv-on-click="sort">
+          Kalender
+      </th>
+      <th scope="col">
+          Aktion
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr rv-each-event="events">
+      <td class="text-center">
+       <span rv-show="event.active">✓</span>
+       <span rv-hide="event.active"></span>
+      </td>
+      <td>{event.title}</td>
+      <td>
+          <span rv-hide="event.type | eq 'variable'">{event.startAt | date 'DD.MM.YYYY'}</span> {event.startAt | time 'HH:mm'} Uhr
+      </td>
+      <td>{event.type}</td>
+      <td>{event.calendar}</td>
+      <td>
+          <button class="btn btn-link" data-href="{{'firebase/event-edit' |page({ id: ':id' }) }}" rv-data-id="event.id" rv-on-click="edit">Bearbeiten</button>
+          <button class="btn btn-danger" rv-data-id="event.id" rv-on-click="delete">Löschen</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="{{'firebase/event-create' |page }}" class="btn btn-primary">Ereignis anlegen</a>

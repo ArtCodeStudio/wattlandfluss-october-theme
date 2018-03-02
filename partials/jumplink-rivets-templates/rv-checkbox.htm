@@ -1,12 +1,10 @@
 [viewBag]
 ==
-<template id="rv-checkbox">    
-    <div rv-if="ready" class="form-group">
-        <label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" rv-id="id" rv-checked="checked">
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description">{label}</span>
-        </label>
-        <small id="eventActiveDesc" class="mt-0 mb-2 form-text text-muted">{description}</small>
-    </div>
-</template>
+<div rv-if="ready" class="form-group">
+    <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" rv-id="id" rv-checked="checked">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">{label}</span>
+    </label>
+    <small id="eventActiveDesc" class="mt-0 mb-2 form-text text-muted">{description}</small>
+</div>

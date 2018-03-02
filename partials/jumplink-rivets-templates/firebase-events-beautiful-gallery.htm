@@ -1,40 +1,38 @@
 [viewBag]
 ==
-<template id="firebase-events-beautiful-gallery">
-    <div
-        rv-if="images | empty | not"
-        rv-class-bg-state-info="calendar | eq 'Fluss'"
-        rv-class-bg-state-warning="calendar | eq 'Watt'"
-        rv-class-bg-state-success="calendar | eq 'Land'"
-        rv-class-animated-gradient="calendar | eq 'Spezial'"
-        rv-class-bg-gradient-state-success-info-warning="calendar | eq 'Spezial'"
-    >
-        <div rv-class="containerClass | append ' pt-5 pb-4'">
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <h2 class="hyphenate text-second" rv-html="headerTitle"></h2>
-                    <p rv-html="headerText"></p>
-                </div>
+<div
+    rv-if="images | empty | not"
+    rv-class-bg-state-info="calendar | eq 'Fluss'"
+    rv-class-bg-state-warning="calendar | eq 'Watt'"
+    rv-class-bg-state-success="calendar | eq 'Land'"
+    rv-class-animated-gradient="calendar | eq 'Spezial'"
+    rv-class-bg-gradient-state-success-info-warning="calendar | eq 'Spezial'"
+>
+    <div rv-class="containerClass | append ' pt-5 pb-4'">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <h2 class="hyphenate text-second" rv-html="headerTitle"></h2>
+                <p rv-html="headerText"></p>
             </div>
         </div>
-    
-        <div class="container-fluid pb-5 px-3">
-            <div class="row images-row">
-                <div class="image-col col-xs-12 col-md-4 my-1" rv-each-image="images">
-                    <rv-img
-                        src="image.src"
-                        alt="image.title"
-                        width="image.w"
-                        height="image.h"
-                        visible-only="true"
-                        rv-data-index="%image%"
-                        rv-on-click="onThumbnailsClick"
-                    ></rv-img>
-                </div>
-            </div>
-        </div>
-        
-        
-        <rv-photoswipe images="images"></rv-photoswipe>
     </div>
-</template>
+
+    <div class="container-fluid pb-5 px-3">
+        <div class="row images-row">
+            <div class="image-col col-xs-12 col-md-4 my-1" rv-each-image="images">
+                <rv-img
+                    src="image.src"
+                    alt="image.title"
+                    width="image.w"
+                    height="image.h"
+                    visible-only="true"
+                    rv-data-index="%image%"
+                    rv-on-click="onThumbnailsClick"
+                ></rv-img>
+            </div>
+        </div>
+    </div>
+    
+    
+    <rv-photoswipe images="images"></rv-photoswipe>
+</div>

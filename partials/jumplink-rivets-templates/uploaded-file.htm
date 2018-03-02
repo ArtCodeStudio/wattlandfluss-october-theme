@@ -1,15 +1,13 @@
 [viewBag]
 ==
-<template id="uploaded-file">
-    <img class="img-fluid" rv-src="file.downloadURL" rv-alt="file.metadata.name">
-    <div class="actions">
-        <div class="btn btn-link" rv-on-click="delete">
-            Entfernen
-        </div>
-        <label>
-            <small>
-                {file.metadata.name}
-            </small>
-        </label>
+<img class="img-fluid" rv-src="file.downloadURL" rv-alt="file.metadata.name">
+<div class="actions">
+    <div class="btn btn-link" rv-on-click="delete">
+        Entfernen
     </div>
-</template>
+    <label>
+        <small>
+            {file.metadata.name}
+        </small>
+    </label>
+</div>

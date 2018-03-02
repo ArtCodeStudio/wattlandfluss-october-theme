@@ -2,40 +2,38 @@ description = "Alle Rivets.js templates zum einmaligen einfügen ins Layout"
 
 [viewBag]
 ==
+<?php
+use Cms\Classes\Theme;
+use Debugbar as Debugbar;
+
+function onStart()
+{
+    $theme = Theme::getActiveTheme();
+    $path = $theme->getPath()."/partials/jumplink-rivets-templates/";
+    $components = preg_grep('~\.htm~', scandir($path));
+    
+    $renderedComponents = array();
+    foreach ($components as $index => $componentName) {
+        $componentName = str_replace('.htm', '', $componentName);
+        if($componentName != 'default') {
+            $renderedComponents[$componentName] = str_replace('\'', '\\\'', trim(preg_replace('/\s+/', ' ', $this->renderPartial('jumplink-rivets-templates/'.$componentName))));
+        }
+    }
+    
+    $this['components'] = $renderedComponents;
+}
+?>
+==
 {# all rivets component templates to include in your main template file #}
 
-{# basic components #}
-{% partial 'jumplink-rivets-templates/rv-select' %}
-{% partial 'jumplink-rivets-templates/rv-checkbox' %}
-{% partial 'jumplink-rivets-templates/rv-img' %}
-{% partial 'jumplink-rivets-templates/global-modal' %}
-
-{# basic firebase components #}
-{% partial 'jumplink-rivets-templates/firebase-signin-form' %}
-{% partial 'jumplink-rivets-templates/firebase-signout-form' %}
-{% partial 'jumplink-rivets-templates/firebase-user' %}
-
-{# event components #}
-{% partial 'jumplink-rivets-templates/firebase-event-form' %}
-{% partial 'jumplink-rivets-templates/firebase-events-table' %}
-{% partial 'jumplink-rivets-templates/firebase-event-beautiful' %}
-{% partial 'jumplink-rivets-templates/firebase-events-beautiful' %}
-{% partial 'jumplink-rivets-templates/firebase-events-beautiful-gallery' %}
-
-{# calendar components #}
-{% partial 'jumplink-rivets-templates/firebase-calendars-table' %}
-{% partial 'jumplink-rivets-templates/firebase-calendar-form' %}
-
-{# decoration components #}
-{% partial 'jumplink-rivets-templates/walking-path' %}
-{% partial 'jumplink-rivets-templates/spinner' %}
-
-{# file upload / firebase storage components #}
-{% partial 'jumplink-rivets-templates/file-upload' %}
-{% partial 'jumplink-rivets-templates/uploaded-files' %}
-{% partial 'jumplink-rivets-templates/uploaded-file' %}
-{% partial 'jumplink-rivets-templates/preview-files' %}
-{% partial 'jumplink-rivets-templates/preview-file' %}
-
-{# components for third party libs #}
-{% partial 'jumplink-rivets-templates/rv-photoswipe' %}
+{# look at the code section where the components twig variable comes from #}
+{% put scripts %}
+    <script type="text/javascript">
+        jumplink = window.jumplink || {};
+        jumplink.templates = window.jumplink.templates || {};
+        
+        {% for componentName, component in components %}
+            jumplink.templates['{{componentName}}'] = '{{ component |raw }}';
+        {% endfor %}
+    </script>
+{% endput %}

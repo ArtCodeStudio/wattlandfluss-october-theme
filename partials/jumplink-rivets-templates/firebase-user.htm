@@ -1,17 +1,15 @@
 [viewBag]
 ==
-<template id="firebase-user">
-    <div class="row">
-        <div class="col-12 col-md-6 mx-auto">
-            <firebase-signin-form user="user"></firebase-signin-form>
-            <firebase-signout-form user="user"></firebase-signout-form>
-        </div>
-    </div>    
+<div class="row">
+    <div class="col-12 col-md-6 mx-auto">
+        <firebase-signin-form user="user"></firebase-signin-form>
+        <firebase-signout-form user="user"></firebase-signout-form>
+    </div>
+</div>    
 
-    <div class="row">
-        <div rv-show="user" class="col-12 col-md-6 mx-auto">
-            <a href="{{'firebase/event-create' |page }}" class="btn btn-primary">Ereignis anlegen</a>
-            <a href="{{'firebase/events-table' |page }}" class="btn btn-primary">Ereignisse auflisten</a>
-        </div>
-    </div>    
-</template>
+<div class="row">
+    <div rv-show="user" class="col-12 col-md-6 mx-auto">
+        <a href="{{'firebase/event-create' |page }}" class="btn btn-primary">Ereignis anlegen</a>
+        <a href="{{'firebase/events-table' |page }}" class="btn btn-primary">Ereignisse auflisten</a>
+    </div>
+</div>

@@ -9,7 +9,8 @@ window.jumplink.debug.components = debug('theme:components');
 rivets.components['spinner'] = {
 
   template: function() {
-    return $('template#spinner').html();
+    // return $('template#spinner').html();
+    return jumplink.templates.spinner;
   },
 
   initialize: function(el, data) {
@@ -34,7 +35,8 @@ rivets.components['spinner'] = {
 rivets.components['firebase-user'] = {
 
   template: function() {
-    return $('template#firebase-user').html();
+    // return $('template#firebase-user').html();
+    return jumplink.templates['firebase-user'];
   },
 
   initialize: function(el, data) {
@@ -69,7 +71,8 @@ rivets.components['firebase-user'] = {
 rivets.components['firebase-signin-form'] = {
 
   template: function() {
-    return $('template#firebase-signin-form').html();
+    // return $('template#firebase-signin-form').html();
+    return jumplink.templates['firebase-signin-form'];
   },
 
   initialize: function(el, data) {
@@ -111,7 +114,8 @@ rivets.components['firebase-signin-form'] = {
 rivets.components['firebase-signout-form'] = {
 
   template: function() {
-    return $('template#firebase-signout-form').html();
+    // return $('template#firebase-signout-form').html();
+    return jumplink.templates['firebase-signout-form'];
   },
 
   initialize: function(el, data) {
@@ -155,7 +159,8 @@ rivets.components['firebase-signout-form'] = {
 rivets.components['global-modal'] = {
 
   template: function() {
-    return $('template#global-modal').html();
+    // return $('template#global-modal').html();
+    return jumplink.templates['global-modal'];
   },
 
   initialize: function(el, data) {
@@ -214,10 +219,30 @@ rivets.components['global-modal'] = {
 
 /**
  * Component with some utilities fpr a select with generated select options 
+ * @html:
+ * <select
+ *      label="'label'"
+ *      description="'description'"
+ *      values="values"
+ *      on-change="onSelectChanged"
+ * >
+ * 
+ * @parent controller:
+ * controller.values = [
+ *      {id:1, label: 'Watt', value: 'Watt'},
+ *      {id:2, label: 'Land', value: 'Land'},
+ *      {id:3, label: 'Fluss', value: 'Fluss'},
+ *      {id:4, label: 'Spezial', value: 'Spezial'},
+ * ];
+ * 
+ * controller.onSelectChanged = function(selectedValue) {
+        controller.debug('onSelectChanged', selectedValue);
+    };
  */
 rivets.components['rv-select'] = {
   template: function() {
-    return $('template#rv-select').html();
+    // return $('template#rv-select').html();
+    return jumplink.templates['rv-select'];
   },
   initialize: function(el, data) {
     var controller = this;
@@ -226,13 +251,21 @@ rivets.components['rv-select'] = {
     var $el = $(el);
     var $select = $el.find('select');
     
-    controller.label = data.label;
-    controller.description = data.description;
+    controller.label = data.label || '';
+    controller.description = data.description || '';
     controller.values = data.values;
     controller.id = data.id ? 'rv-select-'+data.id : Date.now();
     
+    var onChange = function() {
+        if (jumplink.utilities.isFunction(data.onChange)) {
+            data.onChange(controller.selected);
+        }
+    }
+    
     controller.selected = controller.values[0];
-    data.onChange(controller.selected);
+    onChange();
+    
+
     
     /**
      * Get the selected value of a select option DOM element
@@ -279,20 +312,18 @@ rivets.components['rv-select'] = {
         var $this = $(this);
         var value = controller.get();
         controller.selected = value;
-        // data.selected = controller.selected;
-        if (jumplink.utilities.isFunction(data.onChange)) {
-            data.onChange(controller.selected);
-        }
+        onChange();
         controller.debug('select', value );
     });
 
     return controller;
   }
-}
+};
 
 rivets.components['rv-checkbox'] = {
   template: function() {
-    return $('template#rv-checkbox').html();
+    // return $('template#rv-checkbox').html();
+    return jumplink.templates['rv-checkbox'];
   },
   initialize: function(el, data) {
     var controller = this;
@@ -329,7 +360,8 @@ rivets.components['rv-checkbox'] = {
 
 rivets.components['rv-img'] = {
   template: function() {
-    return $('template#rv-img').html();
+    // return $('template#rv-img').html();
+    return jumplink.templates['rv-img'];
   },
   initialize: function(el, data) {
     var controller = this;
@@ -443,7 +475,8 @@ rivets.components['rv-img'] = {
 rivets.components['firebase-event-form'] = {
 
   template: function() {
-    return $('template#firebase-event-form').html();
+    // return $('template#firebase-event-form').html();
+    return jumplink.templates['firebase-event-form'];
   },
 
   initialize: function(el, data) {
@@ -805,7 +838,8 @@ rivets.components['firebase-event-form'] = {
 rivets.components['firebase-calendar-form'] = {
 
   template: function() {
-    return $('template#firebase-calendar-form').html();
+    // return $('template#firebase-calendar-form').html();
+    return jumplink.templates['firebase-calendar-form'];
   },
 
   initialize: function(el, data) {
@@ -1062,7 +1096,8 @@ rivets.components['firebase-calendar-form'] = {
 rivets.components['firebase-events-table'] = {
 
   template: function() {
-    return $('template#firebase-events-table').html();
+    // return $('template#firebase-events-table').html();
+    return jumplink.templates['firebase-events-table'];
   },
 
   initialize: function(el, data) {
@@ -1173,7 +1208,8 @@ rivets.components['firebase-events-table'] = {
 rivets.components['firebase-calendars-table'] = {
 
   template: function() {
-    return $('template#firebase-calendars-table').html();
+    // return $('template#firebase-calendars-table').html();
+    return jumplink.templates['firebase-calendars-table'];
   },
 
   initialize: function(el, data) {
@@ -1246,7 +1282,8 @@ rivets.components['firebase-calendars-table'] = {
 rivets.components['firebase-events-beautiful'] = {
 
   template: function() {
-    return $('template#firebase-events-beautiful').html();
+    // return $('template#firebase-events-beautiful').html();
+    return jumplink.templates['firebase-events-beautiful'];
   },
 
   initialize: function(el, data) {
@@ -1456,7 +1493,8 @@ rivets.components['firebase-events-beautiful'] = {
 rivets.components['firebase-events-beautiful-gallery'] = {
 
   template: function() {
-    return $('template#firebase-events-beautiful-gallery').html();
+    // return $('template#firebase-events-beautiful-gallery').html();
+    return jumplink.templates['firebase-events-beautiful-gallery'];
   },
 
   initialize: function(el, data) {
@@ -1552,12 +1590,47 @@ rivets.components['firebase-events-beautiful-gallery'] = {
   }
 };
 
+
+
+rivets.components['firebase-events-beautiful-toolbar'] = {
+  template: function() {
+    // return $('template#firebase-events-beautiful-toolbar').html();
+    return jumplink.templates['firebase-events-beautiful-toolbar'];
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:firebase-events-beautiful-toolbar');
+    controller.debug('initialize', el, data);
+    var $el = $(el);
+    controller.type = data.type;
+    controller.calendar = data.calendar;
+    controller.style = data.style;
+    controller.events = data.events;
+    
+    controller.onSelectEventChanged = function(selectedEvent) {
+        controller.debug('onSelectEventChanged', selectedEvent);
+    };
+    
+    
+    controller.selectEventValues = [
+        {id:1, label: 'Watt', value: 'Watt'},
+        {id:2, label: 'Land', value: 'Land'},
+        {id:3, label: 'Fluss', value: 'Fluss'},
+        {id:4, label: 'Spezial', value: 'Spezial'},
+    ];
+    
+    return controller;
+  }
+}
+
 /**
  * Component to show the events in frontend for the visitors
  */
 rivets.components['firebase-event-beautiful'] = {
   template: function() {
-    return $('template#firebase-event-beautiful').html();
+    // return $('template#firebase-event-beautiful').html();
+    return jumplink.templates['firebase-event-beautiful'];
   },
 
   initialize: function(el, data) {
@@ -1648,7 +1721,8 @@ rivets.components['firebase-event-beautiful'] = {
 rivets.components['walking-path'] = {
 
   template: function() {
-    return $('template#walking-path').html();
+    // return $('template#walking-path').html();
+    return jumplink.templates['walking-path'];
   },
 
   initialize: function(el, data) {
@@ -1692,7 +1766,8 @@ rivets.components['walking-path'] = {
 rivets.components['file-upload'] = {
 
   template: function() {
-    return $('template#file-upload').html();
+    // return $('template#file-upload').html();
+    return jumplink.templates['file-upload'];
   },
 
   initialize: function(el, data) {
@@ -1936,7 +2011,8 @@ rivets.components['file-upload'] = {
 rivets.components['uploaded-files'] = {
 
   template: function() {
-    return $('template#uploaded-files').html();
+    // return $('template#uploaded-files').html();
+    return jumplink.templates['uploaded-files'];
   },
 
   initialize: function(el, data) {
@@ -1969,7 +2045,8 @@ rivets.components['uploaded-files'] = {
 rivets.components['uploaded-file'] = {
 
   template: function() {
-    return $('template#uploaded-file').html();
+    // return $('template#uploaded-file').html();
+    return jumplink.templates['uploaded-file'];
   },
 
   initialize: function(el, data) {
@@ -1998,7 +2075,8 @@ rivets.components['uploaded-file'] = {
 rivets.components['preview-files'] = {
 
   template: function() {
-    return $('template#preview-files').html();
+    // return $('template#preview-files').html();
+    return jumplink.templates['preview-files'];
   },
 
   initialize: function(el, data) {
@@ -2019,7 +2097,8 @@ rivets.components['preview-files'] = {
 rivets.components['preview-file'] = {
 
   template: function() {
-    return $('template#preview-file').html();
+    // return $('template#preview-file').html();
+    return jumplink.templates['preview-file'];
   },
 
   initialize: function(el, data) {
@@ -2042,7 +2121,8 @@ rivets.components['preview-file'] = {
 rivets.components['rv-photoswipe'] = {
 
   template: function() {
-    return $('template#rv-photoswipe').html();
+    // return $('template#rv-photoswipe').html();
+    return jumplink.templates['rv-photoswipe'];
   },
 
   initialize: function(el, data) {

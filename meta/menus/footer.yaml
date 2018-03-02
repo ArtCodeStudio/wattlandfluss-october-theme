@@ -4,8 +4,10 @@ items:
         title: Kontakt
         nesting: '0'
         type: static-page
+        url: ''
         code: ''
         reference: kontakt
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
@@ -36,19 +38,6 @@ items:
         viewBag:
             isHidden: '0'
             cssClass: datenschutz
-            isExternal: '0'
-    -
-        title: AGB
-        nesting: ''
-        type: url
-        url: /agb
-        code: ''
-        reference: ''
-        cmsPage: ''
-        replace: ''
-        viewBag:
-            isHidden: '0'
-            cssClass: agb
             isExternal: '0'
     -
         title: Credits

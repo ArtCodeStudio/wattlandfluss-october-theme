@@ -1,107 +1,34 @@
 [viewBag]
 ==
-<template id="firebase-event-beautiful">
-
-    {#
-     # Template for the 'fix' events with a fix date to book
-     #}
-    <div
-        rv-if="style | eq 'fix'"
-        rv-class-bg-state-info="event.calendar | eq 'Fluss'"
-        rv-class-bg-state-warning="event.calendar | eq 'Watt'"
-        rv-class-bg-state-success="event.calendar | eq 'Land'"
-        rv-class-animated-gradient="event.calendar | eq 'Spezial'"
-        rv-class-bg-gradient-state-success-info-warning="event.calendar | eq 'Spezial'"
-        rv-id="event.id"
-    >
-        <div rv-class="containerClass | append ' my-0 py-5'">
-            <div rv-if="index | lt 1" class="row">
-                <div class="col-xs-12 col-md-6 offset-md-6">
-                    <p class="pb-2"><strong class="hyphenate">{title}</strong></p>
-                </div>
-            </div>
-             
-            <div class="row">
-        
-                <div rv-if="index | even" class="col-xs-12 col-md-6 col-md-image-left" rv-class-mt-0="index | eq 0">
-                    <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
-                    <rv-img src="imageSrc" alt="imageAlt" width="imageW" height="imageH" class="py-2">
-                </div>
-                
-                <div class="col-xs-12 col-md-6">
-                    <h3
-                        class="hyphenate"
-                        rv-class-text-info="event.calendar | eq 'Fluss'"
-                        rv-class-text-warning="event.calendar | eq 'Watt'"
-                        rv-class-text-success="event.calendar | eq 'Land'"
-                        rv-class-gradient-text="event.calendar | eq 'Spezial'"
-                        rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
-                        rv-class-animated-gradient="event.calendar | eq 'Spezial'"
-                    >
-                        {event.title}
-                    </h3>
-                    <h4>
-                        
-                    </h4>
-                    <p class="hyphenate" rv-if="event.subtitle">{event.subtitle}</p>
-                    
-                    <p rv-if="event.description" rv-html="event.description"></p>
-                    
-                   
-                    <p rv-if="event.type | eq 'fix'" class="mb-01">
-                        <strong>Datum:</strong> {event.startAt | date 'DD.MM.YYYY'}
-                    </p>
-                    
-                    <div rv-if="event.showTimes">
-                        <p class="mb-01">
-                            <strong>Beginn:</strong> {event.startAt | time 'HH:mm'} Uhr
-                        </p>
-                        <p class="mb-01">
-                            <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
-                        </p>
-                    </div>
-                    
-                    <p rv-if="event.equipment" class="mb-01">
-                        <strong>Ausstattung:</strong> {event.equipment}
-                    </p>
-                    
-                    {# If event has grouped event childrens #}
-                    <p rv-if="event.groupedEvents | empty | not">
-                        <strong>Weitere Termine:</strong>
-                        <span rv-each-grouped="event.groupedEvents">
-                            {grouped.startAt | date 'DD.MM.YYYY'}
-                        </span>
-                    </p>
-                    
-                    <p rv-if="event.note" rv-html="event.note"></p>
-                    
-                    <button class="btn btn-outline-dark mt-1" rv-data-id="event.id" rv-on-click="requests">
-                        <span class="px-2">Anfrage</span>
-                    </button>
-                    
-                </div>
-                
-                <div rv-if="index | uneven" class="col-xs-12 col-md-6 col-md-image-right">
-                    <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
-                    <rv-img src="imageSrc" alt="imageAlt" width="imageW" height="imageH" class="py-2">
-                </div>
-                
+{#
+ # Template for the 'fix' events with a fix date to book
+ #}
+<div
+    rv-if="style | eq 'fix'"
+    rv-class-bg-state-info="event.calendar | eq 'Fluss'"
+    rv-class-bg-state-warning="event.calendar | eq 'Watt'"
+    rv-class-bg-state-success="event.calendar | eq 'Land'"
+    rv-class-animated-gradient="event.calendar | eq 'Spezial'"
+    rv-class-bg-gradient-state-success-info-warning="event.calendar | eq 'Spezial'"
+    rv-id="event.id"
+>
+    <div rv-class="containerClass | append ' my-0 py-5'">
+        <div rv-if="index | lt 1" class="row">
+            <div class="col-xs-12 col-md-6 offset-md-6">
+                <p class="pb-2"><strong class="hyphenate">{title}</strong></p>
             </div>
         </div>
-    </div>
+         
+        <div class="row">
     
-    {#
-     # Template for the 'variable' events without a fix date
-     #}
-    <div
-        rv-if="style | eq 'variable'"
-        rv-class="containerClass"
-    >
-         <div class="row my-5">
-    
+            <div rv-if="index | even" class="col-xs-12 col-md-6 col-md-image-left" rv-class-mt-0="index | eq 0">
+                <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
+                <rv-img src="imageSrc" alt="imageAlt" width="imageW" height="imageH" class="py-2">
+            </div>
             
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-md-6">
                 <h3
+                    class="hyphenate"
                     rv-class-text-info="event.calendar | eq 'Fluss'"
                     rv-class-text-warning="event.calendar | eq 'Watt'"
                     rv-class-text-success="event.calendar | eq 'Land'"
@@ -109,15 +36,20 @@
                     rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
                     rv-class-animated-gradient="event.calendar | eq 'Spezial'"
                 >
-                    <small class="hyphenate text-second">{event.subtitle}</small><br>
-                    <span class="hyphenate">{event.title}</span>
+                    {event.title}
                 </h3>
+                <h4>
+                    
+                </h4>
+                <p class="hyphenate" rv-if="event.subtitle">{event.subtitle}</p>
                 
                 <p rv-if="event.description" rv-html="event.description"></p>
                 
-                <p rv-show="event.type | eq 'fix'" class="mb-01">
+               
+                <p rv-if="event.type | eq 'fix'" class="mb-01">
                     <strong>Datum:</strong> {event.startAt | date 'DD.MM.YYYY'}
                 </p>
+                
                 <div rv-if="event.showTimes">
                     <p class="mb-01">
                         <strong>Beginn:</strong> {event.startAt | time 'HH:mm'} Uhr
@@ -126,17 +58,8 @@
                         <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
                     </p>
                 </div>
-                <p rv-hide="event.pricetext" class="mb-01">
-                    <span rv-show="event.price | gt 0">
-                        <strong>Preis:</strong>
-                        <span>{event.price} €</span>
-                    </span>
-                </p>
-                <p rv-show="event.pricetext" class="mb-01">
-                    <strong>Preis:</strong>
-                    <span>{event.pricetext}</span>
-                </p>
-                <p rv-show="event.equipment" class="mb-01">
+                
+                <p rv-if="event.equipment" class="mb-01">
                     <strong>Ausstattung:</strong> {event.equipment}
                 </p>
                 
@@ -148,47 +71,120 @@
                     </span>
                 </p>
                 
-                <p rv-html="event.note"></p>
+                <p rv-if="event.note" rv-html="event.note"></p>
+                
+                <button class="btn btn-outline-dark mt-1" rv-data-id="event.id" rv-on-click="requests">
+                    <span class="px-2">Anfrage</span>
+                </button>
                 
             </div>
-                        
-        </div>
-    </div>
-    
-    {#
-     # Template for a single event, e.g. to display the next event on home
-     # Do not need to set the limit to 1 for this
-     #}
-     <div
-        rv-if="style | eq 'single'"
-        rv-class="containerClass"
-    >
-        <div class="row my-5" rv-show="event">
-            <div class="col-xs-12 col-md-6">
-                <rv-img src="imageSrc" alt="imageAlt" width="imageW" height="imageH" class="pt-5">
+            
+            <div rv-if="index | uneven" class="col-xs-12 col-md-6 col-md-image-right">
+                <walking-path rv-if="index | gt 0" filename="imageFilename" path="'{{'assets/images/' | theme}}'" color="color"></walking-path>
+                <rv-img src="imageSrc" alt="imageAlt" width="imageW" height="imageH" class="py-2">
             </div>
             
-            <div class="col-xs-12 col-md-6">
-              <p class="pb-2"><strong class="hyphenate">{title}</strong></p>
-              <div
-                rv-class-text-primary="event.calendar | eq 'Fluss'"
+        </div>
+    </div>
+</div>
+
+{#
+ # Template for the 'variable' events without a fix date
+ #}
+<div
+    rv-if="style | eq 'variable'"
+    rv-class="containerClass"
+>
+     <div class="row my-5">
+
+        
+        <div class="col-xs-12">
+            <h3
+                rv-class-text-info="event.calendar | eq 'Fluss'"
                 rv-class-text-warning="event.calendar | eq 'Watt'"
                 rv-class-text-success="event.calendar | eq 'Land'"
                 rv-class-gradient-text="event.calendar | eq 'Spezial'"
                 rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
                 rv-class-animated-gradient="event.calendar | eq 'Spezial'"
-              >
-                  <h2 class="hyphenate">
-                      {event.startAt | date 'DD.MM.YYYY'}
-                      <small rv-if="event.showTimes">{event.startAt | time 'HH:mm'} Uhr</small>
-                      <br><small class="hyphenate">{event.title}</small>
-                  </h2>
-              </div>
-    
-              <p class="hyphenate">{event.subtitle}</p>
-              <button class="btn btn-link" rv-data-id="event.id" rv-on-click="show">mehr dazu</button>
+            >
+                <small class="hyphenate text-second">{event.subtitle}</small><br>
+                <span class="hyphenate">{event.title}</span>
+            </h3>
+            
+            <p rv-if="event.description" rv-html="event.description"></p>
+            
+            <p rv-show="event.type | eq 'fix'" class="mb-01">
+                <strong>Datum:</strong> {event.startAt | date 'DD.MM.YYYY'}
+            </p>
+            <div rv-if="event.showTimes">
+                <p class="mb-01">
+                    <strong>Beginn:</strong> {event.startAt | time 'HH:mm'} Uhr
+                </p>
+                <p class="mb-01">
+                    <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
+                </p>
             </div>
+            <p rv-hide="event.pricetext" class="mb-01">
+                <span rv-show="event.price | gt 0">
+                    <strong>Preis:</strong>
+                    <span>{event.price} €</span>
+                </span>
+            </p>
+            <p rv-show="event.pricetext" class="mb-01">
+                <strong>Preis:</strong>
+                <span>{event.pricetext}</span>
+            </p>
+            <p rv-show="event.equipment" class="mb-01">
+                <strong>Ausstattung:</strong> {event.equipment}
+            </p>
+            
+            {# If event has grouped event childrens #}
+            <p rv-if="event.groupedEvents | empty | not">
+                <strong>Weitere Termine:</strong>
+                <span rv-each-grouped="event.groupedEvents">
+                    {grouped.startAt | date 'DD.MM.YYYY'}
+                </span>
+            </p>
+            
+            <p rv-html="event.note"></p>
+            
+        </div>
+                    
+    </div>
+</div>
+
+{#
+ # Template for a single event, e.g. to display the next event on home
+ # Do not need to set the limit to 1 for this
+ #}
+ <div
+    rv-if="style | eq 'single'"
+    rv-class="containerClass"
+>
+    <div class="row my-5" rv-show="event">
+        <div class="col-xs-12 col-md-6">
+            <rv-img src="imageSrc" alt="imageAlt" width="imageW" height="imageH" class="pt-5">
+        </div>
+        
+        <div class="col-xs-12 col-md-6">
+          <p class="pb-2"><strong class="hyphenate">{title}</strong></p>
+          <div
+            rv-class-text-primary="event.calendar | eq 'Fluss'"
+            rv-class-text-warning="event.calendar | eq 'Watt'"
+            rv-class-text-success="event.calendar | eq 'Land'"
+            rv-class-gradient-text="event.calendar | eq 'Spezial'"
+            rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
+            rv-class-animated-gradient="event.calendar | eq 'Spezial'"
+          >
+              <h2 class="hyphenate">
+                  {event.startAt | date 'DD.MM.YYYY'}
+                  <small rv-if="event.showTimes">{event.startAt | time 'HH:mm'} Uhr</small>
+                  <br><small class="hyphenate">{event.title}</small>
+              </h2>
+          </div>
+
+          <p class="hyphenate">{event.subtitle}</p>
+          <button class="btn btn-link" rv-data-id="event.id" rv-on-click="show">mehr dazu</button>
         </div>
     </div>
-    
-</template>
+</div>

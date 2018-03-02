@@ -34,6 +34,54 @@ jumplink.utilities.hyphenate = function() {
     }
 }
 
+  /**
+   * Covert adhesive keys like 
+   *
+   *  products_freeshipping_color: #1084f6 , like products_freeshipping_enabled: true
+   *
+   * to:
+   * 
+   *  products: {
+   *    freeshipping: {
+   *      color: #1084f6,
+   *      enabled: true
+   *    }
+   *  }
+   *
+   * Used internally to convert the shopify theme settings to better usable javascript objects.
+   */
+jumplink.utilities.adhesiveKeyObjectToNestedObject = function (adhesiveKeyObject, separator = '_') {
+    var nestedObject = {};
+    for (var adhesiveKey in adhesiveKeyObject) {
+      // skip loop if the property is from prototype
+      if (!adhesiveKeyObject.hasOwnProperty(adhesiveKey)) {
+        continue;
+      }
+      var object = adhesiveKeyObject[adhesiveKey];
+      var keys = adhesiveKey.split(separator);
+      var childObject;
+      for (var i in keys) {
+        var key = keys[i];       
+        if(i <= 0) {
+          // back to root object
+          childObject = nestedObject;
+        }
+
+        // if there are more childs create tree element
+        if( Number(i) < keys.length - 1) {
+          if(typeof(childObject[key]) !== 'object') {
+            childObject[key] = {};
+          }
+          childObject = childObject[key];
+        } else {
+          // on the end set the value
+          childObject[key] = object;
+        }
+      }
+    }
+    return nestedObject;
+};
+
 
 /**
  * Check if element is visible after scrolling

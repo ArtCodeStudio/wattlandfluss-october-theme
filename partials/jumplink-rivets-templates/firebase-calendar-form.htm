@@ -1,60 +1,56 @@
 [viewBag]
 ==
-<template id="firebase-calendar-form">
+<h1 rv-show="id">{titleEdit}</h1>
+<h1 rv-hide="id">{titleCreate}</h1>
 
-    <h1 rv-show="id">{titleEdit}</h1>
-    <h1 rv-hide="id">{titleCreate}</h1>
-    
-    <div class="form-group">
-        <label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="calendarActive" checked="true" rv-checked="calendar.active">
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description">Aktiviert</span>
-        </label>
-        <small id="calendarActiveDesc" class="mt-0 mb-2 form-text text-muted">Nicht aktivierte Kalender werden ausgeblendet.</small>
-    </div>
-    
-    <rv-select id="calendarType" label="'Typ'" description="'Derzeit gibt es nur einen Typ'" values="types" on-change="typeChanged"></rv-select>
-        
-    <div class="form-group">
-        <label for="calendarName">Name</label>
-        <input type="text" class="form-control" id="calendarName" aria-describedby="calendarNameDesc" placeholder="Neuer Name" rv-value="calendar.name">
-        <small id="calendarNameDesc" class="form-text text-muted">Kurzer Name als Bezeichnung für den Kalender</small>
-    </div>
-        
-    <div class="form-group">
-        <label for="calendarName">Titel</label>
-        <input type="text" class="form-control" id="calendarName" aria-describedby="calendarNameDesc" placeholder="Neuer Titel" rv-value="calendar.title">
-        <small id="calendarNameDesc" class="form-text text-muted">Der Hauptname deines Kalenders.</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="calendarSubtitle">Untertitel</label>
-        <input type="text" class="form-control" id="calendarSubtitle" aria-describedby="calendarSubtitleDesc" placeholder="Neuer Untertitel" rv-value="calendar.subtitle">
-        <small id="calendarSubtitleDesc" class="form-text text-muted">Kurzbeschreibung deines neuen Kalenders.</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="calendarDesc">Beschreibung</label>
-        <textarea class="form-control" id="calendarDesc" name="editordata" rows="6" aria-describedby="calendarDescDesc" placeholder="Deine Beschreibung" rv-value="calendar.description"></textarea>
-        <small id="calendarDescDesc" class="form-text text-muted">Hauptbeschreibung deines neuen Kalenders.</small>
-    </div>
-        
-    <div class="form-group">
-        <label for="calendarNote">Notiz</label>
-        <textarea class="form-control" id="calendarNote" name="editordata" rows="6" aria-describedby="calendarNoteDesc" placeholder="Deine Notiz" rv-value="calendar.note"></textarea>
-        <small id="calendarNoteDesc" class="form-text text-muted">Zusätzliche Anmerkungen.</small>
-    </div>
-          
-    <uploaded-files label="'Bilder'" files="calendar.images"></uploaded-files>
-  
-    <file-upload label="Bilder dem Kalender hinzufügen" uploaded-files="uploadedImages"></file-upload>
-    
-    <global-modal></global-modal>
-    
-    <button rv-if="id | not" class="btn btn-primary" rv-on-click="createCalendar">Kalender anlegen</button>
-    <button rv-if="id" class="btn btn-primary" rv-on-click="updateCalendar">Kalender aktualisieren</button>
-    
-    <a href="{{'firebase/calendars-table' |page }}" class="btn btn-default">Kalender anzeigen</a>
+<div class="form-group">
+    <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="calendarActive" checked="true" rv-checked="calendar.active">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Aktiviert</span>
+    </label>
+    <small id="calendarActiveDesc" class="mt-0 mb-2 form-text text-muted">Nicht aktivierte Kalender werden ausgeblendet.</small>
+</div>
 
-</template>
+<rv-select id="calendarType" label="'Typ'" description="'Derzeit gibt es nur einen Typ'" values="types" on-change="typeChanged"></rv-select>
+    
+<div class="form-group">
+    <label for="calendarName">Name</label>
+    <input type="text" class="form-control" id="calendarName" aria-describedby="calendarNameDesc" placeholder="Neuer Name" rv-value="calendar.name">
+    <small id="calendarNameDesc" class="form-text text-muted">Kurzer Name als Bezeichnung für den Kalender</small>
+</div>
+    
+<div class="form-group">
+    <label for="calendarName">Titel</label>
+    <input type="text" class="form-control" id="calendarName" aria-describedby="calendarNameDesc" placeholder="Neuer Titel" rv-value="calendar.title">
+    <small id="calendarNameDesc" class="form-text text-muted">Der Hauptname deines Kalenders.</small>
+</div>
+
+<div class="form-group">
+    <label for="calendarSubtitle">Untertitel</label>
+    <input type="text" class="form-control" id="calendarSubtitle" aria-describedby="calendarSubtitleDesc" placeholder="Neuer Untertitel" rv-value="calendar.subtitle">
+    <small id="calendarSubtitleDesc" class="form-text text-muted">Kurzbeschreibung deines neuen Kalenders.</small>
+</div>
+
+<div class="form-group">
+    <label for="calendarDesc">Beschreibung</label>
+    <textarea class="form-control" id="calendarDesc" name="editordata" rows="6" aria-describedby="calendarDescDesc" placeholder="Deine Beschreibung" rv-value="calendar.description"></textarea>
+    <small id="calendarDescDesc" class="form-text text-muted">Hauptbeschreibung deines neuen Kalenders.</small>
+</div>
+    
+<div class="form-group">
+    <label for="calendarNote">Notiz</label>
+    <textarea class="form-control" id="calendarNote" name="editordata" rows="6" aria-describedby="calendarNoteDesc" placeholder="Deine Notiz" rv-value="calendar.note"></textarea>
+    <small id="calendarNoteDesc" class="form-text text-muted">Zusätzliche Anmerkungen.</small>
+</div>
+      
+<uploaded-files label="'Bilder'" files="calendar.images"></uploaded-files>
+
+<file-upload label="Bilder dem Kalender hinzufügen" uploaded-files="uploadedImages"></file-upload>
+
+<global-modal></global-modal>
+
+<button rv-if="id | not" class="btn btn-primary" rv-on-click="createCalendar">Kalender anlegen</button>
+<button rv-if="id" class="btn btn-primary" rv-on-click="updateCalendar">Kalender aktualisieren</button>
+
+<a href="{{'firebase/calendars-table' |page }}" class="btn btn-default">Kalender anzeigen</a>

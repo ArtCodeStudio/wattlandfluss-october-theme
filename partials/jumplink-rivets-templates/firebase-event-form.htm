@@ -2,102 +2,98 @@ description = "For Admins: Edit or create an event"
 
 [viewBag]
 ==
-<template id="firebase-event-form">
+<h1 rv-show="id">{titleEdit}</h1>
+<h1 rv-hide="id">{titleCreate}</h1>
 
-    <h1 rv-show="id">{titleEdit}</h1>
-    <h1 rv-hide="id">{titleCreate}</h1>
-    
-    <div class="form-group">
-        <label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="eventActive" checked="true" rv-checked="event.active">
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description">Aktiviert</span>
-        </label>
-        <small id="eventActiveDesc" class="mt-0 mb-2 form-text text-muted">Nicht aktivierte Veranstaltungen werden ausgeblendet.</small>
-    </div>
-    
-    <rv-select id="eventType" label="'Typ'" description="'Öffentliche Führungen sind Führungen mit Datum, Führung die angefragt werden können haben kein Datum.'" values="types" on-change="typeChanged"></rv-select>
-    
-    <rv-select id="eventCalendar" label="'Kalender'" description="'Der Kalender in dem die Veranstaltung eingeordnet werden soll.'" values="calendars" on-change="calendarChanged"></rv-select>
-    
-    <div class="form-group">
-        <label for="eventTitle">Titel</label>
-        <input type="text" class="form-control" id="eventTitle" aria-describedby="eventTitleDesc" placeholder="Neuer Titel" rv-value="event.title">
-        <small id="eventTitleDesc" class="form-text text-muted">Der Hauptname deines Ereignisses.</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="eventSubtitle">Untertitel</label>
-        <input type="text" class="form-control" id="eventSubtitle" aria-describedby="eventSubtitleDesc" placeholder="Neuer Untertitel" rv-value="event.subtitle">
-        <small id="eventSubtitleDesc" class="form-text text-muted">Kurzbeschreibung deines neuen Ereignisses.</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="eventDesc">Beschreibung</label>
-        <textarea class="form-control" id="eventDesc" name="editordata" rows="6" aria-describedby="eventDescDesc" placeholder="Deine Beschreibung" rv-value="event.description"></textarea>
-        <small id="eventDescDesc" class="form-text text-muted">Hauptbeschreibung deines neuen Ereignisses.</small>
-    </div>
-    
-    <div rv-if="event.type | eq 'fix'" class="form-group">
-        <label for="eventStartAt">Tag</label>
-        <input type="date" class="form-control" id="eventStartAt" aria-describedby="eventStartAtDesc" rv-value="event.startAt">
-        <small id="eventStartAtDesc" class="form-text text-muted">Der Tag des Ereignisses.</small>
-    </div>
-    
-    <rv-checkbox id="eventShowTimes" description="'Wenn ausgewählt wird die Start und Endzeit angezeigt, ansonsten nicht.'" default="true" label="'Mit Zeiten'" on-change="showTimesChanged"></rv-checkbox>
-    
-    <div class="form-group">
-        <label for="eventStartTimeAt">Von</label>
-        <input type="time" class="form-control" id="eventStartTimeAt" aria-describedby="eventStartTimeAtDesc" rv-value="event.startTimeAt">
-        <small id="eventStartTimeAtDesc" class="form-text text-muted">Startzeit des Ereignisses.</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="eventEndTimeAt">Bis</label>
-        <input type="time" class="form-control" id="eventEndTimeAt" aria-describedby="eventEndTimeAtDesc" rv-value="event.endTimeAt">
-        <small id="eventEndTimeAtDesc" class="form-text text-muted">Endzeit des Ereignisses.</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="eventPrice">Preis in €</label>
-        <input type="number" class="form-control" id="eventPrice" aria-describedby="eventPriceDesc" rv-value="event.price">
-        <small id="eventPriceDesc" class="form-text text-muted">Preis pro Person oder Gruppe in €</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="eventPriceText">Preis Text</label>
-        <input type="text" class="form-control" id="eventPriceText" aria-describedby="eventPriceTextDesc" rv-value="event.pricetext">
-        <small id="eventPriceTextDesc" class="form-text text-muted">Überschreibt den angezeigten Preistext z.B. für Gruppenpreise</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="eventOffer">Angebot</label>
-        <input type="text" class="form-control" id="eventOffer" aria-describedby="eventOfferDesc" rv-value="event.offer">
-        <small id="eventOfferDesc" class="form-text text-muted">Z.B. für Familien mit Kindern ab 5 J.</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="eventEquipment">Ausstattung</label>
-        <input type="text" class="form-control" id="eventEquipment" aria-describedby="eventEquipmentDesc" placeholder="Equipment" rv-value="event.equipment"></textarea>
-        <small id="eventEquipmentDesc" class="form-text text-muted">Ausstattung die mitzubringen ist, z.B. festes Schuhwerk, wetterfeste Kleidung.</small>
-    </div>
-    
-    <div class="form-group">
-        <label for="eventNote">Notiz</label>
-        <textarea class="form-control" id="eventNote" name="editordata" rows="6" aria-describedby="eventNoteDesc" placeholder="Deine Notiz" rv-value="event.note"></textarea>
-        <small id="eventNoteDesc" class="form-text text-muted">Zusätzliche Anmerkung für die Besucher.</small>
-    </div>
-          
-    <uploaded-files label="'Bilder'" files="event.images"></uploaded-files>
-  
-    <file-upload label="Bilder für die Veranstaltung hinzufügen" uploaded-files="uploadedImages"></file-upload>
-    
-    <global-modal></global-modal>
-    
-    <button rv-if="id | not" class="btn btn-primary" rv-on-click="createEvent">Event anlegen</button>
-    <button rv-if="id" class="btn btn-primary" rv-on-click="updateEvent">Event aktualisieren</button>
-    <button rv-if="id" class="btn btn-primary" rv-on-click="duplicateEvent">Event duplizieren</button>
-    
-    <a href="{{'firebase/events-table' |page }}" class="btn btn-default">Ereignisse anzeigen</a>
+<div class="form-group">
+    <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="eventActive" checked="true" rv-checked="event.active">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Aktiviert</span>
+    </label>
+    <small id="eventActiveDesc" class="mt-0 mb-2 form-text text-muted">Nicht aktivierte Veranstaltungen werden ausgeblendet.</small>
+</div>
 
-</template>
+<rv-select id="eventType" label="'Typ'" description="'Öffentliche Führungen sind Führungen mit Datum, Führung die angefragt werden können haben kein Datum.'" values="types" on-change="typeChanged"></rv-select>
+
+<rv-select id="eventCalendar" label="'Kalender'" description="'Der Kalender in dem die Veranstaltung eingeordnet werden soll.'" values="calendars" on-change="calendarChanged"></rv-select>
+
+<div class="form-group">
+    <label for="eventTitle">Titel</label>
+    <input type="text" class="form-control" id="eventTitle" aria-describedby="eventTitleDesc" placeholder="Neuer Titel" rv-value="event.title">
+    <small id="eventTitleDesc" class="form-text text-muted">Der Hauptname deines Ereignisses.</small>
+</div>
+
+<div class="form-group">
+    <label for="eventSubtitle">Untertitel</label>
+    <input type="text" class="form-control" id="eventSubtitle" aria-describedby="eventSubtitleDesc" placeholder="Neuer Untertitel" rv-value="event.subtitle">
+    <small id="eventSubtitleDesc" class="form-text text-muted">Kurzbeschreibung deines neuen Ereignisses.</small>
+</div>
+
+<div class="form-group">
+    <label for="eventDesc">Beschreibung</label>
+    <textarea class="form-control" id="eventDesc" name="editordata" rows="6" aria-describedby="eventDescDesc" placeholder="Deine Beschreibung" rv-value="event.description"></textarea>
+    <small id="eventDescDesc" class="form-text text-muted">Hauptbeschreibung deines neuen Ereignisses.</small>
+</div>
+
+<div rv-if="event.type | eq 'fix'" class="form-group">
+    <label for="eventStartAt">Tag</label>
+    <input type="date" class="form-control" id="eventStartAt" aria-describedby="eventStartAtDesc" rv-value="event.startAt">
+    <small id="eventStartAtDesc" class="form-text text-muted">Der Tag des Ereignisses.</small>
+</div>
+
+<rv-checkbox id="eventShowTimes" description="'Wenn ausgewählt wird die Start und Endzeit angezeigt, ansonsten nicht.'" default="true" label="'Mit Zeiten'" on-change="showTimesChanged"></rv-checkbox>
+
+<div class="form-group">
+    <label for="eventStartTimeAt">Von</label>
+    <input type="time" class="form-control" id="eventStartTimeAt" aria-describedby="eventStartTimeAtDesc" rv-value="event.startTimeAt">
+    <small id="eventStartTimeAtDesc" class="form-text text-muted">Startzeit des Ereignisses.</small>
+</div>
+
+<div class="form-group">
+    <label for="eventEndTimeAt">Bis</label>
+    <input type="time" class="form-control" id="eventEndTimeAt" aria-describedby="eventEndTimeAtDesc" rv-value="event.endTimeAt">
+    <small id="eventEndTimeAtDesc" class="form-text text-muted">Endzeit des Ereignisses.</small>
+</div>
+
+<div class="form-group">
+    <label for="eventPrice">Preis in €</label>
+    <input type="number" class="form-control" id="eventPrice" aria-describedby="eventPriceDesc" rv-value="event.price">
+    <small id="eventPriceDesc" class="form-text text-muted">Preis pro Person oder Gruppe in €</small>
+</div>
+
+<div class="form-group">
+    <label for="eventPriceText">Preis Text</label>
+    <input type="text" class="form-control" id="eventPriceText" aria-describedby="eventPriceTextDesc" rv-value="event.pricetext">
+    <small id="eventPriceTextDesc" class="form-text text-muted">Überschreibt den angezeigten Preistext z.B. für Gruppenpreise</small>
+</div>
+
+<div class="form-group">
+    <label for="eventOffer">Angebot</label>
+    <input type="text" class="form-control" id="eventOffer" aria-describedby="eventOfferDesc" rv-value="event.offer">
+    <small id="eventOfferDesc" class="form-text text-muted">Z.B. für Familien mit Kindern ab 5 J.</small>
+</div>
+
+<div class="form-group">
+    <label for="eventEquipment">Ausstattung</label>
+    <input type="text" class="form-control" id="eventEquipment" aria-describedby="eventEquipmentDesc" placeholder="Equipment" rv-value="event.equipment"></textarea>
+    <small id="eventEquipmentDesc" class="form-text text-muted">Ausstattung die mitzubringen ist, z.B. festes Schuhwerk, wetterfeste Kleidung.</small>
+</div>
+
+<div class="form-group">
+    <label for="eventNote">Notiz</label>
+    <textarea class="form-control" id="eventNote" name="editordata" rows="6" aria-describedby="eventNoteDesc" placeholder="Deine Notiz" rv-value="event.note"></textarea>
+    <small id="eventNoteDesc" class="form-text text-muted">Zusätzliche Anmerkung für die Besucher.</small>
+</div>
+      
+<uploaded-files label="'Bilder'" files="event.images"></uploaded-files>
+
+<file-upload label="Bilder für die Veranstaltung hinzufügen" uploaded-files="uploadedImages"></file-upload>
+
+<global-modal></global-modal>
+
+<button rv-if="id | not" class="btn btn-primary" rv-on-click="createEvent">Event anlegen</button>
+<button rv-if="id" class="btn btn-primary" rv-on-click="updateEvent">Event aktualisieren</button>
+<button rv-if="id" class="btn btn-primary" rv-on-click="duplicateEvent">Event duplizieren</button>
+
+<a href="{{'firebase/events-table' |page }}" class="btn btn-default">Ereignisse anzeigen</a>

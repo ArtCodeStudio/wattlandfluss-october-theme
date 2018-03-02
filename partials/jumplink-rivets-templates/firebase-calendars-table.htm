@@ -1,30 +1,28 @@
 [viewBag]
 ==
-<template id="firebase-calendars-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Aktiviert</th>
-          <th scope="col">Titel</th>
-          <th scope="col">Typ</th>
-          <th scope="col">Aktion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr rv-each-calendar="calendars">
-          <td class="text-center">
-           <span rv-show="calendar.active">✓</span>
-           <span rv-hide="calendar.active"></span>
-          </td>
-          <td>{calendar.name}</td>
-          <td>{calendar.type}</td>
-          <td>
-              <button class="btn btn-link" data-href="{{'firebase/calendar-edit' |page({ id: ':id' }) }}" rv-data-id="calendar.id" rv-on-click="edit">Bearbeiten</button>
-              <button class="btn btn-danger" rv-data-id="calendar.id" rv-on-click="delete">Löschen</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <a href="{{'firebase/calendar-create' |page }}" class="btn btn-primary">Kalender anlegen</a>
-</template>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Aktiviert</th>
+      <th scope="col">Titel</th>
+      <th scope="col">Typ</th>
+      <th scope="col">Aktion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr rv-each-calendar="calendars">
+      <td class="text-center">
+       <span rv-show="calendar.active">✓</span>
+       <span rv-hide="calendar.active"></span>
+      </td>
+      <td>{calendar.name}</td>
+      <td>{calendar.type}</td>
+      <td>
+          <button class="btn btn-link" data-href="{{'firebase/calendar-edit' |page({ id: ':id' }) }}" rv-data-id="calendar.id" rv-on-click="edit">Bearbeiten</button>
+          <button class="btn btn-danger" rv-data-id="calendar.id" rv-on-click="delete">Löschen</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="{{'firebase/calendar-create' |page }}" class="btn btn-primary">Kalender anlegen</a>
