@@ -1,7 +1,19 @@
 [viewBag]
 ==
-<p>test</p>
 <rv-select
     values= "selectEventValues"
+    label=""
     on-change="onSelectEventChanged"
 ></rv-select>
+
+<datepicker placeholder="'Datum'" format="'DD.MM.YYYY'" lang="'de'" placeholder="'Datum'" on-change="onDateChanged"></datepicker>
+
+<rv-select
+    values= "members"
+    label=""
+    on-change="onMembersChanged"
+></rv-select>
+
+<span class="price">{event.price} EUR</span>
+
+<button class="btn btn-outline-dark">Tour buchen</button>

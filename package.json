@@ -5,13 +5,16 @@
   "main": "index.js",
   "homepage": "http://www.jumplink.eu",
   "scripts": {
-    "theme_settings": "node ./utilities/bootstrap_theme_settings.js && node ./utilities/merge_theme_settings.js"
+    "theme_settings": "node ./utilities/bootstrap_theme_settings.js && node ./utilities/merge_theme_settings.js",
+    "doc": "node utilities/doc.js"
   },
   "author": "Pascal Garber <pascal.jumplink.eu>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "js-yaml": "^3.6.1",
-    "write-yaml": "^0.2.2"
+    "write-yaml": "^0.2.2",
+    "documentation": "^6.0.0"
   }
 }

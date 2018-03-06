@@ -1,7 +1,7 @@
 [viewBag]
 ==
 {# .img-wrapper is also for loading animations #}
-<div rv-if="ready" class="img-wrapper" rv-if="ready">
+<div class="img-wrapper">
     <spinner name="'pulse'" color-class="'gray-light'"></spinner>
     <div rv-if="ratio" rv-data-src="src" rv-title="alt" class="img lazy img-fluid background-box" rv-style="style"></div>
     <img rv-if="ratio | not" rv-data-src="src" rv-alt="alt" class="img lazy img-fluid" rv-style="style">

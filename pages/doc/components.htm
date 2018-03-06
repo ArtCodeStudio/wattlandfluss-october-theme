@@ -5,6 +5,21 @@ description = "Components in this theme are based on Rivets.js."
 is_hidden = 0
 contentType = "html"
 ==
+<?php
+use Cms\Classes\Theme;
+use Debugbar as Debugbar;
+
+function onStart()
+{
+    $theme = Theme::getActiveTheme();
+    $basePath = "assets/javascript/components/";
+    $path = $theme->getPath()."/".$basePath;
+    $filenames = preg_grep('~\.js~', scandir($path));
+    $components = str_replace ('.js', '', $filenames);
+    $this['components'] = $components;
+}
+?>
+==
 {# header #}
 <header class="pt-5 pb-4 gradient-info-success-info-success-bg animated-gradient text-white">
     <div class="container">
@@ -28,10 +43,17 @@ contentType = "html"
             <div class="alert alert-success" role="alert">
               <strong>Mind!</strong> You should be familiar with the <a href="http://rivetsjs.com/">Rivets.js</a> to understand how the components and this templates are working.
             </div>
-            <h2>Spinner</h2>
+            
+            {% for component in components %}
+                <a href="/doc/components/{{component}}" class="d-flex align-items-center" title="{{component}}">
+                    {{component}}
+                </a>
+            {% endfor %}
+            
+            
             <div class="row">
                 <div class="col-xs-12">
-                    If you want to show a spinneer e.g as loading animation as long as the user is waiting for anythin you can use the spinner component:
+                    If you want to show a spinneer e.g. as loading animation as long as the user is waiting for anythin you can use the spinner component:
                     <spinner name="'rotating-plane'"></spinner>
                     HTML:
                     <pre class="language-html mb-3"><code class="language-html">{% filter escape %}<spinner name="'rotating-plane'"></spinner>{% endfilter %}</code></pre>

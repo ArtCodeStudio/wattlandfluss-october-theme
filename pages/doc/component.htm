@@ -1,0 +1,107 @@
+title = "Components/Component"
+url = "/doc/components/:component"
+layout = "jumplink-barba"
+is_hidden = 0
+contentType = "html"
+==
+<?php
+use Cms\Classes\Theme;
+function onStart()
+{
+    $this['component'] = $this->param('component');
+    
+    $theme = Theme::getActiveTheme();
+    
+    $jsBasePath = "assets/javascript/components/";
+    $jsPath = $theme->getPath()."/".$jsBasePath.$this['component'].'.js';
+    if (file_exists($jsPath)) {
+        $this['javascriptCode'] = file_get_contents($jsPath);
+    } else {
+        $this['javascriptCode'] = '';
+    }
+    
+    $templateBasePath = "partials/jumplink-rivets-templates/";
+    $templatePath = $theme->getPath()."/".$templateBasePath.$this['component'].'.htm';
+    if (file_exists($templatePath)) {
+        $this['templateCode'] = $this->renderPartial('jumplink-rivets-templates/'.$this['component'].'.htm');
+    } else {
+        $this['templateCode'] = '';
+    }
+    
+    $styleBasePath = "assets/scss/components/";
+    $stylePath = $theme->getPath().'/'.$styleBasePath.'_'.$this['component'].'.scss';
+    if (file_exists($stylePath)) {
+        $this['styleCode'] = file_get_contents($stylePath);
+    } else {
+        $this['styleCode'] = '';
+    }
+
+}
+?>
+==
+{# header #}
+<header class="pt-5 pb-4 gradient-info-success-info-success-bg animated-gradient text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="d-flex d-flex align-items-center">
+                    {{component}}
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>
+                Documentation<br>
+            </h1>
+            
+            <div class="alert alert-success" role="alert">
+              <strong>Note!</strong>
+              The documentation markdown file can be generatet with <code>npm run doc</code> in the root of this theme.
+              The markdown file is located at <code>content/javascript-components-docs/{{component}}.md</code>
+            </div>
+            
+            {% content 'javascript-components-docs/' ~ component ~ '.md' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>
+                Template
+            </h1>
+        </div>
+        <div class="col-xs-12">
+            <small>partials/jumplink-rivets-templates/{{component}}.htm</small>
+            <pre class="language-javascript mb-3"><code class="language-html"><xmp>{{templateCode | raw}}</xmp></code></pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>
+                JavaScript
+            </h1>
+        </div>
+        <div class="col-xs-12">
+            <small>assets/javascript/components/{{component}}.js</small>
+            <pre class="language-javascript mb-3"><code class="language-javascript"><xmp>{{javascriptCode | raw}}</xmp></code></pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>
+                Style
+            </h2>
+        </div>
+        <div class="col-xs-12">
+            <small>assets/scss/components/_{{component}}.scss</small>
+            <pre class="language-scss mb-3"><code class="language-scss"><xmp>{{styleCode | raw}}</xmp></code></pre>
+        </div>
+    </div>
+    
+
+    
+</div>

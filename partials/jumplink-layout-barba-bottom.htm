@@ -2,6 +2,26 @@ description = "bottom html code for barba layouts"
 
 [viewBag]
 ==
+<?php
+use Cms\Classes\Theme;
+use Debugbar as Debugbar;
+
+function onStart()
+{
+    $theme = Theme::getActiveTheme();
+    $basePath = "assets/javascript/components/";
+    $path = $theme->getPath()."/".$basePath;
+    $components = preg_grep('~\.js~', scandir($path));
+    
+    $javascriptComponents = array();
+    foreach ($components as $index => $componentName) {
+        $javascriptComponents[] = $basePath.$componentName;
+    }
+    
+    $this['jsComponents'] = $javascriptComponents;
+}
+?>
+==
 </div>
             </div>
             {% partial 'jumplink-footer' %}
@@ -61,7 +81,8 @@ description = "bottom html code for barba layouts"
          # * Moment.js for events and dates
          # * Debug for seperation in debug messages in the browser console (need to build the browser version)
          # * Platform.js for browser detection
-         # * PIGNOSE Calendar is beautiful and eidetic jQuery date picker plguin. https://www.pigno.se/barn/PIGNOSE-Calendar/
+         # * TODO remove PIGNOSE Calendar is beautiful and eidetic jQuery date picker plguin. https://www.pigno.se/barn/PIGNOSE-Calendar/
+         # * Automatically adds datepickers to input[type=date] on IE, Firefox, and OS X Safari.
          # * Summernote Bootstrap WYSIWYG https://summernote.org/
          # * PhotoSwipe - JavaScript image gallery for mobile and desktop, modular, framework independent http://photoswipe.com
          # * Masonry - https://github.com/desandro/masonry
@@ -118,13 +139,10 @@ description = "bottom html code for barba layouts"
             'assets/javascript/partials.js',
             'assets/javascript/firebase.js',
             
-            'assets/javascript/components.js',
             'assets/javascript/adapters.js',
             'assets/javascript/binders.js',
-            'assets/javascript/formatters.js',
-            
-            'assets/javascript/app.js',
-        ]|theme }}"></script>
+            'assets/javascript/formatters.js'
+        ] | merge(jsComponents) | merge(['assets/javascript/app.js']) |theme }}"></script>
         
         {% framework %}
         {% scripts %}

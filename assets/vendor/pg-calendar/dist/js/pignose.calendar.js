@@ -1,4 +1,3 @@
-
 (function (root, factory) {
     if (root === undefined && window !== undefined) root = window;
     if (typeof define === 'function' && define.amd) {
@@ -708,7 +707,7 @@ define('configures/i18n',[], function () {
         cancel: '取消'
       },
       de: {
-        ok: 'Scheck',
+        ok: 'Okay',
         cancel: 'Abbrechen'
       },
       jp: {

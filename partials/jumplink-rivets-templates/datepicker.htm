@@ -1,0 +1,7 @@
+[viewBag]
+==
+<div class="form-group">
+    <label rv-if="label" rv-for="id">{label}</label>
+    <input type="text" class="form-control" rv-id="id" rv-aria-describedby="id | append '-desc'" rv-paceholder="placeholder">
+    <small rv-if="description" rv-id="id | append '-desc'" class="form-text text-muted">{description}</small>
+</div>
