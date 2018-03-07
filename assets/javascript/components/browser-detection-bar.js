@@ -1,43 +1,24 @@
 /**
- * Replace platform placeholders in html by `selectionString`
+ * Single file of the preview-files component
  */
-window.jumplink.initBrowserDetectionTemplate = function (selectionString) {
-  window.jumplink.debug.browser('initBrowserDetectionTemplate', selectionString);
-  var $content = $(selectionString);
-  var html = $content.html();
+rivets.components['browser-detection-bar'] = {
 
-  for (var key in platform){
-    if (platform.hasOwnProperty(key)) {
-      // window.jumplink.debug.browser('Key is ' + key + ', value is ' + platform[key]);
-      var value = platform[key];
-      // Transorm boolean to Ja / Nein
-      if(typeof(value) === 'boolean') {
-        value = value === true ? 'Ja' : 'Nein';
-      }
-      // remove unsetted values from template
-      if(value === null || typeof(value) === 'undefined') {
-        value = '';
-      }
-      html = html.replace(new RegExp('{platform\.'+key+'}', 'g'), value+' ');
-    }
+  template: function() {
+    return jumplink.templates['browser-detection-bar'];
+  },
+
+  initialize: function(el, data) {
+    var controller = this;
+    controller.debug = debug('rivets:browser-detection-bar');
+    var $el = $(el);
+    controller.debug('initialize', $el, data);
+    
+    controller.platform = window.jumplink.initBrowserDetection();
+
+    
+    return controller;
   }
-  for (var key in platform.os){
-    if (platform.os.hasOwnProperty(key) && key !== 'toString') {
-      window.jumplink.debug.browser('Key is ' + key + ', value is ' + platform.os[key]);
-      var value = platform.os[key];
-      // Transorm boolean to Ja / Nein
-      if(typeof(value) === 'boolean') {
-        value = value === true ? 'Ja' : 'Nein';
-      }
-      // remove unsetted values from template
-      if(value === null || typeof(value) === 'undefined') {
-        value = '';
-      }
-      html = html.replace(new RegExp('{platform\.os\.'+key+'}', 'g'), value+' ');
-    }
-  }
-  $content.html(html);
-}
+};
 
 /**
  * Detect the browser, sets platform.supported to true if the browser is supported by themes theme
@@ -151,7 +132,7 @@ window.jumplink.initBrowserDetection = function () {
 
   window.jumplink.debug.browser('platform', platform);
 
-  window.jumplink.initBrowserDetectionTemplate('#jumplink-browser-detection-bar');
+  // window.jumplink.initBrowserDetectionTemplate('#jumplink-browser-detection-bar');
 
   if(platform.supported) {
     jumplink.cache.$body.removeClass('browser-not-supported').addClass('browser-supported');
@@ -159,5 +140,5 @@ window.jumplink.initBrowserDetection = function () {
     jumplink.cache.$body.removeClass('browser-supported').addClass('browser-not-supported');
   }
 
-  return platform.supported;
+  return platform;
 }

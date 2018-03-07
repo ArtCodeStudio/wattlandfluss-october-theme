@@ -11,6 +11,7 @@ window.jumplink.debug.templates = debug('theme:templates');
 
 // rivets model
 window.jumplink.model = {};
+window.jumplink.boundView;
 
 
 window.jumplink.templates.init = function(dataset, data) {
@@ -28,16 +29,24 @@ window.jumplink.templates.init = function(dataset, data) {
 window.jumplink.firstNewPageReadyEvent = true;
 
 
-window.jumplink.templates.prepairTemplate = function(dataset) {
+window.jumplink.templates.prepairTemplate = function(container, dataset) {
     
     // console.log('newPageReady');
-    var data = window.jumplink.utilities.parseDatasetJsonStrings(dataset);
+    var data = jumplink.utilities.parseDatasetJsonStrings(dataset);
 
-    window.jumplink.model.dataset = dataset;
+    jumplink.model.dataset = dataset;
     
-    rivets.bind($('#barba-wrapper'), window.jumplink.model);
-
-    window.jumplink.utilities.closeAllModals();
+    // if(window.jumplink.boundView) {
+    //  jumplink.boundView.unbind();
+    // }
+    jumplink.boundView = rivets.bind($(container), window.jumplink.model);
+    
+    // init browser-detection-bar seperate because its outsite of barba container
+    if(!platform.supported) {
+        rivets.init('browser-detection-bar', $('body'), {platform: window.platform});
+    }
+    
+    jumplink.utilities.closeAllModals();
     jumplink.initDataApi();
     jumplink.resetNav();
     jumplink.utilities.setBodyId(dataset.namespace);
@@ -45,7 +54,7 @@ window.jumplink.templates.prepairTemplate = function(dataset) {
     jumplink.initMomentDataApi();
     
     if(typeof(Prism) !== 'undefined') {
-        Prism.highlightAll();
+        Prism.highlightAll(); // To make a component for this
     }
 
     // preload images again if failed in barba or this is the first page request
@@ -57,10 +66,10 @@ window.jumplink.templates.prepairTemplate = function(dataset) {
     
     // window.jumplink.initDataAttributes(dataset);
     
-    //  window.jumplink.setNavActive(dataset, data);
+    // window.jumplink.setNavActive(dataset, data);
     
     
-    jumplink.utilities.hyphenate();
+    jumplink.utilities.hyphenate(); // todo make a component for this
     
     jumplink.debug.templates('dataset', dataset, 'data', data);
     
@@ -95,7 +104,7 @@ window.jumplink.templates['no-barba'] = function (dataset, data) {
  * e.g. /pages/browser-detection
  */
 window.jumplink.templates['system-browser-detection'] = function (dataset, data) {
-  window.jumplink.initBrowserDetectionTemplate('#browser-info');
+  // window.jumplink.initBrowserDetectionTemplate('#browser-info');
 };
 
 /**

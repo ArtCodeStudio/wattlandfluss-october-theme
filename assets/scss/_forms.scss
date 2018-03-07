@@ -1,4 +1,3 @@
-
 // material design like inputs
 .form-group {
     
@@ -17,7 +16,7 @@
             visibility 0.3s ease-in-out;
         }
         
-        &:focus, &:valid {
+        &:focus {
             &::-webkit-input-placeholder {
                 color: $black;
                 font-size: 0.8em;

@@ -275,7 +275,7 @@ var initTemplates = function () {
 
   Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {
           
-    window.jumplink.templates.prepairTemplate(container.dataset);
+    window.jumplink.templates.prepairTemplate(container, container.dataset);
    
   });
 };
@@ -537,7 +537,6 @@ var initBarba = function () {
 var init = function ($) {
     jumplink.cacheSelectors();
     jumplink.setLanguage();
-    jumplink.initBrowserDetection();
     initBarba();
 }
 

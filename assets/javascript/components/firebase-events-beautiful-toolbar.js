@@ -20,7 +20,7 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     
     controller.onSelectEventChanged = function(selectedEvent) {
         controller.debug('onSelectEventChanged', selectedEvent);
-        controller.event = selectedEvent;
+        controller.event = controller.events[selectedEvent.index];
     };
     
     controller.onSelectMemberChanged = function(member) {
@@ -37,7 +37,7 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     
     controller.events.forEach(function(event, i) {
         controller.selectEventValues.push({
-            id: i,
+            index: i,
             label: event.title,
             value: event.id,
         });
@@ -46,9 +46,9 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     controller.date;
     
     controller.members = [
-        {id: 1, label: '10 Teilnehmer', value: 10},
-        {id: 2, label: '20 Teilnehmer', value: 20},
-        {id: 3, label: '30 Teilnehmer', value: 30},
+        {index: 0, label: '10 Teilnehmer', value: 10},
+        {index: 1, label: '20 Teilnehmer', value: 20},
+        {index: 2, label: '30 Teilnehmer', value: 30},
     ];
     
     controller.member = controller.members[0];

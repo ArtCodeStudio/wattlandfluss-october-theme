@@ -43,7 +43,7 @@ rivets.components['rv-img'] = {
         /**  called before an elements gets handled */
         beforeLoad: function(element) {
             controller.loaded = false;
-            $el.off('DOMSubtreeModified');
+            // $el.off('DOMSubtreeModified');
             controller.debug('[beforeLoad]', element, controller);
             if (jumplink.utilities.isFunction(data.beforeLoad)) {
                 data.beforeLoad($el, controller);
@@ -53,7 +53,6 @@ rivets.components['rv-img'] = {
         /**  called after an element was successfully handled */
         afterLoad: function(element) {
             controller.loaded = true;
-            $el.find('spinner').remove();
             controller.debug('[afterLoad]', element, controller);
             // controller.style = 'padding-top: ' + controller.heightInPercent + '%;';
             if (jumplink.utilities.isFunction(data.afterLoad)) {
@@ -63,6 +62,7 @@ rivets.components['rv-img'] = {
         
         /** called whenever an element could not be handled */
         onError: function(element) {
+            controller.loaded = false;
             controller.debug('[onError] image "' + controller.src + '" could not be loaded');
             if (jumplink.utilities.isFunction(data.onError)) {
                 data.onError($el, controller);
@@ -72,6 +72,7 @@ rivets.components['rv-img'] = {
         /**  called once all elements was handled */
         onFinishedAll: function() {
             controller.loaded = true;
+            // $el.find('spinner').hide();
             controller.debug('[onFinishedAll]', controller);
             if (jumplink.utilities.isFunction(data.onFinishedAll)) {
                 data.onFinishedAll($el, controller);
@@ -88,12 +89,24 @@ rivets.components['rv-img'] = {
         controller.debug('ready mutationsList', mutationsList);
         var $img = $el.find('.lazy');  
         if($img.length) {
+            var data = $img.data();
+            if(!data.src) {
+                console.warn('component was not rendered correctly! Do a WORKAROUND');
+                rivets.bind($img, controller); // WORKAROUND
+                jumplink.utilities.triggerResize();
+            }
             $img.Lazy(options);
             controller.debug('init Lazy', options, $img, $img.data());
+        } else {
+            
         }
-    }
-        
-    $el.on('DOMSubtreeModified', ready); // this event is unbind on beforeLoad callback
+    }  
+
+    $el.one('DOMSubtreeModified', function() {
+        setTimeout(function() {
+            ready();
+        }, 0);     
+    });
             
     return controller;
   }

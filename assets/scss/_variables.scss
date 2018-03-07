@@ -1,39 +1,22 @@
 $black: #000 !default;
 $font-path:        "./fonts" !default;
+
 $slick-font-path:  $font-path !default;
 $slick-font-family: "" !default;
 $slick-loader-path: "./images/" !default;
-$slick-arrow-color: $black !default;
-$slick-dot-color: $black !default;
-$slick-dot-color-active: $black !default;
-$slick-prev-character: "" !default; // $fa-var-chevron-left; // "←" !default;
-$slick-next-character: "" !default; // $fa-var-chevron-right; // "→" !default;
-$slick-dot-character: "" !default; // $fa-var-circle-o; // $fa-var-circle-thin;
-$slick-active-dot-character: "" !default; // $fa-var-circle; // "•" !default;
-$slick-dot-size: 0 !default;
+$slick-arrow-color: $gray !default;
+$slick-dot-color: $gray !default;
+$slick-dot-color-active: $slick-dot-color !default;
+$slick-prev-character: '' default; // $fa-var-chevron-left;
+$slick-next-character: '' default; // $fa-var-chevron-right;
+$slick-dot-character: '' default; // $fa-var-circle-o;
+$slick-active-dot-character: '' default; // $fa-var-circle;
+$slick-dot-size: 9px default;
 $slick-opacity-default: 1 !default;
 $slick-opacity-on-hover: 1 !default;
 $slick-opacity-not-active: 1 !default;
 $slick-arrow-opacity-on-hover: 1 !default;
 $slick-arrow-opacity-disabled: 0.4 !default;
-
-
-$font-path:        "./fonts";
-
-$fa-font-path: "../vendor/components-font-awesome/fonts/";
-
 $slick-font-path: "../vendor/slick-carousel/slick/fonts/";
 $slick-loader-path: "../vendor/slick-carousel/slick/";
 $slick-font-family: "FontAwesome";
-
-$slick-arrow-color: $gray;
-$slick-dot-color: $gray;
-$slick-dot-color-active: $slick-dot-color;
-
-$slick-prev-character: $fa-var-chevron-left;
-$slick-next-character: $fa-var-chevron-right;
-$slick-dot-character: $fa-var-circle-o;
-$slick-active-dot-character: $fa-var-circle;
-
-$slick-dot-size: 9px;
-

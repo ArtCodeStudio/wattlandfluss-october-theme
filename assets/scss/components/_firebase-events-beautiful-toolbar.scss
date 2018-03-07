@@ -1,16 +1,23 @@
 firebase-events-beautiful-toolbar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #D9E5EE;
-    z-index: 1000;
+    display: block;
+    z-index: 3003;
     
-    .form-group {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        .form-control {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
+    &.pos-sticky {
+        top: -5px;
+    }
+    div {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: $gray;
+        
+        .form-group {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            .form-control {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        } 
     }
 }

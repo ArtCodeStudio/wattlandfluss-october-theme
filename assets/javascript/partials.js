@@ -120,7 +120,7 @@ window.jumplink.partials['jumplink-sidebar'] = function($partials, $partial, dat
           quitter: closingLinks // sidebar.closingLinks
         },
         sidebar: {
-          width: $(window).width() > 768 ? 500 : '40vw',
+          width: function() {return $(window).width() > 768 ? 500 : '40vw'},
         },
         mask: {
           display: mask,

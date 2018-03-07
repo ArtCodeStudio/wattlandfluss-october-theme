@@ -7,3 +7,8 @@ select {
 :focus {
     outline: 0 !important;
 }
+
+body {
+    // important for position sticky elements!
+    overflow: initial !important;
+}

@@ -3,6 +3,8 @@ template {
     display: none;
 }
 
+@import "browser-detection-bar";
+
 @import 'rv-img';
 
 @import 'firebase-events-beautiful';

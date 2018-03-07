@@ -1,18 +1,11 @@
 // todo remove
-@import "../vendor/font-awesome/scss/font-awesome";
+// @import "../vendor/font-awesome/scss/font-awesome";
 
 // variables we neeed for all other scss files
 @import "variables";
 
 // overwrite variables only for this theme 
 @import "theme-variables";
-
-// slick styles
-@import "../vendor/slick-carousel/slick/slick";
-@import "../vendor/slick-carousel/slick/slick-theme";
-
-// leaflet styles
-@import "../vendor/leaflet/dist/leaflet.css";
 
 // browser prefixes rendered in scss
 @import '../vendor/sass-prefix-mixins/scss/prefixes';

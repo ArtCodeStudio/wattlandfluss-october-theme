@@ -365,7 +365,7 @@ snippetProperties[ratio][options][] = ""
     >
     <div class="row">
         <div class="{{columnClass}} {{columnSpacingClass}}">
-            <{{wrapperTag}} class="wrapper" href="{{url | app}}">
+            <{{wrapperTag}} class="wrapper" {%if url %}href="{{url | app}}"{% endif %}>
                 {# content layer with the selected background color #}
                 <div class="{{contentLayerClass}}" >
                     <div class="content {{contentPostionClass}} {{contentSpacingClass}}">

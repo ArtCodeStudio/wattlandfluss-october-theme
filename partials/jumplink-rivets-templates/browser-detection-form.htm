@@ -1,0 +1,309 @@
+[viewBag]
+==
+<div class="col-xs-12 visible-on-browser-not-supported">
+    <div class="alert alert-warning">
+      <strong>Wir haben {platform.name} {platform.version} unter {platform.os} bei Ihnen erkannt</strong>.<br>
+      Ihr Browser ist veraltet, daher können wir nicht garantieren, dass alles ornundgsgemäß funktioniert.
+      Damit Sie unseren Shop im vollen Umpfang erleben können, aktualisieren Sie bitte Ihren Browser. 
+      Weitere Vorteile weshalb Sie aktualisieren sollten können <strong><a href="http://browser-update.org/update.html">hier nachgelesen werden</a></strong>.
+    </div>
+  </div>
+
+  <div class="col-xs-12 visible-on-browser-supported">
+    <div class="alert alert-success">
+      Super! Diese Seite ist für Ihren Browser optimiert, daher sollte alles ordnungsgemäß funktionieren. Falls es doch zu Problemen kommen sollte, haben Sie hier die Möglichkeit uns einen Fehlerbericht zu senden.
+    </div>
+  </div>
+
+  <div class="col-xs-12 visible-on-browser-not-supported">
+  
+    <div class="visible-on-linux">
+        <div class="row">
+          <div class="col-xs-12">
+            <p>{{ 'browser.update.install_text' |_ }}</p>
+          </div>
+          <div class="col-xs-12 col-md-3 firefox-link">
+            <a href="https://www.mozilla.com/firefox/">
+              Firefox<br>
+              <small>Mozilla Foundation</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 chrome-link">
+            <a href="https://www.google.com/chrome/browser/desktop/">
+              Chrome<br>
+              <small>Google</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 opera-link">
+            <a href="https://www.opera.com/">
+              Opera<br>
+              <small>Opera Software</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 vivaldi-link">
+            <a href="https://vivaldi.com/">
+              Vivaldi<br>
+              <small>Vivaldi Technologies</small>
+            </a>
+          </div>
+        </div>
+    </div>
+
+    <div class="visible-on-windows">
+        <div class="row">
+          <div class="col-xs-12">
+            <p>{{ 'browser.update.install_text' |_ }}</p>
+          </div>
+          <div class="col-xs-12 col-md-3 firefox-link">
+            <a href="https://www.mozilla.com/firefox/">
+              Firefox<br>
+              <small>Mozilla Foundation</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 chrome-link">
+            <a href="https://www.google.com/chrome/browser/desktop/">
+              Chrome<br>
+              <small>Google</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 opera-link">
+            <a href="https://www.opera.com/">
+              Opera<br>
+              <small>Opera Software</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 edge-link">
+            <a href="https://www.microsoft.com/en-US/windows/microsoft-edge">
+              Edge<br>
+              <small>Microsoft</small>
+            </a>
+          </div>
+        </div>
+    </div>
+
+    <div class="visible-on-osx">
+        <div class="row">
+          <div class="col-xs-12">
+            <p>{{ 'browser.update.install_text' |_ }}</p>
+          </div>
+          <div class="col-xs-12 col-md-3 firefox-link">
+            <a href="https://www.mozilla.com/firefox/">
+              Firefox<br>
+              <small>Mozilla Foundation</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 chrome-link">
+            <a href="https://www.google.com/chrome/browser/desktop/">
+              Chrome<br>
+              <small>Google</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 opera-link">
+            <a href="https://www.opera.com/">
+              Opera<br>
+              <small>Opera Software</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 safari-link">
+            <a href="https://support.apple.com/en-us/HT204416">
+              Safari<br>
+              <small>Apple</small>
+            </a>
+          </div>
+        </div>
+    </div>
+
+    <div class="visible-on-ios">
+      {# Unter iPad/iPhone kann der eingebaute Browser nur zusammen mit dem Betriebssystem aktualisiert werden. #}
+      <p>{{ 'browser.update.i_os_text_line_1' |_ }}</p>
+      
+      <p>
+          {# Bitte versuchen Sie #}
+          {{ 'browser.update.text_please' |_ }}
+          {# iOS zu aktualisieren #}
+          <a class="text-info" href="https://support.apple.com/de-de/HT204204">{{ 'browser.update.text_please_name'|_({ name: 'iOS' }) }}</a>
+          {# , um die neuste Version benutzen zu können. #}
+          {{ 'browser.update.text_please_2' |_ }}</p>
+    </div>
+
+    <div class="col-xs-12 visible-on-android">
+      <p>Sie können sich einen der folgenden unterstützen Browser herunterladen:</p>
+      <div class="row">
+        <div class="col-xs-12 col-md-4 firefox-link">
+          <a href="https://play.google.com/store/apps/details?id=org.mozilla.firefox">
+            Firefox<br>
+            <small>Mozilla Foundation</small>
+          </a>
+        </div>
+        <div class="col-xs-12 col-md-4 chrome-link">
+          <a href="https://play.google.com/store/apps/details?id=com.android.chrome">
+            Chrome<br>
+            <small>Google</small>
+          </a>
+        </div>
+        <div class="col-xs-12 col-md-4 opera-link">
+          <a href="https://play.google.com/store/apps/details?id=com.opera.browser">
+            Opera<br>
+            <small>Opera Software</small>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="visible-on-windows-phone">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="alert alert-danger">
+              <p>Leider wird Windows Phone nicht mehr weiter entwickelt, wir empfehlen Ihnen daher in Zukunft auf ein anderes Gerät mit einem aktuellen Browser zu wechseln.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="visible-on-chrome-os">
+        <div class="row">
+          <div class="col-xs-12">
+            <p>{{ 'browser.update.chrome_os_text_line_1' |_ }}</p>
+            <p>{{ 'browser.update.text_please' |_ }} <a class="text-info" href="https://support.google.com/chromebook/answer/177889">{{ 'browser.update.text_please_name'|_({ name: 'Chrome OS' }) }}</a>, {{ 'browser.update.text_please_2' |_ }}</p>
+          </div>
+        </div>
+    </div>
+
+    <div class="visible-on-other">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="alert alert-danger">
+              <p>{{ 'browser.update.install_text' |_ }}</p>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-3 firefox-link">
+            <a href="https://www.mozilla.com/firefox/">
+              Firefox<br>
+              <small>Mozilla Foundation</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 chrome-link">
+            <a href="https://www.google.com/chrome/browser/desktop/">
+              Chrome<br>
+              <small>Google</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 opera-link">
+            <a href="https://www.opera.com/">
+              Opera<br>
+              <small>Opera Software</small>
+            </a>
+          </div>
+          <div class="col-xs-12 col-md-3 vivaldi-link">
+            <a href="https://vivaldi.com/">
+              Vivaldi<br>
+              <small>Vivaldi Technologies</small>
+            </a>
+          </div>
+        </div>
+    </div>
+
+  </div>
+
+  <div class="col-xs-12 m-t-2">
+    <p>{{ 'browser.platform.detected_text' |_ }}</p>
+    <dl class="dl-horizontal">
+      <dt>{{ 'browser.platform.name' |_ }}</dt>
+      <dd>{platform.name}</dd>
+      <dt>{{ 'browser.platform.version' |_ }}</dt>
+      <dd>{platform.version}</dd>
+      <dt>{{ 'browser.platform.version_number' |_ }}</dt>
+      <dd>{platform.version_number}</dd>
+      <dt>{{ 'browser.platform.layout' |_ }}</dt>
+      <dd>{platform.layout}</dd>
+      <dt>{{ 'browser.platform.os' |_ }}</dt>
+      <dd>{platform.os}</dd>
+      <dt>{{ 'browser.platform.family' |_ }}</dt>
+      <dd>{platform.os.family}</dd>
+      <dt>{{ 'browser.platform.supported' |_ }}</dt>
+      <dd>{platform.supported}</dd>
+    </dl>
+  </div>
+
+  <form
+    role="form"
+    data-request="onSubmitBrowserForm"
+    data-request-update="'jumplink-forms/confirm': '.confirm-container'"
+  >
+
+    <div class="col-xs-12 description m-t-2">
+      <p>{{ 'browser.form.text' |_ }}</p>
+    </div>
+
+    <div class="confirm-container">
+        {# Placeholder this will include the send notification #}
+    </div>
+
+    <div class="col-xs-12 col-sm-12" id="contactFormWrapper">
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label class="sr-only">{{ 'contact.form.firstname' |_ }}</label>
+            <input type="text" class="form-control text-left" id="contactFormFirstname" placeholder="{{ 'contact.form.firstname' |_ }}" name="contact[firstname]">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label class="sr-only">{{ 'contact.form.name' |_ }}</label>
+            <input type="text" class="form-control text-left" id="contactFormName" placeholder="{{ 'contact.form.name' |_ }}" name="contact[name]">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label class="sr-only">{{ 'contact.form.email' |_ }}</label>
+            <input type="email" class="form-control text-left" required id="contactFormEmail" placeholder="{{ 'contact.form.email' |_ }}" name="contact[email]">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label class="sr-only">{{ 'contact.form.phone' |_ }}</label>
+            <input type="text" class="form-control text-left" id="contactFormPhone" placeholder="{{ 'contact.form.phone' |_ }}" name="contact[phone]">
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label class="sr-only">Browser</label>
+            <input type="text" class="form-control text-left" required id="contactFormBrowser" placeholder="Browser" rv-value="platform.name" name="contact[browser]">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label class="sr-only">Version</label>
+            <input type="text" class="form-control text-left" required id="contactFormVersion" placeholder="Version" rv-value="platform.version" name="contact[version]">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label class="sr-only">Betriebssystem</label>
+            <input type="text" class="form-control text-left" required id="contactFormOS" placeholder="Betriebssystem" rv-value="platform.os" name="contact[os]">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="form-group">
+            <label class="sr-only">Render-Engine</label>
+            <input type="text" class="form-control text-left" required id="contactFormEngine" placeholder="Render-Engine" rv-value="platform.layout" name="contact[engine]">
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label class="sr-only">{{ 'contact.form.problem_description' |_ }}</label>
+            <textarea required rows="10" class="form-control" id="contactFormMessage" placeholder="{{ 'contact.form.problem_description' |_ }}" name="contact[problem_description]"></textarea>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group text-left">
+            <input type="submit" class="btn btn-primary p-x-1" id="contactFormSubmit" value="{{ 'contact.form.send' |_ }}" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>

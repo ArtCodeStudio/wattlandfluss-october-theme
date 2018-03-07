@@ -1,0 +1,147 @@
+description = "bottom html code for barba layouts"
+
+[viewBag]
+==
+<?php
+use Cms\Classes\Theme;
+use Debugbar as Debugbar;
+
+function onStart()
+{
+    $theme = Theme::getActiveTheme();
+    $basePath = "assets/javascript/components/";
+    $path = $theme->getPath()."/".$basePath;
+    $components = preg_grep('~\.js~', scandir($path));
+    
+    $javascriptComponents = array();
+    foreach ($components as $index => $componentName) {
+        $javascriptComponents[] = $basePath.$componentName;
+    }
+    
+    $this['jsComponents'] = $javascriptComponents;
+}
+?>
+==
+<browser-detection-bar></browser-detection-bar>
+
+{# templates for slick #}
+<template id="slick-prev-arrow">
+    <button type="button" data-role="none" class="slick-prev slick-prev-iconset slick-arrow w-24 h-24" aria-label="Previous" role="button">
+        {% partial 'jumplink-iconset' name='arrow_carrot_thin' direction='left' color='gray' size='24' %}
+    </button>
+</template>
+
+<template id="slick-next-arrow">
+    <button type="button" data-role="none" class="slick-next slick-next-iconset slick-arrow w-24 h-24" aria-label="Next" role="button">
+        {% partial 'jumplink-iconset' name='arrow_carrot_thin' direction='right' color='gray' size='24' %}
+    </button>
+</template>
+
+<p class="hyphenate" lang="de" style="display:none;">FORCEHYPHENOPOLY</p>
+
+{# templates for rivets.js #}
+{% partial 'jumplink-rivets-templates/default' %}
+
+<script>
+    var Hyphenopoly = {
+        require: {
+            "de": "Elektrizitätskraftwerk"
+        },
+        paths: {
+            patterndir: "{{'assets/vendor/Hyphenopoly/patterns' | theme}}/",
+            maindir: "{{'assets/vendor/Hyphenopoly' | theme}}/"
+        },
+        setup: {
+            classnames: {
+                "hyphenate": {}
+            }
+        }
+    };
+</script>
+
+{#
+ # Deps:
+ # * juery because its jQuery
+ # * jquery.lazy to load images, videos and more asnyc
+ # * tether for bootstrap
+ # * Bootstrap 4 because its Bootstrap
+ # * jquery.simpler-sidebar for sidebars
+ # * itemslite - A simple and beautiful JavaScript touch carousel (https://github.com/JumpLinkNetwork/itemslide.github.io)
+ # * TweenMax for barba page transitions, maybe we cloud replace this with native css
+ # * leaflet for location partials
+ # * slick for carousels, slideshows and galleries
+ # * mobile-events
+ # * Hyphenopoly - JavaScript polyfill for client-side hyphenation - https://github.com/mnater/Hyphenopoly
+ # * Prism for syntax highlighting in the docs
+ # * Moment.js for events and dates
+ # * Debug for seperation in debug messages in the browser console (need to build the browser version)
+ # * Platform.js for browser detection
+ # * TODO remove PIGNOSE Calendar is beautiful and eidetic jQuery date picker plguin. https://www.pigno.se/barn/PIGNOSE-Calendar/
+ # * Automatically adds datepickers to input[type=date] on IE, Firefox, and OS X Safari.
+ # * Summernote Bootstrap WYSIWYG https://summernote.org/
+ # * PhotoSwipe - JavaScript image gallery for mobile and desktop, modular, framework independent http://photoswipe.com
+ # * Masonry - https://github.com/desandro/masonry
+ # * Firebase for own client site extensions like the event managment
+ # * Sightglass for rivets
+ # * Rivets for dynamic templates like angular but much simpler
+ # * barba for async page loading
+ # *
+ # TODO check if jquery.lazy.plugins.js is usefull http://jquery.eisbehr.de/lazy/
+ #}
+<script src="{{ [
+    'assets/vendor/jquery/dist/jquery.js',
+    'assets/vendor/jquery-lazy/jquery.lazy.js',
+    'assets/vendor/jquery-lazy/jquery.lazy.plugins.js',
+    'assets/vendor/tether/dist/js/tether.js',
+    'assets/vendor/bootstrap/dist/js/bootstrap.js',
+    'assets/vendor/simpler-sidebar/dist/jquery.simpler-sidebar.js',
+    'assets/vendor/itemslide/dist/itemslide.js',
+    'assets/vendor/gsap/src/uncompressed/TweenMax.js',
+    'assets/vendor/leaflet/dist/leaflet.js',
+    'assets/vendor/slick-carousel/slick/slick.js',
+    'assets/vendor/jquery-touch-events/src/jquery.mobile-events.js',
+    'assets/vendor/Hyphenopoly/Hyphenopoly_Loader.js',
+    'assets/vendor/prism/prism.js',
+    'assets/vendor/moment/min/moment-with-locales.js',
+    'assets/vendor/vivus/dist/vivus.js',
+    'assets/vendor/visionmedia-debug/dist/debug.js',
+    'assets/vendor/platform.js/platform.js',
+    'assets/vendor/pg-calendar/dist/js/pignose.calendar.js',
+    'assets/vendor/summernote/dist/summernote-bs4.js',
+    'assets/vendor/photoswipe/dist/photoswipe.js',
+    'assets/vendor/photoswipe/dist/photoswipe-ui-default.js',
+    'assets/vendor/masonry-layout/dist/masonry.pkgd.js',
+    'assets/vendor/firebase/firebase.js',
+    'assets/vendor/firebase/firebase-firestore.js',
+    'assets/vendor/firebase//firebase-storage.js',
+    'assets/vendor/sightglass/index.js',
+    'assets/vendor/rivets/dist/rivets.js',
+    'assets/vendor/barba.js/dist/barba.min.js',
+]|theme }}" ></script>
+
+<script>
+    L.Icon.Default.imagePath = "{{'/assets/vendor/leaflet/dist/images/' | theme}}";
+</script>
+
+ {# Own #}
+<script src="{{ [
+    'assets/javascript/utilities.js',
+    'assets/javascript/styleicons.js',
+    'assets/javascript/sticky-kit.js',
+    'assets/javascript/dataApi.js',
+    'assets/javascript/templates.js',
+    'assets/javascript/partials.js',
+    'assets/javascript/firebase.js',
+    
+    'assets/javascript/adapters.js',
+    'assets/javascript/binders.js',
+    'assets/javascript/formatters.js'
+] | merge(jsComponents) | merge(['assets/javascript/app.js']) |theme }}"></script>
+
+{% framework %}
+{% scripts %}
+
+ {# start script #}
+<script src="{{ [
+    'assets/javascript/app.js',
+]|theme }}"></script>

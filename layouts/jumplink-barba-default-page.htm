@@ -4,16 +4,30 @@ description = "Inhaltsseite mit Titel (eingeschränkte Breite)"
 useContent = 1
 default = 0
 ==
-{% partial 'jumplink-layout-barba-top' %}
-    <div class="container">
-        <div class="row pt-1 pt-lg-5">
-            <div class="col-xs-12">
-                <h1 class="text-left">{{this.page.title}}</h1>
+<!DOCTYPE html>
+<html lang="de">
+    {% partial 'jumplink-layout-head' %}
+    <body id="body-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}" data-spy="scroll">
+        {# Content #}
+        <div id="layout-content">
+            {% partial 'jumplink-fixed-logo' source='assets/images/logo.svg' position='top-left' width= '10rem' alt='Logo von'~this.theme.site_name %}
+            {% partial 'jumplink-navigation/navbar_only-sidebar' %}
+            <div id="barba-wrapper">
+                <div {% partial 'jumplink-barba-container-attributes' %}>
+                    <div class="container">
+                        <div class="row pt-1 pt-lg-5">
+                            <div class="col-xs-12">
+                                <h1 class="text-left">{{this.page.title}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-5">
+                        {% page %}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="">
-        {% page %}
-    </div>
-{% partial 'jumplink-layout-barba-bottom' %}
+        {% partial 'jumplink-footer' %}
+        {% partial 'jumplink-layout-barba-body' %}
+    </body>
+</html>
