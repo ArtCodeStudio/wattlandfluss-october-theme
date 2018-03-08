@@ -23,7 +23,7 @@ description = "Anrufen"
                 <div class="row">
                     <div class="col-xs-12 col-md-8 offset-md-2 px-3">
                         {% if contentPath %}
-                            {% content contentPath %}
+                            {% component 'contenteditor' file=contentPath tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted" %}
                         {% endif %}
                         <p class="text-center display-4">
                             <a href="tel:{{str_camel(this.theme.phone_number)}}">{{this.theme.phone_number}}</a>

@@ -7,7 +7,10 @@ contentType = "html"
 <div class="container">
     <div class="row pt-5">
         <div class="col-xs-12 col-md-8 offset-md-2 pv-4">
-            {% content 'widerrufsbelehrung'%}
+            {% component 'contenteditor'
+                file='widerrufsbelehrung.htm'
+                tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted"
+            %}
         </div>
     </div>
 </div>

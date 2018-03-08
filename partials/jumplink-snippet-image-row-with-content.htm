@@ -376,7 +376,7 @@ snippetProperties[ratio][options][] = ""
                             <div class="content-text" style="max-width: {{textWidth}};">
                               {{text}}
                               {% if contentPath %}
-                                {% content contentPath %}
+                                {% component 'contenteditor' file=contentPath tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted" %}
                               {% endif %}
                             </div>
                         </div>
