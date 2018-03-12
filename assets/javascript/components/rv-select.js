@@ -70,23 +70,25 @@ rivets.components['rv-select'] = {
         /**
          * Get the selected value of a select option DOM element
          */
-        controller.get = function() { 
+        controller.get = function() {
             $selected = $select.find('option:selected');
             if($selected.length) {
                 $parent = $selected.parent();
+                var data;
+                var value;
                 // is grouped option
                 if($parent.is('optgroup')) {
                     var groupData = $parent.data();
-                    var data = $selected.data();
+                    data = $selected.data();
                     if(groupData.index >= 0 && data.index >= 0) {
-                        var value = controller.values[groupData.index].grouped[data.index];
+                        value = controller.values[groupData.index].grouped[data.index];
                         return value;
                     }
                 } else {
                     // is ungrouped option
-                    var data = $selected.data();
-                    if(data.index >= 0) {
-                        var value = controller.values[data.index];
+                    data = $selected.data();
+                    if(data.index >= 0 && data.index < controller.values.length) {
+                        value = controller.values[data.index];
                         return value;
                     }
                 }
@@ -114,10 +116,11 @@ rivets.components['rv-select'] = {
         };
         
         var onChange = function(value) {
+            $el.trigger('change', value);
             if (jumplink.utilities.isFunction(data.onChange)) {
                 data.onChange(value);
             }
-        }
+        };
         
         /*
          * set the selected value, if not defined as attribute select the first value from the values array

@@ -13,22 +13,24 @@ rivets.components['rv-checkbox'] = {
     var $checkbox = $el.find('input[type="checkbox"]');
     
     controller.ready = false;
-    controller.label = data.label;
-    controller.description = data.description;
-    controller.values = data.values;
-    controller.id = data.id ? 'rv-checkbox-'+data.id : Date.now();
-    controller.checked = data.default;
-    jumplink.utilities.setCheckboxValue($checkbox, controller.checked);
-        
-    $checkbox.change(function() {
-        controller.checked = $checkbox.is(":checked");
-        controller.debug('changed', controller.checked);
-        if (jumplink.utilities.isFunction(data.onChange)) {
-            data.onChange(controller.checked);
-        }
-    });
+
     
     setTimeout(function() {
+        controller.label = data.label;
+        controller.description = data.description;
+        controller.values = data.values;
+        controller.id = data.id ? 'rv-checkbox-'+data.id : Date.now();
+        controller.checked = data.default;
+        jumplink.utilities.setCheckboxValue($checkbox, controller.checked);
+            
+        $checkbox.on('change', function() {
+            controller.checked = $checkbox.is(":checked");
+            controller.debug('changed', controller.checked);
+            $el.trigger('change', controller.checked);
+            if (jumplink.utilities.isFunction(data.onChange)) {
+                data.onChange(controller.checked);
+            }
+        });
         controller.ready = true;
     },0);
     

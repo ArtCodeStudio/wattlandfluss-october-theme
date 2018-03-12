@@ -15,9 +15,9 @@ description = "For Admins: Edit or create an event"
         <small id="eventActiveDesc" class="mt-0 mb-2 form-text text-muted">Nicht aktivierte Veranstaltungen werden ausgeblendet.</small>
     </div>
     
-    <rv-select id="eventType" label="'Typ'" description="'Öffentliche Führungen sind Führungen mit Datum, Führung die angefragt werden können haben kein Datum.'" values="types" on-change="typeChanged"></rv-select>
+    <rv-select id="eventType" label="'Typ'" description="'Öffentliche Führungen sind Führungen mit Datum, Führung die angefragt werden können haben kein Datum.'" values="types" rv-selected="event.type" off-on-change="typeChanged"></rv-select>
     
-    <rv-select id="eventCalendar" label="'Kalender'" description="'Der Kalender in dem die Veranstaltung eingeordnet werden soll.'" values="calendars" on-change="calendarChanged"></rv-select>
+    <rv-select id="eventCalendar" label="'Kalender'" description="'Der Kalender in dem die Veranstaltung eingeordnet werden soll.'" values="calendars" rv-selected="event.calendar"  off-on-change="calendarChanged"></rv-select>
     
     
     <div class="form-group">
@@ -68,7 +68,7 @@ description = "For Admins: Edit or create an event"
         <small id="eventStartAtDesc" class="form-text text-muted">Der Tag des Ereignisses.</small>
     </div>
     
-    <rv-checkbox id="eventShowTimes" description="'Wenn ausgewählt wird die Start und Endzeit angezeigt, ansonsten nicht.'" default="true" label="'Mit Zeiten'" on-change="showTimesChanged"></rv-checkbox>
+    <rv-checkbox id="eventShowTimes" description="'Wenn ausgewählt wird die Start und Endzeit angezeigt, ansonsten nicht.'" default="true" label="'Mit Zeiten'" todo-rv-checked="event.showTimes" on-change="showTimesChanged"></rv-checkbox>
     
     <div rv-show="event.showTimes" class="form-group">
         <label for="eventStartTimeAt">Von</label>

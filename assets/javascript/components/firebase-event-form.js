@@ -20,18 +20,7 @@ rivets.components['firebase-event-form'] = {
     
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
     var $eventDesc = $(el).find('#eventDesc');
-    var $eventNote = $(el).find('#eventNote');
-    // var $eventStartAt = $(el).find('#eventStartAt');
-    
-    controller.typeChanged = function(type) {
-        controller.debug('typeChanged', type);
-        controller.event.type = type.value;
-    };
-    
-    controller.calendarChanged = function(calendar) {
-        controller.debug('typeChanged', calendar);
-        controller.event.calendar = calendar.value;
-    };
+    var $eventNote = $(el).find('#eventNote');    
     
     controller.showTimesChanged = function(showTimes) {
         controller.debug('showTimesChanged', showTimes);
@@ -135,14 +124,7 @@ rivets.components['firebase-event-form'] = {
             
             event.endTimeAt = moment(event.endAt).format('HH:mm');
             event.endAt = moment(event.endAt).minute(0).hour(0).format('YYYY-MM-DD');
-            
-            var selectedType = jumplink.utilities.setSelectedValue('#eventType select', event.type);
-            // var selectedType = controller.setType(event.type);
-            controller.debug('selectedType', selectedType);
-            
-            var selectedCalendar = jumplink.utilities.setSelectedValue('#eventCalendar select', event.calendar);
-            controller.debug('selectedCalendar', selectedCalendar);
-            
+                        
             event.active = event.active === true;
             jumplink.utilities.setCheckboxValue('#eventActive', event.active);
             

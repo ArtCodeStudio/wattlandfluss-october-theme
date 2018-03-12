@@ -20,7 +20,7 @@
   "dependencies": {
     "tether": "^1.4.0",
     "simpler-sidebar": "^2.2.0",
-    "bootstrap": "v4.0.0-alpha.6",
+    "bootstrap": "v4.0.0",
     "bootstrap-backward": "JumpLinkNetwork/bootstrap-backward#v4-0-0-alpha-5-scss-backward",
     "jumplink-components": "JumpLinkNetwork/jumplink-components#master",
     "barba.js": "luruke/barba.js#^1.0.0",
@@ -48,6 +48,7 @@
     "AlertifyJS": "MohammadYounes/AlertifyJS#^1.11.0"
   },
   "resolutions": {
-    "jquery": "2"
+    "jquery": "2",
+    "bootstrap": "v4.0.0"
   }
 }

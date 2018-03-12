@@ -1,11 +1,14 @@
 [viewBag]
 ==
 <div
+    class="toolbar-form needs-validation"
     rv-class-bg-state-info="event.calendar | eq 'Fluss'"
     rv-class-bg-state-warning="event.calendar | eq 'Watt'"
     rv-class-bg-state-success="event.calendar | eq 'Land'"
     rv-class-animated-gradient="event.calendar | eq 'Spezial'"
     rv-class-bg-gradient-state-success-info-warning="event.calendar | eq 'Spezial'"
+    
+    novalidate
 >
     <rv-select
         values= "selectEventValues"
@@ -15,11 +18,16 @@
     
     <datepicker placeholder="'Datum'" format="'DD.MM.YYYY'" lang="'de'" placeholder="'Datum'" on-change="onDateChanged"></datepicker>
     
-    <div class="form-group">
-        <input type="number" class="form-control" rv-value="quantity" required placeholder="Teilnehmer"rv-on-change="onQuantityChanged" >
+    <div
+        class="form-group"
+        rv-class-has-error="validation.quantity.error | count"
+    >
+        <input type="number" class="form-control" id="toolbarQuantity" rv-value="quantity" placeholder="Teilnehmer"rv-on-change="onQuantityChanged" >
+        <div class="validate-tooltip" rv-html="validation.quantity.error">
+        </div>
     </div>
     
     <span class="price">{total} EUR</span>
     
-    <button class="btn btn-outline-dark">Tour buchen</button>
+    <button class="btn btn-outline-dark" rv-disabled="validation.valid | not" rv-on-click="onBook">Tour buchen</button>
 </div>

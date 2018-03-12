@@ -5,11 +5,11 @@ firebase-events-beautiful-toolbar {
     &.pos-sticky {
         top: -5px;
     }
-    div {
+    .toolbar-form {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background-color: $gray;
+        // background-color: $gray;
         
         .form-group {
             margin-top: 1rem;
@@ -20,4 +20,20 @@ firebase-events-beautiful-toolbar {
             }
         } 
     }
-}
+    
+    .validate-tooltip {
+        display: none;
+        position: absolute;
+    }
+    
+    .has-error {
+        .validate-tooltip {
+            color: $brand-danger;
+            display: block;
+        }
+        .form-control {
+            border-color: $brand-danger;
+        }
+    }
+    
+} 

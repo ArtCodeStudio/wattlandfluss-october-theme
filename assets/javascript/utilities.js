@@ -32,7 +32,7 @@ jumplink.utilities.hyphenate = function() {
             Hyphenopoly.evt(["timeout"]);
         }, Hyphenopoly.c.timeout);
     }
-}
+};
 
   /**
    * Covert adhesive keys like 
@@ -113,10 +113,23 @@ jumplink.utilities.isElementInView = function(element, fullyInView) {
 /**
  * Get the selected value of a select option DOM element
  */
-jumplink.utilities.getSelectedValue = function(selector) { 
-    $selected = $(selector + ' option:selected');
+jumplink.utilities.getSelectedValue = function(selector) {
+    var $select = $(selector);
+    $selected = $select.find('option:selected');
     return $selected.val();
 };
+
+jumplink.utilities.getSelectedData = function(selector) {
+    var $select = $(selector);
+    $selected = $select.find('option:selected');
+    if($selected.length) {
+        data = $selected.data() || {};
+        data.label = $selected.html();
+        data.value = $selected.val();
+    }
+    return data;
+};
+
 
 /**
  * set a value (not by the value attribute but by the text content of the option) on a select dom element

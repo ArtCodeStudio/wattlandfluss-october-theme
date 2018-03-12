@@ -1,5 +1,4 @@
 // rivets.js binders
-
 /**
  * pignose-calendar
  * @see https://www.pigno.se/barn/PIGNOSE-Calendar/
@@ -77,6 +76,11 @@ rivets.binders.summernote = {
 };
 
 
+rivets.binders.html = function (el, value) {
+  $(el).html(value ? value : '');
+};
+
+
 /**
  * TODO support select
  */
@@ -86,19 +90,28 @@ rivets.binders.value = {
     
     bind: function(el) {
         this.$el = $(el);
+        this.type = this.$el.prop("type");
+        this.tagName = this.$el.prop('tagName');
         this.$el.on('change', this.publish);
     },
 
     unbind: function(el) {
         this.$el.off('change');
         delete this.$el;
+        delete this.type;
+        delete this.tagName;
     },
 
     routine: function(el, newValue) {
         if (newValue) {
             var oldValue = this.getValue(el);
             if(oldValue !== newValue) {
-                this.$el.val(newValue);
+                switch(this.tagName) {
+                    case 'INPUT':
+                        this.$el.val(newValue);
+                        break;
+                }
+                
             }
         }
     },
@@ -106,19 +119,22 @@ rivets.binders.value = {
     getValue: function(el) {
         var value;
         var type = this.$el.prop("type");
-        switch(type) {
-            case 'number':
-                value = parseFloat(this.$el.val()) || 0;
-            break;
-            case 'text':
-            case 'date':
-            case 'time':
-                value = this.$el.val().toString();
-                break;   
-            default:
-                value = this.$el.val().toString();
-                break;   
+        var tagName = this.$el.prop('tagName');
+        
+        switch(this.tagName) {
+            case 'INPUT':
+                switch(this.type) {
+                    case 'number':
+                        value = parseFloat(this.$el.val()) || 0;
+                    break; 
+                    default:
+                        value = this.$el.val().toString();
+                        break;   
+                }
+                break;
         }
+        
+
         return value; 
     }
 };
@@ -126,31 +142,79 @@ rivets.binders.value = {
 
 
 /**
- * 
+ * TODO not working with rv-checkbox component
  */
 rivets.binders.checked = {
+    publishes: true,
+    priority: 2000,
 
     bind: function(el) {
         this.$el = $(el);
+        this.type = this.$el.prop("type");
+        if(this.type === 'checkbox') {
+            this.$checkbox = this.$el;
+        } else {
+            this.$checkbox = this.$el.find('input[type="checkbox"]');
+        } 
+        this.$el.on('change', this.publish);
+        
+    },
+
+    unbind: function(el) {
+        this.$el.off('change');
+        delete this.$el;
+        delete this.type;
+        delete this.$checkbox;
+    },
+
+    routine: function(el, newValue) {
+        newValue = newValue === true;
+        
+        if(!this.$checkbox) {
+            this.$checkbox = this.$el.find('input[type="checkbox"]');
+        }
+        
+        this.$checkbox.prop('checked', newValue);
+    },
+
+    getValue: function(el) {
+        var value = this.$checkbox.is(":checked");
+        return value;
+    }
+};
+
+rivets.binders.selected = {
+
+    bind: function(el) {
+        this.$el = $(el);
+        this.tagName = this.$el.prop('tagName');
+        if(this.tagName === 'SELECT') {
+            this.$select = this.$el;
+        } else {
+            this.$select = this.$el.find('select');
+        } 
         this.$el.on('change', this.publish);
     },
 
     unbind: function(el) {
         this.$el.off('change');
         delete this.$el;
+        delete this.tagName;
+        delete this.$select;
     },
 
     routine: function(el, newValue) {
+        
         if (newValue) {
             var oldValue = this.getValue(el);
             if(oldValue !== newValue) {
-                this.$el.prop('checked', newValue);
+                jumplink.utilities.setSelectedValue(this.$select, newValue);
             }
         }
     },
 
     getValue: function(el) {
-        var value = this.$el.is(":checked");
+        var value = jumplink.utilities.getSelectedValue(this.$select);
         return value; 
     }
 };

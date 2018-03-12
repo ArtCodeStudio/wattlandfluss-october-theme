@@ -50,6 +50,7 @@ $enable-grid-classes:       to-bool($enable-grid-classes);
 $enable-print-styles:       to-bool($enable-print-styles);
 
 
+
 .col-12 {
     @extend .col-xs-12;
 }
@@ -87,6 +88,7 @@ $enable-print-styles:       to-bool($enable-print-styles);
     @extend .col-xs-1;
 }
 
+
 /*
 .col-xs-12 {
     @extend .col-12;
@@ -123,4 +125,5 @@ $enable-print-styles:       to-bool($enable-print-styles);
 }
 .col-xs-1 {
     @extend .col-1;
-}*/
+}
+*/
