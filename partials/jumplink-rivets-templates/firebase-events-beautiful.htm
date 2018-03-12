@@ -6,6 +6,7 @@ description = "Schöne Darstellung der nächsten Events jeden Kalenders für die
 <div class="events-wrapper" rv-if="ready | and events | empty | not">
 
     <firebase-events-beautiful-toolbar
+        rv-if="showToolbar"
         type="type"
         calendar="calendar"
         style="style"

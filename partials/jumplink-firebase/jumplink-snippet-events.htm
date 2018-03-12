@@ -78,6 +78,10 @@ snippetProperties[detailPage][title] = "Detail Page URL"
 snippetProperties[detailPage][type] = "string"
 snippetProperties[detailPage][default] = ""
 snippetProperties[detailPage][options][] = ""
+snippetProperties[showToolbar][title] = "Zeige Toolbar"
+snippetProperties[showToolbar][type] = "checkbox"
+snippetProperties[showToolbar][default] = 0
+snippetProperties[showToolbar][options][] = ""
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
@@ -98,6 +102,7 @@ snippetProperties[detailPage][options][] = ""
     start-time="'{{startTime}}'"
     limit="{{limit}}"
     show-gallery="{{showGallery}}"
+    show-toolbar="{{showToolbar}}"
     gallery-title="'{{galleryTitle}}'"
     gallery-text="'{{galleryText}}'"
     detail-page="'{{detailPage | app }}'"

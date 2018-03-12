@@ -17,20 +17,40 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     controller.events = data.events;
     controller.event = controller.events[0];
     controller.date;
+    controller.quantity = 0;
+    controller.total = 0;
+    
+
+    
+    /*
+     * Gesamtpreis berechnen
+     */
+    var calcTotal = function (event, quantity) {
+        var priceObj = getScalePriceByQuantity(event, quantity);
+        if(priceObj === null) {
+            var error = new Error('Kein Staffelpreis gefunden, TODO handle error');
+            console.error(error);
+            throw error;
+        }
+        
+        var total = priceObj.fixprice + (priceObj.price * quantity);
+        return total;
+    };
     
     controller.onSelectEventChanged = function(selectedEvent) {
-        controller.debug('onSelectEventChanged', selectedEvent);
         controller.event = controller.events[selectedEvent.index];
+        controller.debug('onSelectEventChanged', controller.event);
+        controller.total = jumplink.utilities.calcEventTotal(controller.event, controller.quantity);
     };
-    
-    controller.onSelectMemberChanged = function(member) {
-        controller.debug('onSelectMemberChanged', member);
-        controller.member = member;
-    };
-    
+        
     controller.onDateChanged = function(dates) {
         controller.debug('onDateChanged', dates);
         controller.date = dates[0];
+    };
+    
+    controller.onQuantityChanged = function(event) {
+        controller.debug('onQuantityChanged', controller.quantity);
+        controller.total = jumplink.utilities.calcEventTotal(controller.event, controller.quantity);
     };
     
     controller.selectEventValues = [];
@@ -44,14 +64,6 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     });
     
     controller.date;
-    
-    controller.members = [
-        {index: 0, label: '10 Teilnehmer', value: 10},
-        {index: 1, label: '20 Teilnehmer', value: 20},
-        {index: 2, label: '30 Teilnehmer', value: 30},
-    ];
-    
-    controller.member = controller.members[0];
         
     return controller;
   }

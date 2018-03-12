@@ -107,7 +107,7 @@ jumplink.utilities.isElementInView = function(element, fullyInView) {
     } else {
         return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
     }
-}
+};
 
 
 /**
@@ -133,6 +133,45 @@ jumplink.utilities.setCheckboxValue = function(selector, value) {
 
 jumplink.utilities.getCheckboxValue = function(selector) {
     $(selector).is(':checked');
+};
+
+
+/**
+ * Gibt den Staffelpreis (der für die Anzahl der Personen passt) zurück
+ */
+jumplink.utilities.getEventScalePriceByQuantity = function(event, quanity) {
+    var result = null;
+    
+    event.prices.forEach(function(priceObj) {
+        if(quanity >= priceObj.min && quanity <= priceObj.max) {
+            result = priceObj;
+        }
+    });
+    return result;
+};
+
+/**
+ * Gesamtpreis eines Events berechnen
+ */
+jumplink.utilities.calcEventTotal = function (event, quantity) {
+    var priceObj = jumplink.utilities.getEventScalePriceByQuantity(event, quantity);
+    var total = 0;
+    if(priceObj === null) {
+        var error = new Error('Kein Staffelpreis gefunden, TODO handle error');
+        console.error(error);
+        return null;
+    }
+    
+    // Wenn nur jede zusätzliche Person gezählt werden soll
+    if(priceObj.eachAdditionalUnit) {
+        quantityToCalc = quantity - (priceObj.min - 1);
+    } else {
+        quantityToCalc = quantity;
+    }
+    
+    total = priceObj.fixprice + (priceObj.price * quantityToCalc);
+    
+    return total;
 };
 
 
@@ -210,7 +249,7 @@ jumplink.utilities.isArray = function (value) {
  */
 jumplink.utilities.isNumber = function(n) {
     return !isNaN(parseFloat(n)) && !isNaN(n - 0);
-}
+};
 
 /**
  * heck if type is Object

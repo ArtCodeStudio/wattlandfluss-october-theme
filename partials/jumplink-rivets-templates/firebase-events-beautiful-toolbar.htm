@@ -15,13 +15,11 @@
     
     <datepicker placeholder="'Datum'" format="'DD.MM.YYYY'" lang="'de'" placeholder="'Datum'" on-change="onDateChanged"></datepicker>
     
-    <rv-select
-        values= "members"
-        label=""
-        on-change="onMembersChanged"
-    ></rv-select>
+    <div class="form-group">
+        <input type="number" class="form-control" rv-value="quantity" required placeholder="Teilnehmer"rv-on-change="onQuantityChanged" >
+    </div>
     
-    <span class="price">{event.price} EUR</span>
+    <span class="price">{total} EUR</span>
     
     <button class="btn btn-outline-dark">Tour buchen</button>
 </div>

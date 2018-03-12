@@ -7,7 +7,6 @@
 rivets.components['firebase-event-form'] = {
 
   template: function() {
-    // return $('template#firebase-event-form').html();
     return jumplink.templates['firebase-event-form'];
   },
 
@@ -22,7 +21,7 @@ rivets.components['firebase-event-form'] = {
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
     var $eventDesc = $(el).find('#eventDesc');
     var $eventNote = $(el).find('#eventNote');
-    var $eventStartAt = $(el).find('#eventStartAt');
+    // var $eventStartAt = $(el).find('#eventStartAt');
     
     controller.typeChanged = function(type) {
         controller.debug('typeChanged', type);
@@ -39,9 +38,12 @@ rivets.components['firebase-event-form'] = {
         controller.event.showTimes = showTimes;
     };    
     
+    controller.onStartAtChanged = function(startAt) {
+        controller.event.startAt = date[0].format('YYYY-MM-DD');
+    };
+    
     // if id is set the event will be updated otherwise it will be created
     controller.id = data.id;
-    
     controller.titleEdit = 'Ereignis bearbeiten';
     controller.titleCreate = 'Ereignis anlegen';
     
@@ -49,24 +51,7 @@ rivets.components['firebase-event-form'] = {
     controller.uploadedImages = [];
     
     // start values of a event to have it not undefined, will be replaced in next steps
-    controller.event = {
-        active: true,
-        title: '',
-        subtitle: '',
-        description: '',
-        equipment: '',
-        showTimes: true,
-        startAt: '',
-        startTimeAt: '',
-        endTimeAt: '',
-        price: 0.0,
-        pricetext: '',
-        type: '',
-        calendar: '',
-        offer: '',
-        note: '',
-        images: [],
-    };
+    controller.event = {};
     
     // TODO save in own db
     controller.calendars = [
@@ -81,65 +66,22 @@ rivets.components['firebase-event-form'] = {
         {id:1, label: 'öffentliche Führung', value: 'fix'},
         {id:2, label: 'Führung anfragen', value: 'variable'},
     ];
-    
-    /**
-     * init wysiwyg for description input
-     * @see https://github.com/KennethanCeyer/pg-calendar/wiki/Documentation
-     */
-    $eventDesc.summernote({
-        placeholder: 'Deine neue Beschreibung',
-        height: 200,
-        toolbar: [
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['Misc', ['undo', 'redo', 'codeview', 'fullscreen']],
-        ],
-        callbacks: {
-            onChange: function(contents, $editable) {
-                console.log('onChange:', contents, $editable);
-                controller.event.description = contents;
-                controller.debug('onChange', contents, controller.event);
-            }
-        }
-    });
-    
-    $eventNote.summernote({
-        placeholder: 'Notiz',
-        height: 200,
-        toolbar: [
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['Misc', ['undo', 'redo', 'codeview', 'fullscreen']],
-        ],
-        callbacks: {
-            onChange: function(contents, $editable) {
-                console.log('onChange:', contents, $editable);
-                controller.event.note = contents;
-                controller.debug('onChange', contents, controller.event);
-            }
-        }
-    });
-    
-    /**
-     * init date picker
-     * @see https://www.pigno.se/barn/PIGNOSE-Calendar/
-     */
-    $eventStartAt.pignoseCalendar({
-        lang: 'de',
-        minDate: moment().format('YYYY-MM-DD'), // min day is today
-        // date: controller.event.startAt,
-        format: 'YYYY-MM-DD',
-        buttons: true,
-        apply: function(date, context) {
-            controller.debug('select date', date);
-            controller.event.startAt = date[0].format('YYYY-MM-DD');
-        }
-    });
-    
+            
     // watch for upload event from :file-upload component
     $(document).bind('rivets:file-upload:complete', function (event, files) {
         controller.debug('rivets:file-upload:complete', files);
     });
+    
+    var getDefaultPrice = function () {
+        return {
+            price: 0,
+            fixprice: 0,
+            unit: 'person',
+            min: 1,
+            max: 1,
+            eachAdditionalUnit: false,
+        };
+    };
     
     /**
      * Sets the default values for an event e.g. if you want to create a new one
@@ -149,13 +91,13 @@ rivets.components['firebase-event-form'] = {
         
         controller.event.active = true;
         jumplink.utilities.setCheckboxValue('#eventActive', controller.event.active);
-        
-        // start at and date picker
-        // var today = moment().format('YYYY-MM-DD');
-        // $eventStartAt.pignoseCalendar('set', today);
-        // controller.event.startAt = today;
+
+        controller.event.offer = '';
+        controller.event.images = [];
         
         // start and end time
+        controller.event.startAt = moment().format('YYYY-MM-DD');
+        controller.event.showTimes = true;
         controller.event.startTimeAt = '14:00';
         controller.event.endTimeAt = '16:00';
         
@@ -163,21 +105,19 @@ rivets.components['firebase-event-form'] = {
         controller.event.title = '';
         controller.event.subtitle = '';
         
-        // description
+        // textareas description and note
         controller.event.description = '';
-        $eventDesc.summernote('code', controller.event.description);
-        
-        $eventNote.summernote('code', controller.event.note);
+        controller.event.note = '';
         
         controller.event.equipment = '';
         
         // price
-        controller.event.price = 25;
+        controller.event.prices = [getDefaultPrice()];
         controller.event.pricetext = '';
         
         
         controller.debug('set default values', controller.event);
-    }
+    };
     
     /**
      *  Get event by id and set it to the forms
@@ -185,7 +125,7 @@ rivets.components['firebase-event-form'] = {
     var getEvent = function (id) {
         controller.debug('controller', id);
         
-        dbEvents.doc(id).get()
+        return dbEvents.doc(id).get()
         .then(function(docRef) {                        
             controller.debug('getEvent start', docRef.data());
             var event = docRef.data();
@@ -195,11 +135,6 @@ rivets.components['firebase-event-form'] = {
             
             event.endTimeAt = moment(event.endAt).format('HH:mm');
             event.endAt = moment(event.endAt).minute(0).hour(0).format('YYYY-MM-DD');
-            
-            // update description for wysiwyg
-            $eventDesc.summernote('code', event.description);
-            
-            $eventNote.summernote('code', event.note);
             
             var selectedType = jumplink.utilities.setSelectedValue('#eventType select', event.type);
             // var selectedType = controller.setType(event.type);
@@ -214,11 +149,12 @@ rivets.components['firebase-event-form'] = {
             event.showTimes = event.showTimes === true;
             jumplink.utilities.setCheckboxValue('#eventShowTimes input', event.showTimes);
             
+            if(!jumplink.utilities.isArray(event.prices)) {
+                event.prices = [getDefaultPrice()];
+            }
+            
             controller.event = event;
-            
-            $eventStartAt.pignoseCalendar('set', controller.event.startAt);
-            $eventStartAt.val(controller.event.startAt);
-            
+                        
             controller.debug('getEvent done', controller.event);
             
             return controller.event;
@@ -230,19 +166,7 @@ rivets.components['firebase-event-form'] = {
             });
             controller.debug('error', error);
         });
-    }
-    
-    /**
-     *  Set default values or get event by id
-     */
-    if(controller.id) {
-        getEvent(controller.id);
-    } else {
-        // WORKAROUND to set the current valuesafter rivets view is initialized?
-        setTimeout(function() {
-            setDefaultValues();
-        }, 0);
-    }
+    };
     
     /**
      * create a new event object to store in firebase datastore database
@@ -261,17 +185,17 @@ rivets.components['firebase-event-form'] = {
             equipment: controller.event.equipment,
             showTimes: controller.event.showTimes,
             startAt: moment(controller.event.startAt),
-            // startTimeAt: controller.event.startTimeAt,
             endAt: moment(controller.event.startAt),
-            price: Number(controller.event.price),
+            prices: controller.event.prices,
             pricetext: controller.event.pricetext || null,
             type: controller.event.type,
             calendar: controller.event.calendar,
             note: controller.event.note || null,
             offer: controller.event.offer || null,
             images: controller.event.images,
+            price: null,
         };
-        
+
         // split times in hour and minutes
         var startTimes = controller.event.startTimeAt.split(':');
         var endTimes = controller.event.endTimeAt.split(':');
@@ -288,7 +212,7 @@ rivets.components['firebase-event-form'] = {
         
         // Merge old images with new uploaded images
         if(!jumplink.utilities.isArray(newEvent.images)) {
-            controller.debug('no images are set, init image object with empty array!')
+            controller.debug('no images are set, init image object with empty array!');
             newEvent.images = [];
         }
         
@@ -298,7 +222,7 @@ rivets.components['firebase-event-form'] = {
         controller.uploadedImages = [];
         
         return newEvent;
-    }
+    };
     
     controller.updateEvent = function(event, controller) {
         
@@ -326,8 +250,8 @@ rivets.components['firebase-event-form'] = {
                 body: error.message,
             });
         });
-    }
-      
+    };
+
     controller.createEvent = function(event) {
 
         var newEvent = formatControllerEventForFirestore();
@@ -360,7 +284,50 @@ rivets.components['firebase-event-form'] = {
     
     controller.duplicateEvent = function(event) {
         controller.id = undefined;
-    }
+    };
+    
+    controller.addPrice = function(event, env) {
+        if(!jumplink.utilities.isArray(controller.event.prices)) {
+            controller.event.prices = [];
+        }
+        controller.event.prices.push(getDefaultPrice());
+    };
+    
+    controller.removePrice = function(event, env) {
+        if(!jumplink.utilities.isArray(controller.event.prices)) {
+            controller.event.prices = [];
+        }
+        if(controller.event.prices.length > 1) {
+            controller.event.prices.splice(-1,1);
+        }
+    };
+    
+    controller.calcExampleTotal = function(priceObj) {
+        var quanity = priceObj.min + 1;
+        var total = jumplink.utilities.calcEventTotal(controller.event, quanity);
+        return total;
+    };
+    
+
+    var ready = function() {
+        /**
+         *  Set default values or get event by id
+         */
+        if(controller.id) {
+            getEvent(controller.id)
+            .then(function() {
+                controller.debug('ready');
+            });
+        } else {
+            setDefaultValues();
+        }
+    };
+    
+    $el.one('DOMSubtreeModified', function() {
+        setTimeout(function() {
+            ready();
+        }, 0);     
+    });
 
     return controller;
   }

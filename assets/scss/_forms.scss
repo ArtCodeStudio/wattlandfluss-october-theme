@@ -5,19 +5,28 @@
         padding: 0.9rem;
         padding-bottom: 0.5rem;
         font-size: 0.8em;
-        margin: 28px 0px 10px;
+        margin: 0px 0px 10px;
         display: block;
         resize: none;
         overflow: hidden;
         
-        &::-webkit-input-placeholder {
+        &::-webkit-input-placeholder,
+        // &::-moz-placeholder,
+        // &:-ms-input-placeholder,
+        // &:-moz-placeholder
+        {
             transition: transform 0.3s ease-in-out, 
             font-size 0.3s ease-in-out, 
             visibility 0.3s ease-in-out;
         }
         
-        &:focus {
-            &::-webkit-input-placeholder {
+        &:focus, &:valid {
+            
+            &::-webkit-input-placeholder,
+            // &::-moz-placeholder,
+            // &:-ms-input-placeholder,
+            // &:-moz-placeholder
+            {
                 color: $black;
                 font-size: 0.8em;
                 transform: translateY(-20px);
@@ -40,3 +49,4 @@
     }
 
 }
+

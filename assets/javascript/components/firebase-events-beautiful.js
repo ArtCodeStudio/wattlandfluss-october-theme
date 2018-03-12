@@ -23,6 +23,7 @@ rivets.components['firebase-events-beautiful'] = {
     controller.calendar = data.calendar;
     controller.excludeCalendar = data.excludeCalendar;
     controller.showGallery = data.showGallery === true || data.showGallery === 'true' || data.showGallery === 1;
+    controller.showToolbar = data.showToolbar === true || data.showToolbar === 'true' || data.showToolbar === 1;
     controller.galleryTitle = data.galleryTitle;
     controller.galleryText = data.galleryText;
     controller.groupBy = data.groupBy; // group events e.g. by 'title' | 'subtitle' | 'handle' or not with 'none'
