@@ -1,0 +1,58 @@
+{
+  "name": "simpler-sidebar",
+  "version": "2.2.5",
+  "description": "A simple side nav in jQuery",
+  "main": "./dist/jquery.simpler-sidebar.js",
+  "homepage": "https://github.com/simple-sidebar/simpler-sidebar",
+  "author": "Davide Di Criscito (https://github.com/dcdeiv)",
+  "license": "MIT AND GPL-2.0",
+  "keywords": [
+    "simpler",
+    "sidebar",
+    "sidenav",
+    "side",
+    "nav",
+    "simpler-sidebar",
+    "jquery",
+    "plugin",
+    "jquery-plugin",
+    "plug-in",
+    "javascript",
+    "js"
+  ],
+  "repository": "https://github.com/simple-sidebar/simpler-sidebar.git",
+  "files": [
+    "demo",
+    "dist",
+    "doc"
+  ],
+  "directories": {
+    "example": "demo",
+    "doc": "doc"
+  },
+  "bugs": {
+    "url": "https://github.com/simple-sidebar/simpler-sidebar/issues"
+  },
+  "scripts": {
+    "build": "grunt build",
+    "test": "grunt lint",
+    "watch": "grunt watch"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "jquery-ui": "^1.12.1"
+  },
+  "devDependencies": {
+    "eslint-config-jquery": "^1.0.1",
+    "grunt": "^1.0.2",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^3.3.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^20.1.0",
+    "load-grunt-tasks": "^3.5.2"
+  },
+  "optionalDependencies": {
+    "jquery-ui-dist": "^1.12.1"
+  }
+}

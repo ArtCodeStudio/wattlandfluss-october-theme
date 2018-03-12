@@ -6,14 +6,14 @@
 }
 
 @include vp-keyframes(colorChangeDangerWarning) {
-    0%{color: $brand-success;}
-    50%{color: $brand-primary;}
-    100%{color: $brand-warning;}
+    0%{color: $brand-danger;}
+    50%{color: $brand-warning;}
+    100%{color: $brand-danger;}
 }
 
 @include vp-keyframes(colorChangeWarningDanger) {
-    0%{color: $brand-success;}
-    50%{color: $brand-primary;}
+    0%{color: $brand-warning;}
+    50%{color: $brand-danger;}
     100%{color: $brand-warning;}
 }
 

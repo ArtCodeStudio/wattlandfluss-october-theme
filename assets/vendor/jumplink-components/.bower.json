@@ -29,11 +29,11 @@
     "prism": "^1.6.0",
     "sass-prefix-mixins": "JumpLinkNetwork/sass-prefix-mixins#master"
   },
-  "_release": "cd7bc42343",
+  "_release": "4d8c54b01b",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "cd7bc42343c94d93e70e57707fc78e51970f7276"
+    "commit": "4d8c54b01b4a8375803eb267e9196e9153a29c39"
   },
   "_source": "https://github.com/JumpLinkNetwork/jumplink-components.git",
   "_target": "master",

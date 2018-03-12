@@ -1,15 +1,14 @@
 {
   "name": "summernote",
   "homepage": "https://github.com/summernote/summernote",
-  "version": "0.8.9",
-  "_release": "0.8.9",
+  "version": "0.8.10",
+  "_release": "0.8.10",
   "_resolution": {
     "type": "version",
-    "tag": "v0.8.9",
-    "commit": "55ce8b405ab1ff4fd86ae147af7e74d97fd9d738"
+    "tag": "v0.8.10",
+    "commit": "810f1944d5678881cc5a06bd45075e98b50366a0"
   },
   "_source": "https://github.com/summernote/summernote.git",
   "_target": "^0.8.9",
-  "_originalSource": "summernote",
-  "_direct": true
+  "_originalSource": "summernote"
 }

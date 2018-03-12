@@ -1,0 +1,15 @@
+.github
+bower_components/
+node_modules/
+src/
+
+.editorconfig
+.eslintignore
+.eslintrc.json
+.gitignore
+.travis.yml
+bower.json
+CONTRIBUTING.md
+Gruntfile.js
+gulpfile.js
+npm-debug.log

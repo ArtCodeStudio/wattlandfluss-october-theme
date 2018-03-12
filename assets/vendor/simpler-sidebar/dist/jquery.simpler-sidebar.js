@@ -1,8 +1,7 @@
-/*!
- * simpler-sidebar - A simple side nav in jQuery
- * @version v2.2.2
- * @link https://github.com/simple-sidebar/simpler-sidebar#readme
- * @copyright (c) 2015 - 2017 Davide Di Criscito <davide.dicriscito@gmail.com> (https://github.com/dcdeiv)
+/*! simpler-sidebar - A simple side nav in jQuery
+ * @version 2.2.5
+ * @link https://github.com/simple-sidebar/simpler-sidebar
+ * @copyright 2015 - 2018 Davide Di Criscito (https://github.com/dcdeiv)
  * @license MIT AND GPL-2.0
  */
 // Uses CommonJS, AMD or browser globals to create a jQuery plugin.
@@ -90,6 +89,10 @@
 				// Set anything else than "opened" to "closed"
 				init = ( "opened" === cfg.init ) ? "opened" : "closed",
 
+				// Set the overflow setting to initial
+				htmlOverflow = cfg.overflow ? cfg.overflow : $( "html" ).css( "overflow" ),
+				bodyOverflow = cfg.overflow ? cfg.overflow : $( "body" ).css( "overflow" ),
+
 				// Set anything else than "left" to "right"
 				align = ( "left" === cfg.align ) ? "left" : "right",
 
@@ -99,13 +102,13 @@
 
 				// Set anything else then true to false
 				scrollCfg = ( true === cfg.events.callbacks.animation.freezePage ) ?
-										true :
-										false,
+					true : false,
 				freezePage = function() {
 					$( "body, html" ).css( "overflow", "hidden" );
 				},
 				unfreezePage = function() {
-					$( "body, html" ).css( "overflow", "auto" );
+					$( "html" ).css( "overflow", htmlOverflow );
+					$( "body" ).css( "overflow", bodyOverflow );
 				},
 
 				// Sidebar helpers
@@ -134,7 +137,7 @@
 
 					// Create mask
 					$mask.appendTo( "body" )
-				.css( maskStyle );
+						.css( maskStyle );
 				},
 				showMask = function() {
 					$mask.fadeIn( duration );
@@ -247,7 +250,7 @@
 
 			// Apply style to the sidebar
 			$sidebar.css( sbStyle )
-			.attr( attr, init ); // apply init
+				.attr( attr, init ); // apply init
 
 			// Create the private mask style
 			pvtMaskStyle = {

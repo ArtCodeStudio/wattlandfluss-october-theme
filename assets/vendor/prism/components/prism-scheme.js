@@ -1,7 +1,7 @@
 Prism.languages.scheme = {
 	'comment' : /;.*/,
 	'string' :  {
-		pattern: /"(?:[^"\\\r\n]|\\.)*?"|'[^('\s]*/,
+		pattern: /"(?:[^"\\\r\n]|\\.)*"|'[^('\s]*/,
 		greedy: true
 	},
 	'keyword' : {
@@ -13,7 +13,7 @@ Prism.languages.scheme = {
 		lookbehind : true
 	},
 	'number' : {
-		pattern: /(\s|\))[-+]?\d*\.?\d+(?:\s*[-+]\s*\d*\.?\d+i)?\b/,
+		pattern: /(\s|[()])[-+]?\d*\.?\d+(?:\s*[-+]\s*\d*\.?\d+i)?\b/,
 		lookbehind: true
 	},
 	'boolean' : /#[tf]/,

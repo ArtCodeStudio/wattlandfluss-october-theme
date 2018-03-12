@@ -1,5 +1,5 @@
 .gradient-bg {
-    @include vp-linear-gradient(223deg, $brand-success, $brand-primary, $brand-warning, $brand-success);
+    @include vp-linear-gradient(223deg, $brand-warning, $brand-danger, $brand-warning, $brand-danger);
 }
 
 .gradient-primary-danger-primary-danger-bg {
