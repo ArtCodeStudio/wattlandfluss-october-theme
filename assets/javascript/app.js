@@ -24,7 +24,6 @@ if (!debugString) {
  * Cache JQuery selectors we need in different functions, only working outside of barba templates
  */
 jumplink.cacheSelectors = function () {
-  console.log('cacheSelectors');
   jumplink.cache = {
     // General
     $html                    : $('html'),
@@ -88,7 +87,6 @@ jumplink.movingBackground = function (selectorString, fittWidth, fittHeight) {
 jumplink.initMomentDataApi = function () {
 
     var $displayFromNow = $('[data-moment-display-from-now]');
-    // console.log($displayFromNow);
     $displayFromNow.each(function () {
         $this = $(this);
         var date = moment($this.data('momentDisplayFromNow')).fromNow();
@@ -255,7 +253,6 @@ var initProductCarousel = function() {
  */
 var initProductList = function() {
     $(".product-grid-item" ).click(function() {
-        console.log('product clicked');
         $('.product-grid-item').removeClass('selected');
         $(this).addClass('selected');
     });
@@ -422,7 +419,6 @@ var initBarbaTransition = function() {
 
       // scroll to old product in collection if last page was a product
       if( this.$oldContainer.data().namespace === 'product' && this.$newContainer.data().namespace === 'collection') {
-        // console.log('scroll to last product');
         $lastPosition = $('#'+jumplink.cache.lastProductDataset.handle);
         if($lastPosition.length >= 1) {
           target = $lastPosition.offset().top - offset;
@@ -431,7 +427,6 @@ var initBarbaTransition = function() {
 
       // scroll to old collection
       if( this.$oldContainer.data().namespace === 'collection' && this.$newContainer.data().namespace === 'list-collections') {
-        // console.log('scroll to last collection');
         $lastPosition = $('#'+jumplink.cache.lastCollectionDataset.handle);
         if($lastPosition.length >= 1) {
           target = $lastPosition.offset().top - offset;
@@ -491,8 +486,6 @@ var initBarbaTransition = function() {
  * Init barba itself
  */
 var initBarba = function () {
-    console.log('init barba');
-
   /*
    * Update Google Google Analytics if page is changed with barba
    * 
@@ -506,7 +499,6 @@ var initBarba = function () {
 
     if(typeof(fbq) === 'function') {
       fbq('track', 'ViewContent');
-      //console.log("fbq('track', 'ViewContent');");
     }
     	
   });
@@ -535,9 +527,15 @@ var initBarba = function () {
  * @note see initTemplates() for inits insite of barba.js 
  */
 var init = function ($) {
-    jumplink.cacheSelectors();
-    jumplink.setLanguage();
-    initBarba();
+    if(!jumplink.cache || !jumplink.cache.initialized) {
+        jumplink.cacheSelectors();
+        jumplink.setLanguage();
+        initBarba();
+        jumplink.cache.initialized = true;
+    } else {
+        console.warn('jumplink has already been initialized');
+    }
+    
 }
 
 // run init as soon as jQuery is ready

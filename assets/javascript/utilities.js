@@ -475,8 +475,6 @@ window.jumplink.utilities.getGravatar = function (emailOrHash, classes, withHash
     src += '?d=' + encodeURI('https:'+placeholder);
   }
 
-  //console.log("getGravatar", emailOrHash, classes, withHash, placeholder, src);
-
   var $image = $('<img>').attr({src: src}).addClass(classes);
   return $image;
 };
@@ -499,8 +497,6 @@ window.jumplink.utilities.initGravatarElements = function (selector, classes) {
     if(data.placeholders) {
       placeholder = data.placeholders[ProductJS.Utilities.rand(0, data.placeholders.length-1)];
     }
-
-    //console.log("data", data);
 
     if( data.email ) {
       emailOrHash = $gravatar.data('email');

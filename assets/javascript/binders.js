@@ -20,17 +20,16 @@ rivets.binders['pignose-calendar'] = {
         this.options.select = this.publish;
         this.options.apply = this.publish;
         
-        console.log('[pignose-calendar] bind', this.options);
         self.$el.pignoseCalendar(this.options);
     },
 
     unbind: function(el) {
-        console.log('[pignose-calendar] unbind TODO!', this);
+        console.warn('[pignose-calendar] unbind TODO!', this);
+        delete this.$el;
     },
 
     routine: function(el, value) {
         if (value) {
-            console.log('[pignose-calendar] routine', value);
             this.$el.pignoseCalendar('set', value);
             this.$el.val(value);
         }
@@ -38,7 +37,6 @@ rivets.binders['pignose-calendar'] = {
 
     getValue: function(el) {
         var value = this.$el.val();
-        console.log('[pignose-calendar] getValue', value);
         return value; 
     }
 };
@@ -56,12 +54,10 @@ rivets.binders.summernote = {
             onChange: this.publish
         };
         
-        // console.log('[summernote] bind', this.options);
         this.$el.summernote(this.options);
     },
 
     unbind: function(el) {
-        // console.log('[summernote] unbind!', this);
         this.$el.summernote('destroy');
     },
 
@@ -69,7 +65,6 @@ rivets.binders.summernote = {
         if (newValue) {
             var oldValue = this.getValue(el);
             if(oldValue !== newValue) {
-                // console.log('[summernote] routine', newValue, oldValue);
                 this.$el.summernote('code', newValue);
             }
         }
@@ -77,14 +72,13 @@ rivets.binders.summernote = {
 
     getValue: function(el) {
         var value = this.$el.summernote('code');
-        // console.log('[summernote] getValue', value);
         return value; 
     }
 };
 
 
 /**
- * TODO support select, checkbox and date
+ * TODO support select
  */
 rivets.binders.value = {
     publishes: true,
@@ -97,7 +91,6 @@ rivets.binders.value = {
 
     unbind: function(el) {
         this.$el.off('change');
-        // console.log('[value] unbind!', this);
         delete this.$el;
     },
 
@@ -105,7 +98,6 @@ rivets.binders.value = {
         if (newValue) {
             var oldValue = this.getValue(el);
             if(oldValue !== newValue) {
-                // console.log('[value] routine', newValue, oldValue);
                 this.$el.val(newValue);
             }
         }
@@ -120,10 +112,13 @@ rivets.binders.value = {
             break;
             case 'text':
             case 'date':
+            case 'time':
                 value = this.$el.val().toString();
-                break;                
+                break;   
+            default:
+                value = this.$el.val().toString();
+                break;   
         }
-        // console.log('[value] getValue', value);
         return value; 
     }
 };
@@ -142,7 +137,6 @@ rivets.binders.checked = {
 
     unbind: function(el) {
         this.$el.off('change');
-        console.log('[checked] unbind!', this);
         delete this.$el;
     },
 
@@ -150,7 +144,6 @@ rivets.binders.checked = {
         if (newValue) {
             var oldValue = this.getValue(el);
             if(oldValue !== newValue) {
-                console.log('[checked] routine', newValue, oldValue);
                 this.$el.prop('checked', newValue);
             }
         }
@@ -158,7 +151,6 @@ rivets.binders.checked = {
 
     getValue: function(el) {
         var value = this.$el.is(":checked");
-        console.log('[checked] getValue', value);
         return value; 
     }
 };

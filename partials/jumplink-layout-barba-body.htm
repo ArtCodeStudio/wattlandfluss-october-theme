@@ -40,7 +40,7 @@ function onStart()
 <p class="hyphenate" lang="de" style="display:none;">FORCEHYPHENOPOLY</p>
 
 {# templates for rivets.js #}
-{% partial 'jumplink-rivets-templates/default' %}
+{% partial 'jumplink-rivets-templates/index' %}
 
 <script>
     var Hyphenopoly = {
@@ -73,6 +73,7 @@ function onStart()
  # * mobile-events
  # * Hyphenopoly - JavaScript polyfill for client-side hyphenation - https://github.com/mnater/Hyphenopoly
  # * Prism for syntax highlighting in the docs
+ # * AlertifyJS - A javascript framework for developing pretty browser dialogs and notifications. https://github.com/MohammadYounes/AlertifyJS
  # * Moment.js for events and dates
  # * Debug for seperation in debug messages in the browser console (need to build the browser version)
  # * Platform.js for browser detection
@@ -103,6 +104,7 @@ function onStart()
     'assets/vendor/Hyphenopoly/Hyphenopoly_Loader.js',
     'assets/vendor/prism/prism.js',
     'assets/vendor/moment/min/moment-with-locales.js',
+    'assets/vendor/AlertifyJS/build/alertify.js',
     'assets/vendor/vivus/dist/vivus.js',
     'assets/vendor/visionmedia-debug/dist/debug.js',
     'assets/vendor/platform.js/platform.js',
@@ -136,7 +138,7 @@ function onStart()
     'assets/javascript/adapters.js',
     'assets/javascript/binders.js',
     'assets/javascript/formatters.js'
-] | merge(jsComponents) | merge(['assets/javascript/app.js']) |theme }}"></script>
+] | merge(jsComponents) | theme }}"></script>
 
 {% framework %}
 {% scripts %}

@@ -15,7 +15,7 @@ function onStart()
     $renderedComponents = array();
     foreach ($components as $index => $componentName) {
         $componentName = str_replace('.htm', '', $componentName);
-        if($componentName != 'default') {
+        if($componentName != 'index') {
             $renderedComponents[$componentName] = str_replace('\'', '\\\'', trim(preg_replace('/\s+/', ' ', $this->renderPartial('jumplink-rivets-templates/'.$componentName))));
         }
     }

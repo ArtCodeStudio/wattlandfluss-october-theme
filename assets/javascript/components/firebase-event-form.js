@@ -159,10 +159,10 @@ rivets.components['firebase-event-form'] = {
             
             return controller.event;
         })
-        .catch(function(error) {  
-            jumplink.utilities.showGlobalModal({
-                title: 'Ereignis konnte nicht geladen werden',
-                body: error.message,
+        .catch(function(error) {
+            var title = 'Ereignis konnte nicht geladen werden';
+            alertify.alert(title, error.message, function(){
+            
             });
             controller.debug('error', error);
         });
@@ -233,10 +233,11 @@ rivets.components['firebase-event-form'] = {
         dbEvents.doc(controller.id).update(updateEvent)
         .then(function() {
             var message = 'Ereignis erfolgreich aktualisiert';
-            jumplink.utilities.showGlobalModal({
-                title: 'Erfolgreich angelegt',
-                body: message,
+            var notification = alertify.notify(message, 'success' ,5, function(){
+                // console.log('dismissed');
             });
+            
+            
             controller.debug(message);
             return getEvent(controller.id);
         })
@@ -245,9 +246,9 @@ rivets.components['firebase-event-form'] = {
         })
         .catch(function(error) {
             controller.debug('error', error);
-            jumplink.utilities.showGlobalModal({
-                title: 'Konnte nicht angelegt werden',
-                body: error.message,
+            var title = 'Konnte nicht angelegt werden';
+            alertify.alert(title, error.message, function(){
+            
             });
         });
     };
@@ -262,22 +263,20 @@ rivets.components['firebase-event-form'] = {
         .then(function(docRef) {
             controller.id = docRef.id;
             var message = 'Ereignis mit der ID ' + controller.id + ' erfolgreich eingetragen';
-            controller.debug(message, docRef);
-            
-            jumplink.utilities.showGlobalModal({
-                title: 'Erfolgreich angelegt',
-                body: message,
+            controller.debug(message, docRef);            
+            var notification = alertify.notify(message, 'success' ,5, function(){
+                // console.log('dismissed');
             });
+            
             return getEvent(controller.id);
         })
         .then(function(event) {
             return event;
         })
         .catch(function(error) {
-            controller.debug('error', error);
-            jumplink.utilities.showGlobalModal({
-                title: 'Ereignis konnte nicht angelegt werden',
-                body: error.message,
+            controller.debug('error', error);        
+            alertify.alert(title, error.message, function(){
+            
             });
         });
     };
