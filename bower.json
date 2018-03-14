@@ -45,7 +45,8 @@
     "photoswipe": "^4.1.2",
     "masonry-layout": "^4.2.1",
     "Hyphenopoly": "mnater/Hyphenopoly",
-    "AlertifyJS": "MohammadYounes/AlertifyJS#^1.11.0"
+    "AlertifyJS": "MohammadYounes/AlertifyJS#^1.11.0",
+    "popper.js": "^1.14.0"
   },
   "resolutions": {
     "jquery": "2",

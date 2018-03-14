@@ -288,6 +288,27 @@ jumplink.utilities.isUndefined = function (value) {
 };
 
 /**
+ * Check if value is a string
+ */
+jumplink.utilities.isString = function (value) {
+    return typeof(value) === 'string';
+};
+
+/**
+ * Check if string contains a number
+ */
+jumplink.utilities.stringHasNumber = function(string) {
+  return /\d/.test(string);
+}
+
+/**
+ * Check if string contains only numbers
+ */
+jumplink.utilities.stringHasOnlyNumbers = function(string) {
+  return /^\d+$/.test(string);
+}
+
+/**
  * Detect if current device has localStorage support
  */
 jumplink.utilities.hasLocalStorage = function() {
