@@ -59,6 +59,8 @@
                     </p>
                 </div>
                 
+                <firebase-event-price event="event"></firebase-event-price>
+                
                 <p rv-if="event.equipment" class="mb-01">
                     <strong>Ausstattung:</strong> {event.equipment}
                 </p>
@@ -124,16 +126,9 @@
                     <strong>Dauer:</strong> ca. {event.startAt | duration event.endAt | asHours } Stunden
                 </p>
             </div>
-            <p rv-hide="event.pricetext" class="mb-01">
-                <span rv-show="event.price | gt 0">
-                    <strong>Preis:</strong>
-                    <span>{event.price} €</span>
-                </span>
-            </p>
-            <p rv-show="event.pricetext" class="mb-01">
-                <strong>Preis:</strong>
-                <span>{event.pricetext}</span>
-            </p>
+            
+            <firebase-event-price event="event"></firebase-event-price>
+            
             <p rv-show="event.equipment" class="mb-01">
                 <strong>Ausstattung:</strong> {event.equipment}
             </p>

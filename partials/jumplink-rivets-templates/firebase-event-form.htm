@@ -139,6 +139,15 @@ description = "For Admins: Edit or create an event"
         </div>
     </div>
     
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-warning" role="alert">
+                <strong>Der Besucher bekommt diesen Preis angezeigt:</strong><br>
+                <firebase-event-price event="event"></firebase-event-price>
+            </div>
+        </div>
+    </div>
+    
     <button rv-on-click="addPrice" class="btn btn-default">Staffelpreis Hinzufügen</button>
     <button rv-on-click="removePrice" class="btn btn-danger">Staffelpreis Entfernen</button>
     

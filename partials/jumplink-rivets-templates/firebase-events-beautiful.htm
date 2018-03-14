@@ -44,12 +44,16 @@ description = "Schöne Darstellung der nächsten Events jeden Kalenders für die
         header-text="galleryText"
     ></firebase-events-beautiful-gallery>
 </div>
+
+<div rv-if="ready | not" rv-class="containerClass | or 'container'" style="position: relative; height: 200px;">
+    <spinner name="'wandering-cubes'" color-class="'gray-lighter'"></spinner>
+</div>
    
 <div rv-if="ready | and events | empty" rv-class="containerClass">
     <div class="row">
         <div class="col-xs-12">
             <span rv-if="startTime | eq 'future'">
-                Leider gibt es momentan keine zukünftige Veranstaltung.
+                {# Leider gibt es momentan keine zukünftige Veranstaltung. #}
             </span>
             <span rv-if="startTime | eq 'past'">
                 Es gibt noch keine vergangene Veranstaltung.

@@ -1,0 +1,25 @@
+[viewBag]
+==
+<p rv-hide="event.pricetext" class="mb-01">
+    <strong>Preis:</strong>
+    <span rv-each-price="event.prices">
+        <span rv-if="price.eachAdditionalUnit | not" >
+            <span rv-if="price.fixprice">
+                Gruppenpreis {price.min} bis {price.max} Teilnehmer: {price.fixprice} €.
+            </span>
+            
+            <span rv-if="price.price">
+                Pro Teilnehmer {price.price}€ ({price.min} bis {price.max} Teilnehmer).
+            </span>
+        </span>
+        
+        <span rv-if="price.eachAdditionalUnit" >
+            Ab {price.min | minus 1} Teilnehmer: {price.fixprice} € zzgl. jede weitere {price.price} € (bis max. {price.max} TN).
+        </span>
+    </span>
+</p>
+
+<p rv-show="event.pricetext" class="mb-01">
+    <strong>Preis:</strong>
+    <span>{event.pricetext}</span>
+</p>
