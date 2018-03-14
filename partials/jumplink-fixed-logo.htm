@@ -25,17 +25,21 @@ description = "Zeigt ein fixiertes Logo auf der Seite an, beim scrollen wird ein
 {% endif %}
 
 {% if hideSelectorOnScroll is not defined %}
-    {% set hideSelectorOnScroll = '#text' %}
+    {% set hideSelectorOnScroll = '.text' %}
 {% endif %}
 
-<a
+<div
     class="jumplink-partial {{partialId}} {{position}}"
     data-partial-name="{{partialId}}"
     data-hide-selector-on-scroll="{{hideSelectorOnScroll}}"
     data-offset-in-px="{{offsetInPx}}"
-    href="/"
-    title="{{alt}}"
     style="width: {{width}}"
 >
-    {% partial '../'~source %}
-</a>
+    <a href="/" title="{{alt}}" class="image">
+        {% partial '../'~sourceLogo %}
+    </a>
+    <a href="/" title="{{alt}}" class="text">
+        {% partial '../'~sourceText %}
+    </a>
+    
+</div>

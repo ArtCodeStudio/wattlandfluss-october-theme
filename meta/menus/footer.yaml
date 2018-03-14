@@ -52,3 +52,12 @@ items:
             isHidden: '0'
             cssClass: credits
             isExternal: '0'
+    -
+        title: Feedback
+        type: cms-page
+        code: ''
+        reference: system/browser-detection
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'

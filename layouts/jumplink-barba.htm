@@ -7,6 +7,8 @@ default = 0
 [contenteditor]
 ==
 <?php
+use Debugbar as Debugbar;
+
 function onSubmitContact() {
     
     Log::info('Used contact form '.post('name'));
@@ -20,8 +22,7 @@ function onSubmitContact() {
     
     
     $buildOwnerMessage = function ($message) use ($vars) {
-        // TODO use email and name from backend or theme settings
-        $message->to('moin@watt-land-fluss.de', 'watt-land-fluss.de');
+        $message->to($this->theme->email_address, $this->theme->site_name);
     };
     
     $buildSenderMessage = function ($message) use ($vars) {
@@ -37,6 +38,50 @@ function onSubmitContact() {
     // TODO catch errors
     $this['result'] = "Nachricht abgeschickt";
 }
+
+
+function onReguestEvent() {
+    
+    // get request data
+    $input = Input::all();
+    
+    $vars = [
+        'name' =>          isset($input['name']) ? $input['name'] : '',
+        'lastname' =>      isset($input['lastname']) ? $input['lastname'] : '',
+        'email' =>         isset($input['email']) ? $input['email'] : '',
+        'phone' =>         isset($input['phone']) ? $input['phone'] : '',
+        'quantity' =>      isset($input['quantity']) ? $input['quantity'] : '',
+        'street' =>        isset($input['street']) ? $input['street'] : '',
+        'zip' =>           isset($input['zip']) ? $input['zip'] : '',
+        'date' =>          isset($input['date']) ? $input['date'] : '',
+        'total' =>         isset($input['total']) ? $input['total'] : '',
+        'eventID' =>       isset($input['event']['id']) ? $input['event']['id'] : '',
+        'eventTitle' =>    isset($input['event']['title']) ? $input['event']['title'] : '',
+        'eventSubtitle' => isset($input['event']['subtitle']) ? $input['event']['subtitle'] : '',
+        'eventDescription' => isset($input['event']['description']) ? $input['event']['description'] : '',
+        'eventCalendar' =>    isset($input['event']['calendar']) ? $input['event']['calendar'] : '',
+    ];
+    
+    // Debugbar::info('[onReguestEvent] $input', $input);
+    
+    Log::info('Book event, Name:'.$input['name'].' '.$input['lastname'].' E-Mail:'.$input['email'].' Event ID'.$input['event']['id'].' Menge: '.$input['quantity']);
+    
+    $buildOwnerMessage = function ($message) use ($vars) {
+        $message->to($this->theme->email_address, $this->theme->site_name);
+    };
+    
+    $buildSenderMessage = function ($message) use ($vars) {
+        $message->to($vars['email'], $vars['name'].' '.$vars['lastname']);
+    };
+    
+    // mail to site owner
+    Mail::send('frontend::event.book', $vars, $buildOwnerMessage);
+    
+    // mail to contact sender
+    Mail::send('frontend::event.book-copy', $vars, $buildSenderMessage);
+    
+    return Response::json($input);
+}
 ?>
 ==
 <!DOCTYPE html>
@@ -45,7 +90,7 @@ function onSubmitContact() {
     <body id="body-{{ str_studly(this.page.title) | lower | replace({'/':'_'}) }}" data-spy="scroll">
         {# Content #}
         <div id="layout-content">
-            {% partial 'jumplink-fixed-logo' source='assets/images/logo.svg' position='top-left' width= '10rem' alt='Logo von'~this.theme.site_name %}
+            {% partial 'jumplink-fixed-logo' sourceLogo='assets/images/logo-just.svg' sourceText='assets/images/logo-text.svg' position='top-left' width= '10rem' alt='Logo von'~this.theme.site_name %}
             {% partial 'jumplink-navigation/navbar_only-sidebar' %}
             <div id="barba-wrapper">
                 <div {% partial 'jumplink-barba-container-attributes' %}>

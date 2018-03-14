@@ -2,6 +2,9 @@
 window.jumplink = window.jumplink || {};
 window.jumplink.utilities = window.jumplink.utilities || {};
 
+window.jumplink.debug = window.jumplink.debug || {};
+window.jumplink.debug.utilities = debug('theme:utilities');
+
 /**
  * Show global modal with rivets.js
  * Needs the global-modal component in dom
@@ -170,8 +173,8 @@ jumplink.utilities.calcEventTotal = function (event, quantity) {
     var priceObj = jumplink.utilities.getEventScalePriceByQuantity(event, quantity);
     var total = 0;
     if(priceObj === null) {
-        var error = new Error('Kein Staffelpreis gefunden, TODO handle error');
-        console.error(error);
+        var warn = new Error('Kein Staffelpreis gefunden, TODO handle error');
+        window.jumplink.debug.utilities(warn);
         return null;
     }
     

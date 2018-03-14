@@ -7,8 +7,6 @@
     rv-class-bg-state-success="event.calendar | eq 'Land'"
     rv-class-animated-gradient="event.calendar | eq 'Spezial'"
     rv-class-bg-gradient-state-success-info-warning="event.calendar | eq 'Spezial'"
-    
-    novalidate
 >
     <div class="toolbar">
         <rv-select
@@ -17,7 +15,7 @@
             on-change="onSelectEventChanged"
         ></rv-select>
         
-        <datepicker placeholder="'Datum'" format="'DD.MM.YYYY'" lang="'de'" placeholder="'Datum'" name="date" on-change="onDateChanged"></datepicker>
+        <datepicker placeholder="'Datum'" format="'DD.MM.YYYY'" lang="'de'" placeholder="'Datum'" name="'date'" on-change="onDateChanged"></datepicker>
         
         <div
             class="form-group"
@@ -32,7 +30,7 @@
         
         <span class="price">{total} EUR</span>
         
-        <button class="btn btn-outline-dark" rv-disabled="validation.valid | not" rv-on-click="onBook">Tour buchen</button>
+        <button class="btn btn-outline-dark" rv-disabled="validation.valid | not" rv-on-click="onBook">Tour anfragen</button>
     
     </div>
     

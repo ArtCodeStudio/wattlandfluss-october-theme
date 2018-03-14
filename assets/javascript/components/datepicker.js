@@ -16,7 +16,8 @@ rivets.components.datepicker = {
     var $input;
     controller.id;
     controller.placeholder;
-    controller.label ;
+    controller.label;
+    controller.name = data.name;
             
     var onChange = function (dates) {
         controller.debug('onChange dates', dates);

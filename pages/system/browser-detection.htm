@@ -24,7 +24,7 @@ function onSubmitBrowserForm() {
     
     $buildOwnerMessage = function ($message) use ($vars) {
         // TODO use email and name from backend or theme settings
-        $message->to('moin@watt-land-fluss.de', 'watt-land-fluss.de');
+        $message->to('info@jumplink.me', 'watt-land-fluss.de');
     };
   
     $buildSenderMessage = function ($message) use ($vars) {
@@ -72,7 +72,7 @@ function onSubmitBrowserForm() {
  #
  ##}
 
-<div class="container pt-5 pb-4" id="browser-info">
+<div class="container" id="browser-info">
     <div class="row">
         <div class="col-xs-12">
             <h1 class="text-center hidden">{{ page.title }}</h1>
