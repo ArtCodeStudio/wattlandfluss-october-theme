@@ -28,9 +28,14 @@
                     </div>
 
                     <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.total.error | count">
-                        <input type="number" class="form-control" id="modalTotal" rv-value="form.total" disabled="true" placeholder="Summe" name="total">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="modalTotal" rv-value="form.total" disabled="true" placeholder="Summe" name="total">
+                            <span class="input-group-addon">€</span>
+                        </div>
                         <div class="validate-tooltip" rv-html="validation.total.error"></div>
                     </div>
+                    
+                    
 
                     <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.name.error | count">
                         <input type="text" class="form-control" id="modalName" rv-value="form.name" placeholder="Vorname" name="name" autocomplete="given-name" rv-on-change="onFormChanged">

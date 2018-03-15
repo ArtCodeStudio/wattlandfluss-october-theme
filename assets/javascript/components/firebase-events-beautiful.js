@@ -16,6 +16,8 @@ rivets.components['firebase-events-beautiful'] = {
     var db = firebase.firestore();
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
     
+    data.getEventByUrlIdParam = data.getEventByUrlIdParam === true || data.getEventByUrlIdParam === 'true' || data.getEventByUrlIdParam === 1 || data.getEventByUrlIdParam === '1';
+    
     controller.ready = false;
     controller.containerClass = data.containerClass || 'container';
     controller.title = data.title;
@@ -159,6 +161,7 @@ rivets.components['firebase-events-beautiful'] = {
             }
         }
         
+        
         /**
          * Only set limit if no exclude is set otherwise limit is not working
          * If excludes is set we have a client site limit implement with a counter (search for 'count')
@@ -198,10 +201,50 @@ rivets.components['firebase-events-beautiful'] = {
         });
     };
     
-    getEvents()
-    .then(function() {
-        controller.ready = true;
-    });
+    /*
+     * e.g. https://watt-land-fluss.de/event?id=I9YnPGqMpVKR9Q8qmjEI 
+     */
+    var getEventByID = function(id) {
+        controller.events = [];
+        
+        if(!id) {
+            var url = new URL(window.location.href);
+            id = url.searchParams.get('id');
+        }
+        controller.debug('getEventByID', id);
+        return dbEvents.doc(id).get()
+        .then((doc) => {
+            if (doc.exists) {
+                var event = doc.data();
+                event.id = doc.id;
+                controller.debug('event', event);
+                pushEventGroupedByProperty(controller.events, event, controller.groupBy);
+            } else {
+                console.error("No such document!");
+            }
+        })
+        .catch(function(error) {
+            controller.debug('error', error);
+            jumplink.utilities.showGlobalModal({
+                title: 'Ereignis konnte nicht geladen werden',
+                body: error.message,
+            });
+        });
+    }
+    
+    if(data.getEventByUrlIdParam) {
+        getEventByID()
+        .then(function() {
+            controller.debug('events', controller.events);
+            controller.ready = true;
+        });
+    } else {
+        getEvents()
+        .then(function() {
+            controller.ready = true;
+        });
+    }
+
     
     return controller;
   }

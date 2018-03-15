@@ -82,6 +82,10 @@ snippetProperties[showToolbar][title] = "Zeige Toolbar"
 snippetProperties[showToolbar][type] = "checkbox"
 snippetProperties[showToolbar][default] = 0
 snippetProperties[showToolbar][options][] = ""
+snippetProperties[getEventByUrlIDParam][title] = "Einzelnes Event über URL Parameter"
+snippetProperties[getEventByUrlIDParam][type] = "checkbox"
+snippetProperties[getEventByUrlIDParam][default] = 0
+snippetProperties[getEventByUrlIDParam][options][] = ""
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
@@ -106,5 +110,6 @@ snippetProperties[showToolbar][options][] = ""
     gallery-title="'{{galleryTitle}}'"
     gallery-text="'{{galleryText}}'"
     detail-page="'{{detailPage | app }}'"
+    get-event-by-url-id-param="'{{getEventByUrlIDParam}}'"
     >
 </firebase-events-beautiful>
