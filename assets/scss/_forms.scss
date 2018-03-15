@@ -50,3 +50,66 @@
 
 }
 
+
+.input-group {
+    border-bottom: 2px dashed #000;
+    
+    .form-control {
+        border: none;
+        padding-right: 0;
+    }
+    .input-group-addon {
+        border: none;
+        font-size: 16px;
+        padding-top: 0.9rem;
+        &:not(:first-child) {
+            padding-left: 0;
+        }
+    }
+}
+
+/**
+ * WORKAROUND to set chrome background autofill color to transparent
+ * @see https://stackoverflow.com/a/37432260/1465919
+ */
+@-webkit-keyframes autofill {
+    to {
+        background: transparent;
+    }
+}
+
+.form-control, .custom-select, .input-group-addon {
+    background-color: transparent;
+    margin-bottom: 0;
+    &:focus {
+        background-color: transparent;
+    }
+    
+    &:-webkit-autofill {
+        // WORKAROUND
+        -webkit-animation-name: autofill;
+        -webkit-animation-fill-mode: both;
+        border-color: $brand-warning;
+    }
+    
+    &:disabled {
+        background-color: transparent;
+        border-color: $gray-light;
+    }
+}
+
+.validate-tooltip {
+    display: none;
+    position: absolute;
+    font-size: 0.6rem;
+}
+
+.has-error {
+    .validate-tooltip {
+        color: $brand-danger;
+        display: block;
+    }
+    .form-control {
+        border-color: $brand-danger;
+    }
+}

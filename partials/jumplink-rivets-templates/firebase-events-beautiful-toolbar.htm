@@ -41,14 +41,14 @@
                     class="col-xs-6 col-md-4 form-group"
                     rv-class-has-error="validation.name.error | count"
                 >
-                    <input type="text" class="form-control" id="toolbarName" rv-value="name" placeholder="Vorname" name="name" rv-on-change="onFormChanged">
+                    <input type="text" class="form-control" id="toolbarName" rv-value="name" placeholder="Vorname" name="name" autocomplete="given-name" rv-on-change="onFormChanged">
                     <div class="validate-tooltip" rv-html="validation.name.error"></div>
                 </div>
                 <div
                     class="col-xs-6 col-md-4 form-group"
                     rv-class-has-error="validation.lastname.error | count"
                 >
-                    <input type="text" class="form-control" id="toolbarLastname" rv-value="lastname" placeholder="Nachname" name="lastname" rv-on-change="onFormChanged">
+                    <input type="text" class="form-control" id="toolbarLastname" rv-value="lastname" placeholder="Nachname" name="lastname" autocomplete="family-name" rv-on-change="onFormChanged">
                     <div class="validate-tooltip" rv-html="validation.lastname.error"></div>
                 </div>
                 
@@ -56,14 +56,14 @@
                     class="col-xs-6 col-md-4 form-group"
                     rv-class-has-error="validation.email.error | count"
                 >
-                    <input type="email" class="form-control" id="toolbarEmail" rv-value="email" placeholder="E-Mail" name="email" rv-on-change="onFormChanged">
+                    <input type="email" class="form-control" id="toolbarEmail" rv-value="email" placeholder="E-Mail" name="email" autocomplete="email" rv-on-change="onFormChanged">
                     <div class="validate-tooltip" rv-html="validation.email.error"></div>
                 </div>
                 <div
                     class="col-xs-6 col-md-4 form-group"
                     rv-class-has-error="validation.phone.error | count"
                 >
-                    <input type="tel" class="form-control" id="toolbarPhone" rv-value="phone" placeholder="Telefonnummer" name="phone" rv-on-change="onFormChanged">
+                    <input type="tel" class="form-control" id="toolbarPhone" rv-value="phone" placeholder="Telefonnummer" name="phone" autocomplete="tel" rv-on-change="onFormChanged">
                     <div class="validate-tooltip" rv-html="validation.phone.error"></div>
                 </div>
                 
@@ -71,14 +71,14 @@
                     class="col-xs-6 col-md-4 form-group"
                     rv-class-has-error="validation.street.error | count"
                 >
-                    <input type="text" class="form-control" id="toolbarStreet" rv-value="street" placeholder="Straße, Nr." name="street" rv-on-change="onFormChanged">
+                    <input type="text" class="form-control" id="toolbarStreet" rv-value="street" placeholder="Straße, Nr." name="street" autocomplete="shipping street-address" rv-on-change="onFormChanged">
                     <div class="validate-tooltip" rv-html="validation.street.error"></div>
                 </div>
                 <div
                     class="col-xs-6 col-md-4 form-group"
                     rv-class-has-error="validation.zip.error | count"
                 >
-                    <input type="text" class="form-control" id="toolbarZip" rv-value="zip" placeholder="PLZ" name="zip" rv-on-change="onFormChanged">
+                    <input type="text" class="form-control" id="toolbarZip" rv-value="zip" placeholder="PLZ" name="zip" autocomplete="shipping postal-code" rv-on-change="onFormChanged">
                     <div class="validate-tooltip" rv-html="validation.zip.error"></div>
                 </div>
                 

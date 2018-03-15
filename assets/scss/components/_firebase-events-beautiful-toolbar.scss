@@ -24,62 +24,22 @@ firebase-events-beautiful-toolbar {
                 .form-control {
                     margin-top: 0;
                     margin-bottom: 0;
-                    order-style: dashed;
                     &#toolbarQuantity {
                        width: 70px;
                     }
                 }
-                
             }
         }
         
         .collapse {
 
         }
-        
-        .form-control, .custom-select, .input-group-addon {
-            background-color: transparent;
-            margin-bottom: 0;
-        }
-        
-    }
-    
-   .input-group {
-        border-bottom: 2px dashed #000;
-        
-        .form-control {
-            border: none;
-            padding-right: 0;
-        }
-        .input-group-addon {
-            border: none;
-            font-size: 16px;
-            padding-top: 0.9rem;
-            &:not(:first-child) {
-                padding-left: 0;
-            }
-        }
+                
     }
     
     .card {
         background-color: transparent;
         border: none;
     }
-    
-    .validate-tooltip {
-        display: none;
-        position: absolute;
-        font-size: 0.6rem;
-    }
-    
-    .has-error {
-        .validate-tooltip {
-            color: $brand-danger;
-            display: block;
-        }
-        .form-control {
-            border-color: $brand-danger;
-        }
-    }
-        
+            
 } 

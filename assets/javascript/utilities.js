@@ -8,6 +8,7 @@ window.jumplink.debug.utilities = debug('theme:utilities');
 /**
  * Show global modal with rivets.js
  * Needs the global-modal component in dom
+ * TODO move to events
  */
 jumplink.utilities.showGlobalModal = function (data) {
     $.event.trigger('rivets:global-modal', [true, data]);
@@ -153,45 +154,6 @@ jumplink.utilities.getCheckboxValue = function(selector) {
 
 
 /**
- * Gibt den Staffelpreis (der für die Anzahl der Personen passt) zurück
- */
-jumplink.utilities.getEventScalePriceByQuantity = function(event, quanity) {
-    var result = null;
-    
-    event.prices.forEach(function(priceObj) {
-        if(quanity >= priceObj.min && quanity <= priceObj.max) {
-            result = priceObj;
-        }
-    });
-    return result;
-};
-
-/**
- * Gesamtpreis eines Events berechnen
- */
-jumplink.utilities.calcEventTotal = function (event, quantity) {
-    var priceObj = jumplink.utilities.getEventScalePriceByQuantity(event, quantity);
-    var total = 0;
-    if(priceObj === null) {
-        var warn = new Error('Kein Staffelpreis gefunden, TODO handle error');
-        window.jumplink.debug.utilities(warn);
-        return null;
-    }
-    
-    // Wenn nur jede zusätzliche Person gezählt werden soll
-    if(priceObj.eachAdditionalUnit) {
-        quantityToCalc = quantity - (priceObj.min - 1);
-    } else {
-        quantityToCalc = quantity;
-    }
-    
-    total = priceObj.fixprice + (priceObj.price * quantityToCalc);
-    
-    return total;
-};
-
-
-/**
  * Parse jsonstrings in datasets of the .barba-container
  * 
  * @see theme.liquid for .barba-container  
@@ -310,6 +272,14 @@ jumplink.utilities.stringHasNumber = function(string) {
 jumplink.utilities.stringHasOnlyNumbers = function(string) {
   return /^\d+$/.test(string);
 }
+
+/**
+ * Check if string contains only numbers, +, - and ()
+ */
+jumplink.utilities.stringIsPhoneNumber = function(string) {
+  return /^[0-9 ()+-]+$/.test(string);
+}
+
 
 /**
  * Detect if current device has localStorage support

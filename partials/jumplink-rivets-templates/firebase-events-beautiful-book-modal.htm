@@ -1,0 +1,77 @@
+[viewBag]
+==
+<div class="modal fade" id="firebase-events-beautiful-book-modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle" rv-text="title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.date.error | count">
+                        <input type="date" class="form-control" id="modalDate" rv-value="form.date" disabled="true" placeholder="Datum" name="date" rv-on-change="onDateChanged">
+                        <div class="validate-tooltip" rv-html="validation.date.error"></div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.quantity.error | count">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="modalQuantity" rv-value="form.quantity" placeholder="" name="quantity" rv-on-change="onQuantityChanged">
+                            <span class="input-group-addon">Teilnehmer</span>
+                        </div>
+                        <div class="validate-tooltip" rv-html="validation.quantity.error"></div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.total.error | count">
+                        <input type="number" class="form-control" id="modalTotal" rv-value="form.total" disabled="true" placeholder="Summe" name="total">
+                        <div class="validate-tooltip" rv-html="validation.total.error"></div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.name.error | count">
+                        <input type="text" class="form-control" id="modalName" rv-value="form.name" placeholder="Vorname" name="name" autocomplete="given-name" rv-on-change="onFormChanged">
+                        <div class="validate-tooltip" rv-html="validation.name.error"></div>
+                    </div>
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.lastname.error | count">
+                        <input type="text" class="form-control" id="modalLastname" rv-value="form.lastname" placeholder="Nachname" name="lastname" autocomplete="family-name" rv-on-change="onFormChanged">
+                        <div class="validate-tooltip" rv-html="validation.lastname.error"></div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.email.error | count">
+                        <input type="email" class="form-control" id="modalEmail" rv-value="form.email" placeholder="E-Mail" name="email" autocomplete="email" rv-on-change="onFormChanged">
+                        <div class="validate-tooltip" rv-html="validation.email.error"></div>
+                    </div>
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.phone.error | count">
+                        <input type="tel" class="form-control" id="modalPhone" rv-value="form.phone" placeholder="Telefonnummer" name="phone" autocomplete="tel" rv-on-change="onFormChanged">
+                        <div class="validate-tooltip" rv-html="validation.phone.error"></div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.street.error | count">
+                        <input type="text" class="form-control" id="modalStreet" rv-value="form.street" placeholder="Straße, Nr." name="street" autocomplete="shipping street-address" rv-on-change="onFormChanged">
+                        <div class="validate-tooltip" rv-html="validation.street.error"></div>
+                    </div>
+                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.zip.error | count">
+                        <input type="text" class="form-control" id="modalZip" rv-value="form.zip" placeholder="PLZ" name="zip" autocomplete="shipping postal-code" rv-on-change="onFormChanged">
+                        <div class="validate-tooltip" rv-html="validation.zip.error"></div>
+                    </div>
+
+                    <div class="col-xs-2 col-xs-4">
+                        <p>
+                            Hinweis..
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-dark" rv-disabled="validation.valid | not" rv-on-click="onBook">Tour anfragen</button>
+                <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Abbrechen</button>
+            </div>
+
+        </div>
+    </div>
+</div>

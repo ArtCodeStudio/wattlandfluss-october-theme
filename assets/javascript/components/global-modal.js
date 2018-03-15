@@ -1,7 +1,7 @@
 /**
  * A modal component for alerts, do you need to use this component in dom only once
  * and you can call by tigger a global event:
- * @example $.event.trigger('rivets:modal', [true, data]);
+ * @example $.event.trigger('rivets:global-modal', [true, data]);
  * 
  * The data param should have title, body, ..
  * 
@@ -17,7 +17,7 @@ rivets.components['global-modal'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:modal');
+    controller.debug = debug('rivets:global-modal');
     controller.debug('initialize', el, data);
     
     controller.data = {
@@ -29,7 +29,7 @@ rivets.components['global-modal'] = {
     var $modal = $el.find('#modal');
     
     /**
-     * WORKAROUND global event to show / hide this modal 
+     * global event to show / hide this modal 
      * 
      */
     $(document).bind('rivets:global-modal', function (event, show, data) {
@@ -52,8 +52,7 @@ rivets.components['global-modal'] = {
     
     controller.toggle = function(event, controller, show) {
         controller.debug('toggle', event, controller, show);
-        // $modal.modal('toggle');
-        $modal.modal('show');
+        $modal.modal('toggle');
     };
     
     controller.show = function(event, controller) {

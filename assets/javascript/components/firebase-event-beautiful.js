@@ -53,17 +53,18 @@ rivets.components['firebase-event-beautiful'] = {
             break;
     }
     
-    controller.requests = function(event, controller) {
-        var $this = $(event.target);
-        var data = $this.data();
-        controller.debug('requests', controller.event, data);
-    };
-    
     controller.show = function(event, controller) {
         var $this = $(event.target);
         var data = $this.data();
         controller.debug('show', controller.event, data);
         Barba.Pjax.goTo(controller.detailPage + '#'+data.id);
+    };
+    
+    controller.bookByEvent = function(event, controller) {
+        var $this = $(event.target);
+        var data = $this.data();
+        controller.debug('bookByEvent', controller.event, data);
+        $.event.trigger('rivets:firebase-events-beautiful-book-modal', [true, controller.event.title, controller.event]);
     };
     
     var checkHash = function() {

@@ -285,7 +285,7 @@ rivets.components['firebase-event-form'] = {
     
     controller.calcExampleTotal = function(priceObj) {
         var quanity = priceObj.min + 1;
-        var total = jumplink.utilities.calcEventTotal(controller.event, quanity);
+        var total = jumplink.events.calcEventTotal(controller.event, quanity);
         return total;
     };
     
