@@ -63,10 +63,10 @@ code = "footer"
     {% if mode == 'horizontal_menu' %}
 
         <div class="navbar navbar-toggleable-md navbar-light bg-transparent jumplink-navbar_extend-horizontally">
-            <div class="container mx-0 mx-md-auto">
+            <div class="container">
             
                 <div class="w-100 hidden-print">
-                    {% partial 'jumplink-navigation/navbar-items' items=footerMenu.menuItems class='hidden-md-down navbar-nav d-flex justify-content-center' itemClass='nav-item' %}
+                    {% partial 'jumplink-navigation/navbar-items' items=footerMenu.menuItems class='navbar-nav d-flex justify-content-center' itemClass='nav-item' %}
                 </div>
                 
             </div>

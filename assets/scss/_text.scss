@@ -29,3 +29,77 @@ strong {
 .text-second {
     font-family: $font-family-second;
 }
+
+
+/**
+ * Smaler test on small devices
+ */
+@include media-breakpoint-down(md) {
+    h1, .h1 {
+        font-size: $font-size-h1 * 0.8;
+    }
+    
+    h2, .h2 {
+        font-size: $font-size-h2 * 0.8;
+    }
+    
+    h3, .h3 {
+        font-size: $font-size-h3 * 0.8;
+    }
+    
+    h4, .h4 {
+        font-size: $font-size-h4 * 0.8;
+    }
+    
+    h5, .h5 {
+        font-size: $font-size-h5 * 0.8;
+    }
+    
+    h6, .h6 {
+        font-size: $font-size-h6 * 0.8;
+    }
+    
+    body {
+        font-size: $font-size-sm;
+        line-height: $line-height-base;
+    }
+}
+
+@include media-breakpoint-down(xs) {
+    h1, .h1 {
+        font-size: $font-size-h1 * 0.6;
+    }
+    
+    h2, .h2 {
+        font-size: $font-size-h2 * 0.6;
+    }
+    
+    h3, .h3 {
+        font-size: $font-size-h3 * 0.6;
+    }
+    
+    h4, .h4 {
+        font-size: $font-size-h4 * 0.6;
+    }
+    
+    h5, .h5 {
+        font-size: $font-size-h5 * 0.6;
+    }
+    
+    h6, .h6 {
+        font-size: $font-size-h6 * 0.6;
+    }
+    
+    body {
+        font-size: $font-size-xs;
+        line-height: $line-height-base;
+    }
+}
+
+/**
+ * Use padding instead of margin to make large fonts visible if they are heigher than the line height
+ */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0;
+    padding-bottom: $headings-margin-bottom;
+}

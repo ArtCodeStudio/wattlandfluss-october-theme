@@ -67,4 +67,25 @@
             }
         }
     }
+    
+    @include media-breakpoint-down(md) {
+        .wrapper {
+            position: initial;
+            .content-layer {
+                position: initial;
+                background-color: transparent !important;
+                &.content-layer-hover {
+                    opacity: 1;
+                }
+            }
+
+            .content {
+                position: initial;
+                .content-texts {
+                    color: $body-color !important;
+                }
+            }
+        }
+    }
+    
 }

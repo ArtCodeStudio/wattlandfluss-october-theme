@@ -2,14 +2,24 @@ firebase-events-beautiful-toolbar {
     display: block;
     z-index: 3003;
     
+    max-height: 100vh;
+    overflow-y: auto;
+    
     &.pos-sticky {
         top: -5px;
+        max-height: calc(100vh + 5px);
     }
     .toolbar-form {
         
+        @include media-breakpoint-down(xs) {
+            rv-select {
+                max-width: 180px;
+            }
+        }
+        
         .toolbar {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             

@@ -53,7 +53,7 @@ items:
             cssClass: credits
             isExternal: '0'
     -
-        title: Feedback
+        title: 'Fehler melden'
         type: cms-page
         code: ''
         reference: system/browser-detection

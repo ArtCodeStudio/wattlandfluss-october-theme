@@ -14,12 +14,12 @@
 
                 <div class="row">
                     
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.date.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.date.error | count">
                         <input type="date" class="form-control" id="modalDate" rv-value="form.date" disabled="true" placeholder="Datum" name="date" rv-on-change="onDateChanged">
                         <div class="validate-tooltip" rv-html="validation.date.error"></div>
                     </div>
 
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.quantity.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.quantity.error | count">
                         <div class="input-group">
                             <input type="number" class="form-control" id="modalQuantity" rv-value="form.quantity" placeholder="" name="quantity" rv-on-change="onQuantityChanged">
                             <span class="input-group-addon">Teilnehmer</span>
@@ -27,7 +27,7 @@
                         <div class="validate-tooltip" rv-html="validation.quantity.error"></div>
                     </div>
 
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.total.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.total.error | count">
                         <div class="input-group">
                             <input type="number" class="form-control" id="modalTotal" rv-value="form.total" disabled="true" placeholder="Summe" name="total">
                             <span class="input-group-addon">€</span>
@@ -37,37 +37,35 @@
                     
                     
 
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.name.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.name.error | count">
                         <input type="text" class="form-control" id="modalName" rv-value="form.name" placeholder="Vorname" name="name" autocomplete="given-name" rv-on-change="onFormChanged">
                         <div class="validate-tooltip" rv-html="validation.name.error"></div>
                     </div>
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.lastname.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.lastname.error | count">
                         <input type="text" class="form-control" id="modalLastname" rv-value="form.lastname" placeholder="Nachname" name="lastname" autocomplete="family-name" rv-on-change="onFormChanged">
                         <div class="validate-tooltip" rv-html="validation.lastname.error"></div>
                     </div>
 
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.email.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.email.error | count">
                         <input type="email" class="form-control" id="modalEmail" rv-value="form.email" placeholder="E-Mail" name="email" autocomplete="email" rv-on-change="onFormChanged">
                         <div class="validate-tooltip" rv-html="validation.email.error"></div>
                     </div>
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.phone.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.phone.error | count">
                         <input type="tel" class="form-control" id="modalPhone" rv-value="form.phone" placeholder="Telefonnummer" name="phone" autocomplete="tel" rv-on-change="onFormChanged">
                         <div class="validate-tooltip" rv-html="validation.phone.error"></div>
                     </div>
 
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.street.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.street.error | count">
                         <input type="text" class="form-control" id="modalStreet" rv-value="form.street" placeholder="Straße, Nr." name="street" autocomplete="shipping street-address" rv-on-change="onFormChanged">
                         <div class="validate-tooltip" rv-html="validation.street.error"></div>
                     </div>
-                    <div class="col-xs-6 col-md-4 form-group" rv-class-has-error="validation.zip.error | count">
+                    <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.zip.error | count">
                         <input type="text" class="form-control" id="modalZip" rv-value="form.zip" placeholder="PLZ" name="zip" autocomplete="shipping postal-code" rv-on-change="onFormChanged">
                         <div class="validate-tooltip" rv-html="validation.zip.error"></div>
                     </div>
 
-                    <div class="col-xs-2 col-xs-4">
-                        <p>
-                            Hinweis..
-                        </p>
+                    <div class="col-xs-12 pt-2">
+                        {% component 'contenteditor' file='buchungsinformation.htm' tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted" %}
                     </div>
                 </div>
             </div>

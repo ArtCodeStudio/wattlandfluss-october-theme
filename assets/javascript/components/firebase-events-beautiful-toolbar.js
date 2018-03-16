@@ -11,6 +11,7 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     controller.debug = debug('rivets:firebase-events-beautiful-toolbar');
     controller.debug('initialize', el, data);
     var $el = $(el);
+    var $collapse = $el.find('.collapse');
 
     controller.type = data.type;
     controller.calendar = data.calendar;
@@ -28,6 +29,8 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     controller.street = '';
     controller.zip = '';
     
+    controller.collapsed = false;
+    
     /**
      * validate form, if keys is undefined all keys will be validated
      * @param validation object with the validation rules
@@ -44,7 +47,7 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     };
     
     var collapse = function(action) {
-        $el.find('.collapse').collapse(action);
+        $collapse.collapse(action);
     };
         
     controller.onSelectEventChanged = function(selectedEvent) {
@@ -71,6 +74,10 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         var name = $form.attr('name');
         controller.debug('onInputhanged', name);
         controller.validation = validate(controller.validation, [name]);
+    };
+    
+    controller.toggleCollapse = function(event) {
+        collapse('toggle');
     };
     
     /**
@@ -141,7 +148,17 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         collapse('show');
         event.stopPropagation();
     });
-        
+    
+    $collapse.on('hide.bs.collapse', function () {
+        controller.collapsed = false;
+        controller.debug('hide.bs.collapse', controller.collapsed);
+    });
+    
+    $collapse.on('show.bs.collapse', function () {
+        controller.collapsed = true;
+        controller.debug('show.bs.collapse', controller.collapsed);
+    });
+            
     $el.one('DOMSubtreeModified', function() {
         setTimeout(function() {
             controller.onSelectEventChanged({index: 0});

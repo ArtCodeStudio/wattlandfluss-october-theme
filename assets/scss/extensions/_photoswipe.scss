@@ -4,7 +4,7 @@ $pswp__background-color: #fff;
 $pswp__placeholder-color: #222 !default;
 // disable .pswp * { box-sizing:border-box } (in case you already have it in your site css)
 $pswp__box-sizing-border-box: true !default;
-$pswp__root-z-index: 1500 !default;
+$pswp__root-z-index: 3500 !default;
 // path to skin assets folder (preloader, PNG and SVG sprite)
 $pswp__assets-path: '../vendor/photoswipe/dist/default-skin/';
 // "Image not loaded" text color
@@ -355,7 +355,7 @@ a.pswp__share--download {
 	height: 44px;
 	font-size: 13px;
 	line-height: 44px;
-	color: #FFF;
+	color: #000;
 	opacity: 0.75;
 	padding: 0 10px;
 }
