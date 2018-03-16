@@ -147,15 +147,20 @@ rivets.binders.value = {
 rivets.binders.checked = {
     publishes: true,
     priority: 2000,
-
+    
     bind: function(el) {
+        
+        this.initTemplateSelector = function(el) {
+            if(this.type === 'checkbox') {
+                this.$checkbox = this.$el;
+            } else {
+                this.$checkbox = this.$el.find('input[type="checkbox"]');
+            }
+        };
+        
         this.$el = $(el);
         this.type = this.$el.prop("type");
-        if(this.type === 'checkbox') {
-            this.$checkbox = this.$el;
-        } else {
-            this.$checkbox = this.$el.find('input[type="checkbox"]');
-        } 
+        this.initTemplateSelector(el);
         this.$el.on('change', this.publish);
         
     },
@@ -170,8 +175,12 @@ rivets.binders.checked = {
     routine: function(el, newValue) {
         newValue = newValue === true;
         
-        if(!this.$checkbox) {
-            this.$checkbox = this.$el.find('input[type="checkbox"]');
+        /**
+         * If this binder is ussed on a component it could be that the component template
+         * was not ready at the time this binder was called, so we check here if the element was found and if not we try it again
+         */
+        if(!this.$checkbox.length) {
+            this.initTemplateSelector(el);
         }
         
         this.$checkbox.prop('checked', newValue);
@@ -186,13 +195,18 @@ rivets.binders.checked = {
 rivets.binders.selected = {
 
     bind: function(el) {
+        
+        this.initTemplateSelector = function(el) {
+            if(this.tagName === 'SELECT') {
+                this.$select = this.$el;
+            } else {
+                this.$select = this.$el.find('select');
+            }
+        };
+        
         this.$el = $(el);
         this.tagName = this.$el.prop('tagName');
-        if(this.tagName === 'SELECT') {
-            this.$select = this.$el;
-        } else {
-            this.$select = this.$el.find('select');
-        } 
+        this.initTemplateSelector(el);
         this.$el.on('change', this.publish);
     },
 
@@ -204,9 +218,19 @@ rivets.binders.selected = {
     },
 
     routine: function(el, newValue) {
-        
+        console.log('[rivets.binders.selected] this.$select', this.$select, 'newValue', newValue);
         if (newValue) {
+            
+            /**
+             * If this binder is ussed on a component it could be that the component template
+             * was not ready at the time this binder was called, so we check here if the element was found and if not we try it again
+             */
+            if(!this.$select.length) {
+                this.initTemplateSelector();
+            }
+            
             var oldValue = this.getValue(el);
+            console.log('[rivets.binders.selected] newValue', newValue, 'oldValue', oldValue);
             if(oldValue !== newValue) {
                 jumplink.utilities.setSelectedValue(this.$select, newValue);
             }

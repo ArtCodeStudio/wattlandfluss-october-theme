@@ -1,6 +1,51 @@
 name: Footer
 items:
     -
+        title: watt
+        type: url
+        url: /fuehrungen/watt
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: watt
+            isExternal: '0'
+    -
+        title: land
+        type: url
+        url: /fuehrungen/land
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: land
+            isExternal: '0'
+    -
+        title: fluss
+        type: url
+        url: /fuehrungen/fluss
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: fluss
+            isExternal: '0'
+    -
+        title: Termine
+        type: url
+        url: /oeffentliche-fuehrung
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: Termine
+            isExternal: '0'
+    -
+        title: 'Tour planen'
+        type: url
+        url: /eigene-tour-planen
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: eigene-tour-planen
+            isExternal: '0'
+    -
         title: Kontakt
         nesting: '0'
         type: static-page
@@ -54,10 +99,14 @@ items:
             isExternal: '0'
     -
         title: 'Fehler melden'
+        nesting: ''
         type: cms-page
+        url: ''
         code: ''
         reference: system/browser-detection
+        cmsPage: ''
+        replace: ''
         viewBag:
-            isHidden: '0'
+            isHidden: '1'
             cssClass: ''
             isExternal: '0'

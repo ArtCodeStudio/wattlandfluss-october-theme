@@ -7,6 +7,103 @@ license: MIT
 form:
     tabs:
         fields:
+            site_desc:
+                label: 'Site description'
+                type: text
+                comment: 'Describe your site in one sentence'
+                default: 'Carolines‘ aktive Kreativ-Werkstatt'
+                tab: 'General'
+            phone_number:
+                label: Phone
+                type: text
+                comment: 'Phone number'
+                commentAbove: 'Sofern Ihre Website Informationen in Cookie-Dateien zwischenspeichert, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.'
+                default: '0172 - 4454451'
+                tab: 'General'
+            email_address:
+                label: Email
+                type: text
+                comment: 'Email address for contact form and imprint'
+                default: hallo@lateliercreatif.de
+                tab: 'General'
+            owner_name:
+                label: 'Owner Name'
+                type: text
+                comment: 'The name of the owner of this site'
+                default: 'Caroline Hinsch'
+                tab: 'General'
+            street:
+                label: Street
+                type: text
+                comment: 'The street for contact and location'
+                default: 'Am Kirchplatz 6'
+                tab: 'General'
+            city:
+                label: 'Place, location or city'
+                type: text
+                default: Otterndorf
+                tab: 'General'
+            zip:
+                label: Zip
+                type: text
+                comment: 'zip code, postal code'
+                default: 21762
+                tab: 'General'
+            country:
+                label: Country
+                type: text
+                comment: 'country, land, state, shore, ground, province'
+                default: Deutschland
+                tab: 'General'
+            tax_id:
+                label: 'Tax identification number'
+                type: text
+                comment: 'In german "Umsatzsteuer-Identifikationsnummer"'
+                default: DE123456789
+                tab: 'General'
+            pp_general_pp_section:
+                label: Allgemeine Datenschutzerklärung
+                type: section
+                comment: Soll die Datenschutzerklärung einen allgemeinen Datenschutzpassus für Ihre Website enthalten?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_general_pp:
+                label: Ja, ich möchte einen allgemeinen Datenschutzpassus einfügen.
+                type: checkbox
+                default: false
+                comment: Fast alle Websites erheben personenbezogene Daten. Erstellen Sie hier schnell und einfach eine passende Datenschutzerklärung für Ihre Seite.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_cookies_section:
+                label: Verwendung von Cookies
+                type: section
+                comment: Sofern Ihre Website Informationen in Cookie-Dateien zwischenspeichert, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_cookies:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen zusätzlichen Hinweis für die Speicherung von Daten in Cookies integrieren.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_server_log_data_section:
+                label: Log-Dateien auf dem Server
+                type: section
+                comment: Sofern Ihr Server Nutzerinformationen in Log-Datein speichert, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_server_log_data:
+                label: 'Ja, ich möchte in meine Datenschutzerklärung einen allgemeinen Hinweis zur Speicherung von Daten in Server-Log-Dateien integrieren.'
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+    secondaryTabs:
+        fields:
+            bs4-colors:
+                label: Platzhalter
+                type: section
+                tab: 'Platzhalter'
             bs4-colors:
                 label: Colors
                 type: section
@@ -3371,56 +3468,6 @@ form:
                 default: 340px
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: pre-scrollable-max-height
-    fields:
-        site_name:
-            label: 'Site name'
-            type: text
-            comment: 'The website name as it should appear on the front-end'
-            default: 'L‘ Atelier Créatif'
-        site_desc:
-            label: 'Site description'
-            type: text
-            comment: 'Describe your site in one sentence'
-            default: 'Carolines‘ aktive Kreativ-Werkstatt'
-        phone_number:
-            label: Phone
-            type: text
-            comment: 'Phone number'
-            default: '0172 - 4454451'
-        email_address:
-            label: Email
-            type: text
-            comment: 'Email address for contact form and imprint'
-            default: hallo@lateliercreatif.de
-        owner_name:
-            label: 'Owner Name'
-            type: text
-            comment: 'The name of the owner of this site'
-            default: 'Caroline Hinsch'
-        street:
-            label: Street
-            type: text
-            comment: 'The street for contact and location'
-            default: 'Am Kirchplatz 6'
-        city:
-            label: 'Place, location or city'
-            type: text
-            default: Otterndorf
-        zip:
-            label: Zip
-            type: text
-            comment: 'zip code, postal code'
-            default: 21762
-        country:
-            label: Country
-            type: text
-            comment: 'country, land, state, shore, ground, province'
-            default: Deutschland
-        tax_id:
-            label: 'Tax identification number'
-            type: text
-            comment: 'In german "Umsatzsteuer-Identifikationsnummer"'
-            default: DE123456789
 require:
     - RainLab.Pages
     - RainLab.Translate

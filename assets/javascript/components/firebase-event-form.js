@@ -60,53 +60,7 @@ rivets.components['firebase-event-form'] = {
     $(document).bind('rivets:file-upload:complete', function (event, files) {
         controller.debug('rivets:file-upload:complete', files);
     });
-    
-    var getDefaultPrice = function () {
-        return {
-            price: 0,
-            fixprice: 0,
-            unit: 'person',
-            min: 1,
-            max: 1,
-            eachAdditionalUnit: false,
-        };
-    };
-    
-    /**
-     * Sets the default values for an event e.g. if you want to create a new one
-     */
-    var setDefaultValues = function () {
-        controller.debug('setDefaultValues', controller.id);
-        
-        controller.event.active = true;
-        jumplink.utilities.setCheckboxValue('#eventActive', controller.event.active);
 
-        controller.event.offer = '';
-        controller.event.images = [];
-        
-        // start and end time
-        controller.event.startAt = moment().format('YYYY-MM-DD');
-        controller.event.showTimes = true;
-        controller.event.startTimeAt = '14:00';
-        controller.event.endTimeAt = '16:00';
-        
-        // title, subtitle
-        controller.event.title = '';
-        controller.event.subtitle = '';
-        
-        // textareas description and note
-        controller.event.description = '';
-        controller.event.note = '';
-        
-        controller.event.equipment = '';
-        
-        // price
-        controller.event.prices = [getDefaultPrice()];
-        controller.event.pricetext = '';
-        
-        
-        controller.debug('set default values', controller.event);
-    };
     
     /**
      *  Get event by id and set it to the forms
@@ -114,11 +68,9 @@ rivets.components['firebase-event-form'] = {
     var getEvent = function (id) {
         controller.debug('controller', id);
         
-        return dbEvents.doc(id).get()
-        .then(function(docRef) {                        
-            controller.debug('getEvent start', docRef.data());
-            var event = docRef.data();
-             
+        return jumplink.events.getById(id)
+        .then(function(event) {
+            
             event.startTimeAt = moment(event.startAt).format('HH:mm');
             event.startAt = moment(event.startAt).minute(0).hour(0).format('YYYY-MM-DD');
             
@@ -129,11 +81,19 @@ rivets.components['firebase-event-form'] = {
             jumplink.utilities.setCheckboxValue('#eventActive', event.active);
             
             event.showTimes = event.showTimes === true;
-            jumplink.utilities.setCheckboxValue('#eventShowTimes input', event.showTimes);
             
             if(!jumplink.utilities.isArray(event.prices)) {
-                event.prices = [getDefaultPrice()];
+                event.prices = [jumplink.events.getDefaultPrice()];
             }
+            
+            /**
+             * validate prices
+             * used to update old prices with missing eachAdditionalUnit value
+             */
+            event.prices.forEach(function(price) {
+                price.eachAdditionalUnit = price.eachAdditionalUnit === true;
+            });
+            
             
             controller.event = event;
                         
@@ -150,117 +110,81 @@ rivets.components['firebase-event-form'] = {
         });
     };
     
-    /**
-     * create a new event object to store in firebase datastore database
-     */
-    var formatControllerEventForFirestore = function() {
-        // WORKAROUND for select element
-        controller.event.type = jumplink.utilities.getSelectedValue('#eventType select');
-        // controller.event.type = controller.getType().value;
-        controller.event.calendar = jumplink.utilities.getSelectedValue('#eventCalendar select');
+    controller.updateEvent = function(event) {
         
-        var newEvent = {
-            active: controller.event.active,
-            title: controller.event.title,
-            subtitle: controller.event.subtitle,
-            description: controller.event.description,
-            equipment: controller.event.equipment,
-            showTimes: controller.event.showTimes,
-            startAt: moment(controller.event.startAt),
-            endAt: moment(controller.event.startAt),
-            prices: controller.event.prices,
-            pricetext: controller.event.pricetext || null,
-            type: controller.event.type,
-            calendar: controller.event.calendar,
-            note: controller.event.note || null,
-            offer: controller.event.offer || null,
-            images: controller.event.images,
-            price: null,
-        };
-
-        // split times in hour and minutes
-        var startTimes = controller.event.startTimeAt.split(':');
-        var endTimes = controller.event.endTimeAt.split(':');
-        
-        // set time to start and end date
-        newEvent.startAt.hour(startTimes[0]);
-        newEvent.startAt.minute(startTimes[1]);
-        newEvent.endAt.hour(endTimes[0]);
-        newEvent.endAt.minute(endTimes[1]);
-        
-        // firestore need the default date object to store
-        newEvent.startAt = newEvent.startAt.toDate();
-        newEvent.endAt = newEvent.endAt.toDate();
-        
-        // Merge old images with new uploaded images
-        if(!jumplink.utilities.isArray(newEvent.images)) {
-            controller.debug('no images are set, init image object with empty array!');
-            newEvent.images = [];
-        }
-        
-        newEvent.images.push.apply(newEvent.images, controller.uploadedImages);
-        
-        // remove uploadedImages images
-        controller.uploadedImages = [];
-        
-        return newEvent;
-    };
-    
-    controller.updateEvent = function(event, controller) {
-        
-        var updateEvent =  formatControllerEventForFirestore();
+        var updateEvent = jumplink.events.prepairForFirestore(controller.event, controller.uploadedImages);
         
         controller.debug('updateEvent', controller.id, updateEvent);
         
-        dbEvents.doc(controller.id).update(updateEvent)
-        .then(function() {
-            var message = 'Ereignis erfolgreich aktualisiert';
-            var notification = alertify.notify(message, 'success' ,5, function(){
-                // console.log('dismissed');
+        try {
+            dbEvents.doc(controller.id).update(updateEvent)
+            .then(function() {
+                var message = 'Ereignis erfolgreich aktualisiert';
+                var notification = alertify.notify(message, 'success' ,5, function(){
+                    // console.log('dismissed');
+                });
+                
+                controller.debug(message);
+                return getEvent(controller.id);
+            })
+            .catch(function(error) {
+                console.error('error', error);
+                var title = 'Ereignis konnte nicht aktualisiert werden';
+                alertify.alert(title, error.message, function(){
+                
+                });
             });
-            
-            
-            controller.debug(message);
-            return getEvent(controller.id);
-        })
-        .then(function(event) {
-            return event;
-        })
-        .catch(function(error) {
-            controller.debug('error', error);
-            var title = 'Konnte nicht angelegt werden';
+        }
+        catch(error) {
+            console.error('error', error);
+            var title = 'Ereignis konnte nicht aktualisiert werden';
             alertify.alert(title, error.message, function(){
             
             });
-        });
+        }
     };
 
     controller.createEvent = function(event) {
 
-        var newEvent = formatControllerEventForFirestore();
+        var newEvent = jumplink.events.prepairForFirestore(controller.event, controller.uploadedImages);
+        
+        if(jumplink.utilities.isArray(controller.uploadedImages)) {
+            newEvent.images.push.apply(newEvent.images, controller.uploadedImages);
+        }
+        
+        // remove uploadedImages images
+        controller.uploadedImages = [];
         
         controller.debug('createEvent', newEvent, data, jumplink.firebase.config.customerDomain);
         
-        dbEvents.add(newEvent)
-        .then(function(docRef) {
-            controller.id = docRef.id;
-            var message = 'Ereignis mit der ID ' + controller.id + ' erfolgreich eingetragen';
-            controller.debug(message, docRef);            
-            var notification = alertify.notify(message, 'success' ,5, function(){
-                // console.log('dismissed');
+        try {
+            dbEvents.add(newEvent)
+            .then(function(docRef) {
+                controller.id = docRef.id;
+                var message = 'Ereignis mit der ID ' + controller.id + ' erfolgreich eingetragen';
+                controller.debug(message, docRef);            
+                var notification = alertify.notify(message, 'success' ,5, function(){
+                    // console.log('dismissed');
+                });
+                
+                return getEvent(controller.id);
+            })
+            .catch(function(error) {
+                console.error('error', error);
+                var title = 'Ereignis konnte nicht angelegt werden';
+                alertify.alert(title, error.message, function(){
+                
+                });
             });
-            
-            return getEvent(controller.id);
-        })
-        .then(function(event) {
-            return event;
-        })
-        .catch(function(error) {
-            controller.debug('error', error);        
+        }
+        catch(error) {
+            console.error('error', error);
+            var title = 'Ereignis konnte nicht angelegt werden';
             alertify.alert(title, error.message, function(){
             
             });
-        });
+        }
+
     };
     
     controller.duplicateEvent = function(event) {
@@ -271,7 +195,7 @@ rivets.components['firebase-event-form'] = {
         if(!jumplink.utilities.isArray(controller.event.prices)) {
             controller.event.prices = [];
         }
-        controller.event.prices.push(getDefaultPrice());
+        controller.event.prices.push(jumplink.events.getDefaultPrice());
     };
     
     controller.removePrice = function(event, env) {
@@ -300,7 +224,7 @@ rivets.components['firebase-event-form'] = {
                 controller.debug('ready');
             });
         } else {
-            setDefaultValues();
+            controller.event = jumplink.events.getDefaultValues();
         }
     };
     

@@ -7,6 +7,10 @@ contentType = "html"
 <div class="container">
     <div class="row pt-5">
         <div class="col-xs-12 col-md-8 offset-md-2 pb-4">
+            {% if this.theme.pp_general_pp %}
+                {% component 'contenteditor' file='privacy-policy/pp_general_pp.htm' %}
+            {% endif %}
+        
             {% component 'contenteditor'
                 file='datenschutz.htm'
                 tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted"

@@ -1,3 +1,7 @@
+button, .btn, select, .custom-select, [data-itemslide-method] {
+    cursor: pointer;
+}
+
 // The cursor indicates an alias of something is to be created
 .cursor-alias {
   cursor: alias;

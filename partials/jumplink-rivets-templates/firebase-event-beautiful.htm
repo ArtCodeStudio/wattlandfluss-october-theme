@@ -61,16 +61,24 @@
                 
                 <firebase-event-price event="event"></firebase-event-price>
                 
-                <p rv-if="event.equipment" class="mb-01">
-                    <strong>Ausstattung:</strong> {event.equipment}
-                </p>
-                
                 {# If event has grouped event childrens #}
                 <p rv-if="event.groupedEvents | empty | not">
                     <strong>Weitere Termine:</strong>
                     <span rv-each-grouped="event.groupedEvents">
                         {grouped.startAt | date 'DD.MM.YYYY'}
                     </span>
+                </p>
+                
+                <p rv-if="event.equipment" class="mb-01">
+                    <strong>Ausstattung:</strong> {event.equipment}
+                </p>
+                
+                <p rv-show="event.location" class="mb-01">
+                    <strong>Treffpunkt:</strong> <a rv-href="'https://www.google.com/maps/search/?api=1&query=' | append event.location" target="_blank">{event.location}</a>
+                </p>
+                
+                <p rv-show="event.offer" class="mb-01">
+                    <strong>Angebot:</strong> {event.offer}
                 </p>
                 
                 <p rv-if="event.note" rv-html="event.note"></p>
@@ -128,17 +136,25 @@
             </div>
             
             <firebase-event-price event="event"></firebase-event-price>
-            
-            <p rv-show="event.equipment" class="mb-01">
-                <strong>Ausstattung:</strong> {event.equipment}
-            </p>
-            
+                        
             {# If event has grouped event childrens #}
             <p rv-if="event.groupedEvents | empty | not">
                 <strong>Weitere Termine:</strong>
                 <span rv-each-grouped="event.groupedEvents">
                     {grouped.startAt | date 'DD.MM.YYYY'}
                 </span>
+            </p>
+            
+            <p rv-show="event.equipment" class="mb-01">
+                <strong>Ausstattung:</strong> {event.equipment}
+            </p>
+            
+            <p rv-show="event.location" class="mb-01">
+                <strong>Treffpunkt:</strong> <a rv-href="'https://www.google.com/maps/search/?api=1&query=' | append event.location" target="_blank">{event.location}</a>
+            </p>
+            
+            <p rv-show="event.offer" class="mb-01">
+                <strong>Angebot:</strong> {event.offer}
             </p>
             
             <p rv-html="event.note"></p>

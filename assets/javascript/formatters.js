@@ -45,6 +45,7 @@ rivets.formatters.or = function(a, b) {
 
 
 
+
 /**
  * Adds a number to an output.
  * 
@@ -152,6 +153,21 @@ rivets.formatters.first = function(array) {
  */
 rivets.formatters.last = function(array) {
   return (array && array.length) ? array[array.length - 1] : null;
+};
+
+/**
+ * Formats a number as a currency (ie $1,234.56). When no currency symbol is provided, default symbol for current locale is used.
+ * @param amount Input to filter.
+ * @param symbol Currency symbol or identifier to be displayed. (optional)
+ * 
+ * @see https://docs.angularjs.org/api/ng/filter/currency
+ */
+rivets.formatters.currency = function(amount, symbol) {
+    var result = amount.toFixed(2).toString().replace('.', ',');
+    if(symbol) {
+        result = result + symbol;
+    }
+    return result;
 };
 
 // Add Shopify-specific formatters for Rivets.js.

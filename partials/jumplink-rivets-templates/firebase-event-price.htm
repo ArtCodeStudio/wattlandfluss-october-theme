@@ -5,16 +5,16 @@
     <span rv-each-price="event.prices">
         <span rv-if="price.eachAdditionalUnit | not" >
             <span rv-if="price.fixprice">
-                Gruppenpreis {price.min} bis {price.max} Teilnehmer: {price.fixprice} €.
+                Gruppenpreis <span rv-show="price.min | gt 1" rv-html="price.min"></span> bis {price.max} Teilnehmer: {price.fixprice | currency '€'}.
             </span>
             
             <span rv-if="price.price">
-                Pro Teilnehmer {price.price}€ ({price.min} bis {price.max} Teilnehmer).
+                Pro Teilnehmer {price.price | currency '€'} ({price.min} bis {price.max} Teilnehmer).
             </span>
         </span>
         
         <span rv-if="price.eachAdditionalUnit" >
-            Ab {price.min | minus 1} Teilnehmer: {price.fixprice} € zzgl. jede weitere {price.price} € (bis max. {price.max} TN).
+            Ab {price.min | minus 1} Teilnehmer: {price.fixprice | currency '€'} zzgl. jedem weiteren TN {price.price | currency '€'} (bis max. {price.max} TN).
         </span>
     </span>
 </p>

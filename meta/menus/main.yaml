@@ -1,7 +1,7 @@
 name: main
 items:
     -
-        title: Touren
+        title: 'Themen Tour buchen'
         nesting: '1'
         type: static-page
         url: ''
@@ -15,7 +15,7 @@ items:
             isExternal: '0'
         items:
             -
-                title: Watt
+                title: watt
                 nesting: '0'
                 type: static-page
                 url: ''
@@ -28,7 +28,7 @@ items:
                     cssClass: ''
                     isExternal: '0'
             -
-                title: Land
+                title: land
                 nesting: '0'
                 type: static-page
                 url: ''
@@ -41,7 +41,7 @@ items:
                     cssClass: ''
                     isExternal: '0'
             -
-                title: Fluss
+                title: fluss
                 nesting: '0'
                 type: static-page
                 url: ''
@@ -54,7 +54,7 @@ items:
                     cssClass: ''
                     isExternal: '0'
     -
-        title: Spezial
+        title: 'Tour Specials'
         nesting: '0'
         type: static-page
         url: ''
@@ -67,20 +67,18 @@ items:
             cssClass: ''
             isExternal: '0'
     -
-        title: 'öffentliche Führung'
+        title: 'Öffentliche Termine'
         nesting: '0'
         type: static-page
-        url: ''
         code: ''
         reference: termine-neu
-        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
             cssClass: oeffentliche_fuehrung
             isExternal: '0'
     -
-        title: 'eigene Tour planen'
+        title: 'Eigene Tour planen'
         nesting: '1'
         type: static-page
         url: ''
@@ -96,8 +94,10 @@ items:
         title: Historie
         nesting: '0'
         type: static-page
+        url: ''
         code: ''
         reference: historie
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '1'
