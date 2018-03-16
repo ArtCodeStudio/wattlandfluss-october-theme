@@ -202,7 +202,7 @@ rivets.components['firebase-events-beautiful'] = {
     };
     
     /*
-     * e.g. https://watt-land-fluss.de/event?id=I9YnPGqMpVKR9Q8qmjEI 
+     * e.g. https://watt-land-fluss.de/event?id=I9YnPGqMpVKR9Q8qmjEI
      */
     var getEventByID = function(id) {
         controller.events = [];
