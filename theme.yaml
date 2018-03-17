@@ -81,7 +81,7 @@ form:
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_cookies:
-                label: Ja, ich möchte in meine Datenschutzerklärung einen zusätzlichen Hinweis für die Speicherung von Daten in Cookies integrieren.
+                label: 'Ja, ich möchte in meine Datenschutzerklärung einen zusätzlichen Hinweis für die Speicherung von Daten in Cookies integrieren.'
                 type: checkbox
                 default: false
                 commentHtml: true
@@ -98,12 +98,278 @@ form:
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
-    secondaryTabs:
-        fields:
-            bs4-colors:
-                label: Platzhalter
+            pp_encoding_section:
+                label: Verschlüsselung der Website
                 type: section
-                tab: 'Platzhalter'
+                comment: 'Sofern Ihre Website über ein SSL-Zertifikat verschlüsselt wird, empfiehlt es sich, einen entsprechenden Hinweis hinsichtlich der Verwendung der Nutzerdaten in die Datenschutzerklärung zu integrieren.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_encoding:
+                label: 'Ja, ich möchte in meine Datenschutzerklärung einen allgemeinen Hinweis zur Speicherung von Daten in Server-Log-Dateien integrieren.'
+                type: checkbox
+                default: false
+                
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_contact_section:
+                label: Einbindung des Kontaktformulars
+                type: section
+                comment: Sofern Sie in Ihrer Website ein Kontaktformular integriert haben, welches nutzerspezifische Daten wie beispielsweise Namen, E-Mail-Adresse oder Postanschrift abfragt, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_contact:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen zusätzlichen Hinweis für die Speicherung von Daten aus Kontaktformularen integrieren.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_newsletter_section:
+                label: Newsletter
+                type: section
+                comment: Sofern Sie auf Ihrer Website die Anmeldung zu einem eigenen Newsletter eingerichtet haben und an Nutzer anschließend einen Newsletter versenden, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_newsletter:
+                label: Ja, ich versende Newsletter und möchte in meine Datenschutzerklärung einen zusätzlichen Hinweis zur Behandlung der newsletterspezifischen Nutzerinformationen integrieren.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_facebook_section:
+                label: Datenschutzerklärung für Facebook
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zu Facebook (Like-Button) enthalten?
+                tab: 'Datenschutzerklärung'
+            pp_facebook:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Facebook (Like-Button) integrieren.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema	Facebook-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_twitter_section:
+                label: Datenschutzerklärung für Twitter
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zu Twitter (Tweet-Button) enthalten?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_twitter:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Twitter integrieren.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Twitter-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_google_section:
+                label: Datenschutzerklärung für Google+
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zum Google+-Button enthalten? 
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_google:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Google+ integrieren.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Google+-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_linkedin_section:
+                label: Datenschutzerklärung für LinkedIn
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zu LinkedIn (LinkedIn-Button) enthalten?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_linkedin:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für LinkedIn integrieren.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Es ist nicht geklärt, ob eine Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist. Somit können wir dafür keine Haftung übernehmen.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_xing_section:
+                label: Datenschutzerklärung für Xing
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zu Xing (Xing-Button) enthalten?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_xing:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Xing integrieren.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Xing-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_comments_section:
+                label: Datenschutzerklärung für die Kommentarfunktion
+                type: section
+                comment: Sofern Nutzer auf Ihrer Website die Möglichkeit haben Inhalte zu kommentieren, empfiehlt es sich, einen entsprechenden Hinweis hinsichtlich der Verwendung der Nutzerdaten in die Datenschutzerklärung zu integrieren.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_comments:
+                label: Kommentarfunktion vorhanden?
+                type: dropdown
+                options:
+                    true: Ja
+                    false: Nein
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_pinterest_section:
+                label: Datenschutzerklärung für Pinterest
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zu Pinterest (Pinterest-Button) enthalten?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_pinterest:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Pinterest integrieren.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Pinterest-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_instagram_section:
+                label: Datenschutzerklärung für Instagram
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zu Instagram (Instagram-Button) enthalten?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_instagram:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Instagram integrieren.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Es ist nicht geklärt, ob eine Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist. Somit können wir dafür keine Haftung übernehmen.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_youtube_section:
+                label: Datenschutzerklärung für YouTube
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zu YouTube enthalten?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_youtube:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für YouTube integrieren.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_tumblr_section:
+                label: Datenschutzerklärung für Tumblr
+                type: section
+                comment: Soll die Datenschutzerklärung einen Passus zu Tumblr (Tumblr-Button) enthalten?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_tumblr:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Tumblr integrieren.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Tumblr-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_soundcloud_section:
+                label: Datenschutzerklärung für SoundCloud
+                type: section
+                comment: Nutzen Sie in Ihrer Website den Dienste von SoundCloud?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_soundcloud:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für SoundCloud integrieren.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_spotify_section:
+                label: Datenschutzerklärung für Spotify
+                type: section
+                comment: Nutzen Sie in Ihrer Website den Dienste von Spotify?
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_spotify:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Spotify integrieren.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_google_analytics_section:
+                label: Datenschutzerklärung für Google Analytics
+                type: section
+                comment: Verwenden Sie den Dienst Google Analytics zum Erfassen des Nutzerverhaltens auf Ihrer Website? Dann sollte die Datenschutzerklärung einen Hinweis für diesen Dienst von Google enthalten.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_google_analytics_privacy:
+                label: Ja, ich nutze Google Analytics auf meiner Website.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_google_analytics_order_information:
+                label: Ja, ich habe mit Google den Vertrag zur Auftragsdatenverarbeitung geschlossen.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_google_analytics_ip_anonymization:
+                label: Ja, ich habe die Funktion IP-Anonymisierung in Google Analytics aktiviert.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_google_analytics_demographics:
+                label: Ja, ich nutze die Funktion "demografische Merkmale" von Google Analytics.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Rechtslage zu Google Analytics ist in vielen Punkten ungeklärt. Die korrekte Umsetzung hängt in vielen Punkten von Ihren Entscheidungen als Seitenbetreiber ab. Wir können deshalb keine Haftung für die korrekte Nutzung von Google Analytics übernehmen.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_etracker_section:
+                label: Datenschutzerklärung für etracker
+                type: section
+                comment: Sofern Sie mit etracker das Nutzerverhalten auf Ihrer Website erfassen, sollte die Datenschutzerklärung einen Hinweis für diesen Dienst enthalten.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_etracker:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für etracker integrieren
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Es ist nicht geklärt, ob eine Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist. Somit können wir dafür keine Haftung übernehmen.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_matomo_section:
+                label: Datenschutzerklärung für Matomo (ehemals Piwik)
+                type: section
+                comment: Sofern Sie mit Matomo das Nutzerverhalten auf Ihrer Website erfassen, sollte die Datenschutzerklärung einen Hinweis für diesen Dienst enthalten.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_matomo:
+                label: Ja, die Website nutzt Matomo (ehemals Piwik) zur Analyse des Nutzerverhaltens.
+                type: checkbox
+                default: false
+                comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Es ist nicht geklärt, ob eine Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist. Somit können wir dafür keine Haftung übernehmen.'
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_data_section:
+                label: Auskunft, Berichtigung, Löschung und Sperrung von Daten
+                type: section
+                comment: Sofern Sie nutzerspezifische Daten speichern, empfiehlt es sich, einen entsprechenden Hinweis bzgl. der Auskunft, Berichtigung, Löschung und Sperrung in Bezug zu diesen Daten in die Datenschutzerklärung zu integrieren.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_data:
+                label: Ja, ich möchte in meine Datenschutzerklärung einen allgemeinen Hinweis zu Auskunft, Änderung und Löschung personenbezogener Daten integrieren.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_email_advertising _section:
+                label: Widerspruch gegen Werbe-E-Mails
+                type: section
+                comment: Sofern Sie als Websitebetreiber anderen untersagen möchten, ihnen online werbliche Informationen an die von Ihnen auf der Website angebenen Kontaktdaten zuzusenden, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
+            pp_email_advertising :
+                label: Ja, ich möchte in meine Datenschutzerklärung einen allgemeinen Hinweis zum Widerspruch des Websitebetreibers gegen die Zusendung nicht ausdrücklich angeforderter Werbung und Informationsmaterialien integrieren.
+                type: checkbox
+                default: false
+                commentHtml: true
+                tab: 'Datenschutzerklärung'
             bs4-colors:
                 label: Colors
                 type: section
