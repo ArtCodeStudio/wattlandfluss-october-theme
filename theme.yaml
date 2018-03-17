@@ -108,7 +108,6 @@ form:
                 label: 'Ja, ich möchte in meine Datenschutzerklärung einen allgemeinen Hinweis zur Speicherung von Daten in Server-Log-Dateien integrieren.'
                 type: checkbox
                 default: false
-                
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_contact_section:

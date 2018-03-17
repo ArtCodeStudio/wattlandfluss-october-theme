@@ -7,12 +7,148 @@ contentType = "html"
 <div class="container">
     <div class="row pt-5">
         <div class="col-xs-12 col-md-8 offset-md-2 pb-4">
+
+            <h1>Datenschutzerklärung</h1>
+            <br>
+            <br>
+            <br>
             {% if this.theme.pp_general_pp %}
-                {% component 'contenteditor' file='privacy-policy/pp_general_pp.htm' %}
+                {% component 'contenteditor' file='privacy-policy/pp_general.htm' %}
             {% endif %}
-        
+            
+            {% if this.theme.pp_cookies %}
+                {% component 'contenteditor' file='privacy-policy/pp_cookies.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_server_log_data %}
+                {% component 'contenteditor' file='privacy-policy/pp_server_log_data.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_contact %}
+                {% component 'contenteditor' file='privacy-policy/pp_contact.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_newsletter %}
+                {% component 'contenteditor' file='privacy-policy/pp_newsletter.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_google_analytics_privacy %}
+                {% component 'contenteditor' file='privacy-policy/pp_google_analytics.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_google_analytics_order_information %}
+                {% component 'contenteditor' file='privacy-policy/pp_google_analytics_oder_information.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_google_analytics_ip_anonymization %}
+                {% component 'contenteditor' file='privacy-policy/pp_google_analytics_ip_anonymization.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_google_analytics_demographics %}
+                {% component 'contenteditor' file='privacy-policy/pp_google_analytics_demographics.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_etracker %}
+                {% component 'contenteditor' file='privacy-policy/pp_etracker.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_matomo %}
+                {% component 'contenteditor' file='privacy-policy/pp_matomo.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_facebook %}
+                {% component 'contenteditor' file='privacy-policy/pp_facebook.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_twitter %}
+                {% component 'contenteditor' file='privacy-policy/pp_twitter.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_google %}
+                {% component 'contenteditor' file='privacy-policy/pp_google.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_instagram %}
+                {% component 'contenteditor' file='privacy-policy/pp_instagram.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_linkedin %}
+                {% component 'contenteditor' file='privacy-policy/pp_linkedin.htm' %}
+                <br>
+            {% endif %}
+            
+            {% if this.theme.pp_pinterest %}
+                {% component 'contenteditor' file='privacy-policy/pp_pinterest.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_soundcloud %}
+                {% component 'contenteditor' file='privacy-policy/pp_soundcloud.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_spotify %}
+                {% component 'contenteditor' file='privacy-policy/pp_spotify.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_xing %}
+                {% component 'contenteditor' file='privacy-policy/pp_xing.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_tumblr %}
+                {% component 'contenteditor' file='privacy-policy/pp_tumblr.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_youtube %}
+                {% component 'contenteditor' file='privacy-policy/pp_youtube.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_comments %}
+                {% component 'contenteditor' file='privacy-policy/pp_comments.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_encoding %}
+                {% component 'contenteditor' file='privacy-policy/pp_encoding.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_data %}
+                {% component 'contenteditor' file='privacy-policy/pp_data.htm' %}
+                <br>
+            {% endif %}
+
+            {% if this.theme.pp_email_advertising %}
+                {% component 'contenteditor' file='privacy-policy/pp_email_advertising.htm' %}
+                <br>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+            <p>Quelle: <a href="https://www.e-recht24.de/">e-recht24.de</a></p>
+
+
+
+
             {% component 'contenteditor'
-                file='datenschutz.htm'
                 tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted"
             %}
         </div>
