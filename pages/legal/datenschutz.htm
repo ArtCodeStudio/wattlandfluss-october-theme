@@ -1,14 +1,17 @@
-title = "Datenschutz"
+title = "Datenschutzerklärung"
 url = "/datenschutz"
 layout = "jumplink-barba"
 is_hidden = 0
 contentType = "html"
+
+[viewBag]
+localeUrl[en] = "/datenschutzerklaerung"
 ==
 <div class="container">
     <div class="row pt-5">
         <div class="col-xs-12 col-md-8 offset-md-2 pb-4">
 
-            <h1>Datenschutzerklärung</h1>
+            <h1 class="text-second">{{this.page.title}}</h1>
             <br>
             <br>
             <br>
@@ -38,24 +41,30 @@ contentType = "html"
             
             {% if this.theme.pp_google_analytics_privacy %}
                 {% component 'contenteditor' file='privacy-policy/pp_google_analytics.htm' %}
-                <br>
+                
             {% endif %}
             
             {% if this.theme.pp_google_analytics_order_information %}
                 {% component 'contenteditor' file='privacy-policy/pp_google_analytics_oder_information.htm' %}
-                <br>
+                
             {% endif %}
             
             {% if this.theme.pp_google_analytics_ip_anonymization %}
                 {% component 'contenteditor' file='privacy-policy/pp_google_analytics_ip_anonymization.htm' %}
-                <br>
+                
             {% endif %}
             
             {% if this.theme.pp_google_analytics_demographics %}
                 {% component 'contenteditor' file='privacy-policy/pp_google_analytics_demographics.htm' %}
-                <br>
+                
             {% endif %}
             
+            <!-- google analytics ending break -->
+            {% if this.theme.pp_google_analytics_privacy %}
+                <br>
+            {% endif %}
+
+
             {% if this.theme.pp_etracker %}
                 {% component 'contenteditor' file='privacy-policy/pp_etracker.htm' %}
                 <br>
@@ -144,13 +153,9 @@ contentType = "html"
             <br>
             <br>
             <p>Quelle: <a href="https://www.e-recht24.de/">e-recht24.de</a></p>
-
-
-
-
-            {% component 'contenteditor'
+            <!--{% component 'contenteditor'
                 tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted"
-            %}
+            %}-->
         </div>
     </div>
 </div>

@@ -4,7 +4,6 @@
 rivets.components['firebase-events-table'] = {
 
   template: function() {
-    // return $('template#firebase-events-table').html();
     return jumplink.templates['firebase-events-table'];
   },
 
@@ -15,6 +14,10 @@ rivets.components['firebase-events-table'] = {
     var $el = $(el);
     var db = firebase.firestore();
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
+    
+    controller.active = data.active;
+    controller.search = '';
+    
     controller.events = [];
 
     var getEvents = function() {
@@ -29,6 +32,9 @@ rivets.components['firebase-events-table'] = {
                 controller.events.push(event);
             });
         })
+        .then(function(events) {
+            search(controller.events, controller.search, 'title');
+        })
         .catch(function(error) {  
             jumplink.utilities.showGlobalModal({
                 title: 'Ereignis konnte nicht geladen werden',
@@ -36,7 +42,7 @@ rivets.components['firebase-events-table'] = {
             });
             controller.debug('error', error);
         });
-    }
+    };
     
     controller.sort = function(event, controller) {
         var $this = $(event.target);
@@ -44,7 +50,7 @@ rivets.components['firebase-events-table'] = {
         // data.sortProperty
         
         if(!data.sortDirection) {
-            data.sortDirection = 'asc'
+            data.sortDirection = 'asc';
         } else {
             if(data.sortDirection === 'asc') {
                 data.sortDirection = 'desc';
@@ -105,7 +111,42 @@ rivets.components['firebase-events-table'] = {
         Barba.Pjax.goTo(href);
     };
     
-     getEvents();
+    var search = function (events, term, propertyKey) {
+        if(!propertyKey) {
+            propertyKey = 'title';
+        }
+        events.forEach(function(event) {
+            if(term.length) {
+                event.searchTermPass = event[propertyKey].indexOf(term) !== -1;
+            } else {
+                event.searchTermPass = true;
+            }
+        });
+        
+        return events;
+    };
+    
+    var ready = function() {
+        if(jumplink.utilities.isArray(data.events)) {
+            controller.events = data.events;
+            
+        } else {
+            getEvents();
+        }
+        
+        $el.find('[name="search"]').unbind('keyup change').bind('keyup change', function () {
+            controller.debug('search', this.value);
+            search(controller.events, this.value, 'title');
+        });
+        
+    };
+    
+    $el.one('DOMSubtreeModified', function() {
+        setTimeout(function() {
+            ready();
+        }, 0);     
+    });
+    
     return controller;
   }
 };

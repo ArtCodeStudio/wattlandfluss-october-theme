@@ -113,13 +113,28 @@ jumplink.utilities.isElementInView = function(element, fullyInView) {
     }
 };
 
+/**
+ * Get first option value of select element
+ */
+jumplink.utilities.getFirstSelectValue = function(selector) {
+    var $select = $(selector);
+    var $selected = $select.find('option:first');
+    var value = $selected.val();
+    return value;
+};
+
 
 /**
  * Get the selected value of a select option DOM element
  */
 jumplink.utilities.getSelectedValue = function(selector) {
     var $select = $(selector);
-    $selected = $select.find('option:selected');
+    var $selected = $select.find('option:selected');
+    
+    if(!$selected.length) {
+        $selected = $select.find('option:first');
+    }
+    
     return $selected.val();
 };
 
@@ -140,6 +155,12 @@ jumplink.utilities.getSelectedData = function(selector) {
  */
 jumplink.utilities.setSelectedValue = function(selector, value) {
     $select = $(selector);
+    
+    // if value not undefined use the first of select element value to set 
+    // if(!value) {
+    //     value = jumplink.utilities.getFirstSelectValue(selector);
+    // }
+    
     $select.val(value).change();
     return window.jumplink.utilities.getSelectedValue(selector);
 };

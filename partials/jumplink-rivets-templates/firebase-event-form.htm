@@ -60,9 +60,15 @@ description = "For Admins: Edit or create an event"
         <small id="eventDescDesc" class="form-text text-muted">Hauptbeschreibung deines neuen Ereignisses.</small>
     </div>
     
-    <h2 class="col-xs-12">Zeiten</h2>
     
-    <div class="col-xs-12 form-group">
+    
+    <h2 class="col-xs-12 pt-4">Zeiten</h2>
+    
+    <div class="col-xs-12">
+        <rv-checkbox id="eventShowTimes" description="'Wenn ausgewählt wird die Start und Endzeit angezeigt, ansonsten nicht.'" default="true" label="'Mit Zeiten'" rv-checked="event.showTimes" on-change="showTimesChanged"></rv-checkbox>
+    </div>
+    
+    <div class="col-xs-12 col-md-4 form-group">
         <label for="eventStartAt">Tag</label>
         <input type="date" class="form-control" id="eventStartAt" aria-describedby="eventStartAtDesc" rv-pignose-calendar="event.startAt" data-options='{
             "lang": "de",
@@ -72,25 +78,21 @@ description = "For Admins: Edit or create an event"
         }'>
         <small id="eventStartAtDesc" class="form-text text-muted">Der Tag des Ereignisses.</small>
     </div>
-    
-    <div class="col-xs-12">
-        <rv-checkbox id="eventShowTimes" description="'Wenn ausgewählt wird die Start und Endzeit angezeigt, ansonsten nicht.'" default="true" label="'Mit Zeiten'" rv-checked="event.showTimes" on-change="showTimesChanged"></rv-checkbox>
-    </div>
-    
-    <div rv-show="event.showTimes" class="col-xs-6 form-group">
+        
+    <div rv-show="event.showTimes" class="col-xs-12 col-md-4 form-group">
         <label for="eventStartTimeAt">Von</label>
         <input type="time" class="form-control" id="eventStartTimeAt" aria-describedby="eventStartTimeAtDesc" rv-value="event.startTimeAt">
         <small id="eventStartTimeAtDesc" class="form-text text-muted">Startzeit des Ereignisses.</small>
     </div>
     
-    <div rv-show="event.showTimes" class="col-xs-6 form-group">
+    <div rv-show="event.showTimes" class="col-xs-4 col-md-4 form-group">
         <label for="eventEndTimeAt">Bis</label>
         <input type="time" class="form-control" id="eventEndTimeAt" aria-describedby="eventEndTimeAtDesc" rv-value="event.endTimeAt">
         <small id="eventEndTimeAtDesc" class="form-text text-muted">Endzeit des Ereignisses.</small>
     </div>
 
     
-    <div class="col-xs-12">
+    <div class="col-xs-12 pt-4">
         <h2>Preise</h2>
         <div rv-each-price="event.prices" class="row">
         
@@ -165,8 +167,9 @@ description = "For Admins: Edit or create an event"
             <firebase-event-price event="event"></firebase-event-price>
         </div>
     </div>
-    
-    <h2 class="col-xs-12 pt-2">Zusätzliche Informationen</h2>
+
+
+    <h2 class="col-xs-12 pt-4">Zusätzliche Informationen</h2>
     <div class="form-group col-xs-12">
         <label for="eventOffer">Angebot</label>
         <input type="text" class="form-control" id="eventOffer" aria-describedby="eventOfferDesc" rv-value="event.offer">
@@ -217,7 +220,7 @@ description = "For Admins: Edit or create an event"
         <small id="eventNoteDesc" class="form-text text-muted">Zusätzliche Anmerkung für die Besucher.</small>
     </div>
 
-    <div class="col-xs-12">
+    <div class="col-xs-12 pt-4">
         <h2>Bilder</h2>
         <uploaded-files label="'Vorhanden'" files="event.images"></uploaded-files>
     </div>
@@ -236,6 +239,15 @@ description = "For Admins: Edit or create an event"
     <div class="col-xs-12 col-md-6 text-right">        
         <a href="{{'firebase/events-table' |page }}" class="btn btn-default">Ereignisse anzeigen</a>
     </div>
-    
+        
     <global-modal></global-modal>
+</div>
+
+<div class="row" rv-if="similarEvents | size | gt 1">
+    <div class="col-xs-12 pt-5">
+        <h2>Ähnliche Veranstaltungen</h2>
+    </div>
+    <div class="col-xs-12">
+        <firebase-events-table events="similarEvents" active="event.id"></firebase-events-table>
+    </div>
 </div>

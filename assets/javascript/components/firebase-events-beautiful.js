@@ -55,142 +55,11 @@ rivets.components['firebase-events-beautiful'] = {
     controller.active = data.active;
     
     controller.events = [];
-    
-    var getEventByProperty = function(events, property, value) {
-        var foundEvent = null;
-        events.forEach(function(event) {
-            if(event[property] && event[property] === value) {
-                foundEvent = event;
-                return foundEvent;
-            }
-        });
-        return foundEvent;
-    };
-    
-    var pushEventGroupedByProperty = function(events, event, groupBy) {
-        
-        switch(groupBy) {
-            // supported properties
-            case 'title':
-            case 'subtitle':
-            case 'handle':
-                var allreadyPushedEvent = getEventByProperty(events, groupBy, event[groupBy]);
-                if(allreadyPushedEvent === null) {
-                    // push event as new event to default list
-                    events.push(event);
-                    return event;
-                }
-                // check if event has allready a groupedEvents array otherwise create it
-                if(!jumplink.utilities.isArray(allreadyPushedEvent.groupedEvents)) {
-                    allreadyPushedEvent.groupedEvents = [];
-                }
-                // push event to existing event
-                allreadyPushedEvent.groupedEvents.push(event);
-                return allreadyPushedEvent;
-            // properties they will just pushed without grouping
-            // case 'none':
-            default:
-                events.push(event);
-                break;
-                
-        }
-        return event;
-    };
-    
-
+            
     var getEvents = function() {
-        // delete old getted events
-        controller.events = [];
-        var ref = dbEvents;
-        
-        // set type filter
-        switch (controller.type) {
-            case 'fix':
-            case 'variable':
-                ref = ref.where('type', "==", data.type);
-                break;
-            // case 'all':
-            default:
-                // all types
-                ref = ref;
-                break;
-        }
-        
-        switch(controller.active) {
-            case true:
-            case false:
-                ref = ref.where('active', "==", controller.active);
-                break;
-            case 'all':
-                ref = ref;
-                break;
-        }
-        
-        // set calendar filter
-        switch (controller.calendar) {
-            case 'Watt':
-            case 'Land':
-            case 'Fluss':
-            case 'Spezial':
-                ref = ref.where('calendar', "==", controller.calendar);
-                break;
-            // case 'all':
-            default:
-                // all calendars
-                ref = ref;
-                break;
-        }
-        
-        // get events only in future
-        if(controller.type !== 'variable') {
-            var now = new Date();
-            switch(controller.startTime) {
-                case 'future':
-                    controller.debug('get events in future from', now);
-                    ref = ref.where('startAt', ">=", now);
-                    break;
-                case 'past':
-                    controller.debug('get events from the past in reference to', now);
-                    ref = ref.where('startAt', "<", now);
-                    break;
-                // case 'all':
-                default:
-                    controller.debug('get events from the past and in the future');
-                    ref = ref;
-                    break;
-            }
-        }
-        
-        
-        /**
-         * Only set limit if no exclude is set otherwise limit is not working
-         * If excludes is set we have a client site limit implement with a counter (search for 'count')
-         */
-        if (controller.excludeCalendar === 'none' && controller.limit >= 1) {
-            controller.debug('set limit of orders to', controller.limit);
-            ref = ref.limit(controller.limit);
-        }
-
-        
-        // set order
-        ref = ref.orderBy("startAt");
-        
-        return ref.get()
-        .then((querySnapshot) => {
-            //ycontroller.events = querySnapshot.data();
-            controller.debug('event', querySnapshot);
-            var count = 0;
-            querySnapshot.forEach((doc) => {
-                // own client site limit to make excludeCalendar working
-                if(count <= controller.limit) {
-                    var event = doc.data();
-                    event.id = doc.id;
-                    if(event.calendar !== controller.excludeCalendar) {
-                        count++;
-                        pushEventGroupedByProperty(controller.events, event, controller.groupBy);
-                    }
-                }
-            });
+        return jumplink.events.get(controller.type, controller.active, controller.calendar, controller.startTime, controller.excludeCalendar, controller.groupBy, controller.limit)
+        .then(function(events) {
+            controller.events = events;
         })
         .catch(function(error) {
             controller.debug('error', error);
@@ -212,16 +81,10 @@ rivets.components['firebase-events-beautiful'] = {
             id = url.searchParams.get('id');
         }
         controller.debug('getEventByID', id);
-        return dbEvents.doc(id).get()
-        .then((doc) => {
-            if (doc.exists) {
-                var event = doc.data();
-                event.id = doc.id;
-                controller.debug('event', event);
-                pushEventGroupedByProperty(controller.events, event, controller.groupBy);
-            } else {
-                console.error("No such document!");
-            }
+        return jumplink.events.getById(id)
+        .then((event) => {
+            controller.debug('event', event);
+            controller.events = [event];
         })
         .catch(function(error) {
             controller.debug('error', error);
@@ -230,7 +93,7 @@ rivets.components['firebase-events-beautiful'] = {
                 body: error.message,
             });
         });
-    }
+    };
     
     if(data.getEventByUrlIdParam) {
         getEventByID()

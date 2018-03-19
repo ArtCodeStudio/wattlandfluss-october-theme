@@ -42,6 +42,8 @@ rivets.components['firebase-event-form'] = {
     // start values of a event to have it not undefined, will be replaced in next steps
     controller.event = {};
     
+    controller.similarEvents = [];
+    
     // TODO save in own db
     controller.calendars = [
         {id:1, label: 'Watt', value: 'Watt'},
@@ -94,12 +96,17 @@ rivets.components['firebase-event-form'] = {
                 price.eachAdditionalUnit = price.eachAdditionalUnit === true;
             });
             
-            
             controller.event = event;
-                        
+                                    
             controller.debug('getEvent done', controller.event);
             
             return controller.event;
+        })
+        .then(function(event) {
+            return jumplink.events.getByTitle(controller.event.title)
+            .then(function(events) {
+                controller.similarEvents = events;
+            });
         })
         .catch(function(error) {
             var title = 'Ereignis konnte nicht geladen werden';
@@ -110,81 +117,45 @@ rivets.components['firebase-event-form'] = {
         });
     };
     
-    controller.updateEvent = function(event) {
-        
-        var updateEvent = jumplink.events.prepairForFirestore(controller.event, controller.uploadedImages);
-        
-        controller.debug('updateEvent', controller.id, updateEvent);
-        
-        try {
-            dbEvents.doc(controller.id).update(updateEvent)
-            .then(function() {
-                var message = 'Ereignis erfolgreich aktualisiert';
-                var notification = alertify.notify(message, 'success' ,5, function(){
-                    // console.log('dismissed');
-                });
-                
-                controller.debug(message);
-                return getEvent(controller.id);
-            })
-            .catch(function(error) {
-                console.error('error', error);
-                var title = 'Ereignis konnte nicht aktualisiert werden';
-                alertify.alert(title, error.message, function(){
-                
-                });
+    controller.updateEvent = function(event) {        
+        return jumplink.events.update(controller.id, controller.event, controller.uploadedImages)
+        .then(function() {
+            controller.uploadedImages = [];
+            var message = 'Ereignis erfolgreich aktualisiert';
+            var notification = alertify.notify(message, 'success' ,5, function(){
+                // console.log('dismissed');
             });
-        }
-        catch(error) {
+            
+            controller.debug(message);
+            return getEvent(controller.id);
+        })
+        .catch(function(error) {
             console.error('error', error);
             var title = 'Ereignis konnte nicht aktualisiert werden';
             alertify.alert(title, error.message, function(){
             
             });
-        }
+        });
     };
-
-    controller.createEvent = function(event) {
-
-        var newEvent = jumplink.events.prepairForFirestore(controller.event, controller.uploadedImages);
-        
-        if(jumplink.utilities.isArray(controller.uploadedImages)) {
-            newEvent.images.push.apply(newEvent.images, controller.uploadedImages);
-        }
-        
-        // remove uploadedImages images
-        controller.uploadedImages = [];
-        
-        controller.debug('createEvent', newEvent, data, jumplink.firebase.config.customerDomain);
-        
-        try {
-            dbEvents.add(newEvent)
-            .then(function(docRef) {
-                controller.id = docRef.id;
-                var message = 'Ereignis mit der ID ' + controller.id + ' erfolgreich eingetragen';
-                controller.debug(message, docRef);            
-                var notification = alertify.notify(message, 'success' ,5, function(){
-                    // console.log('dismissed');
-                });
-                
-                return getEvent(controller.id);
-            })
-            .catch(function(error) {
-                console.error('error', error);
-                var title = 'Ereignis konnte nicht angelegt werden';
-                alertify.alert(title, error.message, function(){
-                
-                });
-            });
-        }
-        catch(error) {
+    
+    controller.createEvent = function() {
+        jumplink.events.add(controller.event, controller.uploadedImages)
+        .then(function(result) {
+            // remove uploadedImages images
+            controller.uploadedImages = [];
+            
+            controller.id = result.id;
+            var message = 'Ereignis mit der ID ' + controller.id + ' erfolgreich eingetragen';
+            controller.debug(message, result);            
+            var notification = alertify.notify(message, 'success', 5);
+            
+            return getEvent(controller.id);
+        })
+        .catch(function(error) {
             console.error('error', error);
             var title = 'Ereignis konnte nicht angelegt werden';
-            alertify.alert(title, error.message, function(){
-            
-            });
-        }
-
+            alertify.alert(title, error.message);
+        });
     };
     
     controller.duplicateEvent = function(event) {
@@ -224,8 +195,35 @@ rivets.components['firebase-event-form'] = {
                 controller.debug('ready');
             });
         } else {
-            controller.event = jumplink.events.getDefaultValues();
+            controller.event = jumplink.events.getDefaultValues(controller.calendars, controller.types);
         }
+        
+        // save or create event with strg + s
+        $(window).bind('keydown', function(event) {
+            if (event.ctrlKey || event.metaKey) {
+                switch (String.fromCharCode(event.which).toLowerCase()) {
+                // ctrl-s
+                case 's':
+                    event.preventDefault();
+                    controller.debug('ctrl-s');
+                    if(controller.id) {
+                        controller.updateEvent();
+                    } else {
+                        controller.createEvent();
+                    }
+                    break;
+                case 'f':
+                    // event.preventDefault();
+                    controller.debug('ctrl-f');
+                    break;
+                case 'g':
+                    // event.preventDefault();
+                    controller.debug('ctrl-g');
+                    break;
+                }
+            }
+        });
+    
     };
     
     $el.one('DOMSubtreeModified', function() {

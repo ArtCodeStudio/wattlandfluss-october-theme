@@ -129,6 +129,7 @@ rivets.components['rv-select'] = {
             controller.set(data.value);
         } else {
             controller.set(controller.values[0]);
+            onChange(controller.values[0]); // on change is not automatically fired in this case, so fire it manually
         }
         
         /**

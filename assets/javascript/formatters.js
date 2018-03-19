@@ -285,33 +285,38 @@ rivets.formatters.json = function (object) {
 };
 
 /**
- * True if array contains property or containts property with value
+ * True if array / string contains property / substring or containts property with value
  * @see https://gist.github.com/der-On/cdafe908847e2b882691
  */
 rivets.formatters.contains = function(value, attr, search) {
 
-  // console.log("contains", value, attr, search);
+    // console.log("contains", value, attr, search);
 
-  if(!ProductJS.Utilities.isArray(value)) {
-    console.warn("not an array");
-    return false;
-  }
-
-  if(typeof search === 'undefined') {
-    search = attr;
-    if (ProductJS.Utilities.isArray(value)) {
+    if(!jumplink.utilities.isArray(value) && !jumplink.utilities.isString(value)) {
+        console.warn("not an array or string");
+        return false;
+    }
+    
+    if(typeof search === 'undefined') {
+        search = attr;
+    }
+    
+    if (jumplink.utilities.isString(value)) {
       return (value.indexOf(search) !== -1);
     }
-  }
 
-  for (var i = 0; i < value.length; i++) {
-    if(value[i][attr] === search) {
-      return true;
-      break;
-    }      
-  }
+    if(jumplink.utilities.isArray(value)) {
+        for (var i = 0; i < value.length; i++) {
+            if(value[i][attr] === search) {
+              return true;
+              break;
+            }      
+        }
+    }
+    
+    // TODO support object?
 
-  return false;
+    return false;
 };
 
 /**

@@ -214,13 +214,16 @@ jumplink.events.getDefaultPrice = function () {
 /**
  * Gets the default values for an event e.g. if you want to create a new one
  */
-jumplink.events.getDefaultValues = function () {
+jumplink.events.getDefaultValues = function (calendars, types) {
     
     var event = {};
     
     event.active = true;
 
     event.images = [];
+    
+    event.calendar = calendars[0].value;
+    event.type = types[0].value;
     
     // start and end time
     event.startAt = moment().format('YYYY-MM-DD');
@@ -248,22 +251,9 @@ jumplink.events.getDefaultValues = function () {
     return event;
 };
     
-
-
-/**
- *  Get event by id and set it to the forms
- */
-jumplink.events.getById = function (id) {
-    jumplink.debug.events('getById', id);
-    
+jumplink.events.getDatabaseCollection = function() {
     var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
-    
-    return dbEvents.doc(id).get()
-    .then(function(docRef) {                        
-        jumplink.debug.events('getById start', docRef.data());
-        var event = docRef.data();
-        return event;
-    });
+    return dbEvents;
 };
 
 /**
@@ -272,6 +262,7 @@ jumplink.events.getById = function (id) {
 jumplink.events.prepairForFirestore = function(event) {
     
     var newEvent = {
+        handle: rivets.formatters.handleize(event.title),
         active: event.active,
         title: event.title,
         subtitle: event.subtitle,
@@ -315,4 +306,275 @@ jumplink.events.prepairForFirestore = function(event) {
     }
     
     return newEvent;
+};
+
+/**
+ * Get event from array by property and value
+ */
+jumplink.events.getByPropertyFromArray = function(events, property, value) {
+    var foundEvent = null;
+    events.forEach(function(event) {
+        if(event[property] && event[property] === value) {
+            foundEvent = event;
+            return foundEvent;
+        }
+    });
+    return foundEvent;
+};
+
+/**
+ * Push a new event to events array but group it by property like `handle`
+ * @param events The array you want to push the event to
+ * @param event The event to group or push
+ * @param groupBy The property name you want to group the events, events with the same propertie value will be grouped 
+ */
+jumplink.events.pushGroupedByProperty = function(events, event, groupBy) {
+    switch(groupBy) {
+        // supported properties
+        case 'title':
+        case 'subtitle':
+        case 'handle':
+            var alreadyPushedEvent = jumplink.events.getByPropertyFromArray(events, groupBy, event[groupBy]);
+            if(alreadyPushedEvent === null) {
+                // push event as new event to default list
+                events.push(event);
+                return event;
+            }
+            // check if event has allready a groupedEvents array otherwise create it
+            if(!jumplink.utilities.isArray(alreadyPushedEvent.groupedEvents)) {
+                alreadyPushedEvent.groupedEvents = [];
+            }
+            // push event to existing event
+            alreadyPushedEvent.groupedEvents.push(event);
+            return alreadyPushedEvent;
+        // properties they will just pushed without grouping
+        default:
+            events.push(event);
+            break;
+            
+    }
+    return event;
+};
+
+/**
+ *  Get event by id and set it to the forms
+ */
+jumplink.events.getById = function (id) {
+    jumplink.debug.events('getById', id);
+    
+    var dbEvents = jumplink.events.getDatabaseCollection();
+    
+    try {
+        return dbEvents.doc(id).get()
+        .then(function(docRef) {
+            if (!docRef.exists) {
+                var error = new Error('Event not found!');
+                jumplink.debug.events(error);
+                return null;
+            }
+            jumplink.debug.events('getById start', docRef.data());
+            var event = docRef.data();
+            event.id = docRef.id;
+            return event;
+        });
+    }
+    catch(error) {
+        return new Promise(function(resolve, reject) {
+            reject(error);
+        });
+    }
+};
+
+/**
+ *  Get event by title and set it to the forms
+ */
+jumplink.events.getByTitle = function (title) {
+    jumplink.debug.events('getByTitle', title);
+    
+    var ref = jumplink.events.getDatabaseCollection();
+    
+    ref = ref.where('title', "==", title);
+    
+    ref = ref.orderBy("startAt");
+    
+    try {
+        return ref.get()
+        .then(function(querySnapshot) {
+            var events = [];
+            querySnapshot.forEach((doc) => {
+                var event = doc.data();
+                event.id = doc.id;
+                events.push(event);
+            });
+            return events;
+        });
+    }
+    catch(error) {
+        return new Promise(function(resolve, reject) {
+            reject(error);
+        });
+    }
+};
+
+/**
+ * Get events with filters
+ * 
+ * @param events the events
+ * @param hasType 'fix' | 'variable' | 'all'
+ * @param hasActive true | false | 'all'
+ * @param hasCalendar '{string} | 'all'
+ * @param startTimeIs 'future' | 'past' | 'all'
+ * @param excludeCalendar {string} | 'none'
+ * @param groupBy 'none' | 'handle'
+ * @param limit {number}
+ */
+jumplink.events.get = function(hasType, hasActive, hasCalendar, startTimeIs, excludeCalendar, groupBy, limit) {
+    // delete old getted events
+    events = [];
+    var ref = jumplink.events.getDatabaseCollection();
+    
+    // set type filter
+    switch (hasType) {
+        case 'fix':
+        case 'variable':
+            ref = ref.where('type', "==", hasType);
+            break;
+        case 'all':
+            // all types
+            ref = ref;
+            break;
+        default:
+            // all types
+            ref = ref;
+            break;
+    }
+    
+    switch(hasActive) {
+        case true:
+        case false:
+            ref = ref.where('active', "==", hasActive);
+            break;
+        case 'all':
+            ref = ref;
+            break;
+        default:
+            // all
+            ref = ref;
+            break;
+    }
+    
+    // set calendar filter
+    if(jumplink.utilities.isString(hasCalendar) && hasCalendar.length && hasCalendar !== 'all') {
+        ref = ref.where('calendar', "==", hasCalendar);
+    } else {
+        // all calendars
+        ref = ref;
+    }
+    
+    // get events only in future
+    if(hasType !== 'variable') {
+        var now = new Date();
+        switch(startTimeIs) {
+            case 'future':
+                jumplink.debug.events('get events in future from', now);
+                ref = ref.where('startAt', ">=", now);
+                break;
+            case 'past':
+                jumplink.debug.events('get events from the past in reference to', now);
+                ref = ref.where('startAt', "<", now);
+                break;
+            case 'all':
+                jumplink.debug.events('get events from the past and in the future');
+                ref = ref;
+                break;
+            default:
+                jumplink.debug.events('get events from the past and in the future');
+                ref = ref;
+                break;
+        }
+    }
+    
+    if(!jumplink.utilities.isString(excludeCalendar)) {
+        excludeCalendar = 'none';
+    }
+    
+    /**
+     * Only set limit if no exclude is set otherwise limit is not working
+     * If excludes is set we have a client site limit implement with a counter (search for 'count')
+     */
+    if (excludeCalendar === 'none' && limit >= 1) {
+        jumplink.debug.events('set limit of orders to', limit);
+        ref = ref.limit(limit);
+    }
+
+    
+    // set order
+    ref = ref.orderBy("startAt");
+    
+    return ref.get()
+    .then((querySnapshot) => {
+        //yevents = querySnapshot.data();
+        jumplink.debug.events('event', querySnapshot);
+        var count = 0;
+        querySnapshot.forEach((doc) => {
+            // own client site limit to make excludeCalendar working
+            if(count <= limit) {
+                var event = doc.data();
+                event.id = doc.id;
+                if(event.calendar !== excludeCalendar) {
+                    count++;
+                    if(jumplink.utilities.isString(groupBy) && groupBy !== 'none') {
+                        jumplink.events.pushGroupedByProperty(events, event, groupBy);
+                    } else {
+                        events.push(event);
+                    }
+                }
+            }
+        });
+        return events;
+    });
+};
+
+/**
+ * Create new event
+ */
+jumplink.events.add = function(event, uploadedImages) {
+    
+    var dbEvents = jumplink.events.getDatabaseCollection();
+
+    var newEvent = jumplink.events.prepairForFirestore(event, uploadedImages);
+    
+    if(jumplink.utilities.isArray(uploadedImages)) {
+        newEvent.images.push.apply(newEvent.images, uploadedImages);
+    }
+    
+    jumplink.debug.events('[createEvent]', newEvent);
+
+    try {
+        return dbEvents.add(newEvent)
+        .then(function(result) {        
+            jumplink.debug.events('[createEvent] result', result);
+            return result;
+        });
+    }
+    catch(error) {
+        return new Promise(function(resolve, reject) {
+            reject(error);
+        });
+    }
+
+};
+
+jumplink.events.update = function(id, event, uploadedImages) {
+    var dbEvents = jumplink.events.getDatabaseCollection();
+    var updateEvent = jumplink.events.prepairForFirestore(event, uploadedImages);
+    jumplink.debug.events('updateEvent', id, updateEvent);
+    try {
+        return dbEvents.doc(id).update(updateEvent);
+    }
+    catch(error) {
+        return new Promise(function(resolve, reject) {
+            reject(error);
+        });
+    }
 };

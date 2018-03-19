@@ -1,4 +1,9 @@
 // rivets.js binders
+
+
+window.jumplink.debug = window.jumplink.debug || {};
+window.jumplink.debug.binders = debug('theme:binders');
+
 /**
  * pignose-calendar
  * @see https://www.pigno.se/barn/PIGNOSE-Calendar/
@@ -23,7 +28,7 @@ rivets.binders['pignose-calendar'] = {
     },
 
     unbind: function(el) {
-        console.warn('[pignose-calendar] unbind TODO!', this);
+        window.jumplink.debug.binders('[pignose-calendar] unbind TODO!', this);
         delete this.$el;
     },
 
@@ -218,27 +223,33 @@ rivets.binders.selected = {
     },
 
     routine: function(el, newValue) {
-        console.log('[rivets.binders.selected] this.$select', this.$select, 'newValue', newValue);
-        if (newValue) {
-            
-            /**
-             * If this binder is ussed on a component it could be that the component template
-             * was not ready at the time this binder was called, so we check here if the element was found and if not we try it again
-             */
-            if(!this.$select.length) {
-                this.initTemplateSelector();
-            }
-            
-            var oldValue = this.getValue(el);
-            console.log('[rivets.binders.selected] newValue', newValue, 'oldValue', oldValue);
-            if(oldValue !== newValue) {
-                jumplink.utilities.setSelectedValue(this.$select, newValue);
-            }
+        window.jumplink.debug.binders('[selected] this.$select', this.$select, 'newValue', newValue);
+        
+        /**
+         * If this binder is ussed on a component it could be that the component template
+         * was not ready at the time this binder was called, so we check here if the element was found and if not we try it again
+         */
+        if(!this.$select.length) {
+            this.initTemplateSelector();
+        }
+        
+        if(!newValue) {
+            newValue = jumplink.utilities.getFirstSelectValue(this.$select);
+        }
+        
+        var oldValue = this.getValue(el);
+        window.jumplink.debug.binders('[selected] newValue', newValue, 'oldValue', oldValue);
+        if(oldValue !== newValue) {
+            jumplink.utilities.setSelectedValue(this.$select, newValue);
         }
     },
 
     getValue: function(el) {
+        if(!this.$select.length) {
+            this.initTemplateSelector();
+        }
         var value = jumplink.utilities.getSelectedValue(this.$select);
+        window.jumplink.debug.binders('[selected] getValue', value);
         return value; 
     }
 };

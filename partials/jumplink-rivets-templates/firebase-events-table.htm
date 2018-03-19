@@ -2,6 +2,10 @@ description = "Für Admins: Tabelle mit Events zum Veralten"
 
 [viewBag]
 ==
+<div class="form-group">
+    <input type="text" name="search" class="form-control" placeholder="Suchen" rv-value="search">
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -26,7 +30,7 @@ description = "Für Admins: Tabelle mit Events zum Veralten"
     </tr>
   </thead>
   <tbody>
-    <tr rv-each-event="events">
+    <tr rv-each-event="events" rv-class-active="event.id | eq active" rv-show="event.searchTermPass">
       <td class="text-center">
        <span rv-show="event.active">✓</span>
        <span rv-hide="event.active"></span>
