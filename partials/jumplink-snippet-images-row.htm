@@ -714,7 +714,7 @@ snippetProperties[ratio4][options][] = ""
             <div class="{{columnClass}} {{columnSpacingClass}}">
                 <{{wrapperTag}} class="wrapper" href="{{url | app}}">
                     {# content layer with the selected background color #}
-                    <div class="{{contentLayerClass}}">
+                    <div class="{{contentLayerClass}} hidden-md-down">
                         <div class="content {{contentPostionClass}} {{contentSpacingClass}}">
                             <div class="content-texts {{fontColorClass}}">
                                 <div class="hyphenate content-title">
@@ -727,6 +727,18 @@ snippetProperties[ratio4][options][] = ""
                         </div>
                     </div>
                     <rv-img src="'{{source}}'" ratio="'{{ratio}}'" alt="'title'" visible-only="false"></rv-img>
+                    <div class="{{contentLayerClass}} hidden-lg-up">
+                        <div class="content {{contentPostionClass}} {{contentSpacingClass}}">
+                            <div class="content-texts {{fontColorClass}}">
+                                <div class="hyphenate content-title">
+                                    {{title}}
+                                </div>
+                                <div class="content-text">
+                                    {{text}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </{{wrapperTag}}>
             </div>
         {% endfor %}

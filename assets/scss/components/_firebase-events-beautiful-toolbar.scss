@@ -52,10 +52,12 @@ firebase-events-beautiful-toolbar {
         border: none;
     }
     
-    .btn-toolbar-collapsee {
+    .btn-toolbar-collapse {
         padding-right: 40px;
-        .jumplink-iconset {
+        position: relative;
+        .iconset {
             position: absolute;
+            bottom: 7px;
         }
     }
             

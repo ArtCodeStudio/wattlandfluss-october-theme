@@ -129,7 +129,6 @@ rivets.components['firebase-events-table'] = {
     var ready = function() {
         if(jumplink.utilities.isArray(data.events)) {
             controller.events = data.events;
-            
         } else {
             getEvents();
         }
@@ -138,6 +137,8 @@ rivets.components['firebase-events-table'] = {
             controller.debug('search', this.value);
             search(controller.events, this.value, 'title');
         });
+        
+        search(controller.events, controller.search, 'title');
         
     };
     

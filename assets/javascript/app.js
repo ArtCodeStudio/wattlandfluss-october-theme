@@ -13,10 +13,14 @@ window.jumplink.debug.error = debug('theme:error');
 window.jumplink.debug.warn = debug('theme:warn');
 window.jumplink.debug.browser = debug('theme:browser');
 
+window.jumplink.debugMode = false;
+
 // show all debug messages if nothing else is set over localStorage
-var debugString = localStorage.getItem('debug');
-if (!debugString) {
-    localStorage.setItem('debug', 'theme:*');
+if(window.jumplink.debugMode) {
+    var debugString = localStorage.getItem('debug');
+    if (!debugString) {
+        localStorage.setItem('debug', 'theme:*, rivets:*');
+    }
 }
 
 

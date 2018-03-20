@@ -21,20 +21,21 @@ description = "Schöne Darstellung der nächsten Events jeden Kalenders für die
         calendar="calendar"
         active="active"
         style="style"
-        title="title"
+        text-title="title"
         event="event"
         limit="limit"
         index="%event%"
         start-time="startTime"
         container-class="containerClass"
         detail-page="detailPage"
+        show-book-button="showBookButton"
     ></firebase-event-beautiful>
 </div>
     
 <div class="gallery-wrapper" rv-if="ready | and events | empty | not">
     <firebase-events-beautiful-gallery
         rv-if="showGallery"
-        title="title"
+        text-title="title"
         type="type"
         calendar="calendar"
         style="style"

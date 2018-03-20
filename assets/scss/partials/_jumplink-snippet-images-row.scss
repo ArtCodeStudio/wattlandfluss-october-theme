@@ -70,6 +70,7 @@
     
     @include media-breakpoint-down(md) {
         .wrapper {
+            padding-top: 3rem;
             position: initial;
             .content-layer {
                 position: initial;
@@ -78,11 +79,19 @@
                     opacity: 1;
                 }
             }
+            
+            .img-wrapper {
+                margin-right: -15px;
+                margin-left: -15px;
+            }
 
             .content {
                 position: initial;
                 .content-texts {
                     color: $body-color !important;
+                    .content-title  {
+                        padding-top: 1rem;
+                    }
                 }
             }
         }

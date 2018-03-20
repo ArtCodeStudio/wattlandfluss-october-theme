@@ -14,12 +14,13 @@ rivets.components['firebase-event-beautiful'] = {
     var $el = $(el);
 
     controller.ready = false;
-    controller.title = data.title;
+    controller.title = data.textTitle;
     controller.active = data.active;
     controller.calendar = data.calendar;
     controller.type = data.type;
     controller.limit = data.limit;
     controller.containerClass = data.containerClass || 'container';
+    controller.showBookButton = data.showBookButton;
     controller.event = data.event;
     controller.index = data.index;
     controller.style = data.style; // choose template 'fix' | 'variable' | 'custom'

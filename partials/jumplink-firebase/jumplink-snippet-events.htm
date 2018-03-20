@@ -86,6 +86,10 @@ snippetProperties[getEventByUrlIDParam][title] = "Einzelnes Event über URL Para
 snippetProperties[getEventByUrlIDParam][type] = "checkbox"
 snippetProperties[getEventByUrlIDParam][default] = 0
 snippetProperties[getEventByUrlIDParam][options][] = ""
+snippetProperties[showBookButton][title] = "Zeige Buchungsbutton"
+snippetProperties[showBookButton][type] = "checkbox"
+snippetProperties[showBookButton][default] = 0
+snippetProperties[showBookButton][options][] = ""
 ==
 {% if wrapContainer %}
     {% set containerClass = 'container'%}
@@ -97,7 +101,7 @@ snippetProperties[getEventByUrlIDParam][options][] = ""
 <firebase-events-beautiful
     style="'{{style}}'"
     container-class="'{{containerClass}}'"
-    title="'{{title}}'"
+    text-title="'{{title}}'"
     type="'{{type}}'"
     calendar="'{{calendar}}'"
     exclude-calendar="'{{excludeCalendar}}'"
@@ -107,6 +111,7 @@ snippetProperties[getEventByUrlIDParam][options][] = ""
     limit="{{limit}}"
     show-gallery="{{showGallery}}"
     show-toolbar="{{showToolbar}}"
+    show-book-button="{{showBookButton}}"
     gallery-title="'{{galleryTitle}}'"
     gallery-text="'{{galleryText}}'"
     detail-page="'{{detailPage | app }}'"

@@ -6,6 +6,8 @@
  * @see https://github.com/discolabs/cartjs/blob/master/src/rivets.coffee#L52
  */
 
+window.jumplink.debug = window.jumplink.debug || {};
+window.jumplink.debug.formatters = debug('rivets:formatters');
 
 rivets.formatters.eq = function(a, b) {
   return a === b;
@@ -20,10 +22,12 @@ rivets.formatters.match = function(a, regexp, flags) {
 };
 
 rivets.formatters.lt = function(a, b) {
+  window.jumplink.debug.formatters('[lt]', a, b);
   return a < b;
 };
 
 rivets.formatters.gt = function(a, b) {
+  window.jumplink.debug.formatters('[gt]', a, b);
   return a > b;
 };
 

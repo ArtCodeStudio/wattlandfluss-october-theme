@@ -2,7 +2,7 @@
 
 
 window.jumplink.debug = window.jumplink.debug || {};
-window.jumplink.debug.binders = debug('theme:binders');
+window.jumplink.debug.binders = debug('rivets:binders');
 
 /**
  * pignose-calendar

@@ -1,20 +1,23 @@
 [viewBag]
 ==
 <p rv-hide="event.pricetext" class="mb-01">
-    <strong>Preis:</strong>
-    <span rv-each-price="event.prices">
-        <span rv-if="price.eachAdditionalUnit | not" >
-            <span rv-if="price.fixprice">
-                Gruppenpreis <span rv-show="price.min | gt 1" rv-html="price.min"></span> bis {price.max} Teilnehmer: {price.fixprice | currency '€'}.
+    {# hide price if fixprice and personprice both 0 #}
+    <span rv-hide="event.prices | first | get 'fixprice' | eq 0 | and event.prices | first | get 'price' | ew 0">
+        <strong>Preis:</strong>
+        <span rv-each-price="event.prices">
+            <span rv-if="price.eachAdditionalUnit | not" >
+                <span rv-if="price.fixprice">
+                    Gruppenpreis <span rv-show="price.min | gt 1" rv-html="price.min"></span> bis {price.max} Teilnehmer: {price.fixprice | currency '€'}.
+                </span>
+                
+                <span rv-if="price.price">
+                    Pro Teilnehmer {price.price | currency '€'} ({price.min} bis {price.max} Teilnehmer).
+                </span>
             </span>
             
-            <span rv-if="price.price">
-                Pro Teilnehmer {price.price | currency '€'} ({price.min} bis {price.max} Teilnehmer).
+            <span rv-if="price.eachAdditionalUnit" >
+                Ab {price.min | minus 1} Teilnehmer: {price.fixprice | currency '€'} zzgl. jedem weiteren TN {price.price | currency '€'} (bis max. {price.max} TN).
             </span>
-        </span>
-        
-        <span rv-if="price.eachAdditionalUnit" >
-            Ab {price.min | minus 1} Teilnehmer: {price.fixprice | currency '€'} zzgl. jedem weiteren TN {price.price | currency '€'} (bis max. {price.max} TN).
         </span>
     </span>
 </p>

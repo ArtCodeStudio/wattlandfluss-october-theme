@@ -18,7 +18,7 @@ rivets.components['firebase-events-beautiful-gallery'] = {
 
     controller.ready = false;
     controller.containerClass = data.containerClass || 'container';
-    controller.title = data.title;
+    controller.title = data.textTitle;
     controller.type = data.type;
     controller.calendar = data.calendar;
     controller.style = data.style;

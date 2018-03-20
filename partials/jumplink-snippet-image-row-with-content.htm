@@ -367,7 +367,7 @@ snippetProperties[ratio][options][] = ""
         <div class="{{columnClass}} {{columnSpacingClass}}">
             <{{wrapperTag}} class="wrapper" {%if url %}href="{{url | app}}"{% endif %}>
                 {# content layer with the selected background color #}
-                <div class="{{contentLayerClass}}" >
+                <div class="{{contentLayerClass}} hidden-md-down" >
                     <div class="content {{contentPostionClass}} {{contentSpacingClass}}">
                         <div class="content-texts {{fontColorClass}}">
                             <div class="hyphenate content-title" style="max-width: {{titleWidth}};">
@@ -382,7 +382,25 @@ snippetProperties[ratio][options][] = ""
                         </div>
                     </div>
                 </div>
+                
                 <rv-img src="'{{source}}'" alt="'{{title}}'" ratio="'{{ratio}}'" visible-only="{{loadImageOnViewport}}"></rv-img>
+                
+                <div class="{{contentLayerClass}} hidden-lg-up" >
+                    <div class="content {{contentPostionClass}} {{contentSpacingClass}}">
+                        <div class="content-texts {{fontColorClass}}">
+                            <div class="hyphenate content-title" style="max-width: {{titleWidth}};">
+                                {{title}}
+                            </div>
+                            <div class="content-text" style="max-width: {{textWidth}};">
+                              {{text}}
+                              {% if contentPath %}
+                                {% component 'contenteditor' file=contentPath tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted" %}
+                              {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </{{wrapperTag}}>
         </div>
     </div>

@@ -38,14 +38,10 @@
                 >
                     {event.title}
                 </h3>
-                <h4>
-                    
-                </h4>
-                <p class="hyphenate" rv-if="event.subtitle">{event.subtitle}</p>
+                <h6 rv-if="event.subtitle" class="hyphenate bold text-second" rv-html="event.subtitle"></h6>
                 
                 <p rv-if="event.description" rv-html="event.description"></p>
                 
-               
                 <p rv-if="event.type | eq 'fix'" class="mb-01">
                     <strong>Datum:</strong> {event.startAt | date 'DD.MM.YYYY'}
                 </p>
@@ -65,7 +61,7 @@
                 <p rv-if="event.groupedEvents | empty | not">
                     <strong>Weitere Termine:</strong>
                     <span rv-each-grouped="event.groupedEvents">
-                        {grouped.startAt | date 'DD.MM.YYYY'}
+                        {grouped.startAt | date 'DD.MM.YYYY'} <span rv-show="event.groupedEvents | size | minus 1 | gt %grouped%">/ </span>
                     </span>
                 </p>
                 
@@ -83,7 +79,7 @@
                 
                 <p rv-if="event.note" rv-html="event.note"></p>
                 
-                <button class="btn btn-outline-dark mt-1" rv-data-id="event.id" rv-on-click="bookByEvent">
+                <button rv-show="showBookButton" class="btn btn-outline-dark mt-1" rv-data-id="event.id" rv-on-click="bookByEvent">
                     <span class="px-2">Anfragen</span>
                 </button>
                 
@@ -141,7 +137,7 @@
             <p rv-if="event.groupedEvents | empty | not">
                 <strong>Weitere Termine:</strong>
                 <span rv-each-grouped="event.groupedEvents">
-                    {grouped.startAt | date 'DD.MM.YYYY'}
+                    {grouped.startAt | date 'DD.MM.YYYY'} <span rv-show="%grouped% | lt | event.groupedEvents | size">/ </span>
                 </span>
             </p>
             
@@ -158,6 +154,10 @@
             </p>
             
             <p rv-html="event.note"></p>
+
+            <button rv-show="showBookButton" class="btn btn-outline-dark mt-1" rv-data-id="event.id" rv-on-click="bookByEvent">
+                <span class="px-2">Anfragen</span>
+            </button>
             
         </div>
                     
@@ -174,11 +174,16 @@
 >
     <div class="row my-5" rv-show="event">
         <div class="col-xs-12 col-md-6">
-            <rv-img src="imageSrc" alt="imageAlt" width="imageW" height="imageH" class="pt-5">
+            <p class="pb-md-2 hidden-md-up">
+              <strong class="hyphenate">{title}</strong>
+            </p>
+            <rv-img src="imageSrc" alt="imageAlt" width="imageW" height="imageH" class="pt-md-5">
         </div>
         
         <div class="col-xs-12 col-md-6">
-          <p class="pb-2"><strong class="hyphenate">{title}</strong></p>
+          <p class="pb-2 hidden-sm-down">
+              <strong class="hyphenate">{title}</strong>
+          </p>
           <div
             rv-class-text-primary="event.calendar | eq 'Fluss'"
             rv-class-text-warning="event.calendar | eq 'Watt'"
@@ -187,7 +192,7 @@
             rv-class-bg-gradient-success-info-warning="event.calendar | eq 'Spezial'"
             rv-class-animated-gradient="event.calendar | eq 'Spezial'"
           >
-              <h2 class="hyphenate">
+              <h2 class="hyphenate pt-1">
                   {event.startAt | date 'DD.MM.YYYY'}
                   <small rv-if="event.showTimes">{event.startAt | time 'HH:mm'} Uhr</small>
                   <br><small class="hyphenate">{event.title}</small>
@@ -195,7 +200,13 @@
           </div>
 
           <p class="hyphenate">{event.subtitle}</p>
+          <p class="" rv-html="event.description"></p>
           <button class="btn btn-link" rv-data-id="event.id" rv-on-click="show">mehr dazu</button>
+
+          <button rv-show="showBookButton" class="btn btn-outline-dark mt-1" rv-data-id="event.id" rv-on-click="bookByEvent">
+              <span class="px-2">Anfragen</span>
+          </button>
+
         </div>
     </div>
 </div>

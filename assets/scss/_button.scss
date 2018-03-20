@@ -13,3 +13,34 @@
 .btn-light {
    @include button-variant($gray-light, $gray-light, $gray-light);
 }
+
+
+
+.btn {
+    // font-size: .9rem;
+    font-family: $font-family-second !important;
+    &:focus {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-color: $brand-info;
+    }
+}
+
+$border-spacing: 20px;
+
+@include move-border-dashed-keyframes($border-spacing);
+
+// TODO custom class
+.btn-outline-dark {
+    @include border-dashed($gray-dark, $border-spacing, $width: 2px);
+    &:hover, &:focus {
+        background-color: transparent;
+        color: $black;
+        @include move-border-dashed($border-spacing);
+    }
+}
+
+.btn {
+    // font-size: .9rem;
+    font-family: $font-family-second !important;
+}

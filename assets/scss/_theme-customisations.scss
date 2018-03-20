@@ -1,18 +1,3 @@
-.btn {
-    // font-size: .9rem;
-    font-family: $font-family-second !important;
-}
-
-// TODO custom class
-.btn-outline-dark {
-    @include border-dashed($gray-dark, $spacing: 20px, $width: 2px);
-}
-
-.btn {
-    // font-size: .9rem;
-    font-family: $font-family-second !important;
-}
-
 .sidebar-toggler-text {
      font-family: $font-family-second !important;
      font-size: .9rem;
