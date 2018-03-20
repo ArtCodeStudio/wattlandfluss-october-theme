@@ -7,47 +7,53 @@ license: MIT
 form:
     tabs:
         fields:
+        #Allgemein
+            site_name:
+                label: 'Site name'
+                type: text
+                comment: 'Name of your site'
+                default: ''
+                tab: 'General'
             site_desc:
                 label: 'Site description'
                 type: text
                 comment: 'Describe your site in one sentence'
-                default: 'Carolines‘ aktive Kreativ-Werkstatt'
+                default: ''
                 tab: 'General'
             phone_number:
                 label: Phone
                 type: text
                 comment: 'Phone number'
-                commentAbove: 'Sofern Ihre Website Informationen in Cookie-Dateien zwischenspeichert, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.'
                 default: '0172 - 4454451'
                 tab: 'General'
             email_address:
                 label: Email
                 type: text
                 comment: 'Email address for contact form and imprint'
-                default: hallo@lateliercreatif.de
+                default: hello@yoursite.de
                 tab: 'General'
             owner_name:
                 label: 'Owner Name'
                 type: text
                 comment: 'The name of the owner of this site'
-                default: 'Caroline Hinsch'
+                default: 'Owners Name '
                 tab: 'General'
             street:
                 label: Street
                 type: text
                 comment: 'The street for contact and location'
-                default: 'Am Kirchplatz 6'
+                default: 'Owners Street 6'
                 tab: 'General'
             city:
                 label: 'Place, location or city'
                 type: text
-                default: Otterndorf
+                default: Super City
                 tab: 'General'
             zip:
                 label: Zip
                 type: text
                 comment: 'zip code, postal code'
-                default: 21762
+                default: 01010
                 tab: 'General'
             country:
                 label: Country
@@ -55,21 +61,18 @@ form:
                 comment: 'country, land, state, shore, ground, province'
                 default: Deutschland
                 tab: 'General'
-            tax_id:
-                label: 'Tax identification number'
-                type: text
-                comment: 'In german "Umsatzsteuer-Identifikationsnummer"'
-                default: DE123456789
-                tab: 'General'
+        # Datenschutzerklärung
             pp_general_pp_section:
                 label: Allgemeine Datenschutzerklärung
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen allgemeinen Datenschutzpassus für Ihre Website enthalten?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_general_pp:
                 label: Ja, ich möchte einen allgemeinen Datenschutzpassus einfügen.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: Fast alle Websites erheben personenbezogene Daten. Erstellen Sie hier schnell und einfach eine passende Datenschutzerklärung für Ihre Seite.
                 commentHtml: true
@@ -77,71 +80,83 @@ form:
             pp_cookies_section:
                 label: Verwendung von Cookies
                 type: section
+                cssClass: without-line
                 comment: Sofern Ihre Website Informationen in Cookie-Dateien zwischenspeichert, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_cookies:
                 label: 'Ja, ich möchte in meine Datenschutzerklärung einen zusätzlichen Hinweis für die Speicherung von Daten in Cookies integrieren.'
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_server_log_data_section:
                 label: Log-Dateien auf dem Server
                 type: section
+                cssClass: without-line
                 comment: Sofern Ihr Server Nutzerinformationen in Log-Datein speichert, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_server_log_data:
                 label: 'Ja, ich möchte in meine Datenschutzerklärung einen allgemeinen Hinweis zur Speicherung von Daten in Server-Log-Dateien integrieren.'
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_encoding_section:
                 label: Verschlüsselung der Website
                 type: section
+                cssClass: without-line
                 comment: 'Sofern Ihre Website über ein SSL-Zertifikat verschlüsselt wird, empfiehlt es sich, einen entsprechenden Hinweis hinsichtlich der Verwendung der Nutzerdaten in die Datenschutzerklärung zu integrieren.'
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_encoding:
                 label: 'Ja, ich möchte in meine Datenschutzerklärung einen allgemeinen Hinweis zur Speicherung von Daten in Server-Log-Dateien integrieren.'
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_contact_section:
                 label: Einbindung des Kontaktformulars
                 type: section
+                cssClass: without-line
                 comment: Sofern Sie in Ihrer Website ein Kontaktformular integriert haben, welches nutzerspezifische Daten wie beispielsweise Namen, E-Mail-Adresse oder Postanschrift abfragt, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_contact:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen zusätzlichen Hinweis für die Speicherung von Daten aus Kontaktformularen integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_newsletter_section:
                 label: Newsletter
                 type: section
+                cssClass: without-line
                 comment: Sofern Sie auf Ihrer Website die Anmeldung zu einem eigenen Newsletter eingerichtet haben und an Nutzer anschließend einen Newsletter versenden, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_newsletter:
                 label: Ja, ich versende Newsletter und möchte in meine Datenschutzerklärung einen zusätzlichen Hinweis zur Behandlung der newsletterspezifischen Nutzerinformationen integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_facebook_section:
                 label: Datenschutzerklärung für Facebook
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zu Facebook (Like-Button) enthalten?
                 tab: 'Datenschutzerklärung'
             pp_facebook:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Facebook (Like-Button) integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema	Facebook-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
                 commentHtml: true
@@ -149,12 +164,14 @@ form:
             pp_twitter_section:
                 label: Datenschutzerklärung für Twitter
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zu Twitter (Tweet-Button) enthalten?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_twitter:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Twitter integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Twitter-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
                 commentHtml: true
@@ -162,12 +179,14 @@ form:
             pp_google_section:
                 label: Datenschutzerklärung für Google+
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zum Google+-Button enthalten? 
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_google:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Google+ integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Google+-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
                 commentHtml: true
@@ -175,12 +194,14 @@ form:
             pp_linkedin_section:
                 label: Datenschutzerklärung für LinkedIn
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zu LinkedIn (LinkedIn-Button) enthalten?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_linkedin:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für LinkedIn integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Es ist nicht geklärt, ob eine Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist. Somit können wir dafür keine Haftung übernehmen.'
                 commentHtml: true
@@ -188,12 +209,14 @@ form:
             pp_xing_section:
                 label: Datenschutzerklärung für Xing
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zu Xing (Xing-Button) enthalten?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_xing:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Xing integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Xing-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
                 commentHtml: true
@@ -201,27 +224,30 @@ form:
             pp_comments_section:
                 label: Datenschutzerklärung für die Kommentarfunktion
                 type: section
+                cssClass: without-line
                 comment: Sofern Nutzer auf Ihrer Website die Möglichkeit haben Inhalte zu kommentieren, empfiehlt es sich, einen entsprechenden Hinweis hinsichtlich der Verwendung der Nutzerdaten in die Datenschutzerklärung zu integrieren.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_comments:
                 label: Kommentarfunktion vorhanden?
                 type: dropdown
+                cssClass: with-bottom-line
                 options:
                     true: Ja
-                    false: Nein
-                default: false
+                emptyOption: Nein
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_pinterest_section:
                 label: Datenschutzerklärung für Pinterest
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zu Pinterest (Pinterest-Button) enthalten?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_pinterest:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Pinterest integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Pinterest-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
                 commentHtml: true
@@ -229,12 +255,14 @@ form:
             pp_instagram_section:
                 label: Datenschutzerklärung für Instagram
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zu Instagram (Instagram-Button) enthalten?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_instagram:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Instagram integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Es ist nicht geklärt, ob eine Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist. Somit können wir dafür keine Haftung übernehmen.'
                 commentHtml: true
@@ -242,24 +270,28 @@ form:
             pp_youtube_section:
                 label: Datenschutzerklärung für YouTube
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zu YouTube enthalten?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_youtube:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für YouTube integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_tumblr_section:
                 label: Datenschutzerklärung für Tumblr
                 type: section
+                cssClass: without-line
                 comment: Soll die Datenschutzerklärung einen Passus zu Tumblr (Tumblr-Button) enthalten?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_tumblr:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Tumblr integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Wir können keine Haftung übernehmen, da es noch keine Gerichtsentscheidungen zum Thema Tumblr-Button gibt und nicht geklärt ist, ob für dessen Nutzung die Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist.'
                 commentHtml: true
@@ -267,30 +299,35 @@ form:
             pp_soundcloud_section:
                 label: Datenschutzerklärung für SoundCloud
                 type: section
+                cssClass: without-line
                 comment: Nutzen Sie in Ihrer Website den Dienste von SoundCloud?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_soundcloud:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für SoundCloud integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_spotify_section:
                 label: Datenschutzerklärung für Spotify
                 type: section
+                cssClass: without-line
                 comment: Nutzen Sie in Ihrer Website den Dienste von Spotify?
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_spotify:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für Spotify integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_google_analytics_section:
                 label: Datenschutzerklärung für Google Analytics
                 type: section
+                cssClass: without-line
                 comment: Verwenden Sie den Dienst Google Analytics zum Erfassen des Nutzerverhaltens auf Ihrer Website? Dann sollte die Datenschutzerklärung einen Hinweis für diesen Dienst von Google enthalten.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
@@ -315,6 +352,7 @@ form:
             pp_google_analytics_demographics:
                 label: Ja, ich nutze die Funktion "demografische Merkmale" von Google Analytics.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Rechtslage zu Google Analytics ist in vielen Punkten ungeklärt. Die korrekte Umsetzung hängt in vielen Punkten von Ihren Entscheidungen als Seitenbetreiber ab. Wir können deshalb keine Haftung für die korrekte Nutzung von Google Analytics übernehmen.'
                 commentHtml: true
@@ -322,12 +360,14 @@ form:
             pp_etracker_section:
                 label: Datenschutzerklärung für etracker
                 type: section
+                cssClass: without-line
                 comment: Sofern Sie mit etracker das Nutzerverhalten auf Ihrer Website erfassen, sollte die Datenschutzerklärung einen Hinweis für diesen Dienst enthalten.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_etracker:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen Datenschutzhinweis für etracker integrieren
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Es ist nicht geklärt, ob eine Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist. Somit können wir dafür keine Haftung übernehmen.'
                 commentHtml: true
@@ -335,12 +375,14 @@ form:
             pp_matomo_section:
                 label: Datenschutzerklärung für Matomo (ehemals Piwik)
                 type: section
+                cssClass: without-line
                 comment: Sofern Sie mit Matomo das Nutzerverhalten auf Ihrer Website erfassen, sollte die Datenschutzerklärung einen Hinweis für diesen Dienst enthalten.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_matomo:
                 label: Ja, die Website nutzt Matomo (ehemals Piwik) zur Analyse des Nutzerverhaltens.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 comment: 'Hinweis: Die Benutzung der Datenschutzerklärung erfolgt auf eigene Gefahr. Es ist nicht geklärt, ob eine Information der Nutzer genügt oder ob eine ausdrückliche Einwilligung notwendig ist. Somit können wir dafür keine Haftung übernehmen.'
                 commentHtml: true
@@ -348,18 +390,21 @@ form:
             pp_data_section:
                 label: Auskunft, Berichtigung, Löschung und Sperrung von Daten
                 type: section
+                cssClass: without-line
                 comment: Sofern Sie nutzerspezifische Daten speichern, empfiehlt es sich, einen entsprechenden Hinweis bzgl. der Auskunft, Berichtigung, Löschung und Sperrung in Bezug zu diesen Daten in die Datenschutzerklärung zu integrieren.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_data:
                 label: Ja, ich möchte in meine Datenschutzerklärung einen allgemeinen Hinweis zu Auskunft, Änderung und Löschung personenbezogener Daten integrieren.
                 type: checkbox
+                cssClass: with-bottom-line
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
             pp_email_advertising _section:
                 label: Widerspruch gegen Werbe-E-Mails
                 type: section
+                cssClass: without-line
                 comment: Sofern Sie als Websitebetreiber anderen untersagen möchten, ihnen online werbliche Informationen an die von Ihnen auf der Website angebenen Kontaktdaten zuzusenden, empfiehlt es sich, einen entsprechenden Hinweis in die Datenschutzerklärung zu integrieren.
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
@@ -369,6 +414,524 @@ form:
                 default: false
                 commentHtml: true
                 tab: 'Datenschutzerklärung'
+
+        # Impressum
+
+            info_online_shop_section:
+                label: Online-Shop
+                type: section
+                cssClass: without-line
+                comment: Handelt es sich bei der Website, für welche Sie das Impressum erstellen wollen, um einen Online-Shop?
+                commentHtml: true
+                tab: 'Impressum'
+            info_online_shop:
+                label: Ja, das Impressum soll anschließend in einen Online-Shop eingebunden werden.
+                type: checkbox
+                cssClass: with-bottom-line
+                default: false
+                comment: Erstellen Sie das Impressum für eine "normale" Website oder für einen Online Shop?
+                commentHtml: true
+                tab: 'Impressum'
+            info_operator_type_section:
+                label: Wer ist Betreiber der Website?
+                type: section
+                cssClass: without-line
+                comment: 'Bitte wählen Sie hier aus, wer Betreiber der Website ist.
+                <p class="help-block"><strong>Anmerkung zur Option "Privatperson":</strong> Websites, die ausschließlich "persönlichen oder familiären Zwecken" dienen, benötigen kein Impressum. Die Rechtsprechung ist jedoch zurückhaltend mit der Annahme rein privater Seiten. Schon ein Werbebanner oder ein Affiliate-Link können genügen, um als "kommerziell" zu gelten. Unternehmenswebseiten und Shops sind hingegen nie privat.</p>
+                <p class="help-block">Auch Blogs dienen wohl in den seltensten Fällen ausschließlich persönlichen oder familiären Zwecken und sollten deshalb über ein Impressum verfügen.</p>'
+                commentHtml: true
+                tab: 'Impressum'
+            info_operator_type:
+                label: Betreiber ist
+                type: dropdown
+                cssClass: with-bottom-line
+                options:
+                    ag: Aktiengesellschaft (AG)
+                    ev: eingetragener Verein (e.V.)
+                    ek: eingetragener Kaufmann (e.K.)
+                    einzelkaufmann: Einzelkaufmann
+                    einzelunternehmer: Einzelunternehmer
+                    fh: Fachhochschule
+                    freiberufler: Freiberufler
+                    ggmbh: gemeinnützige GmbH (gGmbH)
+                    gbr: Gesellschaft bürgerlichen Rechts (GbR)
+                    gmbh: Gesellschaft mit beschränkter Haftung
+                    gmbhkg: GmbH & CO. KG
+                    kg: Kommanditgesellschaft (KG)
+                    kgag: Kommanditgesellschaft auf Aktien (KGaA)
+                    koerperschaft: Körperschaft des öffentlichen Rechts
+                    ohg: Offene Handelsgesellschaft (OHG)
+                    partnerschaftsgesellschaft: Partnerschaftsgesellschaft
+                    privatperson: Privatperson
+                    stiftung: Stiftung
+                    other: Sonstiges
+                emptyOption: " "
+                tab: 'Impressum'
+            # Impressum Manu
+            info_owner_section:
+                label: Betreiber der Website
+                type: section
+                cssClass: without-line
+                comment: Bitte geben Sie Ihren Firmen-, Vereins- oder Organisationsnamen ein.
+                commentHtml: true
+                tab: 'Impressum'
+            info_owner:
+                label: Betreiber
+                type: text
+                placeholder: Muster e.V.
+                cssClass: with-bottom-line
+                comment: 'z.B. Muster GmbH, Sonnenschein e.V. oder Universität MusterstadtEs kommt nicht darauf an in welchem Bereich Sie tätig sind (Shop, Arzt oder Webdesigner), sondern auf die Rechtsform, in der Sie organisiert sind. Wenn Sie allein arbeiten, ist oft "Einzelunternehmer" die richtige Wahl.'
+                tab: 'Impressum'
+            info_address_section:
+                label: Anschrift
+                type: section
+                cssClass: without-line
+                comment: Geben Sie für das Impressum Ihre vollständige Anschrift ein.
+                commentHtml: true
+                tab: 'Impressum'
+            info_address_street:
+                label: Straße, Nr.
+                type: text
+                placeholder: Musterstraße 123
+                cssClass: without-line
+                comment: Das Postfach ist nicht ausreichend.
+                commentHtml: true
+                tab: 'Impressum'
+            info_address_additional:
+                label: Adresszusatz
+                type: text
+                placeholder: Gebäude 11
+                cssClass: without-line
+                tab: 'Impressum'
+            info_address_postcode:
+                label: PLZ
+                type: text
+                placeholder: '27474'
+                cssClass: without-line
+                tab: 'Impressum'
+            info_address_city:
+                label: Ort
+                type: text
+                placeholder: Musterstadt
+                cssClass: without-line
+                tab: 'Impressum'
+            info_address_optional_section:
+                label: Soll dem Impressum eine alternative Postadresse hinzugefügt werden?
+                type: dropdown
+                options:
+                    true: Ja
+                emptyOption: Nein
+                cssClass: without-line
+                comment: Falls keine alternative Addresse hinzugefügt werden soll können Sie die folgenden Eingaben überspringen.
+                commentHtml: true
+                tab: 'Impressum'
+            info_address_optional_street:
+                label: Straße, Nr. (optional)
+                type: text
+                placeholder: Musterstraße 123
+                cssClass: without-line
+                comment: Das Postfach ist nicht ausreichend.
+                commentHtml: true
+                tab: 'Impressum'
+            info_address_optional_additional:
+                label: Adresszusatz (optional)
+                type: text
+                placeholder: Gebäude 11
+                cssClass: without-line
+                tab: 'Impressum'
+            info_address_optional_postcode:
+                label: PLZ (optional)
+                type: text
+                placeholder: '27474'
+                cssClass: without-line
+                tab: 'Impressum'
+            info_address_optional_city:
+                label: Ort (optional)
+                type: text
+                placeholder: Musterstadt
+                cssClass: with-bottom-line
+                tab: 'Impressum'
+            info_email_section:
+                label: E-Mail-Adresse
+                type: section
+                cssClass: without-line
+                comment: Das Impressum muss eine gültige E-Mail-Adresse enthalten, über welche man den Betreiber der Website erreichen kann. Geben Sie diese bitte ein.
+                commentHtml: true
+                tab: 'Impressum'
+            info_email:
+                label: E-Mail
+                type: text
+                placeholder: mustermann@musterfirma.de
+                cssClass: with-bottom-line
+                comment: Der alleinige Verweis auf Ihr Kontaktformular ist nicht ausreichend.
+                commentHtml: true
+                tab: 'Impressum'
+            info_phone_section:
+                label: Telefon / Fax
+                type: section
+                cssClass: without-line
+                comment: Geben Sie die telefonischen Kontaktdaten sowie eine Faxnummer des Betreibers der Website an.
+                commentHtml: true
+                tab: 'Impressum'
+            info_phone: 
+                label: Telefon
+                type: text
+                placeholder: +49 (0) 123 44 55 66
+                cssClass: without-line
+                tab: 'Impressum'
+            info_fax:
+                label: Telefax
+                type: text
+                placeholder: +49 (0) 123 44 55 99
+                cssClass: with-bottom-line
+                comment: Es ist umstritten, ob eine Faxnummer notwendig ist. Bis zu einer verbindlichen Klärung sollten Sie diese angeben (ggf. kostenfreies Webfax).
+                commentHtml: true
+                tab: 'Impressum'
+            info_lawyer_section:
+                label: Vertreten durch
+                type: section
+                cssClass: without-line
+                comment: '<p class="help-block">Bei juristischen Personen und Personengesellschaften sind der oder die Vertretungsberechtigten anzugeben. Die Vertretungsbefugnis ergibt sich aus der Gesellschaftsform, dem Gesellschaftsvertrag oder den gesetzlichen Regelungen und ist je nach Unternehmensform unterschiedlich geregelt.</p>
+                    <ul class="help-block">
+                        <li>GbR: vertreten durch die Gesellschafter</li>
+                        <li>GmbH: vertreten durch die Geschäftsführer</li>
+                        <li>GmbH & Co. KG: vertreten durch die Komplementär-GmbH, die ihrerseits	vertreten wird durch die Geschäftsführer der GmbH</li>
+                        <li>OHG: vertreten durch die Gesellschafter</li>
+                        <li>KG: vertreten durch die Komplementäre</li>
+                        <li>AG, e.V., e.G.: vertreten durch den Vorstand</li>
+                    </ul>
+                    <p class="help-block">Durch Gesellschaftsvertrag können im Einzelfall abweichende Regelungen getroffen werden. Bei mehreren vertretungsberechtigten Personen sollten alle angegeben werden.</p>'
+                commentHtml: true
+                tab: 'Impressum'            
+            info_lawyer:
+                label: Vertreten durch
+                type: text
+                placeholder: Herr Dr. Harry Mustermann
+                cssClass: with-bottom-line
+                comment: 'Bitte geben Sie hier die vollständigen Vor- und Nachnamen der vertretungsberechtigten Personen und ggf. den Firmennamen bei jur. Personen an. Beispiel: XYZ GmbH, vertreten durch den GF Paul Müller'                
+                commentHtml: true
+                tab: 'Impressum'
+            info_registry_section:
+                label: Registereintrag
+                type: section
+                cssClass: without-line
+                comment: Wenn Ihre Organisation in ein Register eingetragen ist, wählen Sie dieses bitte aus und vervollständigen Sie die Angaben.
+                commentHtml: true
+                tab: 'Impressum'
+            info_registry:
+                label: Register
+                type: dropdown
+                options: 
+                    cooperative: Genossenschaftsregister
+                    commercial: Handelsregister
+                    partnership: Partnerschaftsregister
+                    club: Vereinsregister
+                emptyOption: kein Register
+                cssClass: without-line
+                comment: Wenn Ihr Unternehmen z.B. im Handelsregister eingetragen ist, geben Sie bitte die Registernummer und das Registergericht an.
+                commentHtml: true
+                tab: 'Impressum'
+            info_registry_number:
+                label: Registernummer
+                type: text
+                cssClass: without-line
+                placeholder: HRB 999999
+                tab: 'Impressum'
+            info_registry_court:
+                label: Registergericht
+                type: text
+                placeholder: Amtsgericht Musterstadt
+                cssClass: with-bottom-line
+                tab: 'Impressum'
+            info_taxId_section:
+                label: Umsatzsteuer-ID
+                type: section
+                cssClass: without-line
+                comment: Sofern Sie über Umsatzsteuer-ID verfügen, geben Sie diese bitte im nachfolgenden Feld ein!
+                commentHtml: true
+                tab: 'Impressum'
+            info_taxId:
+                label: Ust.-ID
+                type: text
+                placeholder: DE 999 999 999
+                cssClass: with-bottom-line
+                comment: Es gibt keine generelle Pflicht, eine USt.-ID zu beantragen. Wenn Sie aber eine USt.-ID haben, müssen Sie diese im Impressum angeben.
+                commentHtml: true
+                tab: 'Impressum'
+            info_professionalIndemnityInsurance_section:
+                label: Berufshaftpflichtversicherung
+                type: section
+                cssClass: without-line
+                comment: Sofern Sie als Unternehmer über eine Berufshaftplichtversicherung verfügen, sind noch einige Angaben notwendig.
+                commentHtml: true
+                tab: 'Impressum'
+            info_professionalIndemnityInsurance:
+                label: Berufshaftpflichtversicherung vorhanden
+                type: dropdown
+                options:
+                    true: Ja
+                emptyOption: Nein
+                cssClass: without-line
+                comment: Falls ja, geben Sie den Namen und die Adresse der Versicherungsgesellschaft sowie die Räumliche Geltung (für welches Land besteht Versicherungsschutz) ein.
+                commentHtml: true
+                tab: 'Impressum'
+            info_professionalIndemnityInsurance_name:
+                label: Name
+                type: text
+                placeholder: Beispiel Versicherung AG
+                cssClass: without-line
+                comment: Berufsgruppen wie Anwälte, Architekten oder Ärzte müssen eine Berufshaftpflichtversicherung abschließen. Bitte geben Sie den Unternehmensnamen und die Anschrift der Versicherungsgesellschaft an.
+                commentHtml: true
+                tab: 'Impressum'
+            info_professionalIndemnityInsurance_street:
+                label: Straße, Nr.
+                type: text
+                placeholder: Musterstraße 123
+                cssClass: without-line
+                comment: Das Postfach ist nicht ausreichend.
+                commentHtml: true
+                tab: 'Impressum'
+            info_professionalIndemnityInsurance_postcode:
+                label: PLZ
+                type: text
+                placeholder: '27474'
+                cssClass: without-line
+                tab: 'Impressum'
+            info_professionalIndemnityInsurance_city:
+                label: Ort
+                type: text
+                placeholder: Musterstadt
+                cssClass: without-line
+                tab: 'Impressum'
+            info_professionalIndemnityInsurance_validity:
+                label: Räumliche Geltung
+                type: text
+                placeholder: '27474'
+                cssClass: with-bottom-line
+                comment: Geben Sie hier an, in welchen Ländern die Police Ihrer Versicherung Schäden abdeckt.
+                tab: 'Impressum'
+            info_editing_section:
+                label: Journalistisch-redaktionell gestaltete Angebote
+                type: section
+                cssClass: without-line
+                comment: Sofern Sie auf Ihrer Website journalistisch-redaktionell gestaltete Inhalte anbieten, müssen Sie die für diese Inhalte verantwortlich zeichnende(n) Person(en) angeben.
+                commentHtml: true
+                tab: 'Impressum'
+            info_editing:
+                label: Journalistisch-redaktionelle Texte vorhanden
+                type: dropdown
+                options:
+                    true: Ja
+                emptyOption: Nein
+                cssClass: without-line
+                comment: Falls ja, geben Sie hier den oder die für die Inhalte der Website verantwortlichen Personen mit Vorname, Nachname und Adresse in das entsprechende Textfeld ein.
+                commentHtml: true
+                tab: 'Impressum'
+            info_editing_name:
+                label: Verantwortlicher für den Inhalt
+                type: text
+                placeholder: Beate Beispielhaft
+                cssClass: without-line
+                tab: 'Impressum'
+            info_editing_street:
+                label: Straße, Nr.
+                type: text
+                placeholder: Musterstraße 123
+                cssClass: without-line
+                commentHtml: true
+                tab: 'Impressum'
+            info_editing_additional:
+                label: Adresszusatz
+                type: text
+                placeholder: Gebäude 11
+                cssClass: without-line
+                tab: 'Impressum'
+            info_editing_postcode:
+                label: PLZ
+                type: text
+                placeholder: '27474'
+                cssClass: without-line
+                tab: 'Impressum'
+            info_editing_city:
+                label: Ort
+                type: text
+                placeholder: Musterstadt
+                comment: Wenn Sei regelmäßig redaktionelle Inhalte veröffentlichen, geben Sie bitte einen Verantwortlichen an. Das kann auch der Seitenbetreiber sein
+                cssClass: with-bottom-line
+                tab: 'Impressum'
+            info_professionalTitle_section:
+                label: Berufsbezeichnung
+                type: section
+                cssClass: without-line
+                comment: '<p class="help-block">Bitte prüfen Sie, ob Ihr Beruf zu den reglementierten Berufen gehört und wählen Sie den entsprechenden Beruf aus der Liste aus.<br>Eine vollständige Übersicht finden Sie unter folgendem Link: <a href="http://ec.europa.eu/growth/tools-databases/regprof/">Übersicht der Europäischen Kommission für reglementierte Berufe in Deutschland</a>.</p>'
+                commentHtml: true
+                tab: 'Impressum'
+            info_professionalTitle:
+                label: Gesetzliche Berufsbezeichnung
+                type: text
+                cssClass: without-line
+                comment: Geben Sie hier eine Bezeichnung für Ihren Beruf an, sofern er zu den regulierten Berufen gehört.
+                tab: 'Impressum'
+            info_professionalTitle_chamber:
+                label: Kammer
+                type: text
+                placeholder: Beipspielkammer
+                cssClass: without-line
+                tab: 'Impressum'
+            info_professionalTitle_country:
+                label: Land
+                type: text
+                placeholder: Deutschland
+                cssClass: without-line
+                comment: Tragen Sie hier das Land ein, in dem Ihnen Ihre Berufsbezeichnung verliehen wurde.
+                tab: 'Impressum'
+            info_professionalTitle_regulations:
+                label: Berufsrechtliche Regelungen
+                type: text
+                cssClass: without-line
+                comment: Tragen Sie hier die Bezeichnung der berufsrechtlichen Regelungen ein.
+                tab: 'Impressum'
+            info_professionalTitle_regulations_link:
+                label: Link
+                type: text
+                placeholder: 'http://'
+                cssClass: with-bottom-line
+                comment: Geben Sie hier den Link zu den berufsrechtlichen Regelungen ein.
+                tab: 'Impressum'
+            
+            info_approval_section:
+                label: Behördliche Zulassung
+                type: section
+                cssClass: without-line
+                comment: Sofern Sie für die Ausübung Ihrer Tätigkeit einer behördlichen Zulassung bedürfen, so geben Sie die zuständige Aufsichtsbehörde an!
+                commentHtml: true
+                tab: 'Impressum'
+            info_approval:
+                label: Behördliche Zulassung nötig
+                type: dropdown
+                options:
+                    true: Ja
+                emptyOption: Nein
+                cssClass: without-line
+                comment: Falls ja, geben Sie hier die entsprechende Behörde mit Name und Anschrift in das entsprechende Textfeld ein.
+                commentHtml: true
+                tab: 'Impressum'
+            info_approval_name:
+                label: Aufsichtsbehörde
+                type: text
+                placeholder: Musterkammer Musterstadt
+                cssClass: without-line
+                comment: Reglementierte Berufe wie z.B. Makler, Apotheker, Optiker oder Rechtsanwälte müssen die zuständige Aufsichtsbehörde angeben.
+                tab: 'Impressum'
+            info_approval_street:
+                label: Straße, Nr.
+                type: text
+                placeholder: Musterstraße 123
+                cssClass: without-line
+                commentHtml: true
+                tab: 'Impressum' 
+            info_approval_postcode:
+                label: PLZ
+                type: text
+                placeholder: '27474'
+                cssClass: without-line
+                tab: 'Impressum'
+            info_approval_city:
+                label: Ort
+                type: text
+                placeholder: Musterstadt
+                comment: Wenn Sei regelmäßig redaktionelle Inhalte veröffentlichen, geben Sie bitte einen Verantwortlichen an. Das kann auch der Seitenbetreiber sein
+                cssClass: without-line
+                tab: 'Impressum'
+            info_approval_link:
+                label: Link
+                type: text
+                placeholder: 'http://'
+                cssClass: with-bottom-line
+                comment: Geben Sie hier den Link zur Website der Aufsichtsbehörde ein.
+                tab: 'Impressum'
+            info_disputeResolution_section:
+                label: Hinweis auf EU-Streitschlichtung
+                type: section
+                cssClass: without-line
+                comment: Alle Seitenbetreiber, die online Verträge mit Endkunden abschließen müssen einen Hinweis und einen Link auf die neue Streitschlichtungsplattform der EU sowie die eigene E-Mail-Adresse einbinden.
+                commentHtml: true
+                tab: 'Impressum'
+            info_disputeResolution:
+                label: Ja, im Impressum soll der Hinweis auf die EU-Streitschlichtung eingebunden werden.
+                type: checkbox
+                default: false
+                cssClass: with-bottom-line
+                comment: Als Unternehmen, das Geschäfte mit Endverbraucher macht (egal ob Shops oder Dienstleister), sind Sie verpflichtet auf das Streitschlichtungsportal der EU hinzuweisen.
+                commentHtml: true
+                tab: 'Impressum'
+            info_consumerDisputeResolution_section:
+                label: Verbraucherstreitbeilegung
+                type: section
+                cssClass: without-line
+                comment: Nehmen Sie an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teil?
+                commentHtml: true
+                tab: 'Impressum'
+            info_consumerDisputeResolution:
+                label: Teilnahme
+                type: dropdown
+                options:
+                    true: Ja
+                emptyOption: Nein
+                cssClass: with-bottom-line
+                comment: Es gibt keine allgemeine Pflicht zur Teilnahme an Verbraucherstreitschlichtungen, Sie müssen aber informieren, ob Sie teilnehmen oder nicht. Falls ja, machen Sie bitte Angaben zu der für Sie zuständigen Verbraucherschlichtungsstelle
+                commentHtml: true
+                tab: 'Impressum'
+            info_consumerDisputeResolution_name:
+                label: Name der Verbraucherschlichtungsstelle
+                type: text
+                placeholder: Beispielverbraucherschlichtungsstelle e.V.
+                cssClass: without-line
+                comment: Reglementierte Berufe wie z.B. Makler, Apotheker, Optiker oder Rechtsanwälte müssen die zuständige Aufsichtsbehörde angeben.
+                tab: 'Impressum'
+            info_consumerDisputeResolution_street:
+                label: Straße, Nr.
+                type: text
+                placeholder: Musterstraße 123
+                cssClass: without-line
+                commentHtml: true
+                tab: 'Impressum' 
+            info_consumerDisputeResolution_postcode:
+                label: PLZ
+                type: text
+                placeholder: '27474'
+                cssClass: without-line
+                tab: 'Impressum'
+            info_consumerDisputeResolution_city:
+                label: Ort
+                type: text
+                placeholder: Musterstadt
+                comment: Wenn Sei regelmäßig redaktionelle Inhalte veröffentlichen, geben Sie bitte einen Verantwortlichen an. Das kann auch der Seitenbetreiber sein
+                cssClass: without-line
+                tab: 'Impressum'
+            info_consumerDisputeResolution_link:
+                label: Link
+                type: text
+                placeholder: 'http://'
+                cssClass: with-bottom-line
+                comment: Geben Sie die Website-Adresse der zuständigen Verbraucherschlichtungsstelle ein.
+                tab: 'Impressum'
+            info_disclaimer_section:
+                label: Allgemeiner Disclaimer
+                type: section
+                cssClass: without-line
+                comment: Soll das Impressum einen allgemeinen Disclaimer mit Ausführungen zur Haftung und zum Urheberrecht enthalten?
+                commentHtml: true
+                tab: 'Impressum'
+            info_disclaimer:
+                label: Ja, ich möchte in mein Impressum auch einen Haftungsausschluss (Disclaimer) integrieren.
+                type: checkbox
+                cssClass: with-bottom-line
+                comment: Hier können Sie einen allgemeinen Haftungsausschluss für Ihre Seite hinzufügen.
+                commentHtml: true
+                tab: 'Impressum'
+            
+        #Bootstrap
             bs4-colors:
                 label: Colors
                 type: section
@@ -3739,4 +4302,3 @@ require:
     - RainLab.Sitemap
     - Xeor.ContentType
     - Romanov.ClearCacheWidget
-
