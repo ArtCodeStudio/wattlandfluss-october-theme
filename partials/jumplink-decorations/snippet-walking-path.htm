@@ -1,9 +1,13 @@
 [viewBag]
 snippetCode = "walking-path"
 snippetName = "Walking Path"
-snippetProperties[svgFilename][title] = "SVG Bild Dateiname"
-snippetProperties[svgFilename][type] = "string"
-snippetProperties[svgFilename][default] = "walking-path-01.svg"
-snippetProperties[svgFilename][options][] = ""
+snippetProperties[svgFilenameDesktop][title] = "SVG Desktop"
+snippetProperties[svgFilenameDesktop][type] = "string"
+snippetProperties[svgFilenameDesktop][default] = "walking-path-01-desktop.svg"
+snippetProperties[svgFilenameDesktop][options][] = ""
+snippetProperties[svgFilenameMobile][title] = "SVG Mobile"
+snippetProperties[svgFilenameMobile][type] = "string"
+snippetProperties[svgFilenameMobile][default] = "walking-path-01-mobile.svg"
+snippetProperties[svgFilenameMobile][options][] = ""
 ==
-{% partial 'jumplink-decorations/walking-path' containerClass=containerClass svgFilename=svgFilename %}
+{% partial 'jumplink-decorations/walking-path' containerClass=containerClass svgFilenameDesktop=svgFilenameDesktop svgFilenameMobile=svgFilenameMobile %}

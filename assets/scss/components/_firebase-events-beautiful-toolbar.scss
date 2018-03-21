@@ -53,6 +53,17 @@ firebase-events-beautiful-toolbar {
     }
     
     .btn-toolbar-collapse {
+        color: $black;
+        color: $black;
+        box-shadow: none;
+         -webkit-box-shadow: none;
+         border: none;
+        &:hover, &:focus, &:active {
+            color: $black;
+            box-shadow: none;
+             -webkit-box-shadow: none;
+             border: none;
+        }
         padding-right: 40px;
         position: relative;
         .iconset {

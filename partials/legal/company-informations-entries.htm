@@ -1,0 +1,8 @@
+[viewBag]
+==
+<h4>Angaben gemäß §5 TMG:</h4>
+<br>
+<p>{{this.theme.info_owner}}</p>
+<p>{{this.theme.info_address_street}}</p>
+{% if this.theme.info_address_additional %}<p>{{ this.theme.info_address_additional }}</p>{% endif %}
+<p>{{ this.theme.info_address_postcode}} {{ this.theme.info_address_city}}</p>
