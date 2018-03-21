@@ -285,21 +285,21 @@ jumplink.utilities.isString = function (value) {
  */
 jumplink.utilities.stringHasNumber = function(string) {
   return /\d/.test(string);
-}
+};
 
 /**
  * Check if string contains only numbers
  */
 jumplink.utilities.stringHasOnlyNumbers = function(string) {
   return /^\d+$/.test(string);
-}
+};
 
 /**
  * Check if string contains only numbers, +, - and ()
  */
 jumplink.utilities.stringIsPhoneNumber = function(string) {
   return /^[0-9 ()+-]+$/.test(string);
-}
+};
 
 
 /**
@@ -398,7 +398,7 @@ jumplink.utilities.loadImages = function(loadAll, customSelector$) {
         jumplink.utilities.replaceNoImage();
       }
   });
-}
+};
 
 
 /**
