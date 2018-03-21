@@ -1,4 +1,6 @@
 [viewBag]
+
+[seoTags]
 ==
 <head>
     <meta charset="utf-8">
@@ -8,6 +10,7 @@
     <meta name="title" content="{{ this.page.meta_title }}">
     <meta name="author" content="Pascal Garber">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    {% component 'seoTags' %}
     {% partial 'jumplink-favicons' %}
     {% styles %}
     

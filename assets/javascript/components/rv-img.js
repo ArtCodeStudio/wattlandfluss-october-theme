@@ -16,6 +16,21 @@ rivets.components['rv-img'] = {
     controller.style = '';
     controller.loaded = false;
     
+    
+    
+    // default
+    if(jumplink.utilities.isUndefined(data.visibleOnly)) {
+        data.visibleOnly = true;
+    }
+    
+    if(jumplink.utilities.isString(data.visibleOnly)) {
+        data.visibleOnly = data.visibleOnly === 'true' || data.visibleOnly === '1';
+    }
+    
+    if(jumplink.utilities.isNumber(data.visibleOnly)) {
+        data.visibleOnly = data.visibleOnly === 1;
+    }
+    
     if(data.ratio) {
         controller.ratio = data.ratio.split(':');
         controller.ratio[0] = Number(controller.ratio[0]);
@@ -37,7 +52,7 @@ rivets.components['rv-img'] = {
         effect: data.effect || "fadeIn",
         effectTime: Number(data.effectTime || 600),
         threshold: Number(data.threshold || 0),
-        visibleOnly: data.visibleOnly === true || data.visibleOnly === 'true',
+        visibleOnly: data.visibleOnly,
         bind: 'event',
         delay: Number(data.delay || -1),
         /**  called before an elements gets handled */

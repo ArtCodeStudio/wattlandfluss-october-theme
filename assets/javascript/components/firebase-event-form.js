@@ -199,7 +199,7 @@ rivets.components['firebase-event-form'] = {
         }
         
         // save or create event with strg + s
-        $(window).undbind('keydown').bind('keydown', function(event) {
+        $(window).unbind('keydown').bind('keydown', function(event) {
             if (event.ctrlKey || event.metaKey) {
                 switch (String.fromCharCode(event.which).toLowerCase()) {
                 // ctrl-s
