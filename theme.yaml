@@ -930,7 +930,28 @@ form:
                 comment: Hier können Sie einen allgemeinen Haftungsausschluss für Ihre Seite hinzufügen.
                 commentHtml: true
                 tab: 'Impressum'
-            
+        #Favicons
+            theme_color:
+                label: 'Theme color'
+                type: colorpicker
+                comment: '<br><br><br>Color of the <a href="https://developers.google.com/web/updates/2015/08/using-manifest-to-set-sitewide-theme-color" target="_blank">browser address bar on Smartpohnes</a>.'
+                commentHtml: true
+                default: '#ffffff'
+                tab: Favicons
+            tile_color:
+                label: 'Tile color'
+                type: colorpicker
+                comment: '<br><br><br>Color of the <a href="https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-helpandsupport-helpandsupport-tilecolor" target="_blank">tile on Windows Phone</a>.'
+                commentHtml: true
+                default: '#ffffff'
+                tab: Favicons
+            mask_color:
+                label: 'Mask color'
+                type: colorpicker
+                comment: '<br><br><br>Color of the <a href="https://steemit.com/deutsch/@rilc0n/icon-fuer-angepinnte-tabs-in-safari-erstellen" target="_blank">icon on Safari</a>.'
+                commentHtml: true
+                default: '#ffffff'
+                tab: Favicons
         #Bootstrap
             bs4-colors:
                 label: Colors
@@ -4302,3 +4323,7 @@ require:
     - RainLab.Sitemap
     - Xeor.ContentType
     - Romanov.ClearCacheWidget
+    - Samuell.ContentEditor
+    - RainLab.GoogleAnalytics
+    - Renatio.SeoManager
+    # - Bedard.Debugbar

@@ -1,11 +1,11 @@
 title = "manifest.json"
 url = "/manifest.json"
-is_hidden = 0
-contentType = "json"
 meta_title = "manifest.json"
 meta_description = "manifest.json"
+is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
+contentType = "json"
 ==
 {
     "name": "{{this.theme.site_name}}",
@@ -21,7 +21,7 @@ robot_follow = "follow"
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "{{this.theme.theme_color}}",
+    "background_color": "{{this.theme.theme_color}}",
     "display": "standalone"
 }

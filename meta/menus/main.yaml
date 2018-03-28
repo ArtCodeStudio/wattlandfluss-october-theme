@@ -25,7 +25,7 @@ items:
                 replace: '0'
                 viewBag:
                     isHidden: '0'
-                    cssClass: ''
+                    cssClass: watt
                     isExternal: '0'
             -
                 title: land
@@ -38,7 +38,7 @@ items:
                 replace: '0'
                 viewBag:
                     isHidden: '0'
-                    cssClass: ''
+                    cssClass: land
                     isExternal: '0'
             -
                 title: fluss
@@ -51,7 +51,7 @@ items:
                 replace: '0'
                 viewBag:
                     isHidden: '0'
-                    cssClass: ''
+                    cssClass: fluss
                     isExternal: '0'
     -
         title: 'Tour Specials'
@@ -64,14 +64,16 @@ items:
         replace: '0'
         viewBag:
             isHidden: '0'
-            cssClass: ''
+            cssClass: tour-specials
             isExternal: '0'
     -
         title: 'Öffentliche Termine'
         nesting: '0'
         type: static-page
+        url: ''
         code: ''
         reference: termine-neu
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
@@ -88,7 +90,7 @@ items:
         replace: '0'
         viewBag:
             isHidden: '0'
-            cssClass: sprachunterricht
+            cssClass: eigene-tour
             isExternal: '0'
     -
         title: Historie
@@ -114,18 +116,29 @@ items:
         replace: '0'
         viewBag:
             isHidden: '0'
-            cssClass: termine
+            cssClass: Kontakt
             isExternal: '0'
     -
-        title: Über
+        title: Philosophie
         nesting: '0'
         type: static-page
         url: ''
-        code: oeffnungszeiten
+        code: Philosophie
         reference: ueber-2
         cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
-            cssClass: oeffnungszeiten
+            cssClass: Philosophie
+            isExternal: '0'
+    -
+        title: 'Empfehlungen in Cuxhaven'
+        nesting: '0'
+        type: static-page
+        code: ''
+        reference: empfehlungen-cuxhaven
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: Empfehlung
             isExternal: '0'

@@ -383,7 +383,7 @@ snippetProperties[ratio][options][] = ""
                     </div>
                 </div>
                 
-                <rv-img src="'{{source}}'" alt="'{{title}}'" ratio="'{{ratio}}'" visible-only="{{loadImageOnViewport}}"></rv-img>
+                <rv-img src="'{{source}}'" alt="'{{title}}'" ratio="'{{ratio}}'" {% if not loadImageOnViewport %} delay="0" {% endif %}></rv-img>
                 
                 <div class="{{contentLayerClass}} hidden-lg-up" >
                     <div class="content {{contentPostionClass}} {{contentSpacingClass}}">
