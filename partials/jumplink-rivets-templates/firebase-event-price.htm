@@ -2,7 +2,7 @@
 ==
 <p rv-hide="event.pricetext" class="mb-01">
     {# hide price if fixprice and personprice both 0 #}
-    <span rv-hide="event.prices | first | get 'fixprice' | eq 0 | and event.prices | first | get 'price' | ew 0">
+    <span rv-hide="event.prices | first | get 'fixprice' | eq 0 | and event.prices | first | get 'price' | eq 0">
         <strong>Preis:</strong>
         <span rv-each-price="event.prices">
             <span rv-if="price.eachAdditionalUnit | not" >

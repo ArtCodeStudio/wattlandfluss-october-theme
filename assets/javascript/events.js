@@ -214,7 +214,7 @@ jumplink.events.getDefaultPrice = function () {
 jumplink.events.getDefaultNotification = function () {
     return {
         email: jumplink.settings.theme.email_address || '',
-        name: jumplink.settings.theme.site_name || '',
+        name: jumplink.settings.theme.owner_name || '',
     };
 };
 
