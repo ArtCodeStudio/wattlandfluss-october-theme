@@ -15,20 +15,23 @@ rivets.components['rv-img'] = {
     controller.alt = data.alt;
     controller.style = '';
     controller.loaded = false;
-    
-    
-    
+        
     // default
     if(jumplink.utilities.isUndefined(data.visibleOnly)) {
-        data.visibleOnly = true;
+        data.visibleOnly = false;
     }
-    
     if(jumplink.utilities.isString(data.visibleOnly)) {
         data.visibleOnly = data.visibleOnly === 'true' || data.visibleOnly === '1';
     }
-    
     if(jumplink.utilities.isNumber(data.visibleOnly)) {
         data.visibleOnly = data.visibleOnly === 1;
+    }
+    
+    if(!jumplink.utilities.isNumber(data.delay)) {
+        data.delay = -1;
+    }
+    if(jumplink.utilities.isString(data.delay)) {
+        data.delay = Number(data.delay);
     }
     
     if(data.ratio) {
@@ -54,7 +57,7 @@ rivets.components['rv-img'] = {
         threshold: Number(data.threshold || 0),
         visibleOnly: data.visibleOnly,
         bind: 'event',
-        delay: Number(data.delay || -1),
+        delay: data.delay,
         /**  called before an elements gets handled */
         beforeLoad: function(element) {
             controller.loaded = false;
@@ -95,7 +98,7 @@ rivets.components['rv-img'] = {
         },
     };
     
-    controller.debug('initialize', el, data, controller);
+    controller.debug('initialize', el, data, controller, options);
         
     /**
      * For lazy loading options see https://github.com/eisbehr-/jquery.lazy#configuration-parameters

@@ -62,23 +62,37 @@ function onReguestEvent() {
         'eventCalendar' =>    isset($input['event']['calendar']) ? $input['event']['calendar'] : '',
     ];
     
-    // Debugbar::info('[onReguestEvent] $input', $input);
+    $notifications = isset($input['event']['notifications']) ? $input['event']['notifications'] : null;
+    
+    if($notifications == null) {
+        $notifications = [];
+        $notifications[] = [
+            'email' => $this->theme->email_address,
+            'name' => $this->theme->site_name,
+        ];
+    }
+    
+    // Debugbar::info('[onReguestEvent] $notifications', $notifications);
+    
+    $notificationSwipftMailFormat = array();
+    foreach ($notifications as $notification) {
+        $notificationSwipftMailFormat[$notification['email']] = $notification['name'];
+    }
+    
+    // Debugbar::info('[onReguestEvent] $notificationSwipftMailFormat', $notificationSwipftMailFormat);
     
     Log::info('Book event, Name:'.$input['name'].' '.$input['lastname'].' E-Mail:'.$input['email'].' Event ID'.$input['event']['id'].' Menge: '.$input['quantity']);
+        
+    Mail::send('frontend::event.book', $vars, function($message) use ($notificationSwipftMailFormat) {
+        $message->from($this->theme->email_address,  $this->theme->site_name);
+        $message->to($notificationSwipftMailFormat);
+    });
     
-    $buildOwnerMessage = function ($message) use ($vars) {
-        $message->to($this->theme->email_address, $this->theme->site_name);
-    };
-    
-    $buildSenderMessage = function ($message) use ($vars) {
-        $message->to($vars['email'], $vars['name'].' '.$vars['lastname']);
-    };
-    
-    // mail to site owner
-    Mail::send('frontend::event.book', $vars, $buildOwnerMessage);
     
     // mail to contact sender
-    Mail::send('frontend::event.book-copy', $vars, $buildSenderMessage);
+    Mail::send('frontend::event.book-copy', $vars, function($message) use ($vars) {
+        $message->to($vars['email'], $vars['name'].' '.$vars['lastname']);
+    });
     
     return Response::json($input);
 }

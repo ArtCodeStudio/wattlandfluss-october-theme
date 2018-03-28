@@ -84,17 +84,24 @@ rivets.components['firebase-event-form'] = {
             
             event.showTimes = event.showTimes === true;
             
+            /**
+             * validate prices
+             * used to update old prices with missing eachAdditionalUnit value
+             */
             if(!jumplink.utilities.isArray(event.prices)) {
                 event.prices = [jumplink.events.getDefaultPrice()];
             }
+            event.prices.forEach(function(price) {
+                price.eachAdditionalUnit = price.eachAdditionalUnit === true;
+            });
             
             /**
              * validate prices
              * used to update old prices with missing eachAdditionalUnit value
              */
-            event.prices.forEach(function(price) {
-                price.eachAdditionalUnit = price.eachAdditionalUnit === true;
-            });
+            if(!jumplink.utilities.isArray(event.notifications)) {
+                event.notifications = [jumplink.events.getDefaultNotification()];
+            }
             
             controller.event = event;
                                     
@@ -175,6 +182,22 @@ rivets.components['firebase-event-form'] = {
         }
         if(controller.event.prices.length > 1) {
             controller.event.prices.splice(-1,1);
+        }
+    };
+    
+    controller.addNotification = function(event, env) {
+        if(!jumplink.utilities.isArray(controller.event.notifications)) {
+            controller.event.notifications = [];
+        }
+        controller.event.notifications.push(jumplink.events.getDefaultNotification());
+    };
+    
+    controller.removeNotification = function(event, env) {
+        if(!jumplink.utilities.isArray(controller.event.notifications)) {
+            controller.event.notifications = [];
+        }
+        if(controller.event.notifications.length > 1) {
+            controller.event.notifications.splice(-1,1);
         }
     };
     

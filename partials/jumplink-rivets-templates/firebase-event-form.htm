@@ -48,11 +48,12 @@ description = "For Admins: Edit or create an event"
             placeholder="Deine Beschreibung"
             rv-summernote="event.description"
             data-options='{
-               "placeholder": "Notiz",
+               "placeholder": "Beschreibung",
                "height": 200,
                "toolbar": [
                   ["style",[ "bold","italic","underline","clear"]],
                   ["para",["ul","ol","paragraph"]],
+                  ["insert",["link"]],
                   ["Misc",["undo","redo","codeview","fullscreen"]]
                ]
             }'>
@@ -61,7 +62,7 @@ description = "For Admins: Edit or create an event"
     </div>
     
     
-    
+    {# Zeiten #}
     <h2 class="col-xs-12 pt-4">Zeiten</h2>
     
     <div class="col-xs-12">
@@ -91,7 +92,7 @@ description = "For Admins: Edit or create an event"
         <small id="eventEndTimeAtDesc" class="form-text text-muted">Endzeit des Ereignisses.</small>
     </div>
 
-    
+    {# Preise #}
     <div class="col-xs-12 pt-4">
         <h2>Preise</h2>
         <div rv-each-price="event.prices" class="row">
@@ -124,7 +125,7 @@ description = "For Admins: Edit or create an event"
             
             <div class="form-group col-xs-6 col-md-3">
                 <input type="number" class="form-control" rv-id="'eventFixPrice' | append %price%" rv-aria-describedby="'eventFixPriceDesc' | append %price%" rv-value="price.fixprice">
-                <small rv-if="%price%  | eq 0" rv-id="'eventFixPriceDesc' | append %price%" class="form-text text-muted">Fixpreis oder Gruppenpreos in €</small>
+                <small rv-if="%price%  | eq 0" rv-id="'eventFixPriceDesc' | append %price%" class="form-text text-muted">Fixpreis oder Gruppenpreis in €</small>
             </div>
             
             <div class="form-group col-xs-6 col-md-3">
@@ -168,7 +169,7 @@ description = "For Admins: Edit or create an event"
         </div>
     </div>
 
-
+    {# Zusätzliche Informationen #}
     <h2 class="col-xs-12 pt-4">Zusätzliche Informationen</h2>
     <div class="form-group col-xs-12">
         <label for="eventOffer">Angebot</label>
@@ -208,18 +209,39 @@ description = "For Admins: Edit or create an event"
             placeholder="Deine Notiz"
             rv-summernote="event.note"
             data-options='{
-               "placeholder": "Notiz",
+               "placeholder": "Beschreibung",
                "height": 200,
                "toolbar": [
                   ["style",[ "bold","italic","underline","clear"]],
                   ["para",["ul","ol","paragraph"]],
+                  ["insert",["link"]],
                   ["Misc",["undo","redo","codeview","fullscreen"]]
                ]
             }'>
         </textarea>
         <small id="eventNoteDesc" class="form-text text-muted">Zusätzliche Anmerkung für die Besucher.</small>
     </div>
-
+    
+    {# Administratives #}
+    <div class="col-xs-12 pt-4">
+        <h2>Administratives</h2>
+        <div rv-each-notification="event.notifications" class="row">
+            <div class="form-group col-xs-12 col-md-6">
+                <input type="email" class="form-control" rv-value="notification.email">
+                <small class="form-text text-muted">E-Mail-Adresse an die Buchungs-Benachrichtigungen gesendet werden sollen.</small>
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+                <input type="text" class="form-control" rv-value="notification.name">
+                <small class="form-text text-muted">Name des Empfängers.</small>
+            </div>
+        </div>
+    </div>
+    <div class="pb-2 col-xs-12">
+        <button rv-on-click="addNotification" class="btn btn-default">Empfänger Hinzufügen</button>
+        <button rv-on-click="removeNotification" class="btn btn-danger">Empfänger Entfernen</button>
+    </div>
+    
+    {# Images Upload #}
     <div class="col-xs-12 pt-4">
         <h2>Bilder</h2>
         <uploaded-files label="'Vorhanden'" files="event.images"></uploaded-files>
@@ -243,6 +265,7 @@ description = "For Admins: Edit or create an event"
     <global-modal></global-modal>
 </div>
 
+{# Ähnliche Veranstaltungen #}
 <div class="row" rv-if="similarEvents | size | gt 1">
     <div class="col-xs-12 pt-5">
         <h2>Ähnliche Veranstaltungen</h2>

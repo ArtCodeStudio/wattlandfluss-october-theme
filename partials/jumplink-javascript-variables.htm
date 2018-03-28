@@ -1,0 +1,43 @@
+[viewBag]
+==
+{# varables we need before the vendor libs are loaded #}
+<script>
+    
+    // Hyphenopoly
+    var Hyphenopoly = {
+        require: {
+            "de": "Elektrizitätskraftwerk"
+        },
+        paths: {
+            patterndir: "{{'assets/vendor/Hyphenopoly/patterns' | theme}}/",
+            maindir: "{{'assets/vendor/Hyphenopoly' | theme}}/"
+        },
+        setup: {
+            classnames: {
+                "hyphenate": {}
+            }
+        }
+    };
+    
+    // JumpLink object
+    window.jumplink = window.jumplink || {};
+    window.jumplink.settings = {};
+    
+    jumplink.settings.active_theme_path = '{{"" | theme}}';
+    jumplink.settings.media_path = '{{"" | media}}';
+    jumplink.settings.theme = {
+        email_address: '{{this.theme.email_address}}',
+        owner_name: '{{this.theme.owner_name}}',
+        site_name: '{{this.theme.site_name}}',
+    }
+
+        
+</script>
+
+{# varables we need after the vendor libs are loaded #}
+{% put scripts %}
+    <script>
+        // leaflet
+        L.Icon.Default.imagePath = "{{'/assets/vendor/leaflet/dist/images/' | theme}}";
+    </script>
+{% endput %}

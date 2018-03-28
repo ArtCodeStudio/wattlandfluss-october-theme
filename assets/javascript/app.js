@@ -275,7 +275,7 @@ var initTemplates = function () {
   });
 
   Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {
-          
+    jumplink.utilities.triggerResize();
     window.jumplink.templates.prepairTemplate(container, container.dataset);
    
   });

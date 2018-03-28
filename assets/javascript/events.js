@@ -211,6 +211,14 @@ jumplink.events.getDefaultPrice = function () {
     };
 };
 
+jumplink.events.getDefaultNotification = function () {
+    return {
+        email: jumplink.settings.theme.email_address || '',
+        name: jumplink.settings.theme.site_name || '',
+    };
+};
+
+
 /**
  * Gets the default values for an event e.g. if you want to create a new one
  */
@@ -248,6 +256,9 @@ jumplink.events.getDefaultValues = function (calendars, types) {
     event.prices = [jumplink.events.getDefaultPrice()];
     event.pricetext = '';
     
+    // notifications
+    event.notifications = [jumplink.events.getDefaultNotification()];
+    
     return event;
 };
     
@@ -272,6 +283,7 @@ jumplink.events.prepairForFirestore = function(event) {
         endAt: moment(event.startAt),
         prices: event.prices,
         pricetext: event.pricetext || null,
+        notifications: event.notifications,
         type: event.type,
         calendar: event.calendar,
         
