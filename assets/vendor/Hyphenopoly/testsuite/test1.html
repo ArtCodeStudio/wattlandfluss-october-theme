@@ -2,24 +2,23 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Test 1</title>
+        <title>Test 001</title>
         <script>
         var Hyphenopoly = {
             require: {
-                "en-us": "hyphenation",
+                "en-us": "FORCEHYPHENOPOLY",
                 "hy": "ձայնավորձայնավոր"
             },
             paths: {
-                patterndir: "../patterns/",
-                maindir: "../"
+                maindir: "../",
+                patterndir: "../patterns/"
             },
-            setup: {
-                classnames: {
-                    "hyphenate": {}
+            handleEvent: {
+                hyphenopolyEnd: function (e) {
+                    assert();
                 }
             }
         };
-
         function assert() {
             var tests = 2;
             var i = 1;
@@ -29,8 +28,7 @@
             var lang = "";
             while (i <= tests) {
                 lang = document.getElementById("test" + i).lang;
-                console.log(Hyphenopoly);
-                if (Hyphenopoly.testResults.languages[lang] === "CSS") {
+                if (Hyphenopoly.clientFeat.langs[lang] === "CSS") {
                     document.getElementById("result").innerHTML += "<p style=\"background-color: #d6ffd6\">" + i + " passed (CSS)</p>";
                     result = result && true;
                 } else {
@@ -54,7 +52,6 @@
                 }), window.location.href);
             }
         }
-        Hyphenopoly.setup.onHyphenationDone = assert;
         </script>
         <script src="../Hyphenopoly_Loader.js"></script>
         <style type="text/css">

@@ -2,18 +2,17 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Test 10</title>
+        <title>Test 010</title>
         <script>
         var Hyphenopoly = {
             require: {
                 "de": "FORCEHYPHENOPOLY"
             },
             paths: {
-                patterndir: "../patterns/",
-                maindir: "../"
+                maindir: "../",
+                patterndir: "../patterns/"
             },
             setup: {
-                safeCopy: true,
                 classnames: {
                     "class1": {
                         hyphen: "·"
@@ -22,11 +21,13 @@
                         hyphen: String.fromCharCode(173)
                     }
                 }
+            },
+            handleEvent: {
+                hyphenopolyEnd: function (e) {
+                    assert();
+                }
             }
         };
-        </script>
-        <script src="../Hyphenopoly_Loader.js"></script>
-        <script>
         function assert() {
             var tests = 1;
             var i = 1;
@@ -53,20 +54,15 @@
                 }), window.location.href);
             }
         }
-        if (Hyphenopoly) {
-            Hyphenopoly.setup.onHyphenationDone = assert;
-        } else {
-            document.addEventListener("DOMContentLoaded", function() {
-                assert();
-            });
-        }
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("pastebin").addEventListener("keyup", function(e) {
-                this.value += "\n" + Array.prototype.map.call(this.value, x => x.charCodeAt(0));
+                this.value += "\n" + Array.prototype.map.call(this.value, function (x) {
+                    return x.charCodeAt(0)
+                });
             }, true);
         });
         </script>
-        
+        <script src="../Hyphenopoly_Loader.js"></script>
         <style type="text/css">
             body {
                 width:50%;
@@ -94,7 +90,7 @@
         </style>
     </head>
     <body>
-        <div id="navigate"><a href="index.html">&Larr;&nbsp;Index</a>&nbsp;&nbsp;<a href="test9.html">&larr;&nbsp;Prev</a>&nbsp;&nbsp;<a href="test9.html">Next&nbsp;&rarr;</a></div>
+        <div id="navigate"><a href="index.html">&Larr;&nbsp;Index</a>&nbsp;&nbsp;<a href="test9.html">&larr;&nbsp;Prev</a>&nbsp;&nbsp;<a href="test11.html">Next&nbsp;&rarr;</a></div>
 
         <h1>Test 010</h1>
         <p id="desc">Check copy hack</p>

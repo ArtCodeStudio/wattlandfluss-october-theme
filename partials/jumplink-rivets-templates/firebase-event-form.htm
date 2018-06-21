@@ -71,12 +71,13 @@ description = "For Admins: Edit or create an event"
     
     <div class="col-xs-12 col-md-4 form-group">
         <label for="eventStartAt">Tag</label>
-        <input type="date" class="form-control" id="eventStartAt" aria-describedby="eventStartAtDesc" rv-pignose-calendar="event.startAt" data-options='{
+        {#<input type="date" class="form-control" id="eventStartAt" aria-describedby="eventStartAtDesc" rv-pignose-calendar="event.startAt" data-options='{
             "lang": "de",
             "minDate":  "today",
             "format": "YYYY-MM-DD",
             "buttons": true
-        }'>
+        }'>#}
+        <input type="date" class="form-control" id="eventStartAt" aria-describedby="eventStartAtDesc" rv-value="event.startAt">
         <small id="eventStartAtDesc" class="form-text text-muted">Der Tag des Ereignisses.</small>
     </div>
         

@@ -275,9 +275,13 @@ var initTemplates = function () {
   });
 
   Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container) {
-    jumplink.utilities.triggerResize();
-    window.jumplink.templates.prepairTemplate(container, container.dataset);
-   
+      if(jumplink.utilities) {
+        jumplink.utilities.triggerResize();
+      }
+      
+      if(jumplink.templates && jumplink.templates.prepairTemplate) {
+        jumplink.templates.prepairTemplate(container, container.dataset);
+      }
   });
 };
 
@@ -326,68 +330,9 @@ var initBarbaTransition = function() {
 
     afterMove: function() {
       this.$newContainer = $(this.newContainer);
-      
-      // var minHeight = jumplink.setBarbaContainerMinHeight(this.newContainer);
-      
-      if( this.$oldContainer.data().namespace === 'product' && this.$newContainer.data().namespace === 'product' && (!this.url || this.url.indexOf('src=recomatic') === -1) && !this.$lastElementClicked.hasClass('cart-link')) {
-        // slide effekt
-        return this.slidePages();
-      } else {
-        // fade out
-        return this.fadeIn();
-      }
+      return this.fadeIn();
     },
 
-    // slide effect implementation
-    slidePages: function() {
-      var _this = this;
-      var goingForward = true;
-
-      if ( _this.$oldContainer.data().productUrl === _this.$newContainer.data().productNextUrl ) {
-        goingForward = false;
-      }
-
-      var minHeight = jumplink.setBarbaContainerMinHeight(_this.$newContainer);
-      var top = jumplink.getNavHeight();
-
-      jumplink.cache.$html.css({'overflow': 'hidden'});
-      jumplink.cache.$body.css({'overflow-x': 'hidden'});
-
-      jumplink.freezeElements(_this.$oldContainer, _this.$newContainer, {
-        // 'margin-left': '7.5px',
-      });
-
-      TweenLite.set(this.newContainer, {
-        visibility: 'visible',
-        xPercent: goingForward ? 100 : -100,
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: 0,
-        'padding-top': top,
-        'min-height': minHeight,
-      });
-
-      TweenLite.to(_this.oldContainer, 0.6, { xPercent: goingForward ? -100 : 100 });
-      TweenLite.to(_this.newContainer, 0.6, { xPercent: 0, onComplete: function() {
-
-        TweenLite.set(_this.newContainer, {
-          clearProps: 'all',
-        });
-
-        TweenLite.set(_this.newContainer, {
-          'min-height': minHeight
-        });
-
-        jumplink.unfreezeElements();
-
-        jumplink.cache.$html.css({'overflow': ''});
-        jumplink.cache.$body.css({'overflow-x': ''});
-
-        _this.done();
-      }});
-
-    },
 
     // fade out effect implementation
     fadeOut: function() {
@@ -419,31 +364,11 @@ var initBarbaTransition = function() {
       var offset = 0;
       var target = 0;
       var position = { y: window.pageYOffset };
-      var $lastPosition = null;
-
-      // scroll to old product in collection if last page was a product
-      if( this.$oldContainer.data().namespace === 'product' && this.$newContainer.data().namespace === 'collection') {
-        $lastPosition = $('#'+jumplink.cache.lastProductDataset.handle);
-        if($lastPosition.length >= 1) {
-          target = $lastPosition.offset().top - offset;
-        }
-      }
-
-      // scroll to old collection
-      if( this.$oldContainer.data().namespace === 'collection' && this.$newContainer.data().namespace === 'list-collections') {
-        $lastPosition = $('#'+jumplink.cache.lastCollectionDataset.handle);
-        if($lastPosition.length >= 1) {
-          target = $lastPosition.offset().top - offset;
-        }
-      }
 
       // scroll to old position or 0
       TweenLite.to(position, 0.4, {
         y: target,
         onUpdate: function() {
-          if (position.y === 0) {
-
-          }
           window.scroll(0, position.y);
         },
         onComplete: function() {

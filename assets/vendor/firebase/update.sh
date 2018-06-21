@@ -17,8 +17,8 @@ get-from-gstatic() {
 }
 
 SDK_FILES="firebase.js index.d.ts"
-SERVICES="app auth database storage messaging firestore"
-MAPS="app database storage messaging firestore"
+SERVICES="app auth database storage messaging firestore functions"
+MAPS="app database storage messaging firestore functions"
 
 for file in $SDK_FILES; do
   get-from-gstatic $file
@@ -28,7 +28,7 @@ mv index.d.ts firebase.d.ts
 
 for service in $SERVICES; do
   get-from-gstatic "firebase-$service.js"
-  [ $service != "firestore" ] && get-from-gstatic "firebase-$service-externs.js"
+  [ $service != "firestore" ] && [ $service != "functions" ] && get-from-gstatic "firebase-$service-externs.js"
 done
 
 for map in $MAPS; do
@@ -39,7 +39,7 @@ get-from-gstatic "firebase.js.map"
 
 echo "|----- Bumping version number of bower.json to $VERSION... -----|"
 
-echo "$(node -p "JSON.stringify(Object.assign(require('./bower.json'), { version: '4.8.2' }), null, 2)")" > bower.json
+echo "$(node -p "JSON.stringify(Object.assign(require('./bower.json'), { version: '$VERSION' }), null, 2)")" > bower.json
 
 if [[ $? -ne 0 ]]; then
   echo "!!!!! Error: Failed to bump version number of bower.json to $VERSION. !!!!!"

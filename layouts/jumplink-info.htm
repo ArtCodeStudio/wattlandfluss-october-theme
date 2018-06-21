@@ -1,13 +1,13 @@
 description = "Rohversion ohne barba.js"
+
+[seoTags]
 ==
 <!DOCTYPE html>
 <html lang="de">
     <head>
         <meta charset="utf-8">
         <title>{{ this.theme.site_name }} - {{ this.page.title }}</title>
-        <meta name="description" content="{{ this.page.meta_description }}">
-        <meta name="title" content="{{ this.page.meta_title }}">
-        <meta name="author" content="Pascal Garber">
+        {% component 'seoTags' %}
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         {% partial 'jumplink-favicons' %}

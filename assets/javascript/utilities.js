@@ -19,7 +19,17 @@ jumplink.utilities.cloneArray = function (array) {
 };
 
 jumplink.utilities.triggerResize = function () {
-    window.dispatchEvent(new Event('resize'));
+    if(Event) {
+        window.dispatchEvent(new Event('resize'));
+    }
+    else if (document.createEvent) { // W3C
+        var ev = document.createEvent('Event');
+        ev.initEvent('resize', true, true);
+        window.dispatchEvent(ev);
+    } else { // IE
+        document.fireEvent('onresize');
+    }
+    
 };
 
 /**
@@ -29,7 +39,7 @@ jumplink.utilities.triggerResize = function () {
 jumplink.utilities.hyphenate = function() {
     if(Hyphenopoly && Hyphenopoly.elementsReady) {
         setTimeout(function () {
-            Hyphenopoly.evt(["timeout"]);
+            Hyphenopoly.events.dispatch("timeout", {"delay": Hyphenopoly.c.timeout});
         }, Hyphenopoly.c.timeout);
     }
 };

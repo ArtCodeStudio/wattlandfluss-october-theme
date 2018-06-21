@@ -56,7 +56,10 @@ export default function update() {
     data.offsets.reference,
     data.placement
   );
-  data.offsets.popper.position = this.options.positionFixed ? 'fixed' : 'absolute';
+
+  data.offsets.popper.position = this.options.positionFixed
+    ? 'fixed'
+    : 'absolute';
 
   // run the modifiers
   data = runModifiers(this.modifiers, data);

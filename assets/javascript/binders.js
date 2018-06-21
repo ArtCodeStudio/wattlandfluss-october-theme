@@ -24,6 +24,8 @@ rivets.binders['pignose-calendar'] = {
         this.options.select = this.publish;
         this.options.apply = this.publish;
         
+        window.jumplink.debug.binders('pignose-calendar options', this.options);
+        
         self.$el.pignoseCalendar(this.options);
     },
 
@@ -87,7 +89,8 @@ rivets.binders.html = function (el, value) {
 
 
 /**
- * TODO support select
+ * Custom version of rv-value
+ * @see http://rivetsjs.com/docs/reference/#value
  */
 rivets.binders.value = {
     publishes: true,
@@ -97,24 +100,32 @@ rivets.binders.value = {
         this.$el = $(el);
         this.type = this.$el.prop("type");
         this.tagName = this.$el.prop('tagName');
-        this.$el.on('change', this.publish);
+        this.contenteditable = this.$el.attr('contenteditable') ? true : false;
+        this.$el.on('change click input keyup paste blur focus', this.publish);
     },
 
     unbind: function(el) {
-        this.$el.off('change');
+        this.$el.off('change click input keyup paste blur focus');
         delete this.$el;
         delete this.type;
         delete this.tagName;
     },
 
     routine: function(el, newValue) {
-        if (newValue) {
+        if (jumplink.utilities.isString(newValue)) {
             var oldValue = this.getValue(el);
             if(oldValue !== newValue) {
                 switch(this.tagName) {
                     case 'INPUT':
                         this.$el.val(newValue);
                         break;
+                    case 'TEXTAREA':
+                        this.$el.val(newValue);
+                        break;
+                    default:
+                      // e.g. on contenteditable
+                      this.data.$el.html(newValue);
+                      break;
                 }
                 
             }
@@ -125,7 +136,6 @@ rivets.binders.value = {
         var value;
         var type = this.$el.prop("type");
         var tagName = this.$el.prop('tagName');
-        
         switch(this.tagName) {
             case 'INPUT':
                 switch(this.type) {
@@ -134,15 +144,21 @@ rivets.binders.value = {
                     break; 
                     default:
                         value = this.$el.val().toString();
-                        break;   
+                        break;
                 }
                 break;
+            case 'TEXTAREA':
+                value = this.$el.val().toString();
+                break;
+            default:
+              // e.g. on contenteditable
+              val = this.data.$el.html();
+              break;
         }
-        
-
         return value; 
     }
 };
+
 
 
 
@@ -166,12 +182,12 @@ rivets.binders.checked = {
         this.$el = $(el);
         this.type = this.$el.prop("type");
         this.initTemplateSelector(el);
-        this.$el.on('change', this.publish);
+        this.$el.on('change input keyup', this.publish);
         
     },
 
     unbind: function(el) {
-        this.$el.off('change');
+        this.$el.off('change input keyup');
         delete this.$el;
         delete this.type;
         delete this.$checkbox;

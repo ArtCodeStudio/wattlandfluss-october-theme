@@ -140,12 +140,15 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         });
     });
     
+    // click on outsite of toolbar
     $(document).on('click', function() {
         collapse('hide');
     });
     
     $el.on('click', function() {
         collapse('show');
+        
+        // do not trigger $(document).on('click', ..)
         event.stopPropagation();
     });
     

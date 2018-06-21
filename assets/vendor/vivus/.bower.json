@@ -14,15 +14,14 @@
     "package.json"
   ],
   "homepage": "https://github.com/maxwellito/vivus",
-  "version": "0.4.3",
-  "_release": "0.4.3",
+  "version": "0.4.4",
+  "_release": "0.4.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.4.3",
-    "commit": "715f866959963b56dc8c745830c6e7153764b5d7"
+    "tag": "v0.4.4",
+    "commit": "3ab58da4427a49b80b7ae5de557f2413a84b92a6"
   },
   "_source": "https://github.com/maxwellito/vivus.git",
   "_target": "^0.4.3",
-  "_originalSource": "vivus",
-  "_direct": true
+  "_originalSource": "vivus"
 }

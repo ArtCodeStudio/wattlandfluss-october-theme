@@ -2,34 +2,43 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Test 9</title>
+        <title>Test 009</title>
         <script>
         var Hyphenopoly = {
             require: {
                 "en-us": "FORCEHYPHENOPOLY"
             },
             paths: {
-                patterndir: "../patterns/",
-                maindir: "../"
+                maindir: "../",
+                patterndir: "../patterns/"
             },
             setup: {
                 classnames: {
                     "class1": {
-                        hyphen: "·",
-                        onBeforeElementHyphenation: function (element, lang) {
-                                element.style.opacity = "0";
-                        },
-                        onAfterElementHyphenation: function (element, lang) {
-                            window.setTimeout(function () {
-                                element.style.opacity = "1";
-                                element.style.transition = "opacity 1000ms ease";
-                            }, 0);
-                        }
+                        hyphen: "·"
                     },
                     "class2": {
                         hyphen: "|",
                         compound: "auto"
                     }
+                }
+            },
+            handleEvent: {
+                beforeElementHyphenation: function (e) {
+                    if (e.el.className.indexOf("class1") !== -1) {
+                        e.el.style.opacity = "0";
+                    }
+                },
+                afterElementHyphenation: function (e) {
+                    if (e.el.className.indexOf("class1") !== -1) {
+                        window.setTimeout(function () {
+                            e.el.style.opacity = "1";
+                            e.el.style.transition = "opacity 1000ms ease";
+                        }, 0);
+                    }
+                },
+                hyphenopolyEnd: function (e) {
+                    assert();
                 }
             }
         };
@@ -62,9 +71,7 @@
                 }), window.location.href);
             }
         }
-        if (Hyphenopoly) {
-            Hyphenopoly.setup.onHyphenationDone = assert;
-        } else {
+        if (!Hyphenopoly) {
             document.addEventListener("DOMContentLoaded", function() {
                 assert();
             });

@@ -1,0 +1,83 @@
+title = "watt-land-fluss"
+url = "/online"
+layout = "jumplink-info"
+description = "Der Startup Deal hat wieder zugeschlagen: \"Abtauchen, Luft holen & entdecken\" heißt es in Cuxhaven. Silke Hoffmann, zertifizierte Watt- und Gästeführerin des Nationalpark Wattenmeer, lädt zu abenteuerlichen, historischen..."
+meta_title = "Startup in Cuxhaven: Die Abenteuer mögen beginnen!"
+meta_description = "Der Startup Deal hat wieder zugeschlagen: \"Abtauchen, Luft holen & entdecken\" heißt es in Cuxhaven. Silke Hoffmann, zertifizierte Watt- und Gästeführerin des Nationalpark Wattenmeer, lädt zu abenteuerlichen, historischen..."
+is_hidden = 0
+meta_keywords = "watt-land-fluss, Cuxhaven, Nordsee, Start-up, Design, Webdesign, Existenzgründung, Touren, Start-up Deal, Silke Hoffmann, Guide Cuxhaven, Start-up deal cuxhaven"
+robot_index = "index"
+robot_follow = "follow"
+og_title = "Startup in Cuxhaven: Die Abenteuer mögen beginnen!"
+og_type = "business.business"
+og_description = "Der Startup Deal hat wieder zugeschlagen: \"Abtauchen, Luft holen & entdecken\" heißt es in Cuxhaven. Silke Hoffmann, zertifizierte Watt- und Gästeführerin des Nationalpark Wattenmeer, lädt zu abenteuerlichen, historischen..."
+og_image = "/watt-land-fluss.jpg"
+contentType = "html"
+
+[viewBag]
+localeUrl[en] = "/watt-land-fluss"
+==
+<div class="gradient-bg  animated-gradient bg-as-border-8-px h-vh w-vw">
+    <div class="bg-white h-100 d-flex flex-column align-items-center justify-content-start">
+    
+        <div class="walking-path w-100" style="transform: rotate(180deg);">
+            {% partial '../assets/images/walking-path-01-mobile.svg' %}
+        </div>
+        
+        <a href="/" class="btn btn-outline-dark">Let's go!</a>
+        
+        {#
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-xs-12 py-2">
+                    <img class="img-fluid" src="{{'assets/images/logo.svg' | theme}}" alt="Logo von {{this.theme.site_name}}" style="max-width: 250px;">
+                </div>
+                <div class="col-xs-12">
+                    <span class="lead gradient-bg gradient-text animated-gradient" style="font-size: 2.5rem;">
+                        Ist Online!<br>
+                    </span>
+                </div>
+            </div>
+        </div>
+        #}
+        
+    </div>
+</div>
+
+
+<style type="text/css">
+    @keyframes walking-path {
+      from {
+        stroke-dashoffset: 1000;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    
+    @keyframes draw-path {
+      from {
+        stroke-dashoffset: 4400;
+      }
+      to {
+        stroke-dashoffset: 2000;
+      }
+    }
+        
+    .walking-path .path {
+        stroke-dasharray: 2000 !important;
+        stroke-dashoffset: 4400;
+        animation: draw-path 10s linear alternate 1;
+        animation-fill-mode: forwards; /* hold last frame */
+    }
+    
+    .walking-path .dashed {
+        animation: walking-path 100s linear alternate infinite;
+    }
+    
+    .walking-path svg {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+</style>

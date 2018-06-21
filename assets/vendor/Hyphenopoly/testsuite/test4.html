@@ -10,15 +10,15 @@
                 "en-us": "FORCEHYPHENOPOLY"
             },
             paths: {
-                patterndir: "../patterns/",
-                maindir: "../"
+                maindir: "../",
+                patterndir: "../patterns/"
             },
-            setup: {
-                onHyphenopolyStart: function () {
+            handleEvent: {
+                hyphenopolyStart: function () {
                     startTime = performance.now();
                 },
-                classnames: {
-                    "hyphenate": {}
+                hyphenopolyEnd: function (e) {
+                    assert();
                 }
             }
             
@@ -37,9 +37,7 @@
                 }), window.location.href);
             }
         }
-        if (Hyphenopoly) {
-            Hyphenopoly.setup.onHyphenationDone = assert;
-        } else {
+        if (!Hyphenopoly) {
             document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("result").innerHTML = "<p style=\"background-color: #d6ffd6\">" + "CSS</p>";
                     if (parent != window) {
@@ -66,13 +64,6 @@
             }
             .ref {
                 background-color: #FEEFC0;
-            }
-
-            .hyphenate {
-                hyphens: auto;
-                -ms-hyphens: auto;
-                -moz-hyphens: auto;
-                -webkit-hyphens: auto;
             }
         </style>
     </head>

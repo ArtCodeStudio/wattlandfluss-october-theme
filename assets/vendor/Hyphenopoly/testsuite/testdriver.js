@@ -15,7 +15,19 @@
         {exec: true, path: "test7.html"},
         {exec: true, path: "test8.html"},
         {exec: true, path: "test9.html"},
-        {exec: true, path: "test10.html"}
+        {exec: true, path: "test10.html"},
+        {exec: true, path: "test11.html"},
+        {exec: true, path: "test12.html"},
+        {exec: true, path: "test13.html"},
+        {exec: true, path: "test14.html"},
+        {exec: true, path: "test15.html"},
+        {exec: true, path: "test16.html"},
+        {exec: true, path: "test17.html"},
+        {exec: true, path: "test18.html"},
+        {exec: true, path: "test19.html"},
+        {exec: true, path: "test20.html"},
+        {exec: true, path: "test21.html"},
+        {exec: true, path: "test22.html"}
     ];
     var testframe = document.getElementById("testframe");
     var currentTest = 1;

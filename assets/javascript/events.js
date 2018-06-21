@@ -377,7 +377,8 @@ jumplink.events.getById = function (id) {
     var dbEvents = jumplink.events.getDatabaseCollection();
     
     try {
-        return dbEvents.doc(id).get()
+        return dbEvents.doc(id)
+        .get()
         .then(function(docRef) {
             if (!docRef.exists) {
                 var error = new Error('Event not found!');
@@ -387,6 +388,7 @@ jumplink.events.getById = function (id) {
             jumplink.debug.events('getById start', docRef.data());
             var event = docRef.data();
             event.id = docRef.id;
+            event = jumplink.events.parse(event);
             return event;
         });
     }
@@ -410,12 +412,14 @@ jumplink.events.getByTitle = function (title) {
     ref = ref.orderBy("startAt");
     
     try {
-        return ref.get()
+        return ref
+        .get()
         .then(function(querySnapshot) {
             var events = [];
             querySnapshot.forEach((doc) => {
                 var event = doc.data();
                 event.id = doc.id;
+                event = jumplink.events.parse(event);
                 events.push(event);
             });
             return events;
@@ -528,11 +532,13 @@ jumplink.events.get = function(hasType, hasActive, hasCalendar, startTimeIs, exc
         //yevents = querySnapshot.data();
         jumplink.debug.events('event', querySnapshot);
         var count = 0;
+        var events = [];
         querySnapshot.forEach((doc) => {
             // own client site limit to make excludeCalendar working
             if(count <= limit) {
                 var event = doc.data();
                 event.id = doc.id;
+                event = jumplink.events.parse(event);
                 if(event.calendar !== excludeCalendar) {
                     count++;
                     if(jumplink.utilities.isString(groupBy) && groupBy !== 'none') {
@@ -543,9 +549,25 @@ jumplink.events.get = function(hasType, hasActive, hasCalendar, startTimeIs, exc
                 }
             }
         });
+        
+         jumplink.debug.events('get', events);
+        
         return events;
     });
 };
+
+jumplink.events.parse = function(event) {
+    // if is not date
+    if(event.endAt && !event.endAt.getMonth) {
+        event.endAt = event.endAt.toDate();
+    }
+    
+    // if is not date
+    if(event.startAt && !event.startAt.getMonth) {
+        event.startAt = event.startAt.toDate();
+    }
+    return event;
+}; 
 
 /**
  * Create new event

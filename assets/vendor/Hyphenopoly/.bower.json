@@ -1,14 +1,14 @@
 {
   "name": "Hyphenopoly",
   "homepage": "https://github.com/mnater/Hyphenopoly",
-  "_release": "729d387b63",
+  "version": "2.1.0",
+  "_release": "2.1.0",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "729d387b6313ec8bf88c4edbf0a0002c97d377d0"
+    "type": "version",
+    "tag": "v2.1.0",
+    "commit": "8d79fc8c625a87684e0a0a63337be22a0db7bb53"
   },
   "_source": "https://github.com/mnater/Hyphenopoly.git",
   "_target": "*",
-  "_originalSource": "mnater/Hyphenopoly",
-  "_direct": true
+  "_originalSource": "mnater/Hyphenopoly"
 }

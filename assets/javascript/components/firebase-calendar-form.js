@@ -109,7 +109,7 @@ rivets.components['firebase-calendar-form'] = {
         $calendarNote.summernote('code', controller.calendar.note);
         
         controller.debug('set default values', controller.calendar);
-    }
+    };
     
     /**
      *  Get event by id and set it to the forms
@@ -148,7 +148,7 @@ rivets.components['firebase-calendar-form'] = {
             });
             controller.debug('error', error);
         });
-    }
+    };
     
     /**
      *  Set default values or get event by id
@@ -182,7 +182,7 @@ rivets.components['firebase-calendar-form'] = {
         
         // Merge old images with new uploaded images
         if(!jumplink.utilities.isArray(calendar.images)) {
-            controller.debug('no images are set, init image object with empty array!')
+            controller.debug('no images are set, init image object with empty array!');
             calendar.images = [];
         }
         
@@ -192,7 +192,7 @@ rivets.components['firebase-calendar-form'] = {
         controller.uploadedImages = [];
         
         return calendar;
-    }
+    };
     
     controller.updateCalendar = function(event, controller) {
         
@@ -220,7 +220,7 @@ rivets.components['firebase-calendar-form'] = {
                 body: error.message,
             });
         });
-    }
+    };
       
     controller.createCalendar = function(event) {
 

@@ -73,6 +73,8 @@ rivets.components['firebase-event-form'] = {
         return jumplink.events.getById(id)
         .then(function(event) {
             
+            event = jumplink.events.parse(event);
+            
             event.startTimeAt = moment(event.startAt).format('HH:mm');
             event.startAt = moment(event.startAt).minute(0).hour(0).format('YYYY-MM-DD');
             

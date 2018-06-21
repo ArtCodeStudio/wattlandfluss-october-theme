@@ -20,7 +20,7 @@ code = "footer"
     itemtype="http://schema.org/SiteNavigationElement"
 >
     {% if mode == 'vertical_menu' %}
-        <div class="container py-1 py-lg-3">
+        <div class="container-fluid py-1 py-lg-3">
             <div class="row">
                 <div class="col-xs-12 col-md-8 d-flex flex-column justify-content-center">
                     {% content 'footer' %}
@@ -63,7 +63,7 @@ code = "footer"
     {% if mode == 'horizontal_menu' %}
 
         <div class="navbar navbar-toggleable-md navbar-light bg-transparent jumplink-navbar_extend-horizontally">
-            <div class="container">
+            <div class="container-fluid">
             
                 <div class="w-100 hidden-print">
                     {% partial 'jumplink-navigation/navbar-items' items=footerMenu.menuItems class='navbar-nav d-flex justify-content-center' itemClass='nav-item' %}

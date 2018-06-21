@@ -29,6 +29,7 @@ rivets.components['firebase-events-table'] = {
             querySnapshot.forEach((doc) => {
                 var event = doc.data();
                 event.id = doc.id;
+                event = jumplink.events.parse(event);
                 controller.events.push(event);
             });
         })

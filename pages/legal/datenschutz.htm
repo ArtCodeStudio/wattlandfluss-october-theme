@@ -1,12 +1,12 @@
 title = "Datenschutzerklärung"
 url = "/datenschutz"
 layout = "jumplink-barba"
-is_hidden = 0
-contentType = "html"
 meta_title = "Datenschutzerklärung"
 meta_description = "Datenschutzerklärung"
+is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
+contentType = "html"
 
 [viewBag]
 localeUrl[en] = "/datenschutzerklaerung"
@@ -16,6 +16,10 @@ localeUrl[en] = "/datenschutzerklaerung"
         <div class="col-xs-12 col-md-8 offset-md-2 pb-4">
 
             <h1 class="text-second">{{this.page.title}}</h1>
+            
+            {% component 'contenteditor' file='legal/privacy-policy.htm' %}
+            
+            {#
             <br>
             <br>
             <br>
@@ -160,6 +164,8 @@ localeUrl[en] = "/datenschutzerklaerung"
             <!--{% component 'contenteditor'
                 tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted"
             %}-->
+            
+            #}
         </div>
     </div>
 </div>
