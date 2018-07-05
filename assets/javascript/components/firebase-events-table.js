@@ -22,11 +22,11 @@ rivets.components['firebase-events-table'] = {
 
     var getEvents = function() {
          dbEvents.get()
-        .then((querySnapshot) => {
+        .then(function (querySnapshot){
             //ycontroller.events = querySnapshot.data();
             controller.debug('events', controller.events, querySnapshot);
             controller.events = [];
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(function(doc) {
                 var event = doc.data();
                 event.id = doc.id;
                 event = jumplink.events.parse(event);

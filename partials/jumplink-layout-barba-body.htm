@@ -77,9 +77,11 @@ function onStart()
  # TODO check if jquery.lazy.plugins.js is usefull http://jquery.eisbehr.de/lazy/
  #}
 <script src="{{ [
+
     'assets/vendor/jquery/dist/jquery.js',
     'assets/vendor/jquery-lazy/jquery.lazy.js',
     'assets/vendor/jquery-lazy/jquery.lazy.plugins.js',
+    'assets/vendor/visionmedia-debug/dist/debug.js',
     'assets/vendor/tether/dist/js/tether.js',
     'assets/vendor/popper.js/dist/umd/popper.js',
     'assets/vendor/bootstrap/dist/js/bootstrap.js',
@@ -89,19 +91,17 @@ function onStart()
     'assets/vendor/leaflet/dist/leaflet.js',
     'assets/vendor/slick-carousel/slick/slick.js',
     'assets/vendor/jquery-touch-events/src/jquery.mobile-events.js',
-    'assets/vendor/Hyphenopoly/Hyphenopoly_Loader.js',
     'assets/vendor/prism/prism.js',
     'assets/vendor/moment/min/moment-with-locales.min.js',
     'assets/vendor/AlertifyJS/build/alertify.js',
     'assets/vendor/vivus/dist/vivus.js',
-    'assets/vendor/visionmedia-debug/dist/debug.js',
     'assets/vendor/platform.js/platform.js',
     'assets/vendor/pg-calendar/dist/js/pignose.calendar.js',
     'assets/vendor/summernote/dist/summernote-bs4.js',
     'assets/vendor/photoswipe/dist/photoswipe.js',
     'assets/vendor/photoswipe/dist/photoswipe-ui-default.js',
     'assets/vendor/masonry-layout/dist/masonry.pkgd.js',
-    'assets/vendor/firebase/firebase.js',
+    'assets/vendor/firebase/polyfill/dist/polyfill.min.js',
     'assets/vendor/firebase/firebase-app.js',
     'assets/vendor/firebase/firebase-auth.js',
     'assets/vendor/firebase/firebase-firestore.js',
@@ -110,6 +110,14 @@ function onStart()
     'assets/vendor/rivets/dist/rivets.js',
     'assets/vendor/barba.js/dist/barba.js',
 ]|theme }}" ></script>
+
+{#
+    removed:
+    'assets/vendor/core/dist/core.min.js',
+    'assets/vendor/firebase/firebase.js',
+    'assets/vendor/Hyphenopoly/Hyphenopoly_Loader.js',
+ 
+ #}
 
 
 {# Own #}

@@ -83,7 +83,7 @@ rivets.components['firebase-events-beautiful'] = {
         }
         controller.debug('getEventByID', id);
         return jumplink.events.getById(id)
-        .then((event) => {
+        .then(function(event) {
             controller.debug('event', event);
             controller.events = [event];
         })

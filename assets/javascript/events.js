@@ -416,7 +416,7 @@ jumplink.events.getByTitle = function (title) {
         .get()
         .then(function(querySnapshot) {
             var events = [];
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(function (doc) {
                 var event = doc.data();
                 event.id = doc.id;
                 event = jumplink.events.parse(event);
@@ -528,12 +528,12 @@ jumplink.events.get = function(hasType, hasActive, hasCalendar, startTimeIs, exc
     ref = ref.orderBy("startAt");
     
     return ref.get()
-    .then((querySnapshot) => {
+    .then(function (querySnapshot) {
         //yevents = querySnapshot.data();
         jumplink.debug.events('event', querySnapshot);
         var count = 0;
         var events = [];
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach(function(doc) {
             // own client site limit to make excludeCalendar working
             if(count <= limit) {
                 var event = doc.data();

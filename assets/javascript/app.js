@@ -280,7 +280,9 @@ var initTemplates = function () {
       }
       
       if(jumplink.templates && jumplink.templates.prepairTemplate) {
-        jumplink.templates.prepairTemplate(container, container.dataset);
+        $container = $(container);
+        
+        jumplink.templates.prepairTemplate(container, $container.data());
       }
   });
 };

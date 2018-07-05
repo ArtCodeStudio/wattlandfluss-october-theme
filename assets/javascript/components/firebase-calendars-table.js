@@ -19,10 +19,10 @@ rivets.components['firebase-calendars-table'] = {
 
     var getCalendars = function() {
          dbCalendars.get()
-        .then((querySnapshot) => {
+        .then(function (querySnapshot) {
             controller.debug('calendars', controller.calendars, querySnapshot);
             controller.calendars = [];
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(function(doc) {
                 var calendar = doc.data();
                 calendar.id = doc.id;
                 controller.calendars.push(calendar);
@@ -35,7 +35,7 @@ rivets.components['firebase-calendars-table'] = {
             });
             controller.debug('error', error);
         });
-    }
+    };
    
     
     controller.delete = function(event, controller) {

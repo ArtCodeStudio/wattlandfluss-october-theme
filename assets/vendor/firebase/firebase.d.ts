@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 declare namespace firebase {
+  type NextFn<T> = (value: T) => void;
+  type ErrorFn<E = Error> = (error: E) => void;
   type CompleteFn = () => void;
 
   interface FirebaseError {
@@ -23,10 +25,10 @@ declare namespace firebase {
     stack?: string;
   }
 
-  interface Observer<V, E> {
-    complete(): any;
-    error(error: E): any;
-    next(value: V | null): any;
+  interface Observer<T, E = Error> {
+    next: NextFn<T>;
+    error: ErrorFn<E>;
+    complete: CompleteFn;
   }
 
   var SDK_VERSION: string;
@@ -34,57 +36,62 @@ declare namespace firebase {
   type Unsubscribe = () => void;
 
   interface User extends firebase.UserInfo {
-    delete(): Promise<any>;
+    delete(): Promise<void>;
     emailVerified: boolean;
     getIdTokenResult(
       forceRefresh?: boolean
     ): Promise<firebase.auth.IdTokenResult>;
-    getIdToken(forceRefresh?: boolean): Promise<any>;
-    getToken(forceRefresh?: boolean): Promise<any>;
+    getIdToken(forceRefresh?: boolean): Promise<string>;
     isAnonymous: boolean;
     linkAndRetrieveDataWithCredential(
       credential: firebase.auth.AuthCredential
-    ): Promise<any>;
-    linkWithCredential(credential: firebase.auth.AuthCredential): Promise<any>;
+    ): Promise<firebase.auth.UserCredential>;
+    linkWithCredential(
+      credential: firebase.auth.AuthCredential
+    ): Promise<firebase.User>;
     linkWithPhoneNumber(
       phoneNumber: string,
       applicationVerifier: firebase.auth.ApplicationVerifier
-    ): Promise<any>;
-    linkWithPopup(provider: firebase.auth.AuthProvider): Promise<any>;
-    linkWithRedirect(provider: firebase.auth.AuthProvider): Promise<any>;
+    ): Promise<firebase.auth.ConfirmationResult>;
+    linkWithPopup(
+      provider: firebase.auth.AuthProvider
+    ): Promise<firebase.auth.UserCredential>;
+    linkWithRedirect(provider: firebase.auth.AuthProvider): Promise<void>;
     metadata: firebase.auth.UserMetadata;
     phoneNumber: string | null;
     providerData: (firebase.UserInfo | null)[];
     reauthenticateAndRetrieveDataWithCredential(
       credential: firebase.auth.AuthCredential
-    ): Promise<any>;
+    ): Promise<firebase.auth.UserCredential>;
     reauthenticateWithCredential(
       credential: firebase.auth.AuthCredential
-    ): Promise<any>;
+    ): Promise<void>;
     reauthenticateWithPhoneNumber(
       phoneNumber: string,
       applicationVerifier: firebase.auth.ApplicationVerifier
-    ): Promise<any>;
-    reauthenticateWithPopup(provider: firebase.auth.AuthProvider): Promise<any>;
+    ): Promise<firebase.auth.ConfirmationResult>;
+    reauthenticateWithPopup(
+      provider: firebase.auth.AuthProvider
+    ): Promise<firebase.auth.UserCredential>;
     reauthenticateWithRedirect(
       provider: firebase.auth.AuthProvider
-    ): Promise<any>;
+    ): Promise<void>;
     refreshToken: string;
-    reload(): Promise<any>;
+    reload(): Promise<void>;
     sendEmailVerification(
       actionCodeSettings?: firebase.auth.ActionCodeSettings | null
-    ): Promise<any>;
+    ): Promise<void>;
     toJSON(): Object;
-    unlink(providerId: string): Promise<any>;
-    updateEmail(newEmail: string): Promise<any>;
-    updatePassword(newPassword: string): Promise<any>;
+    unlink(providerId: string): Promise<firebase.User>;
+    updateEmail(newEmail: string): Promise<void>;
+    updatePassword(newPassword: string): Promise<void>;
     updatePhoneNumber(
       phoneCredential: firebase.auth.AuthCredential
-    ): Promise<any>;
+    ): Promise<void>;
     updateProfile(profile: {
       displayName: string | null;
       photoURL: string | null;
-    }): Promise<any>;
+    }): Promise<void>;
   }
 
   interface UserInfo {
@@ -111,6 +118,8 @@ declare namespace firebase {
   function storage(app?: firebase.app.App): firebase.storage.Storage;
 
   function firestore(app?: firebase.app.App): firebase.firestore.Firestore;
+
+  function functions(app?: firebase.app.App): firebase.functions.Functions;
 }
 
 declare namespace firebase.app {
@@ -123,11 +132,53 @@ declare namespace firebase.app {
     options: Object;
     storage(url?: string): firebase.storage.Storage;
     firestore(): firebase.firestore.Firestore;
+    functions(region?: string): firebase.functions.Functions;
+  }
+}
+
+declare namespace firebase.functions {
+  export interface HttpsCallableResult {
+    readonly data: any;
+  }
+  export interface HttpsCallable {
+    (data?: any): Promise<HttpsCallableResult>;
+  }
+  export class Functions {
+    private constructor();
+    httpsCallable(name: string): HttpsCallable;
+  }
+  export type ErrorStatus =
+    | 'ok'
+    | 'cancelled'
+    | 'unknown'
+    | 'invalid-argument'
+    | 'deadline-exceeded'
+    | 'not-found'
+    | 'already-exists'
+    | 'permission-denied'
+    | 'resource-exhausted'
+    | 'failed-precondition'
+    | 'aborted'
+    | 'out-of-range'
+    | 'unimplemented'
+    | 'internal'
+    | 'unavailable'
+    | 'data-loss'
+    | 'unauthenticated';
+  export interface HttpsError extends Error {
+    readonly code: ErrorStatus;
+    readonly details?: any;
   }
 }
 
 declare namespace firebase.auth {
-  interface ActionCodeInfo {}
+  interface ActionCodeInfo {
+    data: {
+      email?: string | null;
+      fromEmail?: string | null;
+    };
+    operation: string;
+  }
 
   type ActionCodeSettings = {
     android?: {
@@ -149,38 +200,43 @@ declare namespace firebase.auth {
 
   interface ApplicationVerifier {
     type: string;
-    verify(): Promise<any>;
+    verify(): Promise<string>;
+  }
+
+  interface AuthSettings {
+    appVerificationDisabledForTesting: boolean;
   }
 
   interface Auth {
     app: firebase.app.App;
-    applyActionCode(code: string): Promise<any>;
-    checkActionCode(code: string): Promise<any>;
-    confirmPasswordReset(code: string, newPassword: string): Promise<any>;
+    applyActionCode(code: string): Promise<void>;
+    checkActionCode(code: string): Promise<firebase.auth.ActionCodeInfo>;
+    confirmPasswordReset(code: string, newPassword: string): Promise<void>;
     createUserAndRetrieveDataWithEmailAndPassword(
       email: string,
       password: string
-    ): Promise<any>;
+    ): Promise<firebase.auth.UserCredential>;
     createUserWithEmailAndPassword(
       email: string,
       password: string
-    ): Promise<any>;
+    ): Promise<firebase.auth.UserCredential>;
     currentUser: firebase.User | null;
-    fetchProvidersForEmail(email: string): Promise<any>;
-    fetchSignInMethodsForEmail(email: string): Promise<any>;
+    fetchProvidersForEmail(email: string): Promise<Array<string>>;
+    fetchSignInMethodsForEmail(email: string): Promise<Array<string>>;
     isSignInWithEmailLink(emailLink: string): boolean;
-    getRedirectResult(): Promise<any>;
+    getRedirectResult(): Promise<firebase.auth.UserCredential>;
     languageCode: string | null;
+    settings: firebase.auth.AuthSettings;
     onAuthStateChanged(
       nextOrObserver:
-        | firebase.Observer<any, any>
+        | firebase.Observer<any>
         | ((a: firebase.User | null) => any),
       error?: (a: firebase.auth.Error) => any,
       completed?: firebase.Unsubscribe
     ): firebase.Unsubscribe;
     onIdTokenChanged(
       nextOrObserver:
-        | firebase.Observer<any, any>
+        | firebase.Observer<any>
         | ((a: firebase.User | null) => any),
       error?: (a: firebase.auth.Error) => any,
       completed?: firebase.Unsubscribe
@@ -188,37 +244,48 @@ declare namespace firebase.auth {
     sendSignInLinkToEmail(
       email: string,
       actionCodeSettings: firebase.auth.ActionCodeSettings
-    ): Promise<any>;
+    ): Promise<void>;
     sendPasswordResetEmail(
       email: string,
       actionCodeSettings?: firebase.auth.ActionCodeSettings | null
-    ): Promise<any>;
-    setPersistence(persistence: firebase.auth.Auth.Persistence): Promise<any>;
+    ): Promise<void>;
+    setPersistence(persistence: firebase.auth.Auth.Persistence): Promise<void>;
     signInAndRetrieveDataWithCredential(
       credential: firebase.auth.AuthCredential
-    ): Promise<any>;
-    signInAnonymously(): Promise<any>;
-    signInAnonymouslyAndRetrieveData(): Promise<any>;
+    ): Promise<firebase.auth.UserCredential>;
+    signInAnonymously(): Promise<firebase.auth.UserCredential>;
+    signInAnonymouslyAndRetrieveData(): Promise<firebase.auth.UserCredential>;
     signInWithCredential(
       credential: firebase.auth.AuthCredential
-    ): Promise<any>;
-    signInWithCustomToken(token: string): Promise<any>;
-    signInAndRetrieveDataWithCustomToken(token: string): Promise<any>;
-    signInWithEmailAndPassword(email: string, password: string): Promise<any>;
+    ): Promise<firebase.User>;
+    signInWithCustomToken(token: string): Promise<firebase.auth.UserCredential>;
+    signInAndRetrieveDataWithCustomToken(
+      token: string
+    ): Promise<firebase.auth.UserCredential>;
+    signInWithEmailAndPassword(
+      email: string,
+      password: string
+    ): Promise<firebase.auth.UserCredential>;
     signInAndRetrieveDataWithEmailAndPassword(
       email: string,
       password: string
-    ): Promise<any>;
+    ): Promise<firebase.auth.UserCredential>;
     signInWithPhoneNumber(
       phoneNumber: string,
       applicationVerifier: firebase.auth.ApplicationVerifier
-    ): Promise<any>;
-    signInWithEmailLink(email: string, emailLink?: string): Promise<any>;
-    signInWithPopup(provider: firebase.auth.AuthProvider): Promise<any>;
-    signInWithRedirect(provider: firebase.auth.AuthProvider): Promise<any>;
-    signOut(): Promise<any>;
-    useDeviceLanguage(): any;
-    verifyPasswordResetCode(code: string): Promise<any>;
+    ): Promise<firebase.auth.ConfirmationResult>;
+    signInWithEmailLink(
+      email: string,
+      emailLink?: string
+    ): Promise<firebase.auth.UserCredential>;
+    signInWithPopup(
+      provider: firebase.auth.AuthProvider
+    ): Promise<firebase.auth.UserCredential>;
+    signInWithRedirect(provider: firebase.auth.AuthProvider): Promise<void>;
+    signOut(): Promise<void>;
+    updateCurrentUser(user: firebase.User | null): Promise<void>;
+    useDeviceLanguage(): void;
+    verifyPasswordResetCode(code: string): Promise<string>;
   }
 
   interface AuthCredential {
@@ -231,7 +298,7 @@ declare namespace firebase.auth {
   }
 
   interface ConfirmationResult {
-    confirm(verificationCode: string): Promise<any>;
+    confirm(verificationCode: string): Promise<firebase.auth.UserCredential>;
     verificationId: string;
   }
 
@@ -324,7 +391,7 @@ declare namespace firebase.auth {
     verifyPhoneNumber(
       phoneNumber: string,
       applicationVerifier: firebase.auth.ApplicationVerifier
-    ): Promise<any>;
+    ): Promise<string>;
   }
 
   class RecaptchaVerifier extends RecaptchaVerifier_Instance {}
@@ -335,10 +402,10 @@ declare namespace firebase.auth {
       parameters?: Object | null,
       app?: firebase.app.App | null
     );
-    clear(): any;
-    render(): Promise<any>;
+    clear(): void;
+    render(): Promise<number>;
     type: string;
-    verify(): Promise<any>;
+    verify(): Promise<string>;
   }
 
   class TwitterAuthProvider extends TwitterAuthProvider_Instance {
@@ -383,7 +450,9 @@ declare namespace firebase.database {
     child(path: string): firebase.database.DataSnapshot;
     exists(): boolean;
     exportVal(): any;
-    forEach(action: (a: firebase.database.DataSnapshot) => boolean): boolean;
+    forEach(
+      action: (a: firebase.database.DataSnapshot) => boolean | void
+    ): boolean;
     getPriority(): string | number | null;
     hasChild(path: string): boolean;
     hasChildren(): boolean;
@@ -414,6 +483,13 @@ declare namespace firebase.database {
     update(values: Object, onComplete?: (a: Error | null) => any): Promise<any>;
   }
 
+  type EventType =
+    | 'value'
+    | 'child_added'
+    | 'child_changed'
+    | 'child_moved'
+    | 'child_removed';
+
   interface Query {
     endAt(
       value: number | string | boolean | null,
@@ -427,22 +503,22 @@ declare namespace firebase.database {
     limitToFirst(limit: number): firebase.database.Query;
     limitToLast(limit: number): firebase.database.Query;
     off(
-      eventType?: string,
+      eventType?: EventType,
       callback?: (a: firebase.database.DataSnapshot, b?: string | null) => any,
       context?: Object | null
     ): any;
     on(
-      eventType: string,
+      eventType: EventType,
       callback: (a: firebase.database.DataSnapshot | null, b?: string) => any,
       cancelCallbackOrContext?: Object | null,
       context?: Object | null
     ): (a: firebase.database.DataSnapshot | null, b?: string) => any;
     once(
-      eventType: string,
+      eventType: EventType,
       successCallback?: (a: firebase.database.DataSnapshot, b?: string) => any,
       failureCallbackOrContext?: Object | null,
       context?: Object | null
-    ): Promise<any>;
+    ): Promise<DataSnapshot>;
     orderByChild(path: string): firebase.database.Query;
     orderByKey(): firebase.database.Query;
     orderByPriority(): firebase.database.Query;
@@ -461,7 +537,6 @@ declare namespace firebase.database {
     key: string | null;
     onDisconnect(): firebase.database.OnDisconnect;
     parent: firebase.database.Reference | null;
-    path: string;
     push(
       value?: any,
       onComplete?: (a: Error | null) => any
@@ -506,19 +581,27 @@ declare namespace firebase.database.ServerValue {
 
 declare namespace firebase.messaging {
   interface Messaging {
-    deleteToken(token: string): Promise<any> | null;
-    getToken(): Promise<any> | null;
+    deleteToken(token: string): Promise<boolean>;
+    getToken(): Promise<string | null>;
     onMessage(
-      nextOrObserver: firebase.Observer<any, any> | ((a: Object) => any)
+      nextOrObserver: firebase.NextFn<any> | firebase.Observer<any>,
+      error?: firebase.ErrorFn,
+      completed?: firebase.CompleteFn
     ): firebase.Unsubscribe;
     onTokenRefresh(
-      nextOrObserver: firebase.Observer<any, any> | ((a: Object) => any)
+      nextOrObserver: firebase.NextFn<any> | firebase.Observer<any>,
+      error?: firebase.ErrorFn,
+      completed?: firebase.CompleteFn
     ): firebase.Unsubscribe;
-    requestPermission(): Promise<any> | null;
-    setBackgroundMessageHandler(callback: (a: Object) => any): any;
-    useServiceWorker(registration: any): any;
+    requestPermission(): Promise<void>;
+    setBackgroundMessageHandler(
+      callback: (payload: any) => Promise<any> | void
+    ): void;
+    useServiceWorker(registration: ServiceWorkerRegistration): void;
     usePublicVapidKey(b64PublicKey: string): void;
   }
+
+  function isSupported(): boolean;
 }
 
 declare namespace firebase.storage {
@@ -615,10 +698,7 @@ declare namespace firebase.storage {
     catch(onRejected: (a: Error) => any): Promise<any>;
     on(
       event: firebase.storage.TaskEvent,
-      nextOrObserver?:
-        | firebase.Observer<any, any>
-        | null
-        | ((a: Object) => any),
+      nextOrObserver?: firebase.Observer<any> | null | ((a: Object) => any),
       error?: ((a: Error) => any) | null,
       complete?: (firebase.Unsubscribe) | null
     ): Function;
@@ -1100,13 +1180,14 @@ declare namespace firebase.firestore {
   }
 
   /**
-   * Options for use with `DocumentReference.onSnapshot()` to control the
-   * behavior of the snapshot listener.
+   * An options object that can be passed to `DocumentReference.onSnapshot()`,
+   * `Query.onSnapshot()` and `QuerySnapshot.docChanges()` to control which
+   * types of changes to include in the result set.
    */
-  export interface DocumentListenOptions {
+  export interface SnapshotListenOptions {
     /**
-     * Raise an event even if only metadata of the document changed. Default is
-     * false.
+     * Include a change even if only the metadata of the query or of a document
+     * changed. Default is false.
      */
     readonly includeMetadataChanges?: boolean;
   }
@@ -1115,7 +1196,7 @@ declare namespace firebase.firestore {
    * An options object that configures the behavior of `set()` calls in
    * `DocumentReference`, `WriteBatch` and `Transaction`. These calls can be
    * configured to perform granular merges instead of overwriting the target
-   * documents in their entirety by providing a `SetOptions` with `merge: true`.
+   * documents in their entirety.
    */
   export interface SetOptions {
     /**
@@ -1124,6 +1205,13 @@ declare namespace firebase.firestore {
      * untouched.
      */
     readonly merge?: boolean;
+
+    /**
+     * Changes the behavior of set() calls to only replace the specified field
+     * paths. Any field path that is not specified is ignored and remains
+     * untouched.
+     */
+    readonly mergeFields?: (string | FieldPath)[];
   }
 
   /**
@@ -1292,7 +1380,7 @@ declare namespace firebase.firestore {
       complete?: () => void;
     }): () => void;
     onSnapshot(
-      options: DocumentListenOptions,
+      options: SnapshotListenOptions,
       observer: {
         next?: (snapshot: DocumentSnapshot) => void;
         error?: (error: Error) => void;
@@ -1305,7 +1393,7 @@ declare namespace firebase.firestore {
       onCompletion?: () => void
     ): () => void;
     onSnapshot(
-      options: DocumentListenOptions,
+      options: SnapshotListenOptions,
       onNext: (snapshot: DocumentSnapshot) => void,
       onError?: (error: Error) => void,
       onCompletion?: () => void
@@ -1473,26 +1561,8 @@ declare namespace firebase.firestore {
    * Filter conditions in a `Query.where()` clause are specified using the
    * strings '<', '<=', '==', '>=', and '>'.
    */
+  // TODO(array-features): Add 'array-contains' once backend support lands.
   export type WhereFilterOp = '<' | '<=' | '==' | '>=' | '>';
-
-  /**
-   * Options for use with `Query.onSnapshot() to control the behavior of the
-   * snapshot listener.
-   */
-  export interface QueryListenOptions {
-    /**
-     * Raise an event even if only metadata changes (i.e. one of the
-     * `QuerySnapshot.metadata` properties). Default is false.
-     */
-    readonly includeQueryMetadataChanges?: boolean;
-
-    /**
-     * Raise an event even if only metadata of a document in the query results
-     * changes (i.e. one of the `DocumentSnapshot.metadata` properties on one of
-     * the documents). Default is false.
-     */
-    readonly includeDocumentMetadataChanges?: boolean;
-  }
 
   /**
    * A `Query` refers to a Query which you can read or listen to. You can also
@@ -1678,7 +1748,7 @@ declare namespace firebase.firestore {
       complete?: () => void;
     }): () => void;
     onSnapshot(
-      options: QueryListenOptions,
+      options: SnapshotListenOptions,
       observer: {
         next?: (snapshot: QuerySnapshot) => void;
         error?: (error: Error) => void;
@@ -1691,7 +1761,7 @@ declare namespace firebase.firestore {
       onCompletion?: () => void
     ): () => void;
     onSnapshot(
-      options: QueryListenOptions,
+      options: SnapshotListenOptions,
       onNext: (snapshot: QuerySnapshot) => void,
       onError?: (error: Error) => void,
       onCompletion?: () => void
@@ -1718,12 +1788,6 @@ declare namespace firebase.firestore {
      * modifications.
      */
     readonly metadata: SnapshotMetadata;
-    /**
-     * An array of the documents that changed since the last snapshot. If this
-     * is the first snapshot, all documents will be in the list as added
-     * changes.
-     */
-    readonly docChanges: DocumentChange[];
 
     /** An array of all the documents in the QuerySnapshot. */
     readonly docs: QueryDocumentSnapshot[];
@@ -1733,6 +1797,16 @@ declare namespace firebase.firestore {
 
     /** True if there are no documents in the QuerySnapshot. */
     readonly empty: boolean;
+
+    /**
+     * Returns an array of the documents changes since the last snapshot. If this
+     * is the first snapshot, all documents will be in the list as added changes.
+     *
+     * @param options `SnapshotListenOptions` that control whether metadata-only
+     * changes (i.e. only `DocumentSnapshot.metadata` changed) should trigger
+     * snapshot events.
+     */
+    docChanges(options?: SnapshotListenOptions): DocumentChange[];
 
     /**
      * Enumerates all of the documents in the QuerySnapshot.
@@ -1858,6 +1932,33 @@ declare namespace firebase.firestore {
     static delete(): FieldValue;
 
     /**
+     * Returns a special value that can be used with set() or update() that tells
+     * the server to union the given elements with any array value that already
+     * exists on the server. Each specified element that doesn't already exist in
+     * the array will be added to the end. If the field being modified is not
+     * already an array it will be overwritten with an array containing exactly
+     * the specified elements.
+     *
+     * @param elements The elements to union into the array.
+     * @return The FieldValue sentinel for use in a call to set() or update().
+     */
+    // TODO(array-features): Expose this once backend support lands.
+    //static arrayUnion(...elements: any[]): FieldValue;
+
+    /**
+     * Returns a special value that can be used with set() or update() that tells
+     * the server to remove the given elements from any array value that already
+     * exists on the server. All instances of each element specified will be
+     * removed from the array. If the field being modified is not already an
+     * array it will be overwritten with an empty array.
+     *
+     * @param elements The elements to remove from the array.
+     * @return The FieldValue sentinel for use in a call to set() or update().
+     */
+    // TODO(array-features): Expose this once backend support lands.
+    //static arrayRemove(...elements: any[]): FieldValue;
+
+    /**
      * Returns true if this `FieldValue` is equal to the provided one.
      *
      * @param other The `FieldValue` to compare against.
@@ -1963,3 +2064,4 @@ declare namespace firebase.firestore {
 }
 
 export = firebase;
+export as namespace firebase;

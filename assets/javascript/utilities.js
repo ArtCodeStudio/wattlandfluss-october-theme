@@ -19,17 +19,7 @@ jumplink.utilities.cloneArray = function (array) {
 };
 
 jumplink.utilities.triggerResize = function () {
-    if(Event) {
-        window.dispatchEvent(new Event('resize'));
-    }
-    else if (document.createEvent) { // W3C
-        var ev = document.createEvent('Event');
-        ev.initEvent('resize', true, true);
-        window.dispatchEvent(ev);
-    } else { // IE
-        document.fireEvent('onresize');
-    }
-    
+    $(window).trigger('resize');    
 };
 
 /**
@@ -60,7 +50,10 @@ jumplink.utilities.hyphenate = function() {
    *
    * Used internally to convert the shopify theme settings to better usable javascript objects.
    */
-jumplink.utilities.adhesiveKeyObjectToNestedObject = function (adhesiveKeyObject, separator = '_') {
+jumplink.utilities.adhesiveKeyObjectToNestedObject = function (adhesiveKeyObject, separator) {
+    if(!separator) {
+        separator = '_';
+    }
     var nestedObject = {};
     for (var adhesiveKey in adhesiveKeyObject) {
       // skip loop if the property is from prototype
@@ -187,6 +180,11 @@ jumplink.utilities.getCheckboxValue = function(selector) {
  */
 jumplink.utilities.parseDatasetJsonStrings = function (dataset) {
   var data = {};
+  
+  if(!dataset) {
+      return data;
+  }
+  
   if(typeof(dataset.productJsonString) === 'string') {
     data.product = JSON.parse(dataset.productJsonString);
     // metafields needed to be set manually, its not allawed in shopify to get all as json

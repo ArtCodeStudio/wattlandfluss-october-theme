@@ -26,7 +26,7 @@ rivets.components['uploaded-files'] = {
         if(index !== -1) {
         	controller.files.splice(index, 1);
         }
-    }
+    };
     
     return controller;
   }

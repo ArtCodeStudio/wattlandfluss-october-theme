@@ -1,7 +1,7 @@
 /**
  * Single file of the preview-files component
  */
-rivets.components['spinner'] = {
+rivets.components.spinner = {
 
   template: function() {
     // return $('template#spinner').html();

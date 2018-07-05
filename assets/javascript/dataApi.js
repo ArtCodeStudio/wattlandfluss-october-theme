@@ -31,7 +31,7 @@ window.jumplink.dataApi.initItemslide = function (target, $element) {
             $element.previous();
             break;
           case 'gotoSlide':
-            const slide = Number(data.itemslideSlide);
+            var slide = Number(data.itemslideSlide);
             window.jumplink.debug.dataApi('[itemslide] gotoSlide', slide);
             $element.gotoSlide(slide);
             break;
@@ -70,7 +70,7 @@ window.jumplink.dataApi.initItemslide = function (target, $element) {
               window.jumplink.debug.dataApi('[changeActiveIndex] previous index', index);
               break;
             case 'gotoSlide':
-                const slide = Number(data.itemslideSlide);
+                var slide = Number(data.itemslideSlide);
                 if(slide === index) {
                     $this.addClass('disabled');
                 } else {

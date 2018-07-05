@@ -65,14 +65,12 @@ window.jumplink.initBrowserDetection = function () {
       }
       break;
     case 'Safari':
-      if(platform.version_number >= 9) {
+      if(platform.version_number >= 10) {
         platform.supported = true;
       }
       break;
     case 'IE':
-      if(platform.version_number >= 11) {
-        platform.supported = true;
-      }
+      platform.supported = false;
       break;
     case 'Microsoft Edge':
       if(platform.version_number >= 17) {
