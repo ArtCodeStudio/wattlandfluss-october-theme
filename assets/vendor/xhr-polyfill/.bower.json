@@ -1,0 +1,25 @@
+{
+  "name": "xhr-polyfill",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "coverage"
+  ],
+  "devDependencies": {
+    "expect": "~0.2",
+    "jquery": "~1"
+  },
+  "homepage": "https://github.com/elmerbulthuis/xhr-polyfill",
+  "version": "0.1.9",
+  "_release": "0.1.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.9",
+    "commit": "fa1f6c0cc5993d99e3012f06535b955f41cbc3ef"
+  },
+  "_source": "https://github.com/elmerbulthuis/xhr-polyfill.git",
+  "_target": "^0.1.9",
+  "_originalSource": "xhr-polyfill",
+  "_direct": true
+}

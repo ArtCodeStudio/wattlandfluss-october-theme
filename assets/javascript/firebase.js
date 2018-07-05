@@ -18,6 +18,18 @@ jumplink.firebase.config = {
 };
 firebase.initializeApp(jumplink.firebase.config);
 
+
+
+var originalSend = XMLHttpRequest.prototype.send;
+XMLHttpRequest.prototype.send = function(body) {
+  if (body === '') {
+    originalSend.call(this);
+  } else {
+    originalSend.call(this, body);
+  }
+};
+
+
 // Initialize Cloud Firestore through Firebase
 
 // @firebase/firestore: Firestore (4.13.0): 

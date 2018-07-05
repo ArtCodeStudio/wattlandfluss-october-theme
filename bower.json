@@ -48,7 +48,8 @@
     "AlertifyJS": "MohammadYounes/AlertifyJS#^1.11.0",
     "popper.js": "^1.14.0",
     "core": "core-js#*",
-    "@firebase/polyfill": "*"
+    "MutationObserver-shim": "^0.3.2",
+    "xhr-polyfill": "^0.1.9"
   },
   "resolutions": {
     "jquery": "2",

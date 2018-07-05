@@ -77,7 +77,9 @@ function onStart()
  # TODO check if jquery.lazy.plugins.js is usefull http://jquery.eisbehr.de/lazy/
  #}
 <script src="{{ [
-
+    
+    'assets/vendor/firebase/polyfill/dist/polyfill.min.js',
+    'assets/vendor/MutationObserver-shim/dist/mutationobserver.min.js',
     'assets/vendor/jquery/dist/jquery.js',
     'assets/vendor/jquery-lazy/jquery.lazy.js',
     'assets/vendor/jquery-lazy/jquery.lazy.plugins.js',
@@ -101,7 +103,6 @@ function onStart()
     'assets/vendor/photoswipe/dist/photoswipe.js',
     'assets/vendor/photoswipe/dist/photoswipe-ui-default.js',
     'assets/vendor/masonry-layout/dist/masonry.pkgd.js',
-    'assets/vendor/firebase/polyfill/dist/polyfill.min.js',
     'assets/vendor/firebase/firebase-app.js',
     'assets/vendor/firebase/firebase-auth.js',
     'assets/vendor/firebase/firebase-firestore.js',
@@ -113,6 +114,7 @@ function onStart()
 
 {#
     removed:
+    'assets/vendor/xhr-polyfill/dist/xhr-polyfill.js',
     'assets/vendor/core/dist/core.min.js',
     'assets/vendor/firebase/firebase.js',
     'assets/vendor/Hyphenopoly/Hyphenopoly_Loader.js',

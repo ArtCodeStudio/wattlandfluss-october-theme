@@ -1,0 +1,13 @@
+{
+  "name": "xhr-polyfill",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "coverage"
+  ],
+  "devDependencies": {
+    "expect": "~0.2",
+    "jquery": "~1"
+  }
+}
