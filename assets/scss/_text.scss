@@ -11,6 +11,16 @@
     @include vp-background-clip(text !important);
 }
 
+.browser-name-microsoft-edge, .browser-name-ie {
+   .gradient-text {
+        -webkit-text-fill-color: black !important;
+        text-fill-color: black !important;
+        color: black !important;
+        background: none !important;
+        background-clip: border-box !important;
+    } 
+    
+}
 
 strong {
     font-weight: $font-weight-bold;

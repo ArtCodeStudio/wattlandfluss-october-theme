@@ -85,6 +85,8 @@ window.jumplink.initBrowserDetection = function () {
     default:
       break;
   }
+  
+  jumplink.cache.$body.addClass('browser-name-'+platform.name.toLowerCase().replace(' ', '-'));
 
   switch (platform.os.family) {
     case 'Linux':
