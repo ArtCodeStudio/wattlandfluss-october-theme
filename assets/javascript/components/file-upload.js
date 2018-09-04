@@ -98,19 +98,26 @@ rivets.components['file-upload'] = {
      * Upload files to firebase storage and add it to firebase datastore
      */
     var uploadFiles = function (ref, files) {
+        var uploadedFile;
         return Promise.all(files.map(function(file, fileIndex) {
-            var uploadedFile;
+           
+            
+            controller.debug('uploadedFile ref', ref);
+            
+            controller.debug('uploadedFile file', file);
             
             // store file to fiebase storage
             return ref.child(file.name)
             .put(file)
             .then(function(snapshot) {
+                controller.debug('uploadedFile snapshot', snapshot);
+                controller.debug('uploadedFile snapshot ref getDownloadURL', snapshot.ref.getDownloadURL());
                 uploadedFile = {
-                    downloadURL: snapshot.downloadURL,
+                    downloadURL: null, // setted in next step
                     state: snapshot.state,
                     metadata: {
                         name: snapshot.metadata.name,
-                        downloadURLs: snapshot.metadata.downloadURLs,
+                        // downloadURLs: snapshot.metadata.downloadURLs,
                         md5Hash: snapshot.metadata.md5Hash,
                         size: snapshot.metadata.size,
                         updated: snapshot.metadata.size,
@@ -120,8 +127,13 @@ rivets.components['file-upload'] = {
                     }
                 };
 
+                return snapshot.ref.getDownloadURL();
+            })
+            .then(function(downloadURL) {
+                uploadedFile.downloadURL = downloadURL;
+                // uploadedFile.downloadURLs = [downloadURL];
                 controller.debug('uploadedFile', uploadedFile);
-                
+   
                 // add image to db
                 return dbImages.add(uploadedFile);
             })

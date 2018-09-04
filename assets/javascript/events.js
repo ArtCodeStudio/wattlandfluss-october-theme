@@ -576,7 +576,7 @@ jumplink.events.add = function(event, uploadedImages) {
     
     var dbEvents = jumplink.events.getDatabaseCollection();
 
-    var newEvent = jumplink.events.prepairForFirestore(event, uploadedImages);
+    var newEvent = jumplink.events.prepairForFirestore(event);
     
     if(jumplink.utilities.isArray(uploadedImages)) {
         newEvent.images.push.apply(newEvent.images, uploadedImages);
@@ -601,7 +601,13 @@ jumplink.events.add = function(event, uploadedImages) {
 
 jumplink.events.update = function(id, event, uploadedImages) {
     var dbEvents = jumplink.events.getDatabaseCollection();
-    var updateEvent = jumplink.events.prepairForFirestore(event, uploadedImages);
+    
+    var updateEvent = jumplink.events.prepairForFirestore(event);
+    
+    if(jumplink.utilities.isArray(uploadedImages)) {
+        updateEvent.images.push.apply(updateEvent.images, uploadedImages);
+    }
+    
     jumplink.debug.events('updateEvent', id, updateEvent);
     try {
         return dbEvents.doc(id).update(updateEvent);
