@@ -10,7 +10,7 @@ rivets.components['firebase-signin-form'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-signin-form');
+    controller.debug = window.debug('rivets:firebase-signin-form');
     controller.debug('initialize', el, data);
     
     controller.user = data.user;

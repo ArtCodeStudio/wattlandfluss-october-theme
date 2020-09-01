@@ -10,7 +10,7 @@ rivets.components.datepicker = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:datepicker');
+    controller.debug = window.debug('rivets:datepicker');
     var $el = $(el);
     controller.debug('initialize', $el, data);
     var $input;

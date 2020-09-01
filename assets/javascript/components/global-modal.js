@@ -17,7 +17,7 @@ rivets.components['global-modal'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:global-modal');
+    controller.debug = window.debug('rivets:global-modal');
     controller.debug('initialize', el, data);
     
     controller.data = {

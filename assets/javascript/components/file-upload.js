@@ -15,7 +15,7 @@ rivets.components['file-upload'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:file-upload');
+    controller.debug = window.debug('rivets:file-upload');
     controller.debug('initialize', el, data);
     var $el = $(el);
     

@@ -10,7 +10,7 @@ rivets.components['firebase-calendars-table'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-calendars-table');
+    controller.debug = window.debug('rivets:firebase-calendars-table');
     controller.debug('initialize', el, data);
     var $el = $(el);
     var db = firebase.firestore();

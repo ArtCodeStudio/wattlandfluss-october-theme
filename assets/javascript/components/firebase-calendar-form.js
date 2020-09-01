@@ -10,7 +10,7 @@ rivets.components['firebase-calendar-form'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-calendar-form');
+    controller.debug = window.debug('rivets:firebase-calendar-form');
     controller.debug('initialize', el, data);
     
     var $el = $(el);

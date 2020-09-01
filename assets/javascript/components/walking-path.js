@@ -10,7 +10,7 @@ rivets.components['walking-path'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:walking-path');
+    controller.debug = window.debug('rivets:walking-path');
     controller.debug('initialize', el, data);
     var $el = $(el);
     

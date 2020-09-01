@@ -32,7 +32,7 @@ rivets.components['rv-select'] = {
   },
     initialize: function(el, data) {
         var controller = this;
-        controller.debug = debug('rivets:rv-select');
+        controller.debug = window.debug('rivets:rv-select');
         var $el = $(el);
         var $select = $el.find('select');
         controller.debug('initialize', $el, $select, data);

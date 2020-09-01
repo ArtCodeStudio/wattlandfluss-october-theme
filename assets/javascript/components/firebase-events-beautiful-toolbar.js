@@ -8,7 +8,7 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-events-beautiful-toolbar');
+    controller.debug = window.debug('rivets:firebase-events-beautiful-toolbar');
     controller.debug('initialize', el, data);
     var $el = $(el);
     var $collapse = $el.find('.collapse');

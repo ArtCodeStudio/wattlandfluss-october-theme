@@ -9,7 +9,7 @@ rivets.components['firebase-events-table'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-event-table');
+    controller.debug = window.debug('rivets:firebase-event-table');
     controller.debug('initialize', el, data);
     var $el = $(el);
     var db = firebase.firestore();

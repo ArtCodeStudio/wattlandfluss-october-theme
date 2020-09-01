@@ -17,7 +17,7 @@ rivets.components['firebase-events-beautiful-book-modal'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-events-beautiful-book-modal');
+    controller.debug = window.debug('rivets:firebase-events-beautiful-book-modal');
     controller.debug('initialize', el, data);
     
     controller.type = data.type;

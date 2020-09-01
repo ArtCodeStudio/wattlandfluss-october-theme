@@ -10,7 +10,7 @@ rivets.components['preview-file'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:preview-file');
+    controller.debug = window.debug('rivets:preview-file');
     controller.debug('initialize', el, data);
     var $el = $(el);
     controller.file = data.file;

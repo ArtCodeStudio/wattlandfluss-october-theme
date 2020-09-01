@@ -9,7 +9,7 @@ rivets.components['firebase-user'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-user');
+    controller.debug = window.debug('rivets:firebase-user');
     controller.debug('initialize', el, data);
     
     controller.user = null;

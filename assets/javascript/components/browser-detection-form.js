@@ -9,7 +9,7 @@ rivets.components['browser-detection-form'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:browser-detection-form');
+    controller.debug = window.debug('rivets:browser-detection-form');
     var $el = $(el);
     controller.debug('initialize', $el, data);
     

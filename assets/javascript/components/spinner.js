@@ -10,8 +10,8 @@ rivets.components.spinner = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:spinner');
-    controller.debug('initialize', el, data);
+    // controller.debug = window.debug('rivets:spinner');
+    // controller.debug('initialize', el, data);
     var $el = $(el);
     controller.name = data.name;    
     

@@ -9,7 +9,7 @@ rivets.components['browser-detection-bar'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:browser-detection-bar');
+    controller.debug = window.debug('rivets:browser-detection-bar');
     var $el = $(el);
     controller.debug('initialize', $el, data);
     

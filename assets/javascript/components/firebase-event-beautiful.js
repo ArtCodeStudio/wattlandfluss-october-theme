@@ -9,7 +9,7 @@ rivets.components['firebase-event-beautiful'] = {
 
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:firebase-event-beautiful');
+    controller.debug = window.debug('rivets:firebase-event-beautiful');
     controller.debug('initialize', el, data);
     var $el = $(el);
 

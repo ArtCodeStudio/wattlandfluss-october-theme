@@ -7,7 +7,7 @@ rivets.components['rv-checkbox'] = {
   },
   initialize: function(el, data) {
     var controller = this;
-    controller.debug = debug('rivets:rv-checkbox');
+    controller.debug = window.debug('rivets:rv-checkbox');
     controller.debug('initialize', el, data);
     var $el = $(el);
     var $checkbox = $el.find('input[type="checkbox"]');
