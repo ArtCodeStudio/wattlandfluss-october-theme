@@ -1,8 +1,16 @@
 // todo remove
 // @import "../vendor/font-awesome/scss/font-awesome";
 
+// @import "../vendor/bootstrap/scss/functions";
+// @import "../vendor/bootstrap/scss/variables";
+// @import "../vendor/bootstrap/scss/mixins";
+// @import "../vendor/bootstrap-backward/scss/functions";
+@import "../vendor/bootstrap-backward/scss/variables";
+@import "../vendor/bootstrap-backward/scss/mixins";
+
 // variables we neeed for all other scss files
 @import "variables";
+@import "theme-settings";
 
 // overwrite variables only for this theme 
 @import "theme-variables";
@@ -13,13 +21,14 @@
 // utilities also bootstrap need
 @import 'utilities';
 
-// fixes for bootstrap we nee
+// fixes for bootstrap we need
 @import 'fixes';
 
 // bootstrap 4 compatible with the scss version of octobercms
 @import '../vendor/bootstrap-backward/scss/bootstrap';
 // @import '../vendor/bootstrap/scss/bootstrap';
 
+@import 'bootstrap3';
 
 // all custom styles for this theme
 @import "normalize";

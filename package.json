@@ -6,7 +6,8 @@
   "homepage": "http://www.jumplink.eu",
   "scripts": {
     "theme_settings": "node ./utilities/bootstrap_theme_settings.js && node ./utilities/merge_theme_settings.js",
-    "doc": "node utilities/doc.js"
+    "doc": "node utilities/doc.js",
+    "scssphp": "php ./assets/vendor/scssphp/bin/pscss ./assets/scss/theme.scss ./assets/scss/theme.css"
   },
   "author": "Pascal Garber <pascal.jumplink.eu>",
   "license": "MIT",

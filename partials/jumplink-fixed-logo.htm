@@ -36,10 +36,12 @@ description = "Zeigt ein fixiertes Logo auf der Seite an, beim scrollen wird ein
     style="width: {{width}}"
 >
     <a href="/" title="{{alt}}" class="image">
-        {% partial '../'~sourceLogo %}
+        {# {% partial '../'~sourceLogo %} #}
+        <img src="{{ sourceLogo | theme}}"/>
     </a>
     <a href="/" title="{{alt}}" class="text">
-        {% partial '../'~sourceText %}
+        {# {% partial '../'~sourceText %} #}
+        <img src="{{ sourceText | theme}}"/>
     </a>
     
 </div>

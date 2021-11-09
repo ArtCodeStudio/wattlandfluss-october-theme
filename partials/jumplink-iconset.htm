@@ -2,10 +2,18 @@
 ==
 {% set partialId = 'jumplink-iconset' %}
 
+{# 
 {% if '.svg' in name %}
     {% set snippet= '../assets/iconset/' ~ name %}
 {% else %}
     {% set snippet= '../assets/iconset/' ~ name ~ '.svg' %}
+{% endif %}
+#}
+
+{% if '.svg' in name %}
+    {% set snippet= 'assets/iconset/' ~ name %}
+{% else %}
+    {% set snippet= 'assets/iconset/' ~ name ~ '.svg' %}
 {% endif %}
 
 {% if not class is defined %}
@@ -41,5 +49,6 @@
     class='jumplink-partial iconset {{name}} {{direction}} {{class}} {{color}} w-{{size}} h-{{size}}'
     data-partial-name="{{partialId}}"
 >
-    {% partial snippet %}
+    {# {% partial snippet %} #}
+    <img src="{{ snippet | theme }}" alt="icon">
 </div>
