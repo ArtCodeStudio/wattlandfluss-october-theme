@@ -5,9 +5,10 @@
   "main": "index.js",
   "homepage": "http://www.jumplink.eu",
   "scripts": {
-    "theme_settings": "node ./utilities/bootstrap_theme_settings.js && node ./utilities/merge_theme_settings.js",
+    "build:theme-settings": "node ./utilities/bootstrap_theme_settings.js && node ./utilities/merge_theme_settings.js",
     "doc": "node utilities/doc.js",
-    "scssphp": "php ./assets/vendor/scssphp/bin/pscss ./assets/scss/theme.scss ./assets/scss/theme.css"
+    "build:scss": "php ./assets/vendor/scssphp/bin/pscss ./assets/scss/theme.scss ./assets/scss/theme.css",
+    "backup": "npm run backup:create -w backup"
   },
   "author": "Pascal Garber <pascal.jumplink.eu>",
   "license": "MIT",
@@ -17,5 +18,8 @@
     "js-yaml": "^3.6.1",
     "write-yaml": "^0.2.2",
     "documentation": "^6.0.0"
-  }
+  },
+  "workspaces": [
+    "tools/*"
+  ]
 }
