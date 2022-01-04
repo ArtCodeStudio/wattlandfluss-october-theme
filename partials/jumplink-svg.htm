@@ -1,0 +1,18 @@
+==
+<?php
+function onStart() {
+    $this['debug'] = Config::get('app.debug');
+    try {
+      $this['svgContents'] = File::get(themes_path($this->theme->getDirName().'/'.$this->file));
+    } catch(Exception $e) {
+      $this['error'] = $e->getMessage();
+    }
+}
+?>
+==
+{% if svgContents %}
+  {{ svgContents|raw }}
+{% elseif debug %}
+  <pre><code>{{ error }}</code></pre>
+{% endif %}
+
