@@ -55,15 +55,13 @@ items:
                     isExternal: '0'
     -
         title: 'Tour Specials'
-        nesting: '0'
+        nesting: 0
         type: static-page
-        url: ''
         code: ''
         reference: fuehrungen-spezial
-        cmsPage: ''
-        replace: '0'
+        replace: 0
         viewBag:
-            isHidden: '0'
+            isHidden: '1'
             cssClass: tour-specials
             isExternal: '0'
     -
@@ -91,6 +89,19 @@ items:
         viewBag:
             isHidden: '0'
             cssClass: eigene-tour
+            isExternal: '0'
+    -
+        title: Aktuelles
+        nesting: 0
+        type: static-page
+        url: null
+        code: ''
+        reference: aktuelles
+        cmsPage: null
+        replace: 0
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
             isExternal: '0'
     -
         title: Historie
@@ -135,8 +146,10 @@ items:
         title: 'Empfehlungen in Cuxhaven'
         nesting: '0'
         type: static-page
+        url: null
         code: ''
         reference: empfehlungen-cuxhaven
+        cmsPage: null
         replace: '0'
         viewBag:
             isHidden: '0'
