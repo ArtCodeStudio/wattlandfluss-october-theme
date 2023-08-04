@@ -16,6 +16,8 @@ export const dump = (
 
   const mysqlConf = config.connections.mysql;
 
+  console.log("connection:", mysqlConf)
+
   return mysqldump({
     connection: {
       host: mysqlConf.host,
