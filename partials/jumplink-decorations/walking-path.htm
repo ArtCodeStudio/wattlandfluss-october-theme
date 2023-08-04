@@ -5,15 +5,17 @@
 {% else %}
     {% set containerClass = 'container-fluid'%}
 {% endif %}
+{% set svgDesktop = ('assets/images/' ~ svgFilenameDesktop) %}
+{% set svgMobile = ('assets/images/' ~ svgFilenameMobile) %}
 
 
 <div class="{{containerClass}} walking-path">
     <div class="row ">
         <div class="col-xs-12 col-md-8 hidden-sm-down">
-            {% partial 'images/' ~ svgFilenameDesktop %}
+            {% partial 'jumplink-svg.htm' file=svgDesktop %}
         </div>
         <div class="col-xs-12 hidden-md-up pb-3">
-            {% partial 'images/' ~ svgFilenameMobile %}
+           {# {% partial 'jumplink-svg.htm' file=svgMobile %} #}
         </div>
     </div>
 </div>
