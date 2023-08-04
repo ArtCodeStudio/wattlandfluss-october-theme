@@ -63,7 +63,7 @@ rivets.components.datepicker = {
             lang: data.lang,
             minDate: moment().subtract(1, 'days'), // min day is today
             buttons: true,
-            date: controller.dates[0], 
+
             format: data.format,
             apply: onChange,
         });

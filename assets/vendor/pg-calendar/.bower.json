@@ -30,14 +30,15 @@
     "test",
     "tests"
   ],
-  "_release": "78d17b1ed5",
+  "version": "1.4.31",
+  "_release": "1.4.31",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "78d17b1ed5d06ac408648cf60314e367ae9da2e3"
+    "type": "version",
+    "tag": "v1.4.31",
+    "commit": "c0b674869e5d38713af2befc6cde87f70521bb33"
   },
   "_source": "https://github.com/KennethanCeyer/PIGNOSE-Calendar.git",
-  "_target": "master",
+  "_target": "^1.4.31",
   "_originalSource": "pg-calendar",
   "_direct": true
 }
