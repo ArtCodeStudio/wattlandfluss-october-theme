@@ -8,7 +8,7 @@ rivets.components['rv-img'] = {
   },
   initialize: function(el, data) {
     var controller = this;
-    // controller.debug = window.debug('rivets:rv-img');
+    // console.debug = window.debug('rivets:rv-img');
     var $el = $(el);
     var observer;
     controller.src = data.src;
@@ -62,7 +62,7 @@ rivets.components['rv-img'] = {
         beforeLoad: function(element) {
             controller.loaded = false;
             // $el.off('DOMSubtreeModified');
-            // controller.debug('[beforeLoad]', element, controller);
+            // console.debug('[beforeLoad]', element, controller);
             if (jumplink.utilities.isFunction(data.beforeLoad)) {
                 data.beforeLoad($el, controller);
             }
@@ -71,7 +71,7 @@ rivets.components['rv-img'] = {
         /**  called after an element was successfully handled */
         afterLoad: function(element) {
             controller.loaded = true;
-            // controller.debug('[afterLoad]', element, controller);
+            // console.debug('[afterLoad]', element, controller);
             // controller.style = 'padding-top: ' + controller.heightInPercent + '%;';
             if (jumplink.utilities.isFunction(data.afterLoad)) {
                 data.afterLoad($el, controller);
@@ -81,7 +81,7 @@ rivets.components['rv-img'] = {
         /** called whenever an element could not be handled */
         onError: function(element) {
             controller.loaded = false;
-            // controller.debug('[onError] image "' + controller.src + '" could not be loaded');
+            // console.debug('[onError] image "' + controller.src + '" could not be loaded');
             if (jumplink.utilities.isFunction(data.onError)) {
                 data.onError($el, controller);
             }
@@ -91,40 +91,61 @@ rivets.components['rv-img'] = {
         onFinishedAll: function() {
             controller.loaded = true;
             // $el.find('spinner').hide();
-            // controller.debug('[onFinishedAll]', controller);
+            // console.debug('[onFinishedAll]', controller);
             if (jumplink.utilities.isFunction(data.onFinishedAll)) {
                 data.onFinishedAll($el, controller);
             }
         },
     };
     
-    // controller.debug('initialize', el, data, controller, options);
+    // console.debug('initialize', el, data, controller, options);
         
     /**
      * For lazy loading options see https://github.com/eisbehr-/jquery.lazy#configuration-parameters
      */
     var ready = function(mutationsList) {
-        // controller.debug('ready mutationsList', mutationsList);
+        //console.debug('ready mutationsList', mutationsList);
         var $img = $el.find('.lazy');  
         if($img.length) {
             var data = $img.data();
             if(!data.src) {
-                console.warn('component was not rendered correctly! Do a WORKAROUND');
+                // console.warn('component was not rendered correctly! Do a WORKAROUND. data:', data);
                 rivets.bind($img, controller); // WORKAROUND
                 jumplink.utilities.triggerResize();
             }
             $img.Lazy(options);
-            // controller.debug('init Lazy', options, $img, $img.data());
+            // console.debug('init Lazy', options, $img, $img.data());
         } else {
             
         }
     }  
 
-    $el.one('DOMSubtreeModified', function() {
-        setTimeout(function() {
-            ready();
-        }, 0);     
+    // Use MutationObserver instead of deprecated DOMSubtreeModified
+    observer = new MutationObserver(function(mutationsList) {
+        // Check if .lazy element was added
+        var $img = $el.find('.lazy');
+        if($img.length) {
+            observer.disconnect(); // Stop observing once we found the element
+            setTimeout(function() {
+                ready(mutationsList);
+            }, 0);
+        }
     });
+    
+    // Start observing the element for child changes
+    observer.observe(el, {
+        childList: true,
+        subtree: true
+    });
+    
+    // Also call ready immediately in case element is already rendered
+    setTimeout(function() {
+        var $img = $el.find('.lazy');
+        if($img.length) {
+            observer.disconnect();
+            ready();
+        }
+    }, 0);
             
     return controller;
   }

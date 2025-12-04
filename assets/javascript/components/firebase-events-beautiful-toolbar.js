@@ -162,13 +162,34 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         controller.debug('show.bs.collapse', controller.collapsed);
     });
             
-    $el.one('DOMSubtreeModified', function() {
-        setTimeout(function() {
+    // Use MutationObserver instead of deprecated DOMSubtreeModified
+    var observer = new MutationObserver(function(mutationsList) {
+        // Check if component is ready (has any child elements)
+        if($el.children().length > 0) {
+            observer.disconnect(); // Stop observing once component is ready
+            setTimeout(function() {
+                controller.onSelectEventChanged({index: 0});
+                controller.onDateChanged([moment()]);
+                controller.validation = jumplink.events.getValidationsForEvent(controller.event);
+            }, 0);
+        }
+    });
+    
+    // Start observing the element for child changes
+    observer.observe(el, {
+        childList: true,
+        subtree: true
+    });
+    
+    // Also call immediately in case component is already rendered
+    setTimeout(function() {
+        if($el.children().length > 0) {
+            observer.disconnect();
             controller.onSelectEventChanged({index: 0});
             controller.onDateChanged([moment()]);
             controller.validation = jumplink.events.getValidationsForEvent(controller.event);
-        }, 0);     
-    });
+        }
+    }, 0);
         
     return controller;
   }

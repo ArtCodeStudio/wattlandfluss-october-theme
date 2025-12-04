@@ -251,11 +251,30 @@ rivets.components['firebase-event-form'] = {
     
     };
     
-    $el.one('DOMSubtreeModified', function() {
-        setTimeout(function() {
-            ready();
-        }, 0);     
+    // Use MutationObserver instead of deprecated DOMSubtreeModified
+    var observer = new MutationObserver(function(mutationsList) {
+        // Check if component is ready (has any child elements)
+        if($el.children().length > 0) {
+            observer.disconnect(); // Stop observing once component is ready
+            setTimeout(function() {
+                ready();
+            }, 0);
+        }
     });
+    
+    // Start observing the element for child changes
+    observer.observe(el, {
+        childList: true,
+        subtree: true
+    });
+    
+    // Also call ready immediately in case component is already rendered
+    setTimeout(function() {
+        if($el.children().length > 0) {
+            observer.disconnect();
+            ready();
+        }
+    }, 0);
 
     return controller;
   }

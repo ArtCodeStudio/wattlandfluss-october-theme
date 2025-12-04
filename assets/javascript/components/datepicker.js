@@ -71,11 +71,32 @@ rivets.components.datepicker = {
     };
     
 
-    $el.one('DOMSubtreeModified', function() {
-        setTimeout(function() {
-            ready();
-        }, 0);     
+    // Use MutationObserver instead of deprecated DOMSubtreeModified
+    var observer = new MutationObserver(function(mutationsList) {
+        // Check if input element was added
+        var $input = $el.find('input');
+        if($input.length) {
+            observer.disconnect(); // Stop observing once we found the element
+            setTimeout(function() {
+                ready();
+            }, 0);
+        }
     });
+    
+    // Start observing the element for child changes
+    observer.observe(el, {
+        childList: true,
+        subtree: true
+    });
+    
+    // Also call ready immediately in case element is already rendered
+    setTimeout(function() {
+        var $input = $el.find('input');
+        if($input.length) {
+            observer.disconnect();
+            ready();
+        }
+    }, 0);
     
     return controller;
   }
