@@ -1,0 +1,32 @@
+[viewBag]
+==
+<div class="math-captcha">
+    <div class="math-captcha-challenge" rv-show="loaded">
+        <label class="math-captcha-label">
+            Sicherheitsfrage
+        </label>
+        <div class="math-captcha-question">
+            <span class="math-captcha-num">{num1}</span>
+            <span class="math-captcha-operator">+</span>
+            <span class="math-captcha-num">{num2}</span>
+            <span class="math-captcha-hidden" aria-hidden="true">+ {numHidden}</span>
+            <span class="math-captcha-equals">=</span>
+            <input 
+                type="number" 
+                class="form-control math-captcha-input" 
+                name="captcha_answer" 
+                rv-value="answer"
+                required
+                placeholder="?"
+                autocomplete="off"
+            >
+        </div>
+        <input type="hidden" name="captcha_token" rv-value="token">
+    </div>
+    <div class="math-captcha-loading" rv-hide="loaded">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span>Laden...</span>
+    </div>
+    <div class="math-captcha-error" rv-show="error" rv-text="error"></div>
+</div>
+

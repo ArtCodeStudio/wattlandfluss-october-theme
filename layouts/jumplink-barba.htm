@@ -9,34 +9,127 @@ default = 0
 <?php
 use Debugbar as Debugbar;
 
+/**
+ * Generate a math captcha challenge
+ * Returns two visible numbers and one hidden number (honeypot)
+ * The user should only add the visible numbers, bots may add all three
+ */
+function onGetMathChallenge() {
+    $num1 = rand(1, 9);
+    $num2 = rand(1, 9);
+    $numHidden = rand(1, 9);
+
+    // Generate unique token for this challenge
+    $token = bin2hex(random_bytes(16));
+
+    // Store the expected answer (only visible numbers) with the token
+    $expectedAnswer = $num1 + $num2;
+    \Session::put($this->mathCaptchaKey($token), $expectedAnswer);
+
+    \Log::debug('[MathCaptcha] Generated challenge', [
+        'token' => $token,
+        'expectedAnswer' => $expectedAnswer
+    ]);
+
+    // Return as explicit JSON response
+    return \Response::json([
+        'num1' => $num1,
+        'num2' => $num2,
+        'numHidden' => $numHidden,
+        'token' => $token
+    ]);
+}
+
+/**
+ * Validate the math captcha answer
+ * Returns true if valid, throws exception if invalid
+ */
+function validateMathCaptcha() {
+    $token = trim((string) post('captcha_token'));
+    $userAnswerRaw = post('captcha_answer');
+
+    \Log::debug('[MathCaptcha] Validating', [
+        'token' => $token,
+        'userAnswer' => $userAnswerRaw
+    ]);
+
+    if ($token === '' || $userAnswerRaw === null || $userAnswerRaw === '') {
+        throw new \ApplicationException('Sicherheitsüberprüfung fehlgeschlagen. Bitte laden Sie die Seite neu.');
+    }
+
+    $userAnswer = (int) $userAnswerRaw;
+    $sessionKey = $this->mathCaptchaKey($token);
+    $expectedAnswer = \Session::pull($sessionKey);
+
+    \Log::debug('[MathCaptcha] Session lookup', [
+        'sessionKey' => $sessionKey,
+        'expectedAnswer' => $expectedAnswer
+    ]);
+
+    if ($expectedAnswer === null) {
+        throw new \ApplicationException('Sicherheitsüberprüfung abgelaufen. Bitte laden Sie die Seite neu.');
+    }
+
+    if ($userAnswer !== (int) $expectedAnswer) {
+        \Log::debug('[MathCaptcha] Answer mismatch', [
+            'userAnswer' => $userAnswer,
+            'expectedAnswer' => $expectedAnswer
+        ]);
+        throw new \ApplicationException('Die Rechenaufgabe wurde nicht korrekt gelöst.');
+    }
+
+    \Log::debug('[MathCaptcha] Validation passed');
+    return true;
+}
+
+/**
+ * Build the session key for a given token.
+ */
+function mathCaptchaKey(string $token) {
+    return 'math_captcha_' . $token;
+}
+
 function onSubmitContact() {
-    
-    Log::info('Used contact form '.post('name'));
-    
+    // FIRST LINE - log immediately to verify handler is called
+    \Log::info('[Contact] Handler called with POST: ' . json_encode(post()));
+
+    // Validate math captcha first
+    $this->validateMathCaptcha();
+
+    \Log::info('Used contact form '.post('name'));
+
     $vars = [
         'name' => post('name'),
         'email' => post('email'),
         'phone' => post('phone'),
         'userMessage' => post('message'),
     ];
-    
-    
+
+
     $buildOwnerMessage = function ($message) use ($vars) {
         $message->to($this->theme->email_address, $this->theme->site_name);
     };
-    
+
     $buildSenderMessage = function ($message) use ($vars) {
         $message->to($vars['email'], $vars['name']);
     };
 
-    // mail to site owner
-    Mail::send('frontend::contact.notify', $vars, $buildOwnerMessage);
-    
-    // mail to contact sender
-    Mail::send('frontend::contact.notify-copy', $vars, $buildSenderMessage);
-    
-    // TODO catch errors
+    // mail to site owner and sender
+    try {
+        Mail::send('frontend::contact.notify', $vars, $buildOwnerMessage);
+        Mail::send('frontend::contact.notify-copy', $vars, $buildSenderMessage);
+        \Log::debug('[Contact] Mails sent successfully');
+    } catch (\Exception $e) {
+        \Log::error('[Contact] Mail send failed: ' . $e->getMessage());
+        throw new \ApplicationException('Nachricht konnte nicht verschickt werden. Bitte später erneut versuchen.');
+    }
+
     $this['result'] = "Nachricht abgeschickt";
+
+    // Return the partial update explicitly
+    return [
+        '.confirm-container' => $this->renderPartial('jumplink-forms/confirm')
+    ];
 }
 
 
@@ -81,7 +174,7 @@ function onReguestEvent() {
     
     // Debugbar::info('[onReguestEvent] $notificationSwipftMailFormat', $notificationSwipftMailFormat);
     
-    Log::info('Book event, Name:'.$input['name'].' '.$input['lastname'].' E-Mail:'.$input['email'].' Event ID'.$input['event']['id'].' Menge: '.$input['quantity']);
+    \Log::info('Book event, Name:'.$input['name'].' '.$input['lastname'].' E-Mail:'.$input['email'].' Event ID'.$input['event']['id'].' Menge: '.$input['quantity']);
         
     Mail::send('frontend::event.book', $vars, function($message) use ($notificationSwipftMailFormat) {
         $message->from($this->theme->email_address,  $this->theme->site_name);
@@ -94,7 +187,7 @@ function onReguestEvent() {
         $message->to($vars['email'], $vars['name'].' '.$vars['lastname']);
     });
     
-    return Response::json($input);
+    return \Response::json($input);
 }
 ?>
 ==

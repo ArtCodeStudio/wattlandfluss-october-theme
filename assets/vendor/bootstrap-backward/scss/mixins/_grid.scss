@@ -40,7 +40,7 @@
 
 
 // For each breakpoint, define the maximum width of the container in a media query
-@mixin make-container-max-widths($container-max-widths-xs: $container-max-widths-xs, $container-max-widths-sm: $container-max-widths-sm, $container-max-widths-md: $container-max-widths-md, $container-max-widths-lg: $container-max-widths-lg, $container-max-widths-xs: $container-max-widths-xs, $breakpoints-xs: $grid-breakpoints-xs, $breakpoints-sm: $grid-breakpoints-sm, $breakpoints-md: $grid-breakpoints-md, $breakpoints-lg: $grid-breakpoints-lg, $breakpoints-xl: $grid-breakpoints-xl) {
+@mixin make-container-max-widths($container-max-widths-xs: $container-max-widths-xs, $container-max-widths-sm: $container-max-widths-sm, $container-max-widths-md: $container-max-widths-md, $container-max-widths-lg: $container-max-widths-lg, $container-max-widths-xl: $container-max-widths-xl, $breakpoints-xs: $grid-breakpoints-xs, $breakpoints-sm: $grid-breakpoints-sm, $breakpoints-md: $grid-breakpoints-md, $breakpoints-lg: $grid-breakpoints-lg, $breakpoints-xl: $grid-breakpoints-xl) {
   @include media-breakpoint-up(sm, $breakpoints-xs, $breakpoints-sm, $breakpoints-md, $breakpoints-lg, $breakpoints-xl) {
     width: $container-max-widths-sm;
     max-width: 100%;

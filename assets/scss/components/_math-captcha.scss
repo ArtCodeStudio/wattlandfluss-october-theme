@@ -1,0 +1,117 @@
+/**
+ * Math Captcha Component Styles
+ * 
+ * A honeypot-style captcha with a hidden number that is transparent.
+ * Bots see all numbers, users only see the visible ones.
+ */
+
+.math-captcha {
+    width: 100%;
+}
+
+.math-captcha-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: inherit;
+}
+
+.math-captcha-question {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.math-captcha-num,
+.math-captcha-operator,
+.math-captcha-equals {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: inherit;
+}
+
+.math-captcha-operator,
+.math-captcha-equals {
+    padding: 0 0.25rem;
+}
+
+/**
+ * The hidden number - this is the honeypot trap for bots.
+ * Uses transparent color so it's invisible to users but present in DOM for bots.
+ * Additional properties prevent accidental selection or interaction.
+ */
+.math-captcha-hidden {
+    color: transparent !important;
+    user-select: none;
+    pointer-events: none;
+    display: inline;
+    font-size: 1.25rem;
+    font-weight: 600;
+    // Prevent screen readers from reading the hidden content
+    // Note: aria-hidden="true" is also set in HTML
+    speak: never;
+    // Make it impossible to highlight/select
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    // Additional obfuscation - zero width space
+    letter-spacing: -0.05em;
+}
+
+.math-captcha-input {
+    width: 4rem !important;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 0.375rem 0.5rem;
+    
+    // Remove spinner buttons in number input
+    -moz-appearance: textfield;
+    
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+.math-captcha-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+    
+    .spinner-border-sm {
+        width: 1rem;
+        height: 1rem;
+        border-width: 0.15em;
+    }
+}
+
+.math-captcha-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+// Dark theme support
+@media (prefers-color-scheme: dark) {
+    .math-captcha-hidden {
+        color: transparent !important;
+    }
+}
+
+// Ensure the hidden number stays invisible on any background
+.math-captcha-question {
+    // The hidden text inherits transparent color regardless of parent
+    .math-captcha-hidden {
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+}
+

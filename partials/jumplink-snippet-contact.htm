@@ -40,6 +40,8 @@ snippetProperties[source][options][] = ""
                     <form class="contactForm row" role="form"
                           data-request="onSubmitContact"
                           data-request-update="'jumplink-forms/confirm': '.confirm-container'">
+                        {{ form_token() }}
+                        {{ form_sessionKey() }}
                         <div class="col-xs-12">
                             <div class="confirm-container">
                                 {# This will contain the confirmation when the email is successfully sent #}
@@ -63,6 +65,9 @@ snippetProperties[source][options][] = ""
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-danger" name="phone" required placeholder="Telefon">
+                                </div>
+                                <div class="form-group">
+                                    <math-captcha></math-captcha>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-outline-dark align-self-end hidden-md-up">Absenden</button>

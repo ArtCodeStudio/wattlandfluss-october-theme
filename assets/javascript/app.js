@@ -284,6 +284,16 @@ var initTemplates = function () {
         
         jumplink.templates.prepairTemplate(container, $container.data());
       }
+      
+      // Re-initialize Winter CMS AJAX (oc.ajax) after Barba page load
+      try {
+        $(document).trigger('render');
+        if (window.console && console.debug) {
+          console.debug('[app] Triggered Winter CMS render event after Barba newPageReady');
+        }
+      } catch (err) {
+        console.warn('[app] Failed to trigger Winter render event', err);
+      }
   });
 };
 
