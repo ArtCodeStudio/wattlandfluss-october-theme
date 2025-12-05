@@ -96,18 +96,48 @@ function onSubmitContact() {
     // Validate math captcha first
     $this->validateMathCaptcha();
 
-    \Log::info('Used contact form '.post('name'));
+    // Helper to read either flat or nested contact[...] keys
+    $getContactVal = function($key, $fallback = '') {
+        $flat = trim((string) post($key, ''));
+        if ($flat !== '') {
+            return $flat;
+        }
+        $nested = post('contact', []);
+        if (is_array($nested) && isset($nested[$key])) {
+            return trim((string) $nested[$key]);
+        }
+        return $fallback;
+    };
+
+    // Validate user email (supports contact[email] or email)
+    $userEmail = $getContactVal('email');
+    if ($userEmail === '' || !filter_var($userEmail, FILTER_VALIDATE_EMAIL)) {
+        throw new \ApplicationException('Bitte eine gültige E-Mail-Adresse angeben.');
+    }
+
+    // Validate theme email (receiver)
+    $ownerEmail = $this->theme->email_address ?? null;
+    if (empty($ownerEmail) || !filter_var($ownerEmail, FILTER_VALIDATE_EMAIL)) {
+        \Log::error('[Contact] Missing or invalid theme email_address');
+        throw new \ApplicationException('Empfänger-Adresse nicht konfiguriert. Bitte später erneut versuchen.');
+    }
+
+    $name = $getContactVal('name');
+    $phone = $getContactVal('phone');
+    $messageText = $getContactVal('message', $getContactVal('problem_description'));
+
+    \Log::info('Used contact form '.$name);
 
     $vars = [
-        'name' => post('name'),
-        'email' => post('email'),
-        'phone' => post('phone'),
-        'userMessage' => post('message'),
+        'name' => $name,
+        'email' => $userEmail,
+        'phone' => $phone,
+        'userMessage' => $messageText,
     ];
 
 
     $buildOwnerMessage = function ($message) use ($vars) {
-        $message->to($this->theme->email_address, $this->theme->site_name);
+        $message->to($this->theme->email_address, $this->theme->site_name ?: 'Site');
     };
 
     $buildSenderMessage = function ($message) use ($vars) {

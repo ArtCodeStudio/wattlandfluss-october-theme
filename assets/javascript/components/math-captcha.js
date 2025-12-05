@@ -168,6 +168,31 @@ rivets.components['math-captcha'] = {
             submitInFlight = true;
             controller.error = null;
 
+            var handler = $form.attr('data-request') || $form.data('request') || 'onSubmitContact';
+
+            var extractPartials = function(updateVal) {
+                if (!updateVal) return '';
+                if (typeof updateVal === 'object') {
+                    return Object.keys(updateVal).join('&');
+                }
+                if (typeof updateVal === 'string') {
+                    // Try to extract quoted partial keys: 'partial': 'selector'
+                    var matches = updateVal.match(/'([^']+)'/g);
+                    if (matches) {
+                        return matches
+                            .map(function(m) { return m.replace(/'/g, ''); })
+                            // skip selectors like ".confirm-container"
+                            .filter(function(val) { return val && val[0] !== '.' && val[0] !== '#'; })
+                            .join('&');
+                    }
+                    // Fallback: trim braces and split by comma/colon heuristics
+                    return updateVal.replace(/[{}]/g, '').split(':')[0].trim();
+                }
+                return '';
+            };
+
+            var partialsHeader = extractPartials($form.data('requestUpdate') || $form.attr('data-request-update'));
+
             var showError = function(jqXHR) {
                 var msg = extractErrorMessage(jqXHR);
                 controller.error = msg;
@@ -201,7 +226,7 @@ rivets.components['math-captcha'] = {
                 type: 'POST',
                 dataType: 'json',
                 data: $form.serialize(),
-                headers: buildWinterHeaders('onSubmitContact', 'jumplink-forms/confirm'),
+                headers: buildWinterHeaders(handler, partialsHeader),
                 success: function(response) {
                     controller.debug('submitForm: success (ajax)', response);
                     showSuccess(response);

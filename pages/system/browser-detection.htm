@@ -10,20 +10,67 @@ robot_index = "index"
 robot_follow = "follow"
 ==
 <?php
+/**
+ * Build session key for math captcha
+ */
+function mathCaptchaKey(string $token) {
+    return 'math_captcha_' . $token;
+}
+
+/**
+ * Validate math captcha answer
+ */
+function validateMathCaptcha() {
+    $token = trim((string) post('captcha_token'));
+    $userAnswerRaw = post('captcha_answer');
+
+    \Log::debug('[MathCaptcha][BrowserDetection] Validating', [
+        'token' => $token,
+        'userAnswer' => $userAnswerRaw
+    ]);
+
+    if ($token === '' || $userAnswerRaw === null || $userAnswerRaw === '') {
+        throw new \ApplicationException('Sicherheitsüberprüfung fehlgeschlagen. Bitte laden Sie die Seite neu.');
+    }
+
+    $userAnswer = (int) $userAnswerRaw;
+    $sessionKey = $this->mathCaptchaKey($token);
+    $expectedAnswer = \Session::pull($sessionKey);
+
+    if ($expectedAnswer === null) {
+        throw new \ApplicationException('Sicherheitsüberprüfung abgelaufen. Bitte laden Sie die Seite neu.');
+    }
+
+    if ($userAnswer !== (int) $expectedAnswer) {
+        throw new \ApplicationException('Die Rechenaufgabe wurde nicht korrekt gelöst.');
+    }
+
+    return true;
+}
+
 function onSubmitBrowserForm() {
     
-    Log::info('Contact from in browser detection from user: '.post('contact[firstname]'));
+    \Log::info('Contact from in browser detection from user: '.post('contact[firstname]'));
+    
+    // Validate math captcha
+    $this->validateMathCaptcha();
+
+    // Basic validation
+    $email = trim((string) post('contact[email]'));
+    if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new \ApplicationException('Bitte eine gültige E-Mail-Adresse angeben.');
+    }
     
     $vars = [
-        'firstname'     => post('contact[firstname]'),
-        'name'          => post('contact[name]'),
-        'email'         => post('contact[email]'),
-        'phone'         => post('contact[phone]'),
-        'browser'       => post('contact[browser]'),
-        'version'       => post('contact[version]'),
-        'os'            => post('contact[os]'),
-        'engine'        => post('contact[engine]'),
-        'problem_description' => post('contact[problem_description]'),
+        'firstname'     => trim((string) post('contact[firstname]')),
+        'name'          => trim((string) post('contact[name]')),
+        'email'         => $email,
+        'phone'         => trim((string) post('contact[phone]')),
+        'browser'       => trim((string) post('contact[browser]')),
+        'version'       => trim((string) post('contact[version]')),
+        'os'            => trim((string) post('contact[os]')),
+        'engine'        => trim((string) post('contact[engine]')),
+        'problem_description' => trim((string) post('contact[problem_description]')),
     ];
     
     $buildOwnerMessage = function ($message) use ($vars) {
@@ -36,12 +83,20 @@ function onSubmitBrowserForm() {
     };
 
     // mail to site owner
-    Mail::send('frontend::browser.notify', $vars, $buildOwnerMessage);
-    
-    // mail to contact sender
-    Mail::send('frontend::browser.notify-copy', $vars, $buildSenderMessage);
+    try {
+        Mail::send('frontend::browser.notify', $vars, $buildOwnerMessage);
+        
+        // mail to contact sender
+        Mail::send('frontend::browser.notify-copy', $vars, $buildSenderMessage);
+    } catch (\Exception $e) {
+        \Log::error('[BrowserDetection] Mail send failed: '.$e->getMessage());
+        throw new \ApplicationException('Nachricht konnte nicht verschickt werden. Bitte später erneut versuchen.');
+    }
 
     $this['result'] = "Nachricht abgeschickt";
+    return [
+        '.confirm-container' => $this->renderPartial('jumplink-forms/confirm')
+    ];
 }
 ?>
 ==

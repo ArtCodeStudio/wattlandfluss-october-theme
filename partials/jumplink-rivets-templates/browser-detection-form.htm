@@ -230,6 +230,8 @@
     data-request="onSubmitBrowserForm"
     data-request-update="'jumplink-forms/confirm': '.confirm-container'"
   >
+    {{ form_token() }}
+    {{ form_sessionKey() }}
 
     <div class="col-xs-12 description m-t-2">
       <p>{{ 'browser.form.text' |_ }}</p>
@@ -298,6 +300,12 @@
             <textarea required rows="10" class="form-control" id="contactFormMessage" placeholder="{{ 'contact.form.problem_description' |_ }}" name="contact[problem_description]"></textarea>
           </div>
         </div>
+        <div class="col-xs-12">
+          <div class="form-group text-left">
+            <math-captcha></math-captcha>
+          </div>
+        </div>
+
         <div class="col-xs-12">
           <div class="form-group text-left">
             <input type="submit" class="btn btn-primary p-x-1" id="contactFormSubmit" value="{{ 'contact.form.send' |_ }}" />
