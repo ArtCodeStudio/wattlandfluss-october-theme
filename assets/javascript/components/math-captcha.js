@@ -34,6 +34,7 @@ rivets.components['math-captcha'] = {
 
         // UI state
         controller.loaded = false;
+        controller.loading = true;
         controller.error = null;
 
         /**
@@ -118,6 +119,7 @@ rivets.components['math-captcha'] = {
          */
         controller.fetchChallenge = function() {
             controller.loaded = false;
+            controller.loading = true;
             controller.error = null;
             controller.answer = '';
 
@@ -143,16 +145,19 @@ rivets.components['math-captcha'] = {
                         controller.numHidden = data.numHidden;
                         controller.token = data.token;
                         controller.loaded = true;
+                        controller.loading = false;
                         controller.error = null;
                         return;
                     }
                     controller.error = 'Unerwartete Antwort vom Server.';
                     controller.loaded = true;
+                    controller.loading = false;
                 },
                 error: function(xhr) {
                     controller.debug('fetchChallenge: error (fallback)', xhr);
                     controller.error = extractErrorMessage(xhr, 'Fehler beim Laden der Sicherheitsfrage.');
                     controller.loaded = true;
+                    controller.loading = false;
                 }
             });
         };

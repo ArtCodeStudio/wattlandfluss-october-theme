@@ -16279,104 +16279,21 @@ preview-file label {
 }
 
 /**
- * Math Captcha Component Styles
- * 
- * A honeypot-style captcha with a hidden number that is transparent.
- * Bots see all numbers, users only see the visible ones.
+ * Math Captcha Component
+ * Lean on Bootstrap form styling; only keep what we need for the honeypot.
  */
 .math-captcha {
-  width: 100%;
+  font-size: 16px;
 }
-
-.math-captcha-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-  color: inherit;
+.math-captcha .math-captcha-input {
+  font-size: 16px;
+  max-width: 3rem;
 }
-
-.math-captcha-question {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.math-captcha-num,
-.math-captcha-operator,
-.math-captcha-equals {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: inherit;
-}
-
-.math-captcha-operator,
-.math-captcha-equals {
-  padding: 0 0.25rem;
-}
-
-/**
- * The hidden number - this is the honeypot trap for bots.
- * Uses transparent color so it's invisible to users but present in DOM for bots.
- * Additional properties prevent accidental selection or interaction.
- */
-.math-captcha-hidden {
+.math-captcha .math-captcha-hidden {
   color: transparent !important;
   user-select: none;
   pointer-events: none;
   display: inline;
-  font-size: 1.25rem;
-  font-weight: 600;
-  speak: never;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  letter-spacing: -0.05em;
-}
-
-.math-captcha-input {
-  width: 4rem !important;
-  text-align: center;
-  font-size: 1.25rem;
-  font-weight: 600;
-  padding: 0.375rem 0.5rem;
-  -moz-appearance: textfield;
-}
-.math-captcha-input::-webkit-outer-spin-button, .math-captcha-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.math-captcha-loading {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #6c757d;
-  font-size: 0.875rem;
-}
-.math-captcha-loading .spinner-border-sm {
-  width: 1rem;
-  height: 1rem;
-  border-width: 0.15em;
-}
-
-.math-captcha-error {
-  color: #dc3545;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  .math-captcha-hidden {
-    color: transparent !important;
-  }
-}
-.math-captcha-question .math-captcha-hidden {
-  background: transparent;
-  border: none;
-  outline: none;
 }
 
 .sidebar-toggler-text {

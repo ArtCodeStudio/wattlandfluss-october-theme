@@ -1,19 +1,21 @@
 [viewBag]
 ==
 <div class="math-captcha">
-    <div class="math-captcha-challenge" rv-show="loaded">
-        <label class="math-captcha-label">
+    <div class="math-captcha-challenge text-muted" rv-show="loaded">
+        <label class="d-block ml-1">
             Sicherheitsfrage
         </label>
-        <div class="math-captcha-question">
-            <span class="math-captcha-num">{num1}</span>
-            <span class="math-captcha-operator">+</span>
-            <span class="math-captcha-num">{num2}</span>
-            <span class="math-captcha-hidden" aria-hidden="true">+ {numHidden}</span>
-            <span class="math-captcha-equals">=</span>
+        <div class="input-group align-items-center math-captcha-question">
+            <div class="input-group-prepend">
+                <span class="input-group-text bg-transparent border-0 px-1">{num1}</span>
+                <span class="input-group-text bg-transparent border-0 px-1">+</span>
+                <span class="input-group-text bg-transparent border-0 px-1">{num2}</span>
+                <span class="input-group-text bg-transparent border-0 px-1 math-captcha-hidden" aria-hidden="true">+ {numHidden}</span>
+                <span class="input-group-text bg-transparent border-0 px-1">=</span>
+            </div>
             <input 
                 type="number" 
-                class="form-control math-captcha-input" 
+                class="form-control bg-transparent border-0 px-0 math-captcha-input text-center" 
                 name="captcha_answer" 
                 rv-value="answer"
                 required
@@ -23,10 +25,10 @@
         </div>
         <input type="hidden" name="captcha_token" rv-value="token">
     </div>
-    <div class="math-captcha-loading" rv-hide="loaded">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    <div class="math-captcha-loading  align-items-center text-muted small" rv-show="loading">
+        <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
         <span>Laden...</span>
     </div>
-    <div class="math-captcha-error" rv-show="error" rv-text="error"></div>
+    <div class="math-captcha-error text-danger small mt-2" rv-show="error" rv-text="error"></div>
 </div>
 
