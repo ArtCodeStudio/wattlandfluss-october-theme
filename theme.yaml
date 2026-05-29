@@ -915,6 +915,7 @@ form:
             theme_color:
                 label: 'Theme color'
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 comment: '<br><br><br>Color of the <a href="https://developers.google.com/web/updates/2015/08/using-manifest-to-set-sitewide-theme-color" target="_blank">browser address bar on Smartpohnes</a>.'
                 commentHtml: true
                 default: '#ffffff'
@@ -922,6 +923,7 @@ form:
             tile_color:
                 label: 'Tile color'
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 comment: '<br><br><br>Color of the <a href="https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-helpandsupport-helpandsupport-tilecolor" target="_blank">tile on Windows Phone</a>.'
                 commentHtml: true
                 default: '#ffffff'
@@ -929,6 +931,7 @@ form:
             mask_color:
                 label: 'Mask color'
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 comment: '<br><br><br>Color of the <a href="https://steemit.com/deutsch/@rilc0n/icon-fuer-angepinnte-tabs-in-safari-erstellen" target="_blank">icon on Safari</a>.'
                 commentHtml: true
                 default: '#ffffff'
@@ -939,90 +942,105 @@ form:
                 tab: 'Bootstrap 4.0.0-alpha.6'
             bs4-white:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: white
                 default: '#fff'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: white
             bs4-black:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: black
                 default: '#000'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: black
             bs4-red:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: red
                 default: '#d9534f'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: red
             bs4-orange:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: orange
                 default: '#f0ad4e'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: orange
             bs4-yellow:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: yellow
                 default: '#ffd500'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: yellow
             bs4-green:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: green
                 default: '#5cb85c'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: green
             bs4-blue:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: blue
                 default: '#0275d8'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: blue
             bs4-teal:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: teal
                 default: '#5bc0de'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: teal
             bs4-pink:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: pink
                 default: '#ff5b77'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: pink
             bs4-purple:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: purple
                 default: '#613d7c'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: purple
             bs4-gray-dark:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: gray-dark
                 default: '#292b2c'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: gray-dark
             bs4-gray:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: gray
                 default: '#464a4c'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: gray
             bs4-gray-light:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: gray-light
                 default: '#636c72'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: gray-light
             bs4-gray-lighter:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: gray-lighter
                 default: '#eceeef'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: gray-lighter
             bs4-gray-lightest:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: gray-lightest
                 default: '#f7f7f9'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -2959,6 +2977,7 @@ form:
                 assetVar: nav-disabled-link-hover-bg
             bs4-nav-tabs-border-color:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: nav-tabs-border-color
                 default: '#ddd'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -2995,12 +3014,14 @@ form:
                 assetVar: nav-tabs-active-link-hover-bg
             bs4-nav-tabs-active-link-hover-border-color:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: nav-tabs-active-link-hover-border-color
                 default: '#ddd'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: nav-tabs-active-link-hover-border-color
             bs4-nav-tabs-justified-link-border-color:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: nav-tabs-justified-link-border-color
                 default: '#ddd'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -3095,6 +3116,7 @@ form:
                 assetVar: pagination-border-width
             bs4-pagination-border-color:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: pagination-border-color
                 default: '#ddd'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -3113,6 +3135,7 @@ form:
                 assetVar: pagination-hover-bg
             bs4-pagination-hover-border:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: pagination-hover-border
                 default: '#ddd'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -3149,6 +3172,7 @@ form:
                 assetVar: pagination-disabled-bg
             bs4-pagination-disabled-border:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: pagination-disabled-border
                 default: '#ddd'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -3175,12 +3199,14 @@ form:
                 tab: 'Bootstrap 4.0.0-alpha.6'
             bs4-state-success-text:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: state-success-text
                 default: '#3c763d'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: state-success-text
             bs4-state-success-bg:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: state-success-bg
                 default: '#dff0d8'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -3193,12 +3219,14 @@ form:
                 assetVar: state-success-border
             bs4-state-info-text:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: state-info-text
                 default: '#31708f'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: state-info-text
             bs4-state-info-bg:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: state-info-bg
                 default: '#d9edf7'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -3211,12 +3239,14 @@ form:
                 assetVar: state-info-border
             bs4-state-warning-text:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: state-warning-text
                 default: '#8a6d3b'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: state-warning-text
             bs4-state-warning-bg:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: state-warning-bg
                 default: '#fcf8e3'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -3235,12 +3265,14 @@ form:
                 assetVar: state-warning-border
             bs4-state-danger-text:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: state-danger-text
                 default: '#a94442'
                 tab: 'Bootstrap 4.0.0-alpha.6'
                 assetVar: state-danger-text
             bs4-state-danger-bg:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: state-danger-bg
                 default: '#f2dede'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -4023,6 +4055,7 @@ form:
                 assetVar: thumbnail-border-width
             bs4-thumbnail-border-color:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: thumbnail-border-color
                 default: '#ddd'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -4251,6 +4284,7 @@ form:
                 assetVar: code-padding-y
             bs4-code-color:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: code-color
                 default: '#bd4147'
                 tab: 'Bootstrap 4.0.0-alpha.6'
@@ -4287,6 +4321,7 @@ form:
                 assetVar: pre-color
             bs4-pre-border-color:
                 type: colorpicker
+                availableColors: ['#1abc9c','#16a085','#6cc551','#52a838','#b1dbef','#88c9e7','#2da7c7','#227f96','#b281c5','#7b4e8e','#103141','#081821','#f8e095','#dcb22d','#de8754','#d66829','#b33f32','#ab2a1c','#95a5a6','#7f8c8d']
                 label: pre-border-color
                 default: '#ccc'
                 tab: 'Bootstrap 4.0.0-alpha.6'

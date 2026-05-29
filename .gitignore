@@ -44,3 +44,4 @@ nohup.out
 
 # Vender files we do not need
 assets/vendor/rivets/docs/
+theme.yaml.bak-colorpicker-*
