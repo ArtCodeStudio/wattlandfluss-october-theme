@@ -12,8 +12,19 @@
             </div>
             <div class="modal-body">
 
+                <div class="row" rv-show="bookingMessage">
+                    <div class="col-xs-12">
+                        <div
+                            class="alert booking-feedback"
+                            rv-class-alert-success="bookingSuccess"
+                            rv-class-alert-danger="bookingSuccess | not"
+                            rv-html="bookingMessage"
+                        ></div>
+                    </div>
+                </div>
+
                 <div class="row">
-                    
+
                     <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-class-has-error="validation.date.error | count">
                         <input type="date" class="form-control" id="modalDate" rv-value="form.date" disabled="true" placeholder="Datum" name="date" rv-on-change="onDateChanged">
                         <div class="validate-tooltip" rv-html="validation.date.error"></div>
@@ -71,8 +82,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" rv-on-click="onBook">Anfrage absenden</button>
-                <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-outline-dark" rv-on-click="onBook" rv-disabled="sending">
+                    <span rv-hide="sending">Anfrage absenden</span>
+                    <span rv-show="sending">Wird gesendet …</span>
+                </button>
+                <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Schließen</button>
             </div>
 
         </div>
