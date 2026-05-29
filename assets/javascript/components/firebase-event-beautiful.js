@@ -31,7 +31,7 @@ rivets.components['firebase-event-beautiful'] = {
     
     if(controller.event.images.length) {
         var image = controller.event.images[0];
-        controller.imageSrc = image.downloadURL;
+        controller.imageSrc = jumplink.events.getImageUrl(image); // lokaler CMS-Media-Ordner statt Firebase-Storage
         controller.imageAlt = image.metadata.name;
         if (image.customMetadata) {
             controller.imageW = image.customMetadata.width || 800;

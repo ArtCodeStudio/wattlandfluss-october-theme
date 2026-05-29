@@ -6,6 +6,43 @@ window.jumplink.debug = window.jumplink.debug || {};
 window.jumplink.debug.events = debug('theme:events');
 
 /**
+ * Unterordner im CMS-Media-Ordner, in den die Event-Bilder migriert wurden.
+ * Wird per tools/migrate-event-images.js befüllt und spiegelt den früheren
+ * Firebase-Storage-Pfad ( <domain>/events/images/<datei> ).
+ */
+jumplink.events.MEDIA_SUBFOLDER = 'events/images';
+
+/**
+ * Liefert die anzuzeigende Bild-URL für ein Event-Bild.
+ *
+ * Die Bilder werden nicht mehr aus dem Firebase-Storage geladen, sondern aus
+ * dem lokalen Winter-CMS Media-Ordner. Der Dateiname wird – exakt wie im
+ * Migrationsskript – aus der (alten) downloadURL abgeleitet, damit on-disk-Name
+ * und URL garantiert übereinstimmen (Leerzeichen/Umlaute etc.).
+ *
+ * Fallback: Steht kein Media-Pfad zur Verfügung oder lässt sich der Dateiname
+ * nicht ermitteln, wird die ursprüngliche Firebase-downloadURL verwendet – so
+ * funktioniert die Anzeige auch während einer stückweisen Migration weiter.
+ */
+jumplink.events.getImageUrl = function (image) {
+    if (!image) return '';
+    var base = (window.jumplink.settings && jumplink.settings.media_path) || '';
+    var downloadURL = image.downloadURL || '';
+    if (!base) return downloadURL;
+    // downloadURL: https://firebasestorage.googleapis.com/v0/b/<bucket>/o/<urlenc-pfad>?alt=media&token=...
+    var match = downloadURL.match(/\/o\/([^?]+)/);
+    if (!match) {
+        // Bild ohne Firebase-URL: ggf. nur der Dateiname in den Metadaten
+        var metaName = image.metadata && image.metadata.name;
+        if (metaName) return base + jumplink.events.MEDIA_SUBFOLDER + '/' + encodeURIComponent(metaName);
+        return downloadURL;
+    }
+    var objectPath = decodeURIComponent(match[1]); // <domain>/events/images/<datei>
+    var name = objectPath.substring(objectPath.lastIndexOf('/') + 1);
+    return base + jumplink.events.MEDIA_SUBFOLDER + '/' + encodeURIComponent(name);
+};
+
+/**
  * Gibt den Staffelpreis (der für die Anzahl der Personen passt) zurück
  */
 jumplink.events.getEventScalePriceByQuantity = function(event, quanity) {

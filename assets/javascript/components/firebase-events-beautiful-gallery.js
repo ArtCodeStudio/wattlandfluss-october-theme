@@ -33,11 +33,11 @@ rivets.components['firebase-events-beautiful-gallery'] = {
         events.forEach(function(event) {
             controller.debug('event', event);
             /** converts images to the photoswipe format */
-            event.images.forEach(function(image, index) {        
-                /** path to image */
-                image.src = image.downloadURL;
+            event.images.forEach(function(image, index) {
+                /** path to image (lokaler CMS-Media-Ordner statt Firebase-Storage) */
+                image.src = jumplink.events.getImageUrl(image);
                 /** path to small image placeholder, large image will be loaded on top */
-                image.msrc = image.downloadURL;
+                image.msrc = image.src;
                 if (image.customMetadata) {
                     /** image width */
                     image.w = image.customMetadata.width || 800;
