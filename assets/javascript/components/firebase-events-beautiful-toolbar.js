@@ -135,18 +135,14 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         });
     });
     
-    // click on outsite of toolbar
-    $(document).on('click', function() {
-        collapse('hide');
-    });
-    
-    $el.on('click', function() {
-        collapse('show');
-        
-        // do not trigger $(document).on('click', ..)
-        event.stopPropagation();
-    });
-    
+    // Hinweis: Früher schloss ein globaler $(document).click das Accordion bei
+    // JEDEM Klick außerhalb der Toolbar – inkl. Klicks im Datepicker-Popup (an
+    // body gehängt) – und ein $el.click("show") mit fehlerhaftem
+    // event.stopPropagation() (event war undefiniert -> ReferenceError in
+    // Firefox) sollte das verhindern. Das brach das Absenden. Entfernt:
+    // Öffnen/Schließen läuft ausschließlich über den Toggle- und den
+    // Absenden-Button.
+
     $collapse.on('hide.bs.collapse', function () {
         controller.collapsed = false;
         controller.debug('hide.bs.collapse', controller.collapsed);
