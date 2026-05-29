@@ -53,7 +53,18 @@
     
     <div class="collapse pt-md-3">
         <div class="card card-block">
-        
+
+            <div class="row" rv-show="bookingMessage">
+                <div class="col-xs-12">
+                    <div
+                        class="alert"
+                        rv-class-alert-success="bookingSuccess"
+                        rv-class-alert-danger="bookingSuccess | not"
+                        rv-html="bookingMessage"
+                    ></div>
+                </div>
+            </div>
+
             <div class="row hidden-xl-up">
                 <div class="col-xs-12 col-md-4 form-group" rv-class-has-error="validation.date.error | count">
                      <datepicker placeholder="'Datum'" format="'DD.MM.YYYY'" lang="'de'" placeholder="'Datum'" name="'date'" on-change="onDateChanged"></datepicker>
@@ -123,7 +134,10 @@
                 </div>
                 
                 <div class="col-xs-12 text-right pt-2">
-                    <button type="button" class="btn btn-outline-dark" rv-on-click="onBook">Anfrage absenden</button>
+                    <button type="button" class="btn btn-outline-dark" rv-on-click="onBook" rv-disabled="sending">
+                        <span rv-hide="sending">Anfrage absenden</span>
+                        <span rv-show="sending">Wird gesendet …</span>
+                    </button>
                 </div>
                 
                 <div class="col-xs-12 pt-2">

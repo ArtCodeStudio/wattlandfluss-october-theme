@@ -28,8 +28,14 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
     controller.phone = '';
     controller.street = '';
     controller.zip = '';
-    
+
     controller.collapsed = false;
+
+    // Inline-Feedback für die Buchung (zuverlässiger als ein alertify-Toast,
+    // der hinter der sticky Toolbar untergehen kann)
+    controller.sending = false;
+    controller.bookingMessage = '';
+    controller.bookingSuccess = false;
     
     /**
      * validate form, if keys is undefined all keys will be validated
@@ -73,6 +79,7 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         var $form = $(event.target);
         var name = $form.attr('name');
         controller.debug('onInputhanged', name);
+        controller.bookingMessage = ''; // altes Feedback zurücksetzen
         controller.validation = validate(controller.validation, [name]);
     };
     
@@ -104,23 +111,30 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
                 zip: controller.zip,
             };
 
+            controller.sending = true;
+            controller.bookingMessage = '';
+            collapse('show'); // sicherstellen, dass das Feedback sichtbar ist
+
             // lokale API (Plugin) oder bestehender Layout-Handler – je nach Flag
             jumplink.events.requestBooking(form, controller.event)
                 .then(function(response) {
                     controller.debug('request success', response);
+                    controller.sending = false;
+                    controller.bookingSuccess = true;
+                    controller.bookingMessage = 'Vielen Dank! Ihre Anfrage wurde abgeschickt – wir melden uns in Kürze bei Ihnen.';
                     alertify.notify('Anfrage erfolgreich abgeschickt.', 'success', 5, function(){});
-                    collapse('hide');
                 })
                 .catch(function(err) {
                     controller.debug('request error', err);
+                    controller.sending = false;
+                    controller.bookingSuccess = false;
+                    controller.bookingMessage = 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns telefonisch.';
                     alertify.notify('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.', 'error', 5, function(){});
                 });
         } else {
-            var message = 'Bitte überprüfen Sie Ihr Eingabeformular';
-            var notification = alertify.notify(message, 'error' ,5, function(){
-                
-            });
-            
+            controller.bookingSuccess = false;
+            controller.bookingMessage = 'Bitte überprüfen Sie Ihre Eingaben (Vorname, Nachname und E-Mail sind erforderlich).';
+            alertify.notify('Bitte überprüfen Sie Ihr Eingabeformular', 'error', 5, function(){});
             collapse('show');
         }
     };
