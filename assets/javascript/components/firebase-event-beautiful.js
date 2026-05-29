@@ -87,7 +87,6 @@ rivets.components['firebase-event-beautiful'] = {
     
     var ready = function(mutationsList) {
         checkHash();
-        jumplink.utilities.hyphenate();
         observer.disconnect();
     };
     

@@ -67,10 +67,7 @@ window.jumplink.templates.prepairTemplate = function(container, dataset) {
     // window.jumplink.initDataAttributes(dataset);
     
     // window.jumplink.setNavActive(dataset, data);
-    
-    
-    jumplink.utilities.hyphenate(); // todo make a component for this
-    
+
     jumplink.debug.templates('dataset', dataset, 'data', data);
     
     // window.jumplink.utilities.loadImages();

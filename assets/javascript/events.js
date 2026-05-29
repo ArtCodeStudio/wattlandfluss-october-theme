@@ -163,8 +163,9 @@ jumplink.events.calcEventTotal = function (event, quantity) {
     var priceObj = jumplink.events.getEventScalePriceByQuantity(event, quantity);
     var total = 0;
     if(priceObj === null) {
-        var warn = new Error('Kein Staffelpreis gefunden, TODO handle error');
-        window.jumplink.debug.events(warn);
+        // Keine passende Preisstufe für diese Personenzahl – normal bei
+        // "auf Anfrage"-Touren ohne (passende) Staffel. Kein Fehler.
+        window.jumplink.debug.events('calcEventTotal: keine passende Preisstufe für Menge', quantity);
         return null;
     }
     

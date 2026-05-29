@@ -1,0 +1,11 @@
+// Native Browser-Silbentrennung (ersetzt den früheren Hyphenopoly-Polyfill –
+// moderne Browser können das via lang-Attribut + hyphens: auto selbst).
+.hyphenate {
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+}
