@@ -229,13 +229,13 @@ jumplink.events.validate = function(validation, form, keys) {
         
         // value is requred
         if(validation[key].required) {
-            if(jumplink.utilities.isString(form[key])) {
-                if(form[key].length <= 0) {
-                    validation[key].error = 'Dieses Feld ist erforderlich.';
-                }
-            }
-            
-            if(jumplink.utilities.isUndefined(form[key])) {
+            var value = form[key];
+            var isEmpty =
+                jumplink.utilities.isUndefined(value) ||
+                value === null ||
+                (jumplink.utilities.isString(value) && value.replace(/\s/g, '').length <= 0) ||
+                (typeof value === 'number' && isNaN(value));
+            if(isEmpty) {
                 validation[key].error = 'Dieses Feld ist erforderlich.';
             }
         }
@@ -363,12 +363,21 @@ jumplink.events.getValidationsForEvent = function(event) {
         if(validation.quantity.min === null || priceObj.min < validation.quantity.min) {
             validation.quantity.min = priceObj.min;
         }
-        
+
         if(validation.quantity.max === null || priceObj.max > validation.quantity.max) {
             validation.quantity.max = priceObj.max;
         }
     });
-    
+
+    // Fallback, falls keine (gültige) Staffel vorhanden ist – sonst würde die
+    // Mindestanzahl-Prüfung übersprungen und "0 Teilnehmer" durchrutschen.
+    if(!jumplink.utilities.isNumber(validation.quantity.min) || validation.quantity.min < 1) {
+        validation.quantity.min = 1;
+    }
+    if(!jumplink.utilities.isNumber(validation.quantity.max) || validation.quantity.max < validation.quantity.min) {
+        validation.quantity.max = 99;
+    }
+
     return validation;
 };
 

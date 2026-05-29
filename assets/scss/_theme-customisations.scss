@@ -118,3 +118,10 @@ a:not(.btn) {
 //     background-position: center center;
 // }
 
+
+// Buchungs-Feedback-Box: gestrichelter Rahmen passend zum Button-/Input-Stil
+.booking-feedback {
+    border-width: 2px;
+    border-style: dashed;
+    border-radius: 0;
+}
