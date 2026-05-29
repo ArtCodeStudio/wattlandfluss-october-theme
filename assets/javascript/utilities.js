@@ -5,15 +5,6 @@ window.jumplink.utilities = window.jumplink.utilities || {};
 window.jumplink.debug = window.jumplink.debug || {};
 window.jumplink.debug.utilities = debug('theme:utilities');
 
-/**
- * Show global modal with rivets.js
- * Needs the global-modal component in dom
- * TODO move to events
- */
-jumplink.utilities.showGlobalModal = function (data) {
-    $.event.trigger('rivets:global-modal', [true, data]);
-};
-
 jumplink.utilities.cloneArray = function (array) {
     return array.slice(0);
 };

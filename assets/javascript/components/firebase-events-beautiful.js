@@ -62,13 +62,10 @@ rivets.components['firebase-events-beautiful'] = {
         })
         .catch(function(error) {
             controller.debug('error', error);
-            jumplink.utilities.showGlobalModal({
-                title: 'Ereignis konnte nicht geladen werden',
-                body: error.message,
-            });
+            alertify.notify('Ereignis konnte nicht geladen werden.', 'error', 5, function(){});
         });
     };
-    
+
     /*
      * e.g. https://watt-land-fluss.de/event?id=I9YnPGqMpVKR9Q8qmjEI
      */
@@ -87,13 +84,10 @@ rivets.components['firebase-events-beautiful'] = {
         })
         .catch(function(error) {
             controller.debug('error', error);
-            jumplink.utilities.showGlobalModal({
-                title: 'Ereignis konnte nicht geladen werden',
-                body: error.message,
-            });
+            alertify.notify('Ereignis konnte nicht geladen werden.', 'error', 5, function(){});
         });
     };
-    
+
     if(data.getEventByUrlIdParam) {
         getEventByID()
         .then(function() {
