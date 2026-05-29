@@ -13,9 +13,7 @@ rivets.components['firebase-events-beautiful'] = {
     controller.debug = window.debug('rivets:firebase-events-beautiful');
     controller.debug('initialize', el, data);
     var $el = $(el);
-    var db = firebase.firestore();
-    var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
-    
+
     data.getEventByUrlIdParam = data.getEventByUrlIdParam === true || data.getEventByUrlIdParam === 'true' || data.getEventByUrlIdParam === 1 || data.getEventByUrlIdParam === '1';
     
     controller.ready = false;

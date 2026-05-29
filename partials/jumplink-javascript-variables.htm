@@ -25,8 +25,7 @@
     
     jumplink.settings.active_theme_path = '{{"" | theme}}';
     jumplink.settings.media_path = '{{"" | media}}';
-    // Datenquelle für Führungen: lokales JumpLink.Events-Plugin statt Firebase
-    jumplink.settings.use_local_events_api = {{ this.theme.use_local_events_api ? 'true' : 'false' }};
+    // Basis-URL der lokalen Führungen-API (JumpLink.Events-Plugin)
     jumplink.settings.events_api_base = '/api/jumplink/events';
     jumplink.settings.theme = {
         email_address: '{{this.theme.email_address}}',

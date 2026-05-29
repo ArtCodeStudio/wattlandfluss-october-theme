@@ -43,29 +43,12 @@ jumplink.events.getImageUrl = function (image) {
 };
 
 /**
- * Lokale Plugin-API (JumpLink.Events) als Ersatz für die Firestore-Zugriffe.
- *
- * Datenquelle umschaltbar: ist jumplink.settings.use_local_events_api aktiv,
- * lesen get()/getById()/getByTitle() aus der lokalen API statt aus Firestore.
- * Der gesamte Firebase-Code bleibt erhalten, bis die Umstellung verifiziert ist.
+ * Lokale Plugin-API (JumpLink.Events) – einzige Datenquelle für Führungen
+ * (Kalender, Events, Buchungen). Ersetzt die frühere Firebase/Firestore-Lösung.
  */
 jumplink.events.api = {
-    base: (window.jumplink.settings && jumplink.settings.events_api_base) || '/api/jumplink/events',
-    useLocal: !!(window.jumplink.settings && jumplink.settings.use_local_events_api)
+    base: (window.jumplink.settings && jumplink.settings.events_api_base) || '/api/jumplink/events'
 };
-
-// Override per URL-Parameter zum risikofreien Testen, ohne das globale
-// Theme-Setting umzustellen:  ?events_source=local  bzw.  ?events_source=firebase
-(function() {
-    try {
-        var src = new URLSearchParams(window.location.search).get('events_source');
-        if (src === 'local') {
-            jumplink.events.api.useLocal = true;
-        } else if (src === 'firebase' || src === 'remote') {
-            jumplink.events.api.useLocal = false;
-        }
-    } catch (e) { /* URLSearchParams nicht verfügbar -> ignorieren */ }
-})();
 
 /** GET-Request gegen die lokale API, liefert ein natives Promise mit JSON. */
 jumplink.events.apiGet = function(path, params) {
@@ -100,43 +83,25 @@ jumplink.events.apiPost = function(path, payload) {
 };
 
 /**
- * Buchungsanfrage absenden – wählt je nach Flag die lokale API oder den
- * bestehenden Layout-AJAX-Handler (onReguestEvent / Firebase) und liefert
- * in beiden Fällen ein Promise zurück.
+ * Buchungsanfrage an die lokale API senden, liefert ein Promise.
  */
 jumplink.events.requestBooking = function(form, event) {
-    if (jumplink.events.api.useLocal) {
-        var payload = {
-            event_id:  event && event.id,
-            handle:    event && event.handle,
-            title:     event && event.title,
-            calendar:  event && event.calendar,
-            firstname: form.name,
-            lastname:  form.lastname,
-            email:     form.email,
-            phone:     form.phone,
-            street:    form.street,
-            zip:       form.zip,
-            quantity:  form.quantity,
-            total:     form.total,
-            date:      form.date
-        };
-        return jumplink.events.apiPost('/book', payload);
-    }
-
-    // bestehender Pfad: Layout-Handler onReguestEvent (Firebase/E-Mail)
-    var data = form;
-    data.event = event;
-    return new Promise(function(resolve, reject) {
-        $.request('onReguestEvent', {
-            data: data,
-            success: function(response) {
-                var self = this;
-                self.success(response).done(function() { resolve(response); });
-            },
-            error: function(xhr) { reject(xhr); }
-        });
-    });
+    var payload = {
+        event_id:  event && event.id,
+        handle:    event && event.handle,
+        title:     event && event.title,
+        calendar:  event && event.calendar,
+        firstname: form.name,
+        lastname:  form.lastname,
+        email:     form.email,
+        phone:     form.phone,
+        street:    form.street,
+        zip:       form.zip,
+        quantity:  form.quantity,
+        total:     form.total,
+        date:      form.date
+    };
+    return jumplink.events.apiPost('/book', payload);
 };
 
 /** Events aus der lokalen API (gleiche Signatur wie jumplink.events.get). */
@@ -443,64 +408,6 @@ jumplink.events.getDefaultValues = function (calendars, types) {
     return event;
 };
     
-jumplink.events.getDatabaseCollection = function() {
-    var dbEvents = db.collection('customerDomains').doc(jumplink.firebase.config.customerDomain).collection('events');
-    return dbEvents;
-};
-
-/**
- * prepair event object to store in firebase datastore database
- */
-jumplink.events.prepairForFirestore = function(event) {
-    
-    var newEvent = {
-        handle: rivets.formatters.handleize(event.title),
-        active: event.active,
-        title: event.title,
-        subtitle: event.subtitle,
-        description: event.description,
-        showTimes: event.showTimes,
-        startAt: moment(event.startAt),
-        endAt: moment(event.startAt),
-        prices: event.prices,
-        pricetext: event.pricetext || null,
-        notifications: event.notifications,
-        type: event.type,
-        calendar: event.calendar,
-        
-        // additional attributes
-        offer: event.offer || null,
-        location: event.location || null,
-        equipment: event.equipment || null,
-        
-        note: event.note || null,
-        images: event.images,
-        price: null,
-    };
-
-    // split times in hour and minutes
-    var startTimes = event.startTimeAt.split(':');
-    var endTimes = event.endTimeAt.split(':');
-    
-    // set time to start and end date
-    newEvent.startAt.hour(startTimes[0]);
-    newEvent.startAt.minute(startTimes[1]);
-    newEvent.endAt.hour(endTimes[0]);
-    newEvent.endAt.minute(endTimes[1]);
-    
-    // firestore need the default date object to store
-    newEvent.startAt = newEvent.startAt.toDate();
-    newEvent.endAt = newEvent.endAt.toDate();
-    
-    // Merge old images with new uploaded images
-    if(!jumplink.utilities.isArray(newEvent.images)) {
-        jumplink.debug.events('no images are set, init image object with empty array!');
-        newEvent.images = [];
-    }
-    
-    return newEvent;
-};
-
 /**
  * Get event from array by property and value
  */
@@ -554,34 +461,7 @@ jumplink.events.pushGroupedByProperty = function(events, event, groupBy) {
  */
 jumplink.events.getById = function (id) {
     jumplink.debug.events('getById', id);
-
-    if (jumplink.events.api.useLocal) {
-        return jumplink.events.getByIdFromApi(id);
-    }
-
-    var dbEvents = jumplink.events.getDatabaseCollection();
-    
-    try {
-        return dbEvents.doc(id)
-        .get()
-        .then(function(docRef) {
-            if (!docRef.exists) {
-                var error = new Error('Event not found!');
-                jumplink.debug.events(error);
-                return null;
-            }
-            jumplink.debug.events('getById start', docRef.data());
-            var event = docRef.data();
-            event.id = docRef.id;
-            event = jumplink.events.parse(event);
-            return event;
-        });
-    }
-    catch(error) {
-        return new Promise(function(resolve, reject) {
-            reject(error);
-        });
-    }
+    return jumplink.events.getByIdFromApi(id);
 };
 
 /**
@@ -589,36 +469,7 @@ jumplink.events.getById = function (id) {
  */
 jumplink.events.getByTitle = function (title) {
     jumplink.debug.events('getByTitle', title);
-
-    if (jumplink.events.api.useLocal) {
-        return jumplink.events.getByTitleFromApi(title);
-    }
-
-    var ref = jumplink.events.getDatabaseCollection();
-    
-    ref = ref.where('title', "==", title);
-    
-    ref = ref.orderBy("startAt");
-    
-    try {
-        return ref
-        .get()
-        .then(function(querySnapshot) {
-            var events = [];
-            querySnapshot.forEach(function (doc) {
-                var event = doc.data();
-                event.id = doc.id;
-                event = jumplink.events.parse(event);
-                events.push(event);
-            });
-            return events;
-        });
-    }
-    catch(error) {
-        return new Promise(function(resolve, reject) {
-            reject(error);
-        });
-    }
+    return jumplink.events.getByTitleFromApi(title);
 };
 
 /**
@@ -634,185 +485,17 @@ jumplink.events.getByTitle = function (title) {
  * @param limit {number}
  */
 jumplink.events.get = function(hasType, hasActive, hasCalendar, startTimeIs, excludeCalendar, groupBy, limit) {
-    if (jumplink.events.api.useLocal) {
-        return jumplink.events.getFromApi(hasType, hasActive, hasCalendar, startTimeIs, excludeCalendar, groupBy, limit);
-    }
-
-    // delete old getted events
-    events = [];
-    var ref = jumplink.events.getDatabaseCollection();
-    
-    // set type filter
-    switch (hasType) {
-        case 'fix':
-        case 'variable':
-            ref = ref.where('type', "==", hasType);
-            break;
-        case 'all':
-            // all types
-            ref = ref;
-            break;
-        default:
-            // all types
-            ref = ref;
-            break;
-    }
-    
-    switch(hasActive) {
-        case true:
-        case false:
-            ref = ref.where('active', "==", hasActive);
-            break;
-        case 'all':
-            ref = ref;
-            break;
-        default:
-            // all
-            ref = ref;
-            break;
-    }
-    
-    // set calendar filter
-    if(jumplink.utilities.isString(hasCalendar) && hasCalendar.length && hasCalendar !== 'all') {
-        ref = ref.where('calendar', "==", hasCalendar);
-    } else {
-        // all calendars
-        ref = ref;
-    }
-    
-    // get events only in future
-    if(hasType !== 'variable') {
-        var now = new Date();
-        switch(startTimeIs) {
-            case 'future':
-                jumplink.debug.events('get events in future from', now);
-                ref = ref.where('startAt', ">=", now);
-                break;
-            case 'past':
-                jumplink.debug.events('get events from the past in reference to', now);
-                ref = ref.where('startAt', "<", now);
-                break;
-            case 'all':
-                jumplink.debug.events('get events from the past and in the future');
-                ref = ref;
-                break;
-            default:
-                jumplink.debug.events('get events from the past and in the future');
-                ref = ref;
-                break;
-        }
-    }
-    
-    if(!jumplink.utilities.isString(excludeCalendar)) {
-        excludeCalendar = 'none';
-    }
-    
-    /**
-     * Only set limit if no exclude is set otherwise limit is not working
-     * If excludes is set we have a client site limit implement with a counter (search for 'count')
-     */
-    if (excludeCalendar === 'none' && limit >= 1) {
-        jumplink.debug.events('set limit of orders to', limit);
-        ref = ref.limit(limit);
-    }
-
-    
-    // set order
-    ref = ref.orderBy("startAt");
-    
-    return ref.get()
-    .then(function (querySnapshot) {
-        //yevents = querySnapshot.data();
-        jumplink.debug.events('event', querySnapshot);
-        var count = 0;
-        var events = [];
-        querySnapshot.forEach(function(doc) {
-            // own client site limit to make excludeCalendar working
-            if(count <= limit) {
-                var event = doc.data();
-                event.id = doc.id;
-                event = jumplink.events.parse(event);
-                if(event.calendar !== excludeCalendar) {
-                    count++;
-                    if(jumplink.utilities.isString(groupBy) && groupBy !== 'none') {
-                        jumplink.events.pushGroupedByProperty(events, event, groupBy);
-                    } else {
-                        events.push(event);
-                    }
-                }
-            }
-        });
-        
-         jumplink.debug.events('get', events);
-        
-        return events;
-    });
+    return jumplink.events.getFromApi(hasType, hasActive, hasCalendar, startTimeIs, excludeCalendar, groupBy, limit);
 };
 
 jumplink.events.parse = function(event) {
+    // Datumsfelder der lokalen API (ISO-Strings) in Date-Objekte wandeln.
     ['startAt', 'endAt'].forEach(function(key) {
         var value = event[key];
-        if (!value) {
-            return;
+        if (!value || value.getMonth) {
+            return; // leer oder bereits ein Date-Objekt
         }
-        if (value.getMonth) {
-            return; // bereits ein Date-Objekt
-        }
-        if (typeof value.toDate === 'function') {
-            event[key] = value.toDate(); // Firestore-Timestamp
-            return;
-        }
-        event[key] = new Date(value); // ISO-String aus der lokalen API
+        event[key] = new Date(value);
     });
     return event;
-};
-
-/**
- * Create new event
- */
-jumplink.events.add = function(event, uploadedImages) {
-    
-    var dbEvents = jumplink.events.getDatabaseCollection();
-
-    var newEvent = jumplink.events.prepairForFirestore(event);
-    
-    if(jumplink.utilities.isArray(uploadedImages)) {
-        newEvent.images.push.apply(newEvent.images, uploadedImages);
-    }
-    
-    jumplink.debug.events('[createEvent]', newEvent);
-
-    try {
-        return dbEvents.add(newEvent)
-        .then(function(result) {        
-            jumplink.debug.events('[createEvent] result', result);
-            return result;
-        });
-    }
-    catch(error) {
-        return new Promise(function(resolve, reject) {
-            reject(error);
-        });
-    }
-
-};
-
-jumplink.events.update = function(id, event, uploadedImages) {
-    var dbEvents = jumplink.events.getDatabaseCollection();
-    
-    var updateEvent = jumplink.events.prepairForFirestore(event);
-    
-    if(jumplink.utilities.isArray(uploadedImages)) {
-        updateEvent.images.push.apply(updateEvent.images, uploadedImages);
-    }
-    
-    jumplink.debug.events('updateEvent', id, updateEvent);
-    try {
-        return dbEvents.doc(id).update(updateEvent);
-    }
-    catch(error) {
-        return new Promise(function(resolve, reject) {
-            reject(error);
-        });
-    }
 };

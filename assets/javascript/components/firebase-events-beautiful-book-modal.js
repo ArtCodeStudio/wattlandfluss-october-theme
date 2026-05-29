@@ -71,10 +71,8 @@ rivets.components['firebase-events-beautiful-book-modal'] = {
     };
     
     /**
-     * Aks for booking this event by send a octobercms request with the informations from the form.
-     * The PHP funtion `onReguestEvent` is defined in the layout file
-     * 
-     * @see https://octobercms.com/docs/ajax/javascript-api
+     * Buchungsanfrage absenden – validiert das Formular und sendet die Daten
+     * über jumplink.events.requestBooking() an die lokale JumpLink.Events-API.
      */
     controller.onBook = function() {
         controller.debug('onBook');

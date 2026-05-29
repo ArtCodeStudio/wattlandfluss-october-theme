@@ -163,62 +163,6 @@ function onSubmitContact() {
 }
 
 
-function onReguestEvent() {
-    
-    // get request data
-    $input = Input::all();
-    
-    $vars = [
-        'name' =>          isset($input['name']) ? $input['name'] : '',
-        'lastname' =>      isset($input['lastname']) ? $input['lastname'] : '',
-        'email' =>         isset($input['email']) ? $input['email'] : '',
-        'phone' =>         isset($input['phone']) ? $input['phone'] : '',
-        'quantity' =>      isset($input['quantity']) ? $input['quantity'] : '',
-        'street' =>        isset($input['street']) ? $input['street'] : '',
-        'zip' =>           isset($input['zip']) ? $input['zip'] : '',
-        'date' =>          isset($input['date']) ? $input['date'] : '',
-        'total' =>         isset($input['total']) ? $input['total'] : '',
-        'eventID' =>       isset($input['event']['id']) ? $input['event']['id'] : '',
-        'eventTitle' =>    isset($input['event']['title']) ? $input['event']['title'] : '',
-        'eventSubtitle' => isset($input['event']['subtitle']) ? $input['event']['subtitle'] : '',
-        'eventDescription' => isset($input['event']['description']) ? $input['event']['description'] : '',
-        'eventCalendar' =>    isset($input['event']['calendar']) ? $input['event']['calendar'] : '',
-    ];
-    
-    $notifications = isset($input['event']['notifications']) ? $input['event']['notifications'] : null;
-    
-    if($notifications == null) {
-        $notifications = [];
-        $notifications[] = [
-            'email' => $this->theme->email_address,
-            'name' => $this->theme->site_name,
-        ];
-    }
-    
-    // Debugbar::info('[onReguestEvent] $notifications', $notifications);
-    
-    $notificationSwipftMailFormat = array();
-    foreach ($notifications as $notification) {
-        $notificationSwipftMailFormat[$notification['email']] = $notification['name'];
-    }
-    
-    // Debugbar::info('[onReguestEvent] $notificationSwipftMailFormat', $notificationSwipftMailFormat);
-    
-    \Log::info('Book event, Name:'.$input['name'].' '.$input['lastname'].' E-Mail:'.$input['email'].' Event ID'.$input['event']['id'].' Menge: '.$input['quantity']);
-        
-    Mail::send('frontend::event.book', $vars, function($message) use ($notificationSwipftMailFormat) {
-        $message->from($this->theme->email_address,  $this->theme->site_name);
-        $message->to($notificationSwipftMailFormat);
-    });
-    
-    
-    // mail to contact sender
-    Mail::send('frontend::event.book-copy', $vars, function($message) use ($vars) {
-        $message->to($vars['email'], $vars['name'].' '.$vars['lastname']);
-    });
-    
-    return \Response::json($input);
-}
 ?>
 ==
 <!DOCTYPE html>
