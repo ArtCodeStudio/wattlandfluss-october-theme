@@ -52,10 +52,6 @@ window.jumplink.templates.prepairTemplate = function(container, dataset) {
     jumplink.utilities.setBodyId(dataset.namespace);
     
     jumplink.initMomentDataApi();
-    
-    if(typeof(Prism) !== 'undefined') {
-        Prism.highlightAll(); // To make a component for this
-    }
 
     // preload images again if failed in barba or this is the first page request
     // window.jumplink.loadImagesByNamespace();
