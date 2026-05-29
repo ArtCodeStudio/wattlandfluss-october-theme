@@ -14,11 +14,12 @@ jumplink.utilities.triggerResize = function () {
 };
 
 /**
- * run Hyphenopoly
- * @see https://github.com/mnater/Hyphenopoly
+ * run Hyphenopoly (No-op, falls Hyphenopoly nicht geladen ist).
+ * Hyphenopoly wurde entfernt – der typeof-Guard verhindert einen
+ * ReferenceError, falls die globale Variable nicht existiert.
  */
 jumplink.utilities.hyphenate = function() {
-    if(Hyphenopoly && Hyphenopoly.elementsReady) {
+    if(typeof Hyphenopoly !== 'undefined' && Hyphenopoly.elementsReady) {
         setTimeout(function () {
             Hyphenopoly.events.dispatch("timeout", {"delay": Hyphenopoly.c.timeout});
         }, Hyphenopoly.c.timeout);
