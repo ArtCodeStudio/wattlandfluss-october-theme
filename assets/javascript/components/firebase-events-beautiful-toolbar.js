@@ -69,8 +69,29 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         controller.date = dates[0];
     };
     
+    /**
+     * Liest die Teilnehmerzahl direkt aus dem sichtbaren Eingabefeld.
+     * rivets synchronisiert ein geleertes number-Feld nicht zuverlässig zurück,
+     * daher lesen wir den Rohwert aus dem DOM und normalisieren ihn (leer -> '').
+     */
+    var syncQuantityFromDom = function() {
+        var $inputs = $el.find('input[name="quantity"]');
+        var $visible = $inputs.filter(':visible').first();
+        var $q = $visible.length ? $visible : $inputs.first();
+        if ($q.length) {
+            var raw = $q.val();
+            controller.quantity = (raw === '' || raw === null || typeof raw === 'undefined') ? '' : Number(raw);
+        }
+        return controller.quantity;
+    };
+
     controller.onQuantityChanged = function(event) {
+        if (event && event.target) {
+            var raw = event.target.value;
+            controller.quantity = (raw === '' || raw === null) ? '' : Number(raw);
+        }
         controller.debug('onQuantityChanged', controller.quantity);
+        controller.bookingMessage = ''; // altes Feedback zurücksetzen
         controller.total = jumplink.events.calcEventTotal(controller.event, controller.quantity);
         controller.validation = validate(controller.validation, ['quantity']);
     };
@@ -95,6 +116,9 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
      */
     controller.onBook = function() {
         controller.debug('onBook');
+        // Teilnehmerzahl aus dem DOM übernehmen, falls das change-Event (z. B. bei
+        // geleertem Feld) den Model-Wert nicht aktualisiert hat.
+        syncQuantityFromDom();
         controller.validation = validate(controller.validation, ['quantity', 'name', 'lastname', 'email', 'phone', 'street', 'zip']);
         // var validator = $form.parsley();
         
