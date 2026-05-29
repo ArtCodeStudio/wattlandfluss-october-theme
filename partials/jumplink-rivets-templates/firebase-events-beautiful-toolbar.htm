@@ -37,18 +37,14 @@
         
         <span class="price hidden-lg-down">{total} EUR</span>
         
-        <div class="hidden-lg-down">
-            <button type="button" class="btn btn-outline-dark" rv-on-click="onBook">Anfrage absenden</button>
-        </div>
-        
-        <div class="hidden-xl-up">
-            <button class="btn btn-link btn-toolbar-collapse" rv-on-click="toggleCollapse">
+        <div>
+            <button type="button" class="btn btn-link btn-toolbar-collapse" rv-on-click="toggleCollapse">
                 <span rv-show="collapsed">
                     Schließen {% partial 'jumplink-iconset' name='icon_close' color='black' class='m-0' size=32 %}
                 </span>
-                
+
                 <span rv-hide="collapsed">
-                    Anfragen {% partial 'jumplink-iconset' name='arrow_carrot' color='black' class='m-0' size=32 direction='down' %} 
+                    Anfragen {% partial 'jumplink-iconset' name='arrow_carrot' color='black' class='m-0' size=32 direction='down' %}
                 </span>
             </button>
         </div>
@@ -126,8 +122,8 @@
                     <div class="validate-tooltip" rv-html="validation.zip.error"></div>
                 </div>
                 
-                <div class="col-xs-12 hidden-xl-up text-right">
-                    <button type="button" class="btn btn-outline-dark" rv-on-click="onBook">Anfrage absenden</button>
+                <div class="col-xs-12 text-right pt-2">
+                    <button type="button" class="btn btn-dark" rv-on-click="onBook">Anfrage absenden</button>
                 </div>
                 
                 <div class="col-xs-12 pt-2">
