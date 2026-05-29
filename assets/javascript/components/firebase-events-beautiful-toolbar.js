@@ -92,34 +92,29 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         // var validator = $form.parsley();
         
         if(controller.validation.valid) {
-            // use the october cms javascript api function
-            $.request('onReguestEvent', {
-                data: {
-                    event: controller.event,
-                    date: controller.date.format('DD.MM.YYYY'),
-                    quantity: controller.quantity,
-                    total: controller.total,
-                    name: controller.name,
-                    lastname: controller.lastname,
-                    email: controller.email,
-                    phone: controller.phone,
-                    street: controller.street,
-                    zip: controller.zip,
-                },
-                success: function(data) {
-                    this.success(data).done(function() {
-                        controller.debug('reuqest success', data);
-                        
-                        var message = 'Anfrage erfolgreich abgeschickt.';
-                        var notification = alertify.notify(message, 'success' ,5, function(){
-                            
-                        });
-                        
-                        collapse('hide');
-                        
-                    });
-                }
-            });
+            var form = {
+                date: controller.date.format('DD.MM.YYYY'),
+                quantity: controller.quantity,
+                total: controller.total,
+                name: controller.name,
+                lastname: controller.lastname,
+                email: controller.email,
+                phone: controller.phone,
+                street: controller.street,
+                zip: controller.zip,
+            };
+
+            // lokale API (Plugin) oder bestehender Layout-Handler – je nach Flag
+            jumplink.events.requestBooking(form, controller.event)
+                .then(function(response) {
+                    controller.debug('request success', response);
+                    alertify.notify('Anfrage erfolgreich abgeschickt.', 'success', 5, function(){});
+                    collapse('hide');
+                })
+                .catch(function(err) {
+                    controller.debug('request error', err);
+                    alertify.notify('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.', 'error', 5, function(){});
+                });
         } else {
             var message = 'Bitte überprüfen Sie Ihr Eingabeformular';
             var notification = alertify.notify(message, 'error' ,5, function(){

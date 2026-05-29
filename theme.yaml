@@ -7,6 +7,12 @@ license: MIT
 form:
     tabs:
         fields:
+            use_local_events_api:
+                label: 'Führungen aus lokalem Plugin laden (statt Firebase)'
+                type: checkbox
+                comment: 'Wenn aktiv, beziehen die Führungen Daten/Bilder aus dem lokalen JumpLink.Events-Plugin statt aus Firebase/Firestore. Erst aktivieren, wenn die Daten importiert und geprüft sind.'
+                default: 0
+                tab: General
             site_name:
                 label: 'Site name'
                 type: text

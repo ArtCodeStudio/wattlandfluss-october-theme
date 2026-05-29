@@ -82,28 +82,21 @@ rivets.components['firebase-events-beautiful-book-modal'] = {
         // var validator = $form.parsley();
         
         if(controller.validation.valid) {
-            
+
             var data = controller.form;
             data.date = moment(controller.form.date).format('DD.MM.YYYY');
-            data.event = controller.event;
-            
-            // use the october cms javascript api function
-            $.request('onReguestEvent', {
-                data: data,
-                success: function(data) {
-                    this.success(data).done(function() {
-                        controller.debug('reuqest success', data);
-                        
-                        var message = 'Anfrage erfolgreich abgeschickt.';
-                        var notification = alertify.notify(message, 'success' ,5, function(){
-                            
-                        });
-                        
-                        controller.hide();
-                        
-                    });
-                }
-            });
+
+            // lokale API (Plugin) oder bestehender Layout-Handler – je nach Flag
+            jumplink.events.requestBooking(data, controller.event)
+                .then(function(response) {
+                    controller.debug('request success', response);
+                    alertify.notify('Anfrage erfolgreich abgeschickt.', 'success', 5, function(){});
+                    controller.hide();
+                })
+                .catch(function(err) {
+                    controller.debug('request error', err);
+                    alertify.notify('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.', 'error', 5, function(){});
+                });
         } else {
             var message = 'Bitte überprüfen Sie Ihr Eingabeformular';
             var notification = alertify.notify(message, 'error' ,5, function(){
