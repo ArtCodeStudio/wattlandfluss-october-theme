@@ -85,6 +85,22 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
         return controller.quantity;
     };
 
+    /**
+     * Stellt sicher, dass beim Laden immer der Standardwert (1) im Feld steht.
+     * Fängt die gelegentliche rivets-Render-Race ab, bei der das number-Feld
+     * nach einem frischen Reload leer bleibt.
+     */
+    var ensureQuantityDefault = function() {
+        if (!jumplink.utilities.isNumber(controller.quantity) || controller.quantity < 1) {
+            controller.quantity = 1;
+        }
+        $el.find('input[name="quantity"]').each(function() {
+            if (this.value === '' || this.value === null) {
+                this.value = controller.quantity;
+            }
+        });
+    };
+
     controller.onQuantityChanged = function(event) {
         if (event && event.target) {
             var raw = event.target.value;
@@ -200,10 +216,11 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
                 controller.onSelectEventChanged({index: 0});
                 controller.onDateChanged([moment()]);
                 controller.validation = jumplink.events.getValidationsForEvent(controller.event);
+                ensureQuantityDefault();
             }, 0);
         }
     });
-    
+
     // Start observing the element for child changes
     observer.observe(el, {
         childList: true,
@@ -217,6 +234,7 @@ rivets.components['firebase-events-beautiful-toolbar'] = {
             controller.onSelectEventChanged({index: 0});
             controller.onDateChanged([moment()]);
             controller.validation = jumplink.events.getValidationsForEvent(controller.event);
+            ensureQuantityDefault();
         }
     }, 0);
         
