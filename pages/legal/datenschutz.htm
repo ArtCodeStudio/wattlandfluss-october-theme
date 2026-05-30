@@ -16,32 +16,34 @@ localeUrl[en] = "/datenschutzerklaerung"
         <div class="col-xs-12 col-md-8 offset-md-2 pb-4">
 
             <h1 class="text-second">{{this.page.title}}</h1>
-            
+
+            {# Allgemeiner, immer gültiger Teil der Datenschutzerklärung (Kern). #}
             {% component 'contenteditor' file='legal/privacy-policy.htm' %}
-            
-            {#
-            <br>
-            <br>
-            <br>
+
+            {# Dienst-/situationsabhängige Zusätze – je über eine Theme-Einstellung
+             # (Tab „Datenschutzerklärung") zuschaltbar. So bleibt die Erklärung
+             # konfigurierbar, ohne dass ungenutzte Passagen erscheinen. #}
+
             {% if this.theme.pp_general_pp %}
                 {% component 'contenteditor' file='privacy-policy/pp_general.htm' %}
+                <br>
             {% endif %}
-            
+
             {% if this.theme.pp_cookies %}
                 {% component 'contenteditor' file='privacy-policy/pp_cookies.htm' %}
                 <br>
             {% endif %}
-            
-            {% if this.theme.pp_server_log_data %}
-                {% component 'contenteditor' file='privacy-policy/pp_server_log_data.htm' %}
-                <br>
-            {% endif %}
-            
+
             {% if this.theme.pp_contact %}
                 {% component 'contenteditor' file='privacy-policy/pp_contact.htm' %}
                 <br>
             {% endif %}
-            
+
+            {% if this.theme.pp_server_log_data %}
+                {% component 'contenteditor' file='privacy-policy/pp_server_log_data.htm' %}
+                <br>
+            {% endif %}
+
             {% if this.theme.pp_newsletter %}
                 {% component 'contenteditor' file='privacy-policy/pp_newsletter.htm' %}
                 <br>
@@ -157,15 +159,9 @@ localeUrl[en] = "/datenschutzerklaerung"
                 {% component 'contenteditor' file='privacy-policy/pp_email_advertising.htm' %}
                 <br>
             {% endif %}
+
             <br>
-            <br>
-            <br>
-            <p>Quelle: <a href="https://www.e-recht24.de/">e-recht24.de</a></p>
-            <!--{% component 'contenteditor'
-                tools="bold,italic,link,heading,subheading,subheading3,subheading4,subheading5,paragraph,unordered-list,ordered-list,table,indent,unindent,line-break,image,video,preformatted"
-            %}-->
-            
-            #}
+            <p><span class="ts-muster-content"><a href="https://datenschutz-generator.de/" rel="nofollow" target="_blank">Erstellt mit Datenschutz-Generator.de von RA Dr. Thomas Schwenke</a></span></p>
         </div>
     </div>
 </div>
