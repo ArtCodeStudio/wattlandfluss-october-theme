@@ -1,7 +1,8 @@
 [viewBag]
 ==
-{# Preis nur zeigen, wenn im Backend "Preis im Frontend anzeigen" aktiv ist #}
-<span rv-show="event.showPrice">
+{# Preis nur zeigen, wenn im Backend "Preis im Frontend anzeigen" aktiv ist
+   UND tatsächlich ein Preis > 0 (oder ein Preistext) hinterlegt ist. #}
+<span rv-show="event.showPrice | and event.hasPrice">
     <p rv-hide="event.pricetext" class="mb-01">
         <strong>Preis:</strong>
         <span rv-each-price="event.prices">
