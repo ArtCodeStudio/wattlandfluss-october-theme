@@ -35,7 +35,7 @@
             <div class="validate-tooltip" rv-html="validation.quantity.error"></div>
         </div>
         
-        <span class="price hidden-lg-down" rv-show="event.hasPrice">{total} EUR</span>
+        <span class="price hidden-lg-down" rv-show="event.showPrice | and event.hasNumericPrice">{total} EUR</span>
         
         <div>
             <button type="button" class="btn btn-link btn-toolbar-collapse" rv-on-click="toggleCollapse">
@@ -79,7 +79,7 @@
                     <div class="validate-tooltip" rv-html="validation.quantity.error"></div>
                 </div>
 
-                <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-show="event.hasPrice" rv-class-has-error="validation.total.error | count">
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group" rv-show="event.showPrice | and event.hasNumericPrice" rv-class-has-error="validation.total.error | count">
                     <div class="input-group">
                         <input type="number" class="form-control" id="toolbarTotal" rv-value="total" disabled="true" placeholder="Summe" name="total">
                         <span class="input-group-addon">€</span>
